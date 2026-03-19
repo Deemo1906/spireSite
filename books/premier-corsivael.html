@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Le Premier Corsivael — Journal d'un Anath</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="../style.css" />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        background: #050d1a;
+        color: #b0b8c8;
+        font-family: 'Playfair Display', serif;
+        overflow-x: hidden;
+      }
+
+      /* ─── FIXED NAV ─── */
+      .book-nav {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 100;
+        background: rgba(5,13,26,0.97);
+        border-bottom: 1px solid #0f1f35;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2rem;
+        height: 44px;
+      }
+
+      .book-nav-back {
+        font-family: 'Cinzel', serif;
+        font-size: 0.58rem;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: #2a3a55;
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .book-nav-back:hover { color: #5a7a9a; }
+
+      .book-nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .book-nav-link {
+        font-family: 'Cinzel', serif;
+        font-size: 0.55rem;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        color: #253545;
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .book-nav-link:hover { color: #5a7a9a; }
+
+      /* ─── COVER ─── */
+      #cover {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #050d1a;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Concentric circles — soleth motif */
+      #cover::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: repeating-radial-gradient(
+          circle at 50% 50%,
+          transparent,
+          transparent 60px,
+          rgba(180,140,60,0.025) 61px,
+          transparent 62px
+        );
+        pointer-events: none;
+      }
+
+      /* Central glow */
+      #cover::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse 55% 45% at 50% 52%,
+          rgba(180,140,60,0.08) 0%,
+          rgba(100,120,180,0.04) 40%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+
+      .cover-frame {
+        position: relative;
+        z-index: 1;
+        width: min(360px, 80vw);
+        padding: 4.5rem 3rem;
+        border: 1px solid #1a2a40;
+        text-align: center;
+      }
+      .cover-frame::before {
+        content: '';
+        position: absolute;
+        inset: 8px;
+        border: 1px solid #111e2e;
+        pointer-events: none;
+      }
+
+      .cover-label {
+        font-family: 'Playfair Display', serif;
+        font-size: 0.48rem;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        color: #2a3a55;
+        margin-bottom: 2.5rem;
+      }
+
+      .cover-title {
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
+        font-size: clamp(1.2rem, 3.5vw, 1.7rem);
+        color: #c4a04a;
+        line-height: 1.4;
+        letter-spacing: 1px;
+        margin-bottom: 0.6rem;
+      }
+
+      .cover-subtitle {
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-size: 0.85rem;
+        color: #5a6a7a;
+        margin-bottom: 2.5rem;
+      }
+
+      .cover-rule {
+        width: 24px;
+        height: 1px;
+        background: #1e3050;
+        margin: 0 auto 2.5rem;
+      }
+
+      .cover-author {
+        font-family: 'Playfair Display', serif;
+        font-size: 0.48rem;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: #2a3a55;
+        margin-bottom: 2.5rem;
+      }
+
+      .cover-note {
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-size: 0.75rem;
+        color: #1a2a40;
+        line-height: 1.7;
+      }
+
+      /* ─── CARD / TITLE PAGE ─── */
+      #card {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #040c18;
+        padding: 6rem 2rem;
+        position: relative;
+      }
+
+      /* Faint grid — like ruled journal paper */
+      #card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 31px,
+          rgba(180,200,255,0.015) 31px,
+          rgba(180,200,255,0.015) 32px
+        );
+        pointer-events: none;
+      }
+
+      .card-inner {
+        position: relative;
+        z-index: 1;
+        max-width: 520px;
+        width: 100%;
+        border: 1px solid #142030;
+        padding: 5rem 4rem;
+        text-align: center;
+      }
+      .card-inner::before {
+        content: '';
+        position: absolute;
+        inset: 10px;
+        border: 1px solid #0d1825;
+        pointer-events: none;
+      }
+
+      .card-eyebrow {
+        font-family: 'Cinzel', serif;
+        font-size: 0.48rem;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        color: #253040;
+        margin-bottom: 3rem;
+      }
+
+      .card-title {
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
+        font-size: clamp(1.4rem, 4vw, 2rem);
+        color: #c0a845;
+        line-height: 1.35;
+        letter-spacing: 1px;
+        margin-bottom: 0.6rem;
+      }
+
+      .card-subtitle {
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-size: 0.9rem;
+        color: #4a6070;
+        margin-bottom: 3rem;
+      }
+
+      .card-rule {
+        width: 24px;
+        height: 1px;
+        background: #1a3050;
+        margin: 0 auto 3rem;
+      }
+
+      .card-meta {
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-size: 0.85rem;
+        color: #354555;
+        line-height: 2.1;
+      }
+
+      .card-warning {
+        margin-top: 3rem;
+        padding-top: 2.5rem;
+        border-top: 1px solid #0d1a28;
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-size: 0.85rem;
+        color: #253040;
+        line-height: 1.85;
+        text-align: left;
+      }
+
+      /* ─── CONTENT ─── */
+      #content {
+        background: #040b17;
+        padding: 7rem 2rem 8rem;
+        position: relative;
+      }
+
+      /* Faint ruled lines across the whole reading section */
+      #content::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 35px,
+          rgba(100,150,255,0.012) 35px,
+          rgba(100,150,255,0.012) 36px
+        );
+        pointer-events: none;
+      }
+
+      .content-inner {
+        position: relative;
+        z-index: 1;
+        max-width: 620px;
+        margin: 0 auto;
+      }
+
+      /* Glossary */
+      .glossary {
+        margin-bottom: 5rem;
+        padding-bottom: 4rem;
+        border-bottom: 1px solid #0f1e30;
+      }
+
+      .glossary-label {
+        font-family: 'Cinzel', serif;
+        font-size: 0.5rem;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        color: #2a3a50;
+        margin-bottom: 0.5rem;
+      }
+
+      .glossary-intro {
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-size: 0.88rem;
+        color: #2a4060;
+        margin-bottom: 2.5rem;
+        line-height: 1.7;
+      }
+
+      .glossary-entry {
+        margin-bottom: 1.6rem;
+        padding-left: 1rem;
+        border-left: 1px solid #0f1e30;
+      }
+
+      .glossary-term {
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: #7a9ab5;
+        margin-bottom: 0.2rem;
+      }
+
+      .glossary-phonetic {
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-size: 0.75rem;
+        color: #3a5070;
+        margin-bottom: 0.4rem;
+      }
+
+      .glossary-def {
+        font-family: 'Playfair Display', serif;
+        font-size: 0.95rem;
+        color: #5a7090;
+        line-height: 1.75;
+      }
+
+      /* Chapters */
+      .chapter {
+        margin-bottom: 5rem;
+      }
+
+      .chapter-number {
+        font-family: 'Cinzel', serif;
+        font-size: 0.5rem;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        color: #2a3a50;
+        margin-bottom: 0.6rem;
+      }
+
+      .chapter-title {
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
+        font-size: 1.4rem;
+        color: #8ab0c8;
+        margin-bottom: 2.5rem;
+        line-height: 1.3;
+      }
+
+      .chapter-rule {
+        width: 20px;
+        height: 1px;
+        background: #1a3050;
+        margin-bottom: 2.5rem;
+      }
+
+      .chapter-text {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.05rem;
+        line-height: 1.95;
+        color: #6a8090;
+        margin-bottom: 1.4rem;
+        text-indent: 1.5em;
+      }
+      .chapter-text:first-of-type {
+        text-indent: 0;
+      }
+
+      /* Marginal note */
+      .marginal-note {
+        margin-top: 5rem;
+        padding: 2rem 2rem 2rem 1.5rem;
+        border-left: 2px solid #1a3050;
+        background: rgba(180,140,60,0.02);
+      }
+
+      .marginal-label {
+        font-family: 'Cinzel', serif;
+        font-size: 0.45rem;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: #2a4060;
+        margin-bottom: 1rem;
+      }
+
+      .marginal-text {
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-size: 0.92rem;
+        color: #3a5570;
+        line-height: 1.85;
+        margin-bottom: 0.75rem;
+      }
+
+      /* Chapter separator */
+      .chapter-sep {
+        text-align: center;
+        color: #1a2a3a;
+        font-size: 0.65rem;
+        letter-spacing: 8px;
+        margin: 4rem 0;
+      }
+
+      @media (max-width: 600px) {
+        .card-inner { padding: 3.5rem 2rem; }
+        .cover-frame { padding: 3rem 2rem; }
+        .chapter-text { font-size: 0.98rem; }
+        .glossary-def { font-size: 0.9rem; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navigation -->
+    <nav class="book-nav">
+      <a href="../library.html" class="book-nav-back">← Bibliothèque</a>
+      <div class="book-nav-links">
+        <a href="#cover" class="book-nav-link">Couverture</a>
+        <a href="#card" class="book-nav-link">Frontispice</a>
+        <a href="#content" class="book-nav-link">Lire</a>
+      </div>
+    </nav>
+
+    <!-- ─── COVER ─── -->
+    <section id="cover">
+      <div class="cover-frame">
+        <p class="cover-label">Manuscrit personnel</p>
+        <h1 class="cover-title">Le Premier Corsivael</h1>
+        <p class="cover-subtitle">Journal d'un Anath</p>
+        <div class="cover-rule"></div>
+        <p class="cover-author">sans nom signé</p>
+        <p class="cover-note">Non destiné à la circulation</p>
+      </div>
+    </section>
+
+    <!-- ─── CARD / TITLE PAGE ─── -->
+    <section id="card">
+      <div class="card-inner">
+        <p class="card-eyebrow">Page de titre</p>
+        <h2 class="card-title">Le Premier Corsivael</h2>
+        <p class="card-subtitle">Journal d'un <em>Anath</em></p>
+        <div class="card-rule"></div>
+        <p class="card-meta">
+          Manuscrit personnel. Non destiné à la circulation.<br>
+          Rédigé dans les jours suivant le premier corsivael de l'auteur.
+        </p>
+        <div class="card-warning">
+          Si vous lisez ceci sans y avoir été invité, sachez que vous avez commis
+          un acte d'une impolitesse que notre langue n'a pas de mot assez précis pour qualifier.
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── CONTENT ─── -->
+    <section id="content">
+      <div class="content-inner">
+
+        <!-- Glossary -->
+        <div class="glossary">
+          <p class="glossary-label">Glossaire des Termes Rituels</p>
+          <p class="glossary-intro">Fourni en préambule, car la cérémonie ne s'explique pas — elle se vit. Ces mots sont des portes, pas des destinations.</p>
+
+          <div class="glossary-entry">
+            <p class="glossary-term">Anath</p>
+            <p class="glossary-phonetic">ah-nath</p>
+            <p class="glossary-def">Le nouveau-venu. Celui qui entre pour la première fois dans un corsivael. L'anath n'est pas ignorant — il a été instruit, préparé, briefé sur chaque phase — mais sa connaissance est sèche, comme un livre de botanique que l'on n'a jamais su lire dans un jardin.</p>
+          </div>
+
+          <div class="glossary-entry">
+            <p class="glossary-term">Corsivael</p>
+            <p class="glossary-phonetic">cor-si-vaël</p>
+            <p class="glossary-def">La cérémonie elle-même. Traduit littéralement comme "le tissage des promesses anciennes." Le mot <em>corsi</em> vient du vieux aelfir <em>corseh</em>, qui désigne le mouvement d'une rivière autour d'un obstacle — ni droit ni dévié, mais adapté. Le <em>vael</em> est le serment. Ensemble : le serment qui épouse la forme de ce qui est.</p>
+          </div>
+
+          <div class="glossary-entry">
+            <p class="glossary-term">Soh-ko-mat</p>
+            <p class="glossary-phonetic">soh-ko-mat</p>
+            <p class="glossary-def">La chambre cérémonielle. Pas n'importe quelle pièce — une chambre consacrée à cet usage, dont les murs ont été imprégnés de la lumière de cent cérémonies précédentes. On dit que les vieux soh-ko-mat conservent la chaleur des corps qui les ont habités.</p>
+          </div>
+
+          <div class="glossary-entry">
+            <p class="glossary-term">Vel-arath</p>
+            <p class="glossary-phonetic">vel-ah-rath</p>
+            <p class="glossary-def">Le dépouillement. Le retrait des vêtements cérémoniels, accompli selon un ordre précis, en silence. Le <em>vel</em> est le verbe <em>révéler</em> dans sa forme la plus ancienne — non pas exposer, mais rendre visible ce qui était seulement potentiel.</p>
+          </div>
+
+          <div class="glossary-entry">
+            <p class="glossary-term">Soleth</p>
+            <p class="glossary-phonetic">so-leth</p>
+            <p class="glossary-def">La lumière du sang. La bioluminescence qui parcourt la peau aelfir lors de l'éveil. Dans les anciens textes, le <em>soleth</em> était considéré comme la preuve visible de la magie répondant au désir — le corps qui dit à voix haute ce que l'esprit garde pour lui.</p>
+          </div>
+
+          <div class="glossary-entry">
+            <p class="glossary-term">Kael-veth</p>
+            <p class="glossary-phonetic">kaël-veth</p>
+            <p class="glossary-def">Les aînés de la cérémonie. Ceux qui savent. Leur rôle n'est pas de diriger — le corsivael ne se dirige pas — mais de tenir la forme. Comme les rives tiennent la rivière.</p>
+          </div>
+
+          <div class="glossary-entry">
+            <p class="glossary-term">Thessan</p>
+            <p class="glossary-phonetic">thes-san</p>
+            <p class="glossary-def">Le premier contact ritualisé entre deux participants. Pas une poignée de main, pas un baiser — quelque chose de plus petit et de plus chargé. Le bout des doigts sur l'intérieur du poignet. Une seconde. Suffisant pour établir que deux corps ont décidé de partager le même espace ce soir-là.</p>
+          </div>
+
+          <div class="glossary-entry">
+            <p class="glossary-term">Leth-kor</p>
+            <p class="glossary-phonetic">leth-kor</p>
+            <p class="glossary-def">L'onction. L'huile rituelle appliquée avant le vel-arath, sur les épaules et les tempes, par les kael-veth. Elle ne sent presque rien — une légère note de résine froide. Son rôle est de marquer le passage d'un état à un autre, comme une frontière que l'on franchit en étant touché.</p>
+          </div>
+
+          <div class="glossary-entry">
+            <p class="glossary-term">Mirehn</p>
+            <p class="glossary-phonetic">mi-rehn</p>
+            <p class="glossary-def">L'état de visibilité complète. Être en <em>mirehn</em> c'est être vu sans masque, sans vêtement, sans posture — dans la nudité totale qui inclut celle de la façon dont on tient son corps. Le mirehn ne s'impose pas. Il arrive, ou il n'arrive pas.</p>
+          </div>
+
+          <div class="glossary-entry">
+            <p class="glossary-term">Ossivael</p>
+            <p class="glossary-phonetic">os-si-vaël</p>
+            <p class="glossary-def">Le démasquage. Pas physique — le masque de céramique est retiré dans les premières minutes. L'ossivael est le moment où la personne derrière le masque cesse de gérer sa propre image et commence simplement à être là. Certains kael-veth disent que l'ossivael est le vrai début du corsivael — que tout ce qui précède n'est que préparation.</p>
+          </div>
+
+          <div class="glossary-entry">
+            <p class="glossary-term">Thurisath</p>
+            <p class="glossary-phonetic">thu-ri-sath</p>
+            <p class="glossary-def">La configuration. L'arrangement de plusieurs corps dans une relation précise, comme les notes d'un accord. Chaque thurisath a un nom dans les textes anciens. Les apprendre tous prend des années. L'anath n'en connaît que trois — les principaux — et les reconnaîtra quand ils se formeront.</p>
+          </div>
+
+          <div class="glossary-entry">
+            <p class="glossary-term">Vael-no</p>
+            <p class="glossary-phonetic">vaël-no</p>
+            <p class="glossary-def">Le silence des serments. Les phases du corsivael pendant lesquelles la parole est suspendue. Le <em>no</em> est l'espace entre deux mots — pas l'absence de sens, mais le sens qui n'a pas besoin de sons.</p>
+          </div>
+
+          <div class="glossary-entry">
+            <p class="glossary-term">Maerath</p>
+            <p class="glossary-phonetic">mae-rath</p>
+            <p class="glossary-def">La prière ancienne récitée par les kael-veth au début et à la fin. Pas une adresse au Panthéon Solaire — plus vieux que ça. Une adresse aux corps eux-mêmes, à leur capacité à se reconnaître entre eux.</p>
+          </div>
+
+          <div class="glossary-entry">
+            <p class="glossary-term">Sereth</p>
+            <p class="glossary-phonetic">se-reth</p>
+            <p class="glossary-def">La clôture. Le rituel de fermeture qui signale que le corsivael est terminé. Bain froid partagé, silence, retour des masques. Le sereth n'est pas une fin mais un seuil — on sort différent du soh-ko-mat, mais on sort. Le monde attend toujours de l'autre côté.</p>
+          </div>
+
+          <div class="glossary-entry">
+            <p class="glossary-term">Drevan</p>
+            <p class="glossary-phonetic">dre-van</p>
+            <p class="glossary-def">La lumière de l'après. Pas le matin — l'état intérieur qui suit la cérémonie dans les heures et jours suivants. Certains disent que le drevan dure une semaine. D'autres disent qu'une partie du drevan ne part jamais complètement.</p>
+          </div>
+        </div>
+
+        <!-- Chapter I -->
+        <div class="chapter">
+          <p class="chapter-number">I</p>
+          <h2 class="chapter-title">Avant</h2>
+          <div class="chapter-rule"></div>
+
+          <p class="chapter-text">On m'avait dit que j'étais prêt depuis deux ans.</p>
+          <p class="chapter-text">Mon instructeur — un kael-veth de la maison Vareneth dont je ne donnerai pas le nom ici — m'avait fait lire les textes rituels jusqu'à ce que je puisse les réciter dans mon sommeil. Il m'avait enseigné les thurisath sur des diagrams de marbre pâle, les doigts traçant les configurations comme des géographies. Il m'avait expliqué le vel-arath, le thessan, le vael-no, le sereth. Il m'avait dit la durée approximative de chaque phase, la temperature habituelle du soh-ko-mat, le nombre de participants ordinaire d'un premier corsivael.</p>
+          <p class="chapter-text">Ce qu'il ne m'avait pas dit — et je lui en ai voulu pendant les premiers jours du drevan, avant de comprendre qu'il n'aurait pas pu — c'est ce que ça fait dans le corps d'apprendre que quelque chose est sur le point de commencer.</p>
+          <p class="chapter-text">Je me suis assis dans le bain de glace du matin, comme toujours, et quelque chose était différent. L'eau avait la même temperature. Mon corps avait la même réponse habituelle — le contraste brutal, le souffle coupé, l'apaisement graduel. Mais quelque chose dans la façon dont j'occupais mon propre corps était changée. Comme si ma peau avait décidé de faire attention.</p>
+          <p class="chapter-text"><em>Ce soir</em>, je disais aux carreaux de la salle de bains. <em>Ce soir.</em></p>
+          <p class="chapter-text">J'avais vingt-trois ans — jeune pour un premier corsivael, on me l'avait dit, mais mon instructeur avait jugé que j'étais prêt et son jugement était sans appel. Vingt-trois ans dans un corps qui n'avait jamais été en mirehn devant personne d'autre que des médecins et un miroir. Vingt-trois ans de préparation théorique à quelque chose que ma peau ne savait pas encore reconnaître.</p>
+          <p class="chapter-text">Je me suis habillé des vêtements cérémoniels — tissu lourd, ouvertures calculées selon l'ordre du vel-arath, rien cousu qui ne puisse s'ouvrir facilement. J'ai mis mon masque. Le masque est toujours la dernière chose — et ce soir, pour la première fois de ma vie, je savais qu'il serait aussi l'une des premières choses à partir.</p>
+          <p class="chapter-text">La maison de Silver-Promise-Swallowed-Whole est à vingt minutes à pied de chez moi. Je les ai faites lentement.</p>
+        </div>
+
+        <div class="chapter-sep">· · ·</div>
+
+        <!-- Chapter II -->
+        <div class="chapter">
+          <p class="chapter-number">II</p>
+          <h2 class="chapter-title">Le Soh-Ko-Mat</h2>
+          <div class="chapter-rule"></div>
+
+          <p class="chapter-text">La chambre était plus petite que je ne l'avais imaginé.</p>
+          <p class="chapter-text">Je ne sais pas quelle taille j'attendais — quelque chose d'immense peut-être, de cathédral, de proportionnel au poids de ce qui allait s'y passer. Au lieu de ça : une pièce de taille ordinaire, plafond bas, murs tendus de tissu sombre. Quatre lampes à huile, pas de bougies. La lumière était ambre et immobile — pas de flamme vacillante, rien qui tremble. Le sol était recouvert d'un matériau que je n'ai pas reconnu immédiatement, doux sous les pieds, entre le textile et la mousse.</p>
+          <p class="chapter-text">Il y avait huit autres participants.</p>
+          <p class="chapter-text">Je les connaissais de vue — certains de nom — mais ce soir ils n'étaient pas leurs noms. Ils étaient des corps dans des vêtements cérémoniels, debout ou assis sur les coussins disposés en cercle, silencieux. Pas de salutations dans un soh-ko-mat avant que la maerath ait été dite. J'avais appris ça. Je me suis quand même retrouvé à ouvrir la bouche et à la refermer, réflexe social impossible à déraciner complètement.</p>
+          <p class="chapter-text">Silver-Promise-Swallowed-Whole était au centre.</p>
+          <p class="chapter-text">Je l'avais rencontré deux fois auparavant en contexte ordinaire — dîners, présentations, le genre de choses. Il était comme toujours : calme, symétrique, dégageant cette quiétude des corps qui n'ont jamais eu à se battre pour occuper l'espace. Ce soir il portait moins de bijoux rituels que je n'attendais. Ses cheveux étaient attachés simplement. Il regardait le sol quand je suis entré, et a levé les yeux au moment exact où je m'asseyais — pas par hasard, j'ai pensé, mais sans savoir pourquoi.</p>
+          <p class="chapter-text">Il a attendu que tout le monde soit en place. Puis il a commencé la <em>maerath</em>.</p>
+          <p class="chapter-text">La prière ancienne n'est pas belle dans le sens ordinaire du terme. Elle n'a pas la grandeur des liturgies du Panthéon Solaire, ni leur architecture montante. Elle est plate, presque monotone, les mots se succédant sans relief dans la langue vieux-aelfir que je comprends mal et que j'ai apprise phonétiquement, comme une chanson dont on connaît les sons mais pas les sens. Mais quelque chose dans cette platitude — quelque chose dans le fait que les mêmes mots ont été dits dans ce même ordre depuis plus de siècles que ma famille n'existe — a produit dans ma poitrine quelque chose que je ne sais pas bien nommer. Une pression. Pas désagréable. Comme de l'eau qui monte.</p>
+          <p class="chapter-text">La maerath a duré sept minutes. Je les ai comptées.</p>
+          <p class="chapter-text">À la fin, le silence a été différent. Le vael-no avait commencé.</p>
+        </div>
+
+        <div class="chapter-sep">· · ·</div>
+
+        <!-- Chapter III -->
+        <div class="chapter">
+          <p class="chapter-number">III</p>
+          <h2 class="chapter-title">Le Leth-Kor</h2>
+          <div class="chapter-rule"></div>
+
+          <p class="chapter-text">Les kael-veth — trois d'entre eux, dont Silver — se sont levés simultanément.</p>
+          <p class="chapter-text">Ils se sont déplacés dans le cercle sans un mot, chacun vers des participants précis, et j'ai su au mouvement de Silver vers moi que j'étais son anath ce soir — qu'il avait choisi de m'accompagner personnellement dans ce que je m'apprêtais à traverser. Je l'ai su parce que quelque chose dans la façon dont il avançait était différente de la façon dont les deux autres avançaient vers les leurs. Moins de distance dans ses pas. Plus de présence.</p>
+          <p class="chapter-text">Il s'est arrêté devant moi et a posé les mains sur mes épaules.</p>
+          <p class="chapter-text">Le leth-kor était dans un petit vase entre ses doigts — j'avais vu le vase mais pas remarqué qu'il le tenait. Il a ouvert le col de mon vêtement cérémoniel des deux côtés, avec des gestes qui connaissaient exactement l'ordre des ouvertures, et il a appliqué l'huile sur mes épaules et mes tempes avec trois doigts plats, une pression uniforme qui ne bougeait pas — pas un massage, pas une caresse, simplement une présence ferme et précise pendant trois secondes à chaque point de contact.</p>
+          <p class="chapter-text">L'huile sentait la résine froide, comme on me l'avait dit.</p>
+          <p class="chapter-text">Ce qu'on ne m'avait pas dit : la chaleur des mains à travers l'huile. Ses mains étaient plus chaudes que la temperature de la pièce, plus chaudes que les miennes, et cette chaleur s'est transmise à travers le leth-kor comme si l'huile était un conducteur. Mes épaules se sont décontractées d'une tension dont je n'avais pas su qu'elle était là.</p>
+          <p class="chapter-text">Il m'a regardé. Pas d'évaluation dans ce regard — pas le regard froid de quelqu'un qui jauge. Quelque chose de plus neutre et, pour ça, plus difficile à soutenir. Un regard qui ne demande rien et n'offre rien mais qui dit simplement : <em>je suis là et tu es là et nous allons passer ce soir ensemble dans cet endroit.</em></p>
+          <p class="chapter-text">J'ai soutenu son regard. Ma formation m'y avait préparé. Mon corps, lui, avait besoin d'une seconde pour rattraper la formation.</p>
+        </div>
+
+        <div class="chapter-sep">· · ·</div>
+
+        <!-- Chapter IV -->
+        <div class="chapter">
+          <p class="chapter-number">IV</p>
+          <h2 class="chapter-title">Le Vel-Arath</h2>
+          <div class="chapter-rule"></div>
+
+          <p class="chapter-text">Le vel-arath commence par les masques.</p>
+          <p class="chapter-text">On enlève le sien soi-même — personne ne retire le masque de quelqu'un d'autre dans un corsivael, c'est une règle absolue, la seule chose sur laquelle tous les textes s'accordent sans nuance. Le masque est une décision personnelle et son retrait est un acte personnel même quand il est rituel. J'ai levé les mains et j'ai défait les attaches — deux sur les tempes, une dans les cheveux, la même séquence qu'en privé depuis l'enfance — et j'ai tenu mon masque dans mes mains un moment avant de le poser sur le coussin derrière moi.</p>
+          <p class="chapter-text">L'air sur mon visage nu dans une pièce avec des étrangers.</p>
+          <p class="chapter-text">J'avais sous-estimé ça. Vingt-trois ans à ne jamais montrer mon visage hors de chez moi — et là, soudainement, neuf autres visages découverts dans la même lumière ambre. J'ai regardé les autres parce que c'est ce qu'on fait quand les masques tombent — on regarde, avec cette surprise brève et toujours nouvelle de voir que les gens ont des visages sous leurs visages. Silver avait les yeux légèrement plus clairs que je ne l'aurais pensé. Quelqu'un deux coussins à ma gauche avait une petite cicatrice sur le menton qui ne se voyait jamais sous son masque habituel.</p>
+          <p class="chapter-text">Détails si ordinaires. Si extraordinairement ordinaires.</p>
+          <p class="chapter-text">Puis les vêtements, dans l'ordre du vel-arath.</p>
+          <p class="chapter-text">L'ordre est précis parce qu'il est beau — pas parce que la nudité doit être atteinte dans un certain rythme, mais parce que la révélation progressive a sa propre logique esthétique que les anciens ont encodée dans la séquence. D'abord les couches extérieures, les vêtements de cérémonie lourds. Puis les couches intermédiaires. Enfin, les dessous — et là le vel-arath ralentit, les gestes deviennent plus petits, plus attentifs. Ce n'est pas indiqué dans les textes ; ça arrive naturellement. Le corps comprend que ce qui reste est différent.</p>
+          <p class="chapter-text">Pendant le vel-arath on est seul même au milieu des autres. Chaque corps dans sa propre révélation, au même rythme mais pas ensemble — un accord dont chaque note arrive légèrement décalée.</p>
+          <p class="chapter-text">Quand je me suis retrouvé nu, j'ai eu envie pendant une fraction de seconde de croiser les bras. Je ne l'ai pas fait. J'ai laissé mes mains le long de mon corps et j'ai existé dans l'air de la pièce et dans les yeux des autres, qui existaient eux aussi de la même façon, et cette mutualité a fait quelque chose au sentiment d'exposition. Elle ne l'a pas fait disparaître — le mirehn n'est pas le confort, il est la vérité — mais elle lui a donné une qualité différente. Pas d'être vu. D'être <em>parmi</em>.</p>
+        </div>
+
+        <div class="chapter-sep">· · ·</div>
+
+        <!-- Chapter V -->
+        <div class="chapter">
+          <p class="chapter-number">V</p>
+          <h2 class="chapter-title">Le Thessan</h2>
+          <div class="chapter-rule"></div>
+
+          <p class="chapter-text">Silver était en face de moi.</p>
+          <p class="chapter-text">Le thessan est petit — je l'avais dit plus haut, je le répète parce que je n'avais pas compris ce que "petit" voulait dire avant de le vivre. Le bout de ses trois doigts sur l'intérieur de mon poignet. Une pression légère, localisée, pendant une seconde exactement. Pas davantage. C'est tout.</p>
+          <p class="chapter-text">C'est tout, et ça m'a traversé de la tête aux pieds comme si quelqu'un avait renversé de l'eau chaude à l'intérieur de ma colonne vertébrale.</p>
+          <p class="chapter-text">Je l'ai compris ce soir, le thessan. Ce n'est pas un geste de bienvenue ni de désir ni même de permission. C'est une question posée par un corps à un autre corps — <em>es-tu là ?</em> — et la réponse, quand on répond le thessan de la même façon sur le poignet de l'autre, est simplement : <em>je suis là.</em></p>
+          <p class="chapter-text">Nous étions là.</p>
+          <p class="chapter-text">Le soleth a commencé quelques secondes après le thessan — pas le mien, celui d'un participant plus âgé deux places sur ma droite, une lumière bleue-blanche qui s'est allumée dans son cou et a descendu lentement vers la clavicule comme une pensée qui cherche son chemin. Puis un autre, plus jaune, dans la paume de la personne à ma gauche. Mon propre soleth est arrivé plus tard que les autres, ce qui m'a causé une brève anxiété que j'ai tenté de dissimuler et que Silver a vue — j'en suis sûr parce qu'il a légèrement incliné la tête, geste qui voulait dire dans ce contexte : <em>ça arrive quand ça arrive, pas avant.</em></p>
+          <p class="chapter-text">Ça a répondu à mon anxiété avec une précision qui m'a désarmé.</p>
+          <p class="chapter-text">Le soleth, quand il est venu, était rose-doré — je ne l'avais jamais vu, n'ayant jamais été en état de l'observer sur moi-même auparavant. Il a commencé dans mes paumes et remonté jusqu'aux épaules par l'intérieur des avant-bras, lentement, comme du métal en fusion cherchant un moule. Regarder sa propre peau s'illuminer est une expérience que je ne peux pas décrire sans trahir sa singularité. Je dirai seulement que j'ai compris immédiatement pourquoi les anciens textes appelaient ça "la preuve" — pas de la beauté, pas de la valeur, mais simplement que quelque chose en vous répond à quelque chose en dehors de vous. Que vous n'êtes pas fermé.</p>
+        </div>
+
+        <div class="chapter-sep">· · ·</div>
+
+        <!-- Chapter VI -->
+        <div class="chapter">
+          <p class="chapter-number">VI</p>
+          <h2 class="chapter-title">Le Premier Thurisath</h2>
+          <div class="chapter-rule"></div>
+
+          <p class="chapter-text">Je ne dirai pas le nom du premier thurisath.</p>
+          <p class="chapter-text">Pas par pudeur — les pudeurs ordinaires n'ont plus leur place une fois qu'on a été en mirehn — mais parce que les noms des thurisath appartiennent aux cérémonies et les transcrire hors d'un soh-ko-mat me semble une trahison d'une nature différente de simplement raconter ce qui s'est passé. Les corps peuvent être décrits. Les noms rituels sont autre chose.</p>
+          <p class="chapter-text">Ce que je dirai : Silver s'est approché et j'ai su, sans qu'on me le dise, que j'étais concerné. Le savoir venait de son corps, pas de ses mots — une légère orientation, un regard maintenu une seconde de plus que nécessaire.</p>
+          <p class="chapter-text">Ses mains ont trouvé mes hanches.</p>
+          <p class="chapter-text">Ce contact n'était pas comme le thessan — le thessan était une question, ceci était une phrase. La pression des paumes sur la peau nue dit quelque chose de simple et de direct que la langue aelfir dans toute sa précision ne peut pas rendre aussi efficacement. Il m'a tourné légèrement, repositionné, ses gestes ayant la certitude tranquille de quelqu'un qui a fait ça des centaines de fois et qui pourtant — et c'est ce qui m'a surpris — n'était pas automatique. Il était <em>là</em> dans ce qu'il faisait. Attention complète.</p>
+          <p class="chapter-text">J'ai voulu me demander ce que je faisais bien ou mal et j'ai compris que c'était la mauvaise question. Il n'y a pas de performance dans un thurisath. Il y a ce qui est, et la façon dont on y répond.</p>
+          <p class="chapter-text">Ma réponse était hésitante au début. Normale — c'était ma première fois, et la connaissance théorique s'efface devant la présence réelle d'un autre corps. Mais quelque chose dans la constance de Silver — cette façon qu'il avait de ne pas changer de rythme ni de qualité quelle que soit ma maladresse — a rendu la maladresse supportable, puis moins fréquente, puis presque absente.</p>
+          <p class="chapter-text">Le soleth sur ma peau avait monté — rose-doré cédant vers le blanc sur les zones de contact. Je pouvais le voir du coin de l'oeil sur son bras où il touchait le mien, bleu-blanc contre mon or, les deux lumières se mélangeant à l'endroit de contact en quelque chose de ni l'un ni l'autre.</p>
+          <p class="chapter-text">Autour de nous, d'autres thurisath se formaient et se défaisaient dans leur propre logique. Plusieurs corps qui n'étaient pas tous en contact mais tous dans le même espace de lumière et de chaleur — une grammaire complexe dont je ne lisais que ma propre phrase mais dont je sentais la structure plus large, comme entendre une symphonie depuis l'intérieur de son propre instrument.</p>
+        </div>
+
+        <div class="chapter-sep">· · ·</div>
+
+        <!-- Chapter VII -->
+        <div class="chapter">
+          <p class="chapter-number">VII</p>
+          <h2 class="chapter-title">L'Ossivael</h2>
+          <div class="chapter-rule"></div>
+
+          <p class="chapter-text">L'ossivael ne s'annonce pas.</p>
+          <p class="chapter-text">C'est ce que mon instructeur m'avait dit et c'est ce qui m'avait semblé vague jusqu'à ce que ce soit vrai. On ne peut pas le viser, le préparer, le produire par l'effort. Il arrive ou il n'arrive pas, et si on essaie de le forcer il disparaît exactement là où on pensait l'avoir trouvé.</p>
+          <p class="chapter-text">Il est arrivé pour moi dans la troisième heure de la cérémonie.</p>
+          <p class="chapter-text">Je ne sais pas ce qui l'a déclenché — un moment de transition entre deux thurisath peut-être, une courte pause où rien n'était demandé de mon corps et où j'ai simplement existé dans la chaleur de la pièce, le soleth de plusieurs corps proches créant une lumière diffuse suffisante pour voir sans détail. Quelque chose s'est relâché dans ma façon d'habiter ma propre peau.</p>
+          <p class="chapter-text">La distance entre moi et mon propre corps a disparu.</p>
+          <p class="chapter-text">C'est la seule façon que j'aie de le dire, bien qu'elle soit imprécise. En temps ordinaire — et je ne l'avais pas su avant de perdre cette habitude — il y a une légère distance entre la conscience et le corps qu'elle habite. Un espace de surveillance et de gestion. L'ossivael ferme cet espace. Il n'y avait plus de moi qui observait mon corps et décidait de ses réponses. Il y avait juste le corps, juste la pièce, juste les autres corps dans leur propre lumière, et tout ça était la même chose.</p>
+          <p class="chapter-text">Silver était près de moi à ce moment-là. Je ne sais pas s'il l'a vu arriver sur mon visage ou s'il a simplement su, mais il a posé une main ouverte sur ma nuque — pas une pression directive, juste un contact — et il a dit quelque chose en vieux aelfir que je n'ai pas compris, trop bas pour que je distingue les mots, mais dont le sens était clair quand même dans sa tonalité : <em>voilà. Tu es là. C'est ça.</em></p>
+          <p class="chapter-text">Je suis resté dans l'ossivael pendant ce qui m'a semblé une longue durée et qui était probablement dix minutes. Pendant ces dix minutes j'ai fait partie du corsivael plutôt que d'y assister. Ma peau était de la lumière et de la chaleur et du contact et du contact et encore du contact, sans hiérarchie entre les sensations, sans priorité accordée à l'une plutôt qu'à l'autre.</p>
+          <p class="chapter-text">Je ne décrirai pas davantage ce qui s'est passé pendant ces dix minutes. Pas parce que ça ne mérite pas d'être dit — ça mérite peut-être d'être dit plus que n'importe quoi d'autre dans ce journal — mais parce que je ne possède pas encore les mots. Ce journal est un document de formation. Les mots pour l'ossivael viendront peut-être avec les années. Pour l'instant j'en ai seulement la sensation, vivante dans ma peau, intacte, comme une lumière dans une pièce close.</p>
+        </div>
+
+        <div class="chapter-sep">· · ·</div>
+
+        <!-- Chapter VIII -->
+        <div class="chapter">
+          <p class="chapter-number">VIII</p>
+          <h2 class="chapter-title">Le Sereth</h2>
+          <div class="chapter-rule"></div>
+
+          <p class="chapter-text">La fin d'un corsivael arrive comme une marée qui se retire.</p>
+          <p class="chapter-text">Pas brusquement. Graduellement, Silver s'est déplacé au centre de l'espace et les autres ont suivi — une réorganisation lente et organique, les corps se séparant les uns des autres avec la même attention qu'ils avaient mis à se rejoindre. Les thurisath se sont défaits. Les distances ont augmenté. Le soleth a commencé à baisser sur toutes les peaux — la lumière collective de la pièce s'est atténuée, comme un feu qui n'a plus besoin d'être alimenté.</p>
+          <p class="chapter-text">Silver a récité la maerath de clôture.</p>
+          <p class="chapter-text">Elle est différente de la maerath d'ouverture — les mêmes mots dans un ordre inversé, me semble-t-il, bien que je ne lise pas assez bien le vieux aelfir pour en être sûr. La même voix plate et sans ornement. La même pression dans la poitrine, mais différente cette fois — montante au début, descendante maintenant. Quelque chose se posant.</p>
+          <p class="chapter-text">Puis le bain.</p>
+          <p class="chapter-text">Le soh-ko-mat avait une salle attenante — je ne l'avais pas remarquée en entrant, ni la grande cuve qui l'occupait presque entièrement, ni l'eau qui y était déjà. Froide, comme la tradition l'exige. Neuf corps ont rejoint l'eau en quelques minutes — pas en même temps, chacun à son propre rythme, mais le mouvement était collectif. L'eau froide sur la peau après la chaleur de la cérémonie était un choc précis et bienvenu — le genre de sensation qui dit à un corps : <em>tu es là, c'est maintenant, tu existes.</em></p>
+          <p class="chapter-text">Nous nous sommes assis dans l'eau en silence.</p>
+          <p class="chapter-text">Au bout d'un moment, quelqu'un à ma droite — un aelfir que je connaissais vaguement, de la maison Tasseveth — a posé sa main sur mon avant-bras dans l'eau, sans me regarder. Juste une main. J'ai regardé le mur d'en face et j'ai laissé la main être là.</p>
+          <p class="chapter-text">Les masques sont revenus en dernier.</p>
+          <p class="chapter-text">Chacun est allé reprendre le sien sur son coussin, toujours dans le silence. Je tenais le mien dans mes mains et il me semblait différent — même poids, même surface, même forme exacte de mon visage en creux dans la céramique. Mais différent quand même, dans la façon dont je le regardais. Comme un vêtement qu'on reconnaît sans plus tout à fait se souvenir de la vie qu'on menait quand on l'a acheté.</p>
+          <p class="chapter-text">Je l'ai mis.</p>
+          <p class="chapter-text">Le monde a retrouvé sa distance ordinaire.</p>
+        </div>
+
+        <div class="chapter-sep">· · ·</div>
+
+        <!-- Chapter IX -->
+        <div class="chapter">
+          <p class="chapter-number">IX</p>
+          <h2 class="chapter-title">Le Drevan</h2>
+          <div class="chapter-rule"></div>
+
+          <p class="chapter-text">Je vis dans le drevan depuis quatre jours maintenant.</p>
+          <p class="chapter-text">C'est pour ça que j'écris. Non pas pour fixer les événements — ils ne risquent pas de s'effacer, je m'en aperçois — mais parce que l'état du drevan cherche une sortie, et les mots sont la sortie que j'ai trouvée.</p>
+          <p class="chapter-text">Le drevan est difficile à décrire à quelqu'un qui ne l'a pas vécu. Je vais essayer quand même, pour le moi de dans un an ou dix ans qui relira ceci.</p>
+          <p class="chapter-text">Le monde ordinaire a gardé sa forme. Je porte mon masque. Je salue les gens selon les formules correctes. Je mange, je dors, je lis. Rien n'est différent dans le visible.</p>
+          <p class="chapter-text">Mais dans ma peau — dans la surface précise de ma peau, là où le contact a été — il y a quelque chose qui n'était pas là avant. Pas une douleur, pas un manque. Une conscience. Comme si mes nerfs avaient appris un nouveau mot et ne pouvaient plus oublier de le connaître.</p>
+          <p class="chapter-text">Certains matins dans le bain de glace, j'ai fermé les yeux et vu le soleth de quelqu'un d'autre contre le mien à l'intérieur de ma paupière — deux lumières se mélangeant en quelque chose qui n'était ni l'une ni l'autre. C'est passé au bout de quelques secondes. Ce sera passé entièrement dans quelques jours, m'a dit mon instructeur.</p>
+          <p class="chapter-text">Je ne suis pas pressé.</p>
+          <p class="chapter-text">J'avais vingt-trois ans quand j'ai franchi la porte du soh-ko-mat de Silver-Promise-Swallowed-Whole, un soir de semaine, dans des vêtements dont je connaissais l'ordre exact des ouvertures. Je savais tout ce qui allait se passer.</p>
+          <p class="chapter-text">Je ne savais rien.</p>
+          <p class="chapter-text">C'est peut-être ça, le corsivael — pas une chose qu'on fait, mais une chose qu'on ne peut pas savoir avant de l'avoir faite, et qu'on ne peut plus ne pas savoir une fois qu'on l'a faite. Une connaissance qui vit dans la peau plutôt que dans la tête, et qui change la façon dont la peau habite le monde.</p>
+          <p class="chapter-text">Mon instructeur m'a demandé ce matin si j'étais prêt à parler de la cérémonie.</p>
+          <p class="chapter-text">J'ai dit : pas encore.</p>
+          <p class="chapter-text">Il a dit : c'est bien.</p>
+
+          <p class="chapter-text" style="font-style:italic; color: #3a5070; text-indent: 0; margin-top: 2rem;">— sans nom signé, quatrième nuit du drevan</p>
+        </div>
+
+        <!-- Marginal note -->
+        <div class="marginal-note">
+          <p class="marginal-label">Note marginale — ajoutée plus tard, à l'encre différente</p>
+          <p class="marginal-text">Silver m'a croisé dans un couloir de la maison Vareneth trois semaines après. Il a incliné la tête comme font les aelfirs pour saluer un égal. Puis il a dit, très bas, juste pour moi : "Ton soleth était or. C'est rare."</p>
+          <p class="marginal-text">Je n'ai pas su quoi répondre. Il est parti avant que j'aie trouvé.</p>
+          <p class="marginal-text">Je cherche encore.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <script>
+      if (!localStorage.getItem('spire_token')) {
+        window.location.href = '../connect.html';
+      }
+    </script>
+  </body>
+</html>

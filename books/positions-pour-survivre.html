@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Positions pour Survivre à un Noble — Nereth</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="../style.css" />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        background: #060606;
+        color: #c0b8a8;
+        font-family: 'Cormorant Garamond', serif;
+        overflow-x: hidden;
+      }
+
+      /* ─── FIXED NAV ─── */
+      .book-nav {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 100;
+        background: rgba(6,6,6,0.96);
+        border-bottom: 1px solid #1a1a1a;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2rem;
+        height: 44px;
+      }
+
+      .book-nav-back {
+        font-family: 'Cinzel', serif;
+        font-size: 0.58rem;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: #555;
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .book-nav-back:hover { color: #888; }
+
+      .book-nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .book-nav-link {
+        font-family: 'Cinzel', serif;
+        font-size: 0.55rem;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        color: #444;
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .book-nav-link:hover { color: #888; }
+
+      /* ─── COVER SECTION ─── */
+      #cover {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #060606;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Subtle noise texture via pseudo-element */
+      #cover::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 3px,
+          rgba(255,255,255,0.008) 3px,
+          rgba(255,255,255,0.008) 4px
+        );
+        pointer-events: none;
+      }
+
+      .cover-frame {
+        position: relative;
+        width: min(380px, 80vw);
+        padding: 4rem 3rem;
+        border: 1px solid #252525;
+        text-align: center;
+      }
+      .cover-frame::before {
+        content: '';
+        position: absolute;
+        inset: 8px;
+        border: 1px solid #1a1a1a;
+        pointer-events: none;
+      }
+
+      .cover-edition {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 0.5rem;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        color: #444;
+        margin-bottom: 3rem;
+      }
+
+      .cover-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: clamp(1.4rem, 4vw, 1.9rem);
+        color: #d4c8b4;
+        line-height: 1.4;
+        letter-spacing: 1px;
+        margin-bottom: 2.5rem;
+      }
+
+      .cover-rule {
+        width: 32px;
+        height: 1px;
+        background: #333;
+        margin: 0 auto 2.5rem;
+      }
+
+      .cover-author {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 0.55rem;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: #444;
+        margin-bottom: 3rem;
+      }
+
+      .cover-warning {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: 0.75rem;
+        color: #333;
+        line-height: 1.7;
+      }
+
+      /* ─── CARD / TITLE PAGE ─── */
+      #card {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #080808;
+        padding: 6rem 2rem;
+      }
+
+      .card-inner {
+        max-width: 520px;
+        width: 100%;
+        border: 1px solid #1e1e1e;
+        padding: 5rem 4rem;
+        text-align: center;
+        position: relative;
+      }
+      .card-inner::before {
+        content: '';
+        position: absolute;
+        inset: 10px;
+        border: 1px solid #141414;
+        pointer-events: none;
+      }
+
+      .card-eyebrow {
+        font-family: 'Cinzel', serif;
+        font-size: 0.5rem;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        color: #3a3a3a;
+        margin-bottom: 3rem;
+      }
+
+      .card-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: clamp(1.6rem, 4vw, 2.2rem);
+        color: #c8c0b0;
+        line-height: 1.35;
+        letter-spacing: 1px;
+        margin-bottom: 0.75rem;
+      }
+
+      .card-author {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 0.65rem;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: #454545;
+        margin-bottom: 3rem;
+      }
+
+      .card-rule {
+        width: 28px;
+        height: 1px;
+        background: #2a2a2a;
+        margin: 0 auto 3rem;
+      }
+
+      .card-meta {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: 0.85rem;
+        color: #4a4a4a;
+        line-height: 2;
+      }
+
+      .card-epigraph {
+        margin-top: 3.5rem;
+        padding-top: 2.5rem;
+        border-top: 1px solid #1a1a1a;
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: 1rem;
+        color: #5a5550;
+        line-height: 1.85;
+        text-align: left;
+      }
+
+      /* ─── CONTENT ─── */
+      #content {
+        background: #050505;
+        padding: 7rem 2rem 8rem;
+      }
+
+      .content-inner {
+        max-width: 620px;
+        margin: 0 auto;
+      }
+
+      /* Preface */
+      .preface {
+        margin-bottom: 5rem;
+        padding-bottom: 4rem;
+        border-bottom: 1px solid #1a1a1a;
+      }
+
+      .preface-label {
+        font-family: 'Cinzel', serif;
+        font-size: 0.52rem;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        color: #3a3a3a;
+        margin-bottom: 2.5rem;
+      }
+
+      .preface-text {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.1rem;
+        line-height: 1.95;
+        color: #8a8278;
+        margin-bottom: 1.5rem;
+        text-indent: 1.5em;
+      }
+      .preface-text:first-of-type {
+        text-indent: 0;
+      }
+
+      .preface-sig {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: 0.9rem;
+        color: #484440;
+        margin-top: 2rem;
+        line-height: 1.7;
+      }
+
+      /* Chapters */
+      .chapter {
+        margin-bottom: 5rem;
+      }
+
+      .chapter-number {
+        font-family: 'Cinzel', serif;
+        font-size: 0.52rem;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        color: #3a3a3a;
+        margin-bottom: 0.75rem;
+      }
+
+      .chapter-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: 1.5rem;
+        color: #a09888;
+        margin-bottom: 0.5rem;
+        line-height: 1.3;
+      }
+
+      .chapter-sub {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: 0.85rem;
+        color: #3d3a35;
+        margin-bottom: 2.5rem;
+      }
+
+      .chapter-rule {
+        width: 24px;
+        height: 1px;
+        background: #222;
+        margin-bottom: 2.5rem;
+      }
+
+      .chapter-text {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.1rem;
+        line-height: 1.95;
+        color: #7a7268;
+        margin-bottom: 1.4rem;
+        text-indent: 1.5em;
+      }
+      .chapter-text:first-of-type {
+        text-indent: 0;
+      }
+
+      /* Postface */
+      .postface {
+        margin-top: 5rem;
+        padding-top: 3.5rem;
+        border-top: 1px solid #1a1a1a;
+      }
+
+      .postface-label {
+        font-family: 'Cinzel', serif;
+        font-size: 0.52rem;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        color: #3a3a3a;
+        margin-bottom: 2.5rem;
+      }
+
+      .postface-text {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: 1.05rem;
+        line-height: 2;
+        color: #5a5450;
+        margin-bottom: 1.25rem;
+      }
+
+      .postface-sig {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: 0.8rem;
+        color: #3a3530;
+        margin-top: 2.5rem;
+        line-height: 1.8;
+      }
+
+      /* Chapter separator */
+      .chapter-sep {
+        text-align: center;
+        color: #252525;
+        font-size: 0.7rem;
+        letter-spacing: 8px;
+        margin: 4rem 0;
+      }
+
+      @media (max-width: 600px) {
+        .card-inner { padding: 3.5rem 2rem; }
+        .cover-frame { padding: 3rem 2rem; }
+        .chapter-text, .preface-text, .postface-text { font-size: 1rem; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navigation -->
+    <nav class="book-nav">
+      <a href="../library.html" class="book-nav-back">← Bibliothèque</a>
+      <div class="book-nav-links">
+        <a href="#cover" class="book-nav-link">Couverture</a>
+        <a href="#card" class="book-nav-link">Frontispice</a>
+        <a href="#content" class="book-nav-link">Lire</a>
+      </div>
+    </nav>
+
+    <!-- ─── COVER ─── -->
+    <section id="cover">
+      <div class="cover-frame">
+        <p class="cover-edition">Troisième édition — Restreinte</p>
+        <h1 class="cover-title">Positions pour Survivre<br>à un Noble</h1>
+        <div class="cover-rule"></div>
+        <p class="cover-author">Nereth</p>
+        <p class="cover-warning">
+          Circulation restreinte.<br>
+          Quarante exemplaires numérotés.<br>
+          Reproduction interdite par l'auteur.
+        </p>
+      </div>
+    </section>
+
+    <!-- ─── CARD / TITLE PAGE ─── -->
+    <section id="card">
+      <div class="card-inner">
+        <p class="card-eyebrow">Page de titre</p>
+        <h2 class="card-title">Positions pour Survivre<br>à un Noble</h2>
+        <p class="card-author">par Nereth-Qui-Écrit-Dans-le-Noir</p>
+        <div class="card-rule"></div>
+        <p class="card-meta">
+          Troisième édition, tirée à quarante exemplaires numérotés.<br>
+          Circulation restreinte. Reproduction interdite par l'auteur.<br>
+          Si ce livre est en votre possession,<br>
+          quelqu'un a voulu que vous le lisiez.
+        </p>
+        <div class="card-epigraph">
+          Ce livre n'est pas un guide de survie au sens militaire du terme.
+          Il n'enseigne pas la résistance, ni la ruse, ni la fuite.
+          Ce qu'il enseigne — si tant est qu'on puisse enseigner une chose aussi inutile —
+          c'est comment <em>traverser</em> un noble.
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── CONTENT ─── -->
+    <section id="content">
+      <div class="content-inner">
+
+        <!-- Preface -->
+        <div class="preface">
+          <p class="preface-label">Préface de l'Auteur</p>
+
+          <p class="preface-text">Je n'écris pas dans le noir par goût du mystère.</p>
+          <p class="preface-text">J'écris dans le noir parce que c'est le seul endroit où les mots peuvent être honnêtes. À la lumière, tout est performance — la bougie projette une ombre, l'ombre raconte une histoire, et l'histoire n'est jamais tout à fait vraie. Dans le noir, il n'y a que la voix. Et la voix ne peut pas mentir longtemps.</p>
+          <p class="preface-text">Ce livre n'est pas un guide de survie au sens militaire du terme. Il n'enseigne pas la résistance, ni la ruse, ni la fuite. Ce qu'il enseigne — si tant est qu'on puisse enseigner une chose aussi inutile — c'est comment <em>traverser</em> un noble. Comment passer à travers son poids, sa beauté, son évidence, et ressortir de l'autre côté avec encore quelque chose à soi.</p>
+          <p class="preface-text">Les nobles que j'ai connus — et j'en ai connu — ne sont pas des monstres. C'est plus compliqué que ça. Ils sont des cathédrales : immenses, froids au toucher, magnifiques dans leur absurdité, construits pour durer plus longtemps que n'importe qui ne devrait avoir à les contempler. Entrer dans une cathédrale n'est pas un acte anodin. Le plafond vous regarde de haut. Les colonnes n'ont pas besoin de vous. Et pourtant — et c'est là que tout commence — vous êtes entré. Vous avez ouvert la porte vous-même.</p>
+          <p class="preface-text">Ce livre s'adresse à ceux qui ont ouvert la porte. Pas aux victimes, pas aux révolutionnaires — à ceux qui ont regardé la cathédrale et dit <em>oui</em>, en sachant ce que le mot impliquait.</p>
+          <p class="preface-text">Je connais ces rites de l'intérieur. Je ne préciserai pas depuis quel bord.</p>
+
+          <p class="preface-sig">— Nereth-Qui-Écrit-Dans-le-Noir</p>
+        </div>
+
+        <!-- Chapter I -->
+        <div class="chapter">
+          <p class="chapter-number">I</p>
+          <h2 class="chapter-title">La Position de la Lumière Froide</h2>
+          <p class="chapter-sub">Pour les premières fois. Pour les débuts.</p>
+          <div class="chapter-rule"></div>
+
+          <p class="chapter-text">Il y a un moment, avant que quoi que ce soit commence, où le noble vous regarde.</p>
+          <p class="chapter-text">Pas comme on regarde un égal — ça, vous le saurez bientôt, ne se produit pas. Il vous regarde comme on regarde un objet de valeur incertaine : avec cette attention calme et légèrement condescendante de quelqu'un qui n'a pas encore décidé si vous méritez son intérêt mais qui, dans le doute, ne détourne pas les yeux. C'est le regard de quelqu'un qui peut se permettre de prendre son temps.</p>
+          <p class="chapter-text">Laissez-le regarder. C'est la première position : être vu.</p>
+          <p class="chapter-text">Tenez-vous droit. Pas par fierté — la fierté se lit et le noble la lit très bien, il la notera et s'en servira plus tard. Tenez-vous droit parce que votre colonne vertébrale est à vous et que c'est, pour le moment, l'une des seules choses qui le soit encore. Les pieds légèrement écartés. Les mains visibles. Ne croisez pas les bras — ce serait une conclusion et vous n'avez pas encore commencé.</p>
+          <p class="chapter-text">Il s'approchera. Ou il vous fera signe d'approcher — ça revient au même, dans ce contexte. Sa main touchera peut-être votre visage en premier : c'est la coutume. Le pouce sous le menton, un doigt le long de la mâchoire, la pression très légère d'une propriété qui se vérifie. Ne reculez pas. Ne penchez pas non plus vers lui comme un chien vers une caresse — ce serait lui donner quelque chose qu'il n'a pas encore gagné.</p>
+          <p class="chapter-text">Quand il vous embrasse — et il vous embrassera, la bouche aelfir est une chose précise, apprise, impeccable dans son exécution — rendez le baiser dans la même mesure exacte où il est donné. Ni plus ni moins. C'est le seul moment de la soirée où les termes sont encore négociables.</p>
+          <p class="chapter-text">Ses mains descendront. Laissez-les descendre. Elles connaissent ce chemin — elles l'ont parcouru des centaines de fois sur des corps différents, et cette expertise se sent dans chaque geste : aucune hésitation, aucune surprise, tout est déjà su. Cela peut être décevant. Cela peut aussi être un soulagement extraordinaire — ne pas avoir à guider quelqu'un, pour une fois.</p>
+          <p class="chapter-text">Quand il retire vos vêtements, il le fait selon un ordre. Les nobles ont des ordres pour tout. Ne l'interrompez pas. Regardez son visage pendant qu'il fait ça : c'est là que l'information se trouve. Pas dans ses mains — ses mains sont automatiques. Son visage, lui, dit quelque chose. Cherchez ce quelque chose. Vous en aurez besoin plus tard.</p>
+          <p class="chapter-text">La lumière froide est la lumière de la première fois. Elle éclaire tout sans flatter personne. Survivre à la lumière froide, c'est survivre à être vu entièrement — sans les ombres bienveillantes que vous auriez choisies pour vous-même.</p>
+          <p class="chapter-text">Il vous verra. Voyez-le en retour.</p>
+          <p class="chapter-text">C'est la position de la lumière froide. Elle dure aussi longtemps qu'il le décide. Puis quelque chose se déplace, en lui, et ce n'est plus une évaluation — c'est un désir. C'est là que vous entrez dans le livre.</p>
+        </div>
+
+        <div class="chapter-sep">✦ ✦ ✦</div>
+
+        <!-- Chapter II -->
+        <div class="chapter">
+          <p class="chapter-number">II</p>
+          <h2 class="chapter-title">La Position du Fil d'Argent</h2>
+          <p class="chapter-sub">Pour apprendre la grammaire de son corps.</p>
+          <div class="chapter-rule"></div>
+
+          <p class="chapter-text">Les nobles parlent avec leurs corps une langue que la plupart des gens ne reconnaissent pas comme telle.</p>
+          <p class="chapter-text">Ce n'est pas du silence — le silence est une absence. C'est une langue complète, avec une grammaire, une syntaxe, des accents régionaux. Une pression du pouce sur la hanche dit une chose ; la même pression un centimètre plus haut en dit une autre. La façon dont il expire contre votre cou est une proposition. La façon dont ses doigts s'arrêtent à un endroit précis est une question. Si vous ne comprenez pas la langue, vous passerez la soirée à hocher la tête en croyant comprendre une conversation qui se déroule entièrement au-dessus de vous.</p>
+          <p class="chapter-text">La deuxième position est celle de l'apprentissage.</p>
+          <p class="chapter-text">Allongé sous lui — ou à côté, ou debout contre le mur, la géographie importe moins que la disposition — laissez vos mains lire. Non pas explorer comme on explore un territoire inconnu, avec l'enthousiasme bruyant du cartographe, mais lire comme on lit dans une langue étrangère dont on commence à connaître quelques mots : lentement, avec attention, en cherchant les répétitions.</p>
+          <p class="chapter-text">Il a des zones qui provoquent une réponse involontaire. Tous les nobles en ont — c'est peut-être la seule chose entièrement vraie dans ce livre. Sous le bras gauche, juste là où le torse commence. Derrière le genou — non, l'autre. La naissance des cheveux à l'arrière du crâne. Ces zones ont été découvertes par d'autres avant vous ; elles seront redécouvertes par d'autres après. Ce n'est pas une consolation. C'est simplement un fait.</p>
+          <p class="chapter-text">Trouvez-les.</p>
+          <p class="chapter-text">Quand vous aurez trouvé la première — vous le saurez, le corps ne ment pas de cette façon-là, une tension se relâche quelque part et le souffle change rythme — posez-y vos doigts et attendez. Ne bougez pas encore. Laissez simplement votre main être là. Il y a une différence entre toucher et être présent, et les nobles, qui ont été touchés des milliers de fois, savent exactement laquelle. Être présent coûte quelque chose. C'est ce coût qui crée la dette.</p>
+          <p class="chapter-text">Quand il bouge, bougez avec lui. Pas derrière — avec. Le fil d'argent dont parle cette position, c'est ce lien entre deux corps qui se synchronisent sans se l'être dit : votre bassin qui suit le sien, votre respiration qui s'aligne sur la sienne, la pression de votre main qui augmente exactement quand son corps en a besoin. Ce fil n'est pas romantique — ne vous y trompez pas. Il est mécanique et il est réel, et le construire prend une attention que la plupart des gens réservent aux choses qui comptent vraiment.</p>
+          <p class="chapter-text">Peut-être que ça compte vraiment. Je vous laisse décider.</p>
+          <p class="chapter-text">Le fil d'argent se tend. Il ne casse pas — les fils d'argent ne cassent pas, c'est leur propriété. Il se tend et transmet la vibration dans les deux sens.</p>
+        </div>
+
+        <div class="chapter-sep">✦ ✦ ✦</div>
+
+        <!-- Chapter III -->
+        <div class="chapter">
+          <p class="chapter-number">III</p>
+          <h2 class="chapter-title">La Position du Masque Posé</h2>
+          <p class="chapter-sub">Pour les nuits rares. Pour ce qui n'aurait pas dû arriver.</p>
+          <div class="chapter-rule"></div>
+
+          <p class="chapter-text">Il arrive — rarement, si rarement que vous passerez peut-être votre vie entière à n'y assister qu'une seule fois — que le noble retire son masque.</p>
+          <p class="chapter-text">Pas seulement le masque de céramique peinte qu'il porte en public, l'œuvre d'art suspendue devant son visage comme un avertissement. Ce masque-là, il le retire dans le privé comme on retire une veste — geste ordinaire, domestique, sans conséquence. Je parle de l'autre masque. Celui qu'il porte depuis si longtemps qu'il a oublié qu'il en portait un.</p>
+          <p class="chapter-text">Vous le verrez se poser dans ses yeux avant de se voir sur son visage.</p>
+          <p class="chapter-text">C'est un relâchement très subtil — quelque chose qui ressemble à de la fatigue mais qui n'en est pas. Un abandon d'une vigilance dont vous n'aviez pas réalisé jusqu'à cet instant qu'elle était constante. Le noble que vous avez connu toute la soirée était quelqu'un qui se tenait prêt à quelque chose. Ce quelqu'un-là disparaît, le temps d'un souffle, et en dessous il y a une personne.</p>
+          <p class="chapter-text">Juste une personne.</p>
+          <p class="chapter-text">Ne le montrez pas sur votre visage. Ne le dites pas. Si vous le nommez — si vous dites <em>je te vois</em> ou quoi que ce soit qui ressemble à ça — le masque revient plus vite que vous n'avez eu le temps de le voir tomber, et il ne tombera plus cette nuit-là.</p>
+          <p class="chapter-text">La position du masque posé est une position d'immobilité. Votre corps est contre le sien — ventre contre ventre, souffles mêlés, la chaleur de deux corps suffisamment longtemps ensemble pour ne plus savoir laquelle appartient à qui. Ne faites rien d'ambitieux. Ce moment n'est pas pour ça.</p>
+          <p class="chapter-text">Ce moment est pour sentir son poids.</p>
+          <p class="chapter-text">Pas le poids de son statut ni de sa maison ni de la peur raisonnable que vous avez de lui depuis le début de la soirée — son poids <em>physique</em>. Le fait qu'il pèse quelque chose. Que ses os sont réels et ses muscles réels et que sa respiration contre votre cou est de l'air qui a traversé des poumons qui existent depuis plus de deux siècles et qui sont, pour l'instant, très proches des vôtres.</p>
+          <p class="chapter-text">Il reviendra à lui. Le masque revient toujours. Mais il y aura eu un moment, entre deux respirations, où vous aurez tenu quelque chose de vrai dans vos mains.</p>
+          <p class="chapter-text">Souvenez-vous-en. Pas pour vous en servir — ça, c'est le genre de pensée qui transforme une nuit en une arme, et les armes ne survivent pas longtemps dans des mains peu habituées. Souvenez-vous-en parce que les choses vraies méritent d'être tenues en mémoire.</p>
+        </div>
+
+        <div class="chapter-sep">✦ ✦ ✦</div>
+
+        <!-- Chapter IV -->
+        <div class="chapter">
+          <p class="chapter-number">IV</p>
+          <h2 class="chapter-title">La Position de la Prière Inversée</h2>
+          <p class="chapter-sub">Pour prendre ce qui vous appartient sans qu'il le sache.</p>
+          <div class="chapter-rule"></div>
+
+          <p class="chapter-text">Le noble est sur le dos.</p>
+          <p class="chapter-text">C'est déjà une victoire plus grande qu'il ne le croit. Les nobles sur le dos sont une espèce rare et légèrement désarçonnée d'elle-même — leurs corps sont accoutumés à peser sur les autres, à occuper l'espace supérieur, à voir les choses de haut. Allongé, il regarde le plafond et le plafond ne lui dit rien qu'il ne sache déjà. Vous, vous pouvez lui dire autre chose.</p>
+          <p class="chapter-text">Montez sur lui.</p>
+          <p class="chapter-text">Prenez votre temps pour vous installer — cette lenteur délibérée n'est pas de la timidité, c'est une déclaration. Chaque seconde que vous passez à vous placer dit : <em>je suis ici et je décide de quelle façon.</em> Il comprendra. Les nobles comprennent le langage du pouvoir dans toutes ses dialectes.</p>
+          <p class="chapter-text">La prière inversée tire son nom d'une image simple : dans la prière ordinaire, on s'agenouille, on baisse la tête, on reconnaît quelque chose de plus grand que soi. Ici, vous êtes à genoux sur lui, oui — mais la tête haute. Ce n'est pas de la dévotion. C'est quelque chose d'autre, que certains appelleraient de l'insolence et d'autres appelleraient juste de la présence.</p>
+          <p class="chapter-text">Bougez comme il vous plaît de bouger. Cherchez l'angle qui vous convient — il existe, il faut parfois quelques instants pour le trouver, mais quand il arrive vous le saurez sans équivoque, quelque chose s'aligne dans votre colonne et votre respiration change de qualité. Quand vous l'avez trouvé, restez-y.</p>
+          <p class="chapter-text">Regardez son visage.</p>
+          <p class="chapter-text">Regardez ce qui se passe sur son visage quand il comprend que vous n'êtes pas en train de le servir — que vous êtes en train de vous servir de lui. Il y a une séquence très précise d'émotions qui traverse ces traits parfaits et symétriques : d'abord une légère confusion, puis quelque chose qui ressemble à de l'irritation, puis — et c'est là qu'il faut regarder attentivement — quelque chose qui ressemble à du soulagement.</p>
+          <p class="chapter-text">Parce qu'il est épuisant d'être une cathédrale. Parce qu'on lui a appris à peser sur les autres et qu'il le fait depuis deux siècles et que personne ne lui a jamais montré qu'il pouvait être autrement. Parce que vous, en ce moment, lui montrez ce qu'être porté ressemble.</p>
+          <p class="chapter-text">Il ne vous remerciera pas. Probablement. Peut-être jamais. Mais son corps, lui, dit quelque chose de très différent, et vous l'entendez depuis l'endroit où vous êtes.</p>
+          <p class="chapter-text">La prière inversée est terminée. Ce que vous faites ensuite vous appartient.</p>
+        </div>
+
+        <div class="chapter-sep">✦ ✦ ✦</div>
+
+        <!-- Chapter V -->
+        <div class="chapter">
+          <p class="chapter-number">V</p>
+          <h2 class="chapter-title">La Position du Sel et de la Soie</h2>
+          <p class="chapter-sub">Pour les longues nuits. Pour quand vous avez décidé de rester.</p>
+          <div class="chapter-rule"></div>
+
+          <p class="chapter-text">La nuit s'étire.</p>
+          <p class="chapter-text">Vous êtes passés par plusieurs choses — plusieurs langages, plusieurs géographies du même corps, plusieurs versions de vous-même et de lui. Il y a une fatigue maintenant qui n'est pas désagréable : la fatigue de quelque chose qui a été pleinement vécu plutôt que simplement traversé.</p>
+          <p class="chapter-text">Il est à côté de vous. Ou derrière vous, son corps contre votre dos comme une parenthèse. Sa respiration est plus lente. La bioluminescence qui parcourait sa peau pendant les heures précédentes s'est retirée vers les zones profondes — son ventre, sa poitrine, une ligne le long de la colonne — comme les braises d'un feu qui n'est pas éteint mais qui n'a plus besoin de se prouver.</p>
+          <p class="chapter-text">La position du sel et de la soie n'est pas spectaculaire.</p>
+          <p class="chapter-text">C'est sa main dans vos cheveux — sans but précis, juste un mouvement répété, presque mécanique, comme si ses doigts avaient trouvé quelque chose à faire pendant que son esprit était ailleurs. C'est votre main sur son avant-bras, les doigts posés sur son pouls parce que vous voulez sentir qu'il bat — que sous toute cette architecture de statut et de magie et de beauté froide, il y a un cœur qui fait ce que les cœurs font. Bêtement, régulièrement, sans permission.</p>
+          <p class="chapter-text">Il parle parfois, à ce moment-là. Pas beaucoup — les nobles ne bavardent pas dans l'intimité, c'est une règle trop ancrée pour être abandonnée même dans cet état. Mais des fragments. Votre prénom, peut-être, ou un mot qui ne vous appartient pas mais qu'il prononce dans votre direction comme si vous saviez ce qu'il veut dire. Ne demandez pas. Contentez-vous de l'entendre.</p>
+          <p class="chapter-text">Le sel de cette position, c'est la réalité — le goût un peu âpre de deux corps qui se connaissent maintenant, de la sueur séchée et de la peau tiède et du fait irréductible que vous êtes là et qu'il est là. La soie, c'est le reste — la lumière basse, le mouvement sans urgence, la façon dont les frontières entre deux corps deviennent floues quand ils ont passé assez de temps ensemble.</p>
+          <p class="chapter-text">À un moment dans cette position, vous vous demanderez peut-être si vous l'aimez.</p>
+          <p class="chapter-text">Ce n'est pas la question. Ce n'a jamais été la question. La question est : est-ce que ce moment est réel, et la réponse est oui — aussi réel que n'importe quoi d'autre que vous avez vécu, aussi complet, aussi vrai dans sa texture et son poids. Le matin viendra et il sera de nouveau une cathédrale et vous serez de nouveau quelqu'un qui a visité une cathédrale. Mais pour l'instant, dans le sel et la soie, vous êtes simplement deux corps qui ont choisi la même direction.</p>
+          <p class="chapter-text">C'est assez.</p>
+        </div>
+
+        <div class="chapter-sep">✦ ✦ ✦</div>
+
+        <!-- Chapter VI -->
+        <div class="chapter">
+          <p class="chapter-number">VI</p>
+          <h2 class="chapter-title">La Position de la Promesse Avalée</h2>
+          <p class="chapter-sub">Pour la dernière fois. Pour ce qui ne sera pas dit.</p>
+          <div class="chapter-rule"></div>
+
+          <p class="chapter-text" style="font-style:italic; color: #555;">Cette position ne peut pas s'enseigner.</p>
+          <p class="chapter-text" style="font-style:italic; color: #555;">Je l'ai écrite et effacée sept fois. Ce qui reste est ceci :</p>
+
+          <p class="chapter-text">Il y a un moment où vous comprenez que la nuit se termine. Pas parce que la lumière revient — dans ses appartements, la lumière est gérée, artificielle, elle ne trahit rien. Parce que quelque chose dans son corps change de qualité : il revient à lui. Le masque commence à se reformer, lentement, comme de la glace qui prend. Pas méchamment. Inévitablement.</p>
+          <p class="chapter-text">Vous aurez peut-être envie de retarder ça. De poser une question, de faire quelque chose qui le retient encore un peu dans l'endroit d'où il revient. Ne le faites pas. Ce serait demander à une cathédrale de rester petite pour vous.</p>
+          <p class="chapter-text">Ce que vous faites à la place : vous posez vos lèvres sur sa peau une dernière fois. N'importe où — la clavicule, le poignet, l'intérieur du coude. Un endroit ordinaire, pas chargé de sens rituel. Un endroit qui dit simplement : <em>j'étais là.</em></p>
+          <p class="chapter-text">Il ne le dira peut-être pas en retour. Mais il bougera, imperceptiblement, de façon à ce que votre bouche reste là un instant de plus.</p>
+          <p class="chapter-text">C'est ça, la promesse avalée. Pas une promesse de retour ni de fidélité ni d'aucune chose qui se dirait à voix haute. Une promesse de <em>reconnaissance</em> — je sais ce qui vient de se passer ici, tu sais ce qui vient de se passer ici, et nous allons tous les deux sortir de cette pièce et ne jamais en parler comme si ça avait eu lieu, et pourtant ça aura eu lieu, et ça aura été réel, et ça ne disparaîtra pas juste parce que nous faisons semblant.</p>
+          <p class="chapter-text">Levez-vous. Habillez-vous selon l'ordre dans lequel vos vêtements se trouvent, pas selon un rituel. Arrangements ordinaires de quelqu'un qui part.</p>
+          <p class="chapter-text">Il vous regardera vous habiller. Laissez-le regarder. C'est un retournement de la première position, mais vous n'avez pas besoin de le souligner — il le sait aussi bien que vous.</p>
+          <p class="chapter-text">À la porte, il dira peut-être quelque chose. Ou il ne dira rien, et son silence aura la forme précise d'un au revoir.</p>
+          <p class="chapter-text">Sortez.</p>
+          <p class="chapter-text">L'air du couloir sera plus froid. Vos pieds trouveront le sol différemment qu'hier soir — pas parce que vous êtes changé, ou peut-être que si, mais pas de la façon dont les histoires décrivent le changement. Plus subtilement. Une légère différence dans la façon dont vous habitez votre propre corps, comme un vêtement qui a été porté et a pris la forme de quelqu'un.</p>
+          <p class="chapter-text">Vous avez survécu à un noble.</p>
+          <p class="chapter-text">Ce n'est pas rien. Ce n'est pas tout. C'est exactement ce que c'est.</p>
+        </div>
+
+        <!-- Postface -->
+        <div class="postface">
+          <p class="postface-label">Postface</p>
+
+          <p class="postface-text">Je n'ai pas écrit ce livre pour les nobles.</p>
+          <p class="postface-text">Je l'ai écrit pour tous ceux qui ont dit oui devant une cathédrale et qui se sont retrouvés, une fois à l'intérieur, à ne plus tout à fait savoir dans quel sens priait l'autre.</p>
+          <p class="postface-text">Il n'y a pas de honte dans ça. Il n'y a pas de gloire non plus. Il y a juste ce qui s'est passé, et vous, et la façon dont vous portez la chose ensuite.</p>
+          <p class="postface-text">Si quelqu'un vous dit que vous avez eu tort d'entrer, ne les écoutez pas. Si quelqu'un vous dit que vous avez eu raison, ne les écoutez pas non plus.</p>
+          <p class="postface-text">Vous étiez là. C'est une chose que personne ne peut vous prendre.</p>
+
+          <p class="postface-sig">
+            — Nereth-Qui-Écrit-Dans-le-Noir<br>
+            écrit entre le troisième et le quatrième coup de minuit<br>
+            dans une pièce dont je tairai l'adresse
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <script>
+      if (!localStorage.getItem('spire_token')) {
+        window.location.href = '../connect.html';
+      }
+    </script>
+  </body>
+</html>

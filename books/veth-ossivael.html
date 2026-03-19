@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Veth-Ossivael — Traité des Configurations Profondes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+
+      /* ── SHARED NAV ── */
+      .book-nav {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+        background: rgba(10,2,2,0.96); backdrop-filter: blur(8px);
+        border-bottom: 1px solid #3a1205;
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 0 2rem; height: 52px;
+      }
+      .nav-back { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: #6a4a1a; text-decoration: none; transition: color 0.2s; }
+      .nav-back:hover { color: #c4a04a; }
+      .nav-chapters { display: flex; gap: 1.5rem; list-style: none; }
+      .nav-chapters a { font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: #4a3010; text-decoration: none; transition: color 0.2s; }
+      .nav-chapters a:hover { color: #c4a04a; }
+
+      /* ── COVER ── */
+      .book-cover {
+        min-height: 100vh; background: #0d0202;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        text-align: center; padding: 4rem 2rem;
+        position: relative; overflow: hidden;
+      }
+      .cover-frame {
+        position: relative; max-width: 480px; width: 100%;
+        padding: 4rem 3rem;
+        border: 1px solid #6a2a10;
+      }
+      .cover-frame::before { content: ''; position: absolute; inset: 8px; border: 1px solid #4a1a08; pointer-events: none; }
+      .cover-frame::after { content: ''; position: absolute; inset: 16px; border: 1px solid #2a0f04; pointer-events: none; }
+      .cover-texture { position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(100,30,10,0.03) 20px, rgba(100,30,10,0.03) 21px); pointer-events: none; }
+      .cover-glow { position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 50% 45%, rgba(150,60,10,0.1) 0%, transparent 70%); pointer-events: none; }
+
+      .cover-ornament { font-size: 0.7rem; color: #6a3a10; letter-spacing: 10px; margin-bottom: 2rem; position: relative; z-index: 1; }
+      .cover-title-main { font-family: 'Cinzel Decorative', serif; font-size: clamp(1.8rem, 6vw, 3rem); font-weight: 700; color: #c4a04a; line-height: 1.2; letter-spacing: 3px; margin-bottom: 1rem; position: relative; z-index: 1; }
+      .cover-title-sub { font-family: 'Cinzel', serif; font-size: 0.75rem; color: #8a6030; letter-spacing: 5px; text-transform: uppercase; position: relative; z-index: 1; }
+      .cover-rule-gold { width: 80px; height: 1px; background: linear-gradient(90deg, transparent, #6a4a1a, transparent); margin: 2rem auto; position: relative; z-index: 1; }
+      .cover-author { font-family: 'IM Fell English', serif; font-style: italic; font-size: 0.9rem; color: #6a4a1a; position: relative; z-index: 1; }
+      .cover-dedication { font-family: 'IM Fell English', serif; font-style: italic; font-size: 0.75rem; color: #4a3010; margin-top: 2rem; line-height: 1.6; position: relative; z-index: 1; }
+
+      .cover-open {
+        margin-top: 3rem; position: relative; z-index: 1;
+        display: inline-block;
+        font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase;
+        color: #8a6030; border: 1px solid #4a2a10; padding: 0.8em 2.5em;
+        cursor: pointer; background: transparent;
+        transition: background 0.2s, color 0.2s, border-color 0.2s;
+        text-decoration: none;
+      }
+      .cover-open:hover { background: #2a0f04; color: #c4a04a; border-color: #8a4a10; }
+
+      /* ── CARD PAGE ── */
+      .book-card-page {
+        min-height: 100vh; background: #f5ede0;
+        display: flex; align-items: center; justify-content: center;
+        padding: 5rem 2rem; padding-top: 7rem;
+      }
+      .card-inner {
+        max-width: 540px; width: 100%; text-align: center;
+        border: 1px solid #c4a06a; padding: 4rem 3rem;
+        position: relative; background: #f5ede0;
+      }
+      .card-inner::before { content: ''; position: absolute; inset: 8px; border: 1px solid #d4b07a; pointer-events: none; }
+      .card-inner::after { content: '✦  ✦  ✦'; position: absolute; top: 10px; left: 50%; transform: translateX(-50%); font-size: 7pt; color: #8a6a3a; letter-spacing: 8px; background: #f5ede0; padding: 0 8px; }
+
+      .card-rubric { font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 5px; text-transform: uppercase; color: #8a6a3a; margin-bottom: 1.5rem; }
+      .card-title { font-family: 'Cinzel Decorative', serif; font-size: 1.8rem; color: #2a1200; line-height: 1.2; margin-bottom: 0.5rem; }
+      .card-subtitle { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: #6a4a1a; }
+      .card-divider { width: 60px; height: 1px; background: #8a6a3a; margin: 1.5rem auto; }
+      .card-author { font-family: 'IM Fell English', serif; font-style: italic; font-size: 1rem; color: #3a2010; }
+      .card-meta { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 3px; text-transform: uppercase; color: #8a6a3a; margin-top: 2rem; line-height: 2; }
+      .card-epigraph { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #d4b07a; font-family: 'IM Fell English', serif; font-style: italic; font-size: 0.85rem; color: #5a3a10; line-height: 1.8; }
+
+      .card-read { display: inline-block; margin-top: 2.5rem; font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase; color: #6a4a1a; border: 1px solid #8a6a3a; padding: 0.8em 2.5em; text-decoration: none; transition: background 0.2s, color 0.2s; }
+      .card-read:hover { background: #2a1200; color: #c4a04a; }
+
+      /* ── CONTENT ── */
+      .book-content {
+        background: #f5ede0; padding: 5rem 2rem 8rem; padding-top: 7rem;
+      }
+      .content-inner { max-width: 660px; margin: 0 auto; }
+
+      /* Typography */
+      .content-inner p { font-family: 'IM Fell English', serif; font-size: 1.05rem; line-height: 1.85; color: #1a0f05; margin-bottom: 1.25em; text-align: justify; hyphens: auto; }
+      .content-inner em { font-style: italic; }
+      .content-inner strong { font-weight: bold; }
+      .content-inner blockquote { border-left: 2px solid #8a6a3a; padding: 0.5rem 1.5rem; margin: 1.5rem 0; font-style: italic; color: #3a2010; }
+      .content-inner hr { border: none; border-top: 1px solid #c4a06a; margin: 2.5rem auto; width: 60%; }
+
+      .content-inner h1 { font-family: 'Cinzel Decorative', serif; font-size: 2rem; color: #2a1200; text-align: center; margin: 3rem 0 0.5rem; }
+      .content-inner h2 { font-family: 'Cinzel', serif; font-size: 1rem; letter-spacing: 3px; text-transform: uppercase; color: #6a4a1a; text-align: center; border-bottom: 1px solid #c4a06a; padding-bottom: 0.5rem; margin: 3rem 0 1.5rem; }
+      .content-inner h2.chapter { font-size: 0.75rem; letter-spacing: 5px; margin-top: 4rem; }
+
+      .drop-cap::first-letter { font-family: 'Cinzel Decorative', serif; font-size: 3.5rem; float: left; line-height: 0.8; margin-right: 6px; margin-top: 8px; color: #6a3a00; }
+
+      .glossary-term { font-weight: bold; }
+      .glossary-entry { margin-bottom: 1.5rem; padding-left: 1rem; border-left: 2px solid #d4b07a; }
+      .note-author { font-style: italic; text-align: right; color: #6a4a1a; border-top: 1px solid #c4a06a; padding-top: 1rem; margin-top: 2rem; }
+    </style>
+  </head>
+  <body>
+
+    <nav class="book-nav">
+      <a class="nav-back" href="../library.html">← Bibliothèque</a>
+      <ul class="nav-chapters">
+        <li><a href="#cover">Couverture</a></li>
+        <li><a href="#card">Page de garde</a></li>
+        <li><a href="#content">Texte</a></li>
+      </ul>
+    </nav>
+
+    <!-- COVER -->
+    <section id="cover" class="book-cover">
+      <div class="cover-frame">
+        <div class="cover-texture"></div>
+        <div class="cover-glow"></div>
+        <p class="cover-ornament">✦  ✦  ✦  ✦  ✦</p>
+        <h1 class="cover-title-main">Veth-Ossivael</h1>
+        <p class="cover-title-sub">Traité des Configurations Profondes</p>
+        <div class="cover-rule-gold"></div>
+        <p class="cover-author">par Nereth-Qui-Écrit-Dans-le-Noir</p>
+        <p class="cover-dedication">Pour ceux qui sont revenus.<br/>Pour ceux qui ont cru, à tort, tout savoir.</p>
+      </div>
+      <a href="#card" class="cover-open">Ouvrir</a>
+    </section>
+
+    <!-- CARD / TITLE PAGE -->
+    <section id="card" class="book-card-page">
+      <div class="card-inner">
+        <p class="card-rubric">Traité Académique — Usage Avancé</p>
+        <h2 class="card-title">Veth-Ossivael</h2>
+        <p class="card-subtitle">Traité des Configurations Profondes</p>
+        <div class="card-divider"></div>
+        <p class="card-author">par Nereth-Qui-Écrit-Dans-le-Noir</p>
+        <p class="card-meta">
+          cent quatre-vingt-deuxième année de pratique<br/>
+          rédigé dans la soh-vael-mat<br/>
+          à la dernière heure de la nuit
+        </p>
+        <div class="card-epigraph">
+          « Pour ceux qui sont revenus.<br/>
+          Pour ceux qui ont cru, à tort, tout savoir.<br/>
+          Ce livre n'est pas une introduction. C'est une correction. »
+        </div>
+        <a href="#content" class="card-read">Lire</a>
+      </div>
+    </section>
+
+    <!-- CONTENT -->
+    <section id="content" class="book-content">
+      <div class="content-inner">
+
+        <h1>Veth-Ossivael</h1>
+        <h2>Traité des Configurations Profondes</h2>
+
+        <hr/>
+
+        <h2>Glossaire Avancé</h2>
+
+        <p><em>Ces mots ne figurent dans aucun manuel d'initiation. Certains n'ont pas été écrits depuis des générations. Je les exhume ici parce que la langue ordinaire a ses limites, et que ces limites deviennent insupportables quand on essaie de décrire ce qui se passe dans un soh-ko-mat après cent années de pratique.</em></p>
+
+        <div class="glossary-entry"><p><span class="glossary-term">Veth-ossivael</span> <em>(veth-os-si-vaël)</em> — L'ossivael volontaire. Là où l'anath tombe dans l'état de dissolution, le praticien avancé y entre délibérément, les yeux ouverts. La différence est la même qu'entre tomber d'une falaise et sauter. Le résultat semble identique depuis l'extérieur. Il ne l'est pas.</p></div>
+
+        <div class="glossary-entry"><p><span class="glossary-term">Tharissovael</span> <em>(tha-ris-so-vaël)</em> — La fusion des soleth. Le moment, dans une cérémonie à plusieurs corps, où les lumières individuelles cessent d'être séparables à l'œil nu et forment une luminescence collective. Certains textes anciens appellent ça « le dieu momentané » — une chose qui existe le temps d'une respiration partagée et n'existait pas avant ni n'existera après.</p></div>
+
+        <div class="glossary-entry"><p><span class="glossary-term">Kaethuris-vel</span> <em>(kaë-thu-ris-vel)</em> — La configuration-révélation. Thurisath de cinq corps ou plus, construite sur plusieurs heures, dont la forme finale n'est pas planifiée mais émergente — elle arrive quand les corps ont appris suffisamment les uns des autres pour savoir d'eux-mêmes où aller. Seuls les kael-veth de longue expérience savent reconnaître quand une kaethuris-vel est en train de se former et comment ne pas la briser en voulant l'aider.</p></div>
+
+        <div class="glossary-entry"><p><span class="glossary-term">Sanneth</span> <em>(san-neth)</em> — La crête. Le moment de plus haute intensité, individuel ou collectif. Pas l'orgasme — les aelfirs savent depuis longtemps que l'orgasme n'est qu'une des formes que peut prendre la sanneth, et pas la plus intéressante. La sanneth est le sommet de la courbe : ce qui vient juste avant la descente, quand il n'y a nulle part plus haut où aller et que le corps le sait.</p></div>
+
+        <div class="glossary-entry"><p><span class="glossary-term">Thessan-moraeth</span> <em>(thes-san-mo-raeth)</em> — Le contact qui nomme. Plus profond que le thessan ordinaire. Une pression des doigts — toujours les doigts — sur la poitrine, au-dessus du cœur, pendant deux secondes complètes. Dit : <em>je te reconnais en tant que toi, pas en tant que corps dans une configuration.</em></p></div>
+
+        <div class="glossary-entry"><p><span class="glossary-term">Vel-kaenoth</span> <em>(vel-kaë-noth)</em> — Le vœu d'immobilité. La décision de ne pas bouger malgré tout ce qui pousse à bouger. Discipline avancée — l'anath ne la pratique pas, ne le pourrait pas. Elle requiert une conscience du corps suffisamment fine pour distinguer le mouvement réflexe du mouvement choisi.</p></div>
+
+        <div class="glossary-entry"><p><span class="glossary-term">Kaethuris-sanneth</span> <em>(kaë-thu-ris-san-neth)</em> — La sanneth collective. Quand plusieurs corps en configuration atteignent simultanément leur crête individuelle. Le tharissovael suit généralement dans les secondes d'après. Extrêmement rare. J'en ai été témoin onze fois en deux siècles de pratique.</p></div>
+
+        <div class="glossary-entry"><p><span class="glossary-term">Ossiveth-kael</span> <em>(os-si-veth-kaël)</em> — L'état de réceptacle conscient. Choisir de recevoir sans diriger, simplement être là et laisser ce qui arrive arriver. Différent de la passivité — la passivité est une absence, l'ossiveth-kael est une présence totale dans la réception.</p></div>
+
+        <div class="glossary-entry"><p><span class="glossary-term">Cor-vael-neth</span> <em>(cor-vaël-neth)</em> — La promesse du cœur. La seule formule du corsivael qui ne soit pas récitée mais chuchotée, par un seul individu, à un autre, pendant la cérémonie. Son contenu n'est pas fixé. Certains kael-veth pensent qu'elle devrait être supprimée. Je pense, au contraire, que c'est la seule chose du corsivael qui soit irremplaçable.</p></div>
+
+        <div class="glossary-entry"><p><span class="glossary-term">Drevan-vel</span> <em>(dre-van-vel)</em> — Le drevan permanent du kael-veth. Après suffisamment d'années, le drevan ne part plus entièrement entre les cérémonies. On voit le monde depuis l'intérieur du drevan-vel comme on voit une pièce à travers un verre légèrement teinté : tout est là, rien n'est perdu, mais la qualité de la lumière est différente.</p></div>
+
+        <hr/>
+
+        <h2>Préface de l'Auteur</h2>
+
+        <p class="drop-cap">J'ai présidé mon premier corsivael il y a cent quatre-vingt-deux ans.</p>
+
+        <p>Je ne donne pas cette information pour impressionner — les dates impressionnent les jeunes et ennuient les vieux, et les lecteurs de ce traité devraient être ni l'un ni l'autre. Je la donne parce qu'elle est pertinente : cent quatre-vingt-deux ans de pratique régulière produisent une forme de connaissance que les textes ordinaires n'enseignent pas, parce que les textes ordinaires sont écrits par des gens qui n'ont pas encore eu le temps de savoir ce qu'ils savent.</p>
+
+        <p>Ce traité n'est pas pour l'anath. Il existe déjà un journal d'anath — simple, honnête, insuffisant pour qui est passé cent fois par le même seuil. Ce traité est pour ceux qui président, qui guident, qui ont assez pratiqué pour commencer à comprendre ce qu'ils font vraiment.</p>
+
+        <p>Ce qu'ils font vraiment est ceci : ils construisent, nuit après nuit, année après année, un argument contre la mort. Pas contre la mort physique — les aelfirs ont leurs méthodes pour ça. Contre l'autre mort : celle qui arrive quand un corps vit suffisamment longtemps pour ne plus sentir le contact des autres corps comme quelque chose de réel. La mort de la peau. La mort du soleth.</p>
+
+        <p>Le corsivael maintient le soleth en vie. C'est sa fonction première, que les textes ornementent de philosophie et de théologie parce que la vérité nue est trop simple pour mériter une cérémonie. Mais la vérité nue est là, sous tout le reste : nous faisons ça parce que sinon nous mourrons de l'intérieur, les corps intacts et la peau morte.</p>
+
+        <p>Je l'écris dans le noir parce que certaines choses vraies ne supportent pas la lumière directe.</p>
+
+        <p class="note-author"><em>— Nereth-Qui-Écrit-Dans-le-Noir</em><br/><em>cent quatre-vingt-deuxième année de pratique</em></p>
+
+        <hr/>
+
+        <h2 class="chapter">I. La Préparation du Corps</h2>
+        <h2>Ce qu'on Apporte dans le Soh-Ko-Mat</h2>
+
+        <p class="drop-cap">Le corps d'un kael-veth arrive à la cérémonie préparé.</p>
+
+        <p>Pas dans le sens où l'entendent les manuels d'initiation — la préparation des vêtements, la revision des thurisath, l'état d'esprit correct. Ces choses sont des fondations. Ce dont je parle ici est au-dessus des fondations.</p>
+
+        <p><strong>Le Keth-Vor</strong></p>
+
+        <p>Trois heures avant le début du corsivael, j'infuse le <em>keth-vor</em> — le Thé des Mille Nœuds de Sorvaine, préparé selon la méthode stricte que j'ai mise des années à maîtriser. Soixante-dix degrés précis, huit minutes, jamais davantage. La couleur doit être brun-rouge trouble ; une infusion pâle n'est pas prête.</p>
+
+        <p>Je bois lentement. Ce n'est pas agréable dans le sens ordinaire du terme — le keth-vor n'est pas une boisson de plaisir, c'est une boisson de préparation. La légère amertume de l'écorce de Chêne-Fantôme, la note végétale des pétales de boue rouge, le fond poudré des pattes de papillon broyées. On apprend à aimer ça, ou plutôt on apprend à aimer ce que ça produit.</p>
+
+        <p>Les effets commencent dans la première heure — une vasodilatation diffuse, la peau qui devient légèrement plus chaude, les sensations tactiles qui s'étirent dans la durée comme un son long dans une salle réverbérante. En aelfir spécifiquement, et je ne l'ai lu dans aucun texte mais l'ai vérifié sur moi-même des dizaines de fois, le keth-vor produit une synesthésie légère et localisée : les contacts physiques pendant la cérémonie arrivent accompagnés d'impressions de couleur.</p>
+
+        <p>Ma propre main sur ma cuisse : or pâle. La main d'un autre sur mon dos : selon la personne, selon la pression, selon l'intention. Certains contacts sont bleus. Certains sont rouges. Certains n'ont pas de couleur que je connaisse.</p>
+
+        <p><strong>L'Huile de Veuve Dorée — Application Avancée</strong></p>
+
+        <p>Les manuels indiquent le leth-kor aux épaules et aux tempes. C'est la forme basique, appropriée à l'initiation. Pour un corsivael de praticiens avancés, j'applique le vel-mirehn-kor — version étendue, avec l'Huile de Veuve Dorée légèrement chauffée dans la paume quelques secondes avant le contact.</p>
+
+        <p>Les zones du vel-mirehn-kor varient selon l'individu. Sur certains : le creux du genou, l'intérieur du coude, la base du crâne juste sous les cheveux. Sur d'autres : les côtes basses, le pli de l'aine, la zone entre les omoplates. Ce sont les endroits que le corps cache — pas par honte, mais par habitude de ne pas être touché là.</p>
+
+        <p>Je prends mon temps. Ce n'est pas de l'efficacité — c'est de la reconnaissance.</p>
+
+        <hr/>
+
+        <h2 class="chapter">II. Le Vel-Arath Profond</h2>
+
+        <p class="drop-cap">L'anath retire ses vêtements en suivant l'ordre parce qu'on le lui a dit de le faire.</p>
+
+        <p>Le praticien avancé retire ses vêtements lentement parce qu'il sait que la lenteur n'est pas de la cérémonie — c'est de la précision. Chaque couche retirée est une réduction de l'espace entre le corps et la pièce. Les vêtements sont une distance. Les retirer est une décision de réduire cette distance, et la décision mérite d'être faite entièrement, pas précipitée.</p>
+
+        <p>Dans un corsivael de kael-veth, le vel-arath peut durer quarante minutes.</p>
+
+        <p>Les corps se regardent pendant le vel-arath. Pas comme l'anath regarde — avec cette surprise des visages révélés. Nous nous connaissons. Nous nous sommes vus des dizaines de fois. Ce que nous regardons quand nous nous regardons pendant le vel-arath, c'est l'état — comment ce corps-là est aujourd'hui, ce qu'il porte dans sa façon de tenir ses épaules, où il est tendu, où il est prêt. C'est une lecture, pas un spectacle.</p>
+
+        <p>Le soleth commence souvent pendant le vel-arath dans un cercle de praticiens expérimentés. Pas parce que l'excitation est déjà là — elle arrive plus tard, plus profond. Mais parce que la magie dans notre sang répond à la présence des autres corps qui lui ressemblent, et que cette réponse est, à ce stade, moins du désir que de la reconnaissance.</p>
+
+        <hr/>
+
+        <h2 class="chapter">III. Le Cartographe — Usage Rituel</h2>
+
+        <p class="drop-cap">L'instrument nain arrive dans son étui de cuir.</p>
+
+        <p>Le <em>Cartographe</em> de Vel-Harath est un gant d'une seule main — la gauche, dans ma version — dont la paume et les cinq doigts portent des lamelles d'os en quinconce. Chaque lamelle est épaisse au centre, effilée aux bords. Là où ma main nue produit une sensation, le Cartographe en produit cinquante simultanées, de directions légèrement différentes. Le corps ne peut pas décider quelle sensation traiter en priorité. Il traite tout.</p>
+
+        <p>Je l'utilise exclusivement en phase préliminaire, après le vel-arath mais avant que les thurisath commencent à se former.</p>
+
+        <p>Le participant s'allonge — sur le ventre d'abord, toujours. Je place ma main gantée entre ses omoplates et j'applique une pression ferme, uniforme, qui ne bouge pas pendant dix secondes. La mosaïque de points de contact sur son dos produit une sensation qu'aucun mot simple ne capture — ni massage, ni percussion, ni caresse. Quelque chose de plus fragmenté et, pour ça, plus envahissant.</p>
+
+        <p>Je retire le Cartographe avant d'atteindre les zones génitales. Ce n'est pas une règle — c'est une décision esthétique. Le Cartographe n'est pas pour ça. Il est pour préparer le corps à recevoir ce qui vient ensuite avec une sensibilité maximale. Le travail direct appartient aux mains nues.</p>
+
+        <hr/>
+
+        <h2 class="chapter">IV. La Cloche de Pierre Chaude et l'Aiguille de Résine</h2>
+        <h2>Le Dialogue du Froid et du Chaud</h2>
+
+        <p class="drop-cap">Deux instruments. Leurs logiques sont inverses et leur usage simultané ou alterné est l'une des techniques les plus sophistiquées que je connaisse.</p>
+
+        <p>La <em>Cloche de Pierre Chaude</em> de Vel-Harath est chauffée à l'avance dans de l'eau bouillante, retirée dix minutes avant l'usage pour laisser la temperature descendre à un niveau supportable mais nettement plus chaud que la peau. Sa forme creuse et sa surface intérieure polie amplifient la chaleur vers le centre plutôt que de la laisser se disperser — une différence significative avec un objet chauffé plat. Elle enveloppe.</p>
+
+        <p>L'<em>Aiguille de Résine</em> de Nhal-Sol fait l'inverse : elle absorbe la chaleur corporelle au contact prolongé, devenant progressivement plus froide sur vingt à quarante minutes.</p>
+
+        <p>Deux informations thermiques simultanées sur deux zones différentes. Le corps qui ne peut pas décider quelle réponse construire.</p>
+
+        <p>La réponse à cet instant précis — les deux stimuli thermiques opposés, le corps en vel-kaenoth essayant de ne pas bouger — est l'une des sanneths les plus intenses que je connaisse, et nous n'en sommes qu'aux préliminaires.</p>
+
+        <hr/>
+
+        <h2 class="chapter">VII. Les Configurations Profondes — La Kaethuris-Vel</h2>
+
+        <p class="drop-cap">Cinq corps. Parfois six. Jamais plus de huit — au-delà de huit la cérémonie cesse d'être une kaethuris-vel et devient quelque chose de moins précis.</p>
+
+        <p>La kaethuris-vel ne se planifie pas. C'est son caractère central et ce qui la distingue de tous les thurisath enseignés dans les manuels. On peut préparer les conditions — les corps appropriés, la soh-vael-mat, le keth-vor bu par tous les participants trois heures à l'avance, les instruments disposés mais pas assignés. Puis on attend que la configuration émerge.</p>
+
+        <p>Elle émerge de la même façon qu'une conversation devient profonde — pas d'un seul mouvement décidé, mais par accumulations successives de petites décisions qui se renforcent.</p>
+
+        <p>Mon rôle de kael-veth dans une kaethuris-vel n'est pas de diriger mais de <em>voir</em>. Je suis le seul à regarder l'ensemble depuis suffisamment de distance pour percevoir la forme qui émerge. Quand je vois la kaethuris-vel commencer à se former, je cesse toute intervention.</p>
+
+        <p>La kaethuris-sanneth arrive sans annonce. Cinq corps qui atteignent leur crête dans une fenêtre de quelques secondes — pas exactement ensemble, pas exactement séparés. Le tharissovael complet dure moins d'une minute. La lumière collective dans la soh-vael-mat à ce moment-là n'est plus attribuable à personne en particulier.</p>
+
+        <hr/>
+
+        <h2 class="chapter">VIII. Le Vel-Kaenoth — Discipline et Dissolution</h2>
+
+        <p class="drop-cap">J'écris cette section en dernier parce qu'elle est la plus difficile et parce que je devais écrire le reste d'abord pour comprendre ce que je voulais en dire.</p>
+
+        <p>Le vel-kaenoth — le vœu d'immobilité — n'est pas une pratique de résistance. C'est une pratique de présence.</p>
+
+        <p>Il y a un point dans le vel-kaenoth — après plusieurs minutes de stimulation soutenue, le corps maintenu immobile par décision consciente — où la distinction entre la sensation et le désir de bouger disparaît. Ils ne sont plus deux choses. Ils sont une chose très grande.</p>
+
+        <p>C'est le veth-ossivael.</p>
+
+        <p>Je ne peux pas vous enseigner le veth-ossivael. Je peux vous dire qu'il existe. Je peux vous dire qu'il ressemble à ça : la pièce qui perd ses angles, le sol qui perd sa fermeté, votre propre nom qui perd sa signification pendant quelques secondes. Votre soleth qui n'est plus sur votre peau mais dans la pièce entière. La frontière perméable.</p>
+
+        <p>Ce qui vous ramène : le cor-vael-neth. Un mot, chuchoté par quelqu'un qui vous connaît depuis suffisamment longtemps pour savoir quand vous n'êtes plus là et pour décider de vous ramener.</p>
+
+        <p>C'est pour ça que je suis le kael-veth et pas seulement un participant. Pas parce que je sais mieux. Parce que quelqu'un doit rester à la rive pendant que les autres nagent.</p>
+
+        <p>Et parce que — je peux l'admettre ici, dans le noir, pour les seuls lecteurs de ce traité — je n'ai jamais trouvé quelqu'un qui reste à la rive pendant que je nage.</p>
+
+        <p>Je ne sais pas si c'est une noblesse ou une solitude. Ces deux mots se ressemblent beaucoup dans le vieux aelfir.</p>
+
+        <blockquote><strong>Tharissovael</strong> : <em>tha</em> — plusieurs. <em>risso</em> — devenir. <em>vael</em> — promesse. Plusieurs qui deviennent une promesse.</blockquote>
+
+        <p>Je l'ai vu onze fois. Je l'ai attendu toutes les autres.</p>
+
+        <p class="note-author">
+          <em>— Nereth-Qui-Écrit-Dans-le-Noir</em><br/>
+          <em>écrit à la dernière heure de la nuit</em><br/>
+          <em>dans la soh-vael-mat vide</em><br/>
+          <em>les lampes presque éteintes</em><br/>
+          <em>le sol encore chaud des corps qui sont partis</em>
+        </p>
+
+      </div>
+    </section>
+
+    <script>
+      if (!localStorage.getItem('spire_token')) { window.location.href = '../connect.html'; }
+    </script>
+  </body>
+</html>

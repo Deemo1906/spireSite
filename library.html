@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bibliothèque — Spire</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .library-page {
+        min-height: 100vh;
+        background: var(--bg-0);
+        padding: 5rem 2rem 6rem;
+      }
+
+      .library-header { text-align: center; margin-bottom: 4rem; }
+      .library-eyebrow { font-family: var(--font-heading); font-size: 0.62rem; letter-spacing: 0.5em; text-transform: uppercase; color: var(--text-3); margin-bottom: 1rem; }
+      .library-title { font-family: var(--font-heading); font-size: clamp(1.4rem, 4vw, 2.2rem); font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: var(--text-0); margin-bottom: 1rem; }
+      .library-rule { width: 48px; height: 2px; background: var(--red-500); margin: 0 auto 1.25rem; }
+
+      .back-link { position: fixed; top: 1.5rem; left: 2rem; font-family: var(--font-heading); font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--text-3); transition: color 0.2s; z-index: 10; text-decoration: none; }
+      .back-link:hover { color: var(--text-1); }
+
+      /* Author section */
+      .author-section {
+        max-width: 780px; margin: 0 auto 5rem;
+        display: grid; grid-template-columns: 1fr 2fr; gap: 3rem;
+        align-items: start;
+      }
+
+      .author-sigil {
+        aspect-ratio: 1;
+        background: var(--bg-2);
+        border: 1px solid var(--border);
+        display: flex; align-items: center; justify-content: center;
+        font-family: 'Cinzel Decorative', serif;
+        font-size: 2.5rem; color: var(--red-700);
+        letter-spacing: 0.1em;
+        position: relative;
+      }
+      .author-sigil::before {
+        content: '';
+        position: absolute; inset: 8px;
+        border: 1px solid var(--border);
+      }
+
+      .author-info {}
+      .author-label { font-family: var(--font-heading); font-size: 0.58rem; letter-spacing: 0.5em; text-transform: uppercase; color: var(--text-3); margin-bottom: 0.5rem; }
+      .author-name { font-family: 'Cinzel Decorative', serif; font-size: 1.4rem; color: var(--text-0); margin-bottom: 1.25rem; line-height: 1.3; }
+      .author-bio { font-style: italic; color: var(--text-1); font-size: 1rem; line-height: 1.75; }
+      .author-divider { width: 30px; height: 1px; background: var(--red-700); margin: 1.25rem 0; }
+      .author-works { font-family: var(--font-heading); font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-3); }
+
+      /* Book shelf */
+      .bookshelf {
+        max-width: 900px; margin: 0 auto;
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem;
+      }
+
+      .book-entry { display: flex; flex-direction: column; gap: 0; }
+
+      /* Book cover cards */
+      .book-cover-card {
+        aspect-ratio: 5 / 8;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        text-align: center;
+        cursor: pointer;
+        text-decoration: none;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .book-cover-card:hover {
+        transform: translateY(-8px) rotate(-0.5deg);
+        box-shadow: 12px 20px 50px rgba(0,0,0,0.7);
+      }
+
+      /* Veth-Ossivael — grimoire bordeaux */
+      .cover-veth {
+        background: #140305;
+        border: 1px solid #6a2a10;
+        padding: 1.5rem;
+      }
+      .cover-veth::before {
+        content: '';
+        position: absolute; inset: 8px;
+        border: 1px solid #4a1a08;
+        pointer-events: none;
+      }
+      .cover-veth::after {
+        content: '';
+        position: absolute; inset: 14px;
+        border: 1px solid #3a1205;
+        pointer-events: none;
+      }
+      .veth-ornament { color: #8a4a1a; font-size: 0.8rem; letter-spacing: 6px; margin-bottom: 1rem; position: relative; z-index: 1; }
+      .veth-title { font-family: 'Cinzel Decorative', serif; font-size: 0.85rem; font-weight: 700; color: #c4a04a; line-height: 1.4; letter-spacing: 2px; position: relative; z-index: 1; }
+      .veth-subtitle { font-family: 'Cinzel', serif; font-size: 0.55rem; color: #8a6a3a; letter-spacing: 3px; text-transform: uppercase; margin-top: 0.75rem; position: relative; z-index: 1; }
+      .veth-rule { width: 40px; height: 1px; background: #6a4a1a; margin: 0.75rem auto; position: relative; z-index: 1; }
+      .veth-author { font-family: 'Cinzel', serif; font-size: 0.45rem; color: #6a4a1a; letter-spacing: 3px; text-transform: uppercase; position: relative; z-index: 1; }
+      .veth-bg { position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(100,30,10,0.04) 20px, rgba(100,30,10,0.04) 21px); }
+
+      /* Positions pour Survivre — pamphlet noir */
+      .cover-positions {
+        background: #060606;
+        border: 1px solid #2a2a2a;
+        padding: 2rem 1.5rem;
+      }
+      .cover-positions::before {
+        content: '';
+        position: absolute;
+        top: 12px; left: 12px; right: 12px; bottom: 12px;
+        border: 1px solid #1a1a1a;
+      }
+      .positions-edition { font-family: 'Cormorant Garamond', serif; font-size: 0.5rem; letter-spacing: 4px; text-transform: uppercase; color: #555; margin-bottom: 1.5rem; position: relative; z-index: 1; }
+      .positions-title { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: #c8c0b0; line-height: 1.5; letter-spacing: 1px; position: relative; z-index: 1; }
+      .positions-rule { width: 30px; height: 1px; background: #404040; margin: 1rem auto; position: relative; z-index: 1; }
+      .positions-author { font-family: 'Cormorant Garamond', serif; font-size: 0.55rem; color: #505050; letter-spacing: 3px; text-transform: uppercase; position: relative; z-index: 1; }
+      .positions-warning { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.45rem; color: #383838; letter-spacing: 1px; margin-top: 1.5rem; position: relative; z-index: 1; }
+
+      /* Premier Corsivael — journal bleu nuit */
+      .cover-corsivael {
+        background: #050d1a;
+        border: 1px solid #1a2a40;
+        padding: 1.5rem;
+        overflow: hidden;
+      }
+      .corsivael-glow {
+        position: absolute; inset: 0;
+        background: radial-gradient(ellipse 60% 50% at 50% 45%, rgba(180,140,60,0.12) 0%, rgba(180,140,60,0.03) 50%, transparent 75%);
+        pointer-events: none;
+      }
+      .corsivael-circles {
+        position: absolute; inset: 0;
+        background: repeating-radial-gradient(circle at 50% 45%, transparent, transparent 25px, rgba(180,140,60,0.04) 26px, transparent 27px);
+        pointer-events: none;
+      }
+      .corsivael-label { font-family: 'Playfair Display', serif; font-size: 0.5rem; letter-spacing: 4px; text-transform: uppercase; color: #3a4a60; margin-bottom: 1rem; position: relative; z-index: 1; }
+      .corsivael-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #c4a04a; line-height: 1.4; letter-spacing: 1px; position: relative; z-index: 1; }
+      .corsivael-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.65rem; color: #7a6a4a; margin-top: 0.5rem; position: relative; z-index: 1; }
+      .corsivael-rule { width: 20px; height: 1px; background: #2a4060; margin: 0.75rem auto; position: relative; z-index: 1; }
+      .corsivael-author { font-family: 'Playfair Display', serif; font-size: 0.45rem; color: #3a4a60; letter-spacing: 3px; text-transform: uppercase; position: relative; z-index: 1; }
+      .corsivael-note { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.42rem; color: #2a3040; margin-top: 1.5rem; position: relative; z-index: 1; }
+
+      /* Open button */
+      .book-open {
+        display: block; text-align: center; text-decoration: none;
+        background: var(--bg-2); color: var(--text-2);
+        font-family: var(--font-heading); font-size: 0.6rem;
+        letter-spacing: 0.3em; text-transform: uppercase;
+        padding: 0.65rem;
+        border: 1px solid var(--border);
+        border-top: none;
+        transition: background 0.2s, color 0.2s, border-color 0.2s;
+      }
+      .book-open:hover { background: var(--bg-3); color: var(--text-0); border-color: var(--border-red); }
+
+      .book-meta { padding: 0.75rem 0 0; }
+      .book-meta-title { font-family: var(--font-heading); font-size: 0.68rem; letter-spacing: 0.1em; color: var(--text-1); margin-bottom: 0.25rem; }
+      .book-meta-type { font-style: italic; font-size: 0.82rem; color: var(--text-3); }
+
+      @media (max-width: 700px) {
+        .author-section { grid-template-columns: 1fr; }
+        .bookshelf { grid-template-columns: repeat(2, 1fr); }
+      }
+      @media (max-width: 480px) {
+        .bookshelf { grid-template-columns: 1fr; max-width: 280px; }
+      }
+    </style>
+  </head>
+
+  <body style="overflow: auto;">
+    <a href="dashboard.html" class="back-link">← Retour</a>
+
+    <div class="library-page">
+      <div class="library-header">
+        <p class="library-eyebrow">Archives de la Flèche</p>
+        <h1 class="library-title">Bibliothèque</h1>
+        <div class="library-rule"></div>
+      </div>
+
+      <!-- Author -->
+      <div class="author-section">
+        <div class="author-sigil">N</div>
+        <div class="author-info">
+          <p class="author-label">Auteur</p>
+          <h2 class="author-name">Nereth-Qui-Écrit-Dans-le-Noir</h2>
+          <p class="author-bio">Kael-veth de pratique séculaire. Préside des corsivael depuis cent quatre-vingt-deux ans. Écrit dans le noir parce que certaines vérités ne supportent pas la lumière directe — et parce que, dans l'obscurité, la langue ne peut pas mentir longtemps.</p>
+          <div class="author-divider"></div>
+          <p class="author-works">3 ouvrages disponibles</p>
+        </div>
+      </div>
+
+      <!-- Books -->
+      <div class="bookshelf">
+
+        <!-- Veth-Ossivael -->
+        <div class="book-entry">
+          <a class="book-cover-card" href="books/veth-ossivael.html">
+            <div class="veth-bg"></div>
+            <p class="veth-ornament">✦ ✦ ✦</p>
+            <h3 class="veth-title">Veth-Ossivael</h3>
+            <p class="veth-subtitle">Traité des Configurations Profondes</p>
+            <div class="veth-rule"></div>
+            <p class="veth-author">Nereth-Qui-Écrit-Dans-le-Noir</p>
+          </a>
+          <a class="book-open" href="books/veth-ossivael.html">Ouvrir</a>
+          <div class="book-meta">
+            <p class="book-meta-title">Veth-Ossivael</p>
+            <p class="book-meta-type">Traité académique</p>
+          </div>
+        </div>
+
+        <!-- Positions pour Survivre -->
+        <div class="book-entry">
+          <a class="book-cover-card" href="books/positions-pour-survivre.html">
+            <p class="positions-edition">Troisième édition — Restreinte</p>
+            <h3 class="positions-title">Positions pour Survivre à un Noble</h3>
+            <div class="positions-rule"></div>
+            <p class="positions-author">Nereth</p>
+            <p class="positions-warning">Circulation restreinte.<br/>Quarante exemplaires.</p>
+          </a>
+          <a class="book-open" href="books/positions-pour-survivre.html">Ouvrir</a>
+          <div class="book-meta">
+            <p class="book-meta-title">Positions pour Survivre à un Noble</p>
+            <p class="book-meta-type">Guide — Circulation restreinte</p>
+          </div>
+        </div>
+
+        <!-- Premier Corsivael -->
+        <div class="book-entry">
+          <a class="book-cover-card" href="books/premier-corsivael.html">
+            <div class="corsivael-glow"></div>
+            <div class="corsivael-circles"></div>
+            <p class="corsivael-label">Manuscrit personnel</p>
+            <h3 class="corsivael-title">Le Premier Corsivael</h3>
+            <p class="corsivael-subtitle">Journal d'un Anath</p>
+            <div class="corsivael-rule"></div>
+            <p class="corsivael-author">sans nom signé</p>
+            <p class="corsivael-note">Non destiné à la circulation</p>
+          </a>
+          <a class="book-open" href="books/premier-corsivael.html">Ouvrir</a>
+          <div class="book-meta">
+            <p class="book-meta-title">Le Premier Corsivael</p>
+            <p class="book-meta-type">Journal personnel</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <script>
+      if (!localStorage.getItem('spire_token')) {
+        window.location.href = 'connect.html';
+      }
+    </script>
+  </body>
+</html>
