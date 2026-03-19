@@ -1,7 +1,7 @@
 {
   "books": [
-    { "title": "Veth-Ossivael", "author": "Nereth-Qui-Écrit-Dans-le-Noir", "added": "2026-03-19" },
-    { "title": "Positions pour Survivre à un Noble", "author": "Nereth-Qui-Écrit-Dans-le-Noir", "added": "2026-03-19" },
-    { "title": "Le Premier Corsivael", "author": "Nereth-Qui-Écrit-Dans-le-Noir", "added": "2026-03-19" }
+    { "slug": "veth-ossivael", "title": "Veth-Ossivael", "author": "nereth", "added": "2026-03-19" },
+    { "slug": "positions-pour-survivre", "title": "Positions pour Survivre à un Noble", "author": "nereth", "added": "2026-03-19" },
+    { "slug": "premier-corsivael", "title": "Le Premier Corsivael", "author": "nereth", "added": "2026-03-19" }
   ]
 }

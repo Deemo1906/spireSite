@@ -66,6 +66,16 @@
         text-decoration: none;
         color: inherit;
         transition: border-color 0.2s, transform 0.2s;
+        position: relative;
+      }
+
+      .badge-new {
+        position: absolute;
+        top: -9px; right: 12px;
+        background: var(--red-500); color: var(--text-0);
+        font-family: var(--font-heading); font-size: 0.48rem;
+        letter-spacing: 0.3em; text-transform: uppercase;
+        padding: 2px 8px;
       }
       .author-card:hover {
         border-color: var(--border-red);
@@ -116,7 +126,7 @@
       </div>
 
       <div class="authors-grid">
-        <a class="author-card" href="authors/nereth.html">
+        <a class="author-card" href="authors/nereth.html" data-author="nereth">
           <div class="author-sigil">N</div>
           <div class="author-info">
             <p class="author-label">Auteur</p>
@@ -131,6 +141,28 @@
       if (!localStorage.getItem('spire_token')) {
         window.location.href = 'connect.html';
       }
+
+      function isNew(dateStr) {
+        return (new Date() - new Date(dateStr)) < 7 * 24 * 60 * 60 * 1000;
+      }
+
+      fetch('library/index.json')
+        .then(r => r.json())
+        .then(data => {
+          const newByAuthor = {};
+          data.books.forEach(b => {
+            if (isNew(b.added)) newByAuthor[b.author] = true;
+          });
+          document.querySelectorAll('[data-author]').forEach(card => {
+            if (newByAuthor[card.dataset.author]) {
+              const badge = document.createElement('span');
+              badge.className = 'badge-new';
+              badge.textContent = 'Nouveau';
+              card.appendChild(badge);
+            }
+          });
+        })
+        .catch(() => {});
     </script>
   </body>
 </html>

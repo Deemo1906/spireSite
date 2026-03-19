@@ -159,6 +159,15 @@
       .corsivael-author { font-family: 'Playfair Display', serif; font-size: 0.45rem; color: #3a4a60; letter-spacing: 3px; text-transform: uppercase; position: relative; z-index: 1; }
       .corsivael-note { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.42rem; color: #2a3040; margin-top: 1.5rem; position: relative; z-index: 1; }
 
+      .badge-new {
+        position: absolute;
+        top: -9px; right: 10px;
+        background: var(--red-500); color: var(--text-0);
+        font-family: var(--font-heading); font-size: 0.48rem;
+        letter-spacing: 0.3em; text-transform: uppercase;
+        padding: 2px 8px; z-index: 3;
+      }
+
       /* Title below the cover */
       .book-title-label {
         font-family: var(--font-heading); font-size: 0.65rem;
@@ -202,7 +211,7 @@
 
         <!-- Veth-Ossivael -->
         <div class="book-entry">
-          <a class="book-cover cover-veth" href="../books/veth-ossivael.html">
+          <a class="book-cover cover-veth" href="../books/veth-ossivael.html" data-book="veth-ossivael">
             <div class="veth-bg"></div>
             <p class="veth-ornament">✦ ✦ ✦</p>
             <h2 class="veth-title">Veth-Ossivael</h2>
@@ -216,7 +225,7 @@
 
         <!-- Positions pour Survivre -->
         <div class="book-entry">
-          <a class="book-cover cover-positions" href="../books/positions-pour-survivre.html">
+          <a class="book-cover cover-positions" href="../books/positions-pour-survivre.html" data-book="positions-pour-survivre">
             <p class="positions-edition">Troisième édition — Restreinte</p>
             <h2 class="positions-title">Positions pour Survivre à un Noble</h2>
             <div class="positions-rule"></div>
@@ -229,7 +238,7 @@
 
         <!-- Premier Corsivael -->
         <div class="book-entry">
-          <a class="book-cover cover-corsivael" href="../books/premier-corsivael.html">
+          <a class="book-cover cover-corsivael" href="../books/premier-corsivael.html" data-book="premier-corsivael">
             <div class="corsivael-glow"></div>
             <div class="corsivael-circles"></div>
             <p class="corsivael-label">Manuscrit personnel</p>
@@ -250,6 +259,25 @@
       if (!localStorage.getItem('spire_token')) {
         window.location.href = '../connect.html';
       }
+
+      function isNew(dateStr) {
+        return (new Date() - new Date(dateStr)) < 7 * 24 * 60 * 60 * 1000;
+      }
+
+      fetch('../library/index.json')
+        .then(r => r.json())
+        .then(data => {
+          const newSlugs = new Set(data.books.filter(b => isNew(b.added)).map(b => b.slug));
+          document.querySelectorAll('[data-book]').forEach(cover => {
+            if (newSlugs.has(cover.dataset.book)) {
+              const badge = document.createElement('span');
+              badge.className = 'badge-new';
+              badge.textContent = 'Nouveau';
+              cover.appendChild(badge);
+            }
+          });
+        })
+        .catch(() => {});
     </script>
   </body>
 </html>
