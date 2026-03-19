@@ -18,6 +18,13 @@
 
   <body class="connect-page">
 
+    <!-- Welcome overlay -->
+    <div class="welcome-overlay" id="welcomeOverlay" aria-hidden="true">
+      <p class="welcome-eyebrow">Accès accordé</p>
+      <h2 class="welcome-name" id="welcomeName"></h2>
+      <p class="welcome-sub">dans Spire</p>
+    </div>
+
     <a href="index.html" class="back-link" aria-label="Retourner à l'accueil">
       ← Retour
     </a>
@@ -119,10 +126,18 @@
             return;
           }
 
-          // Store session token and redirect to the main site
+          // Store session token then show welcome screen
           localStorage.setItem('spire_token', data.token);
           localStorage.setItem('spire_user', data.username);
-          window.location.href = 'dashboard.html';
+
+          const overlay = document.getElementById('welcomeOverlay');
+          document.getElementById('welcomeName').textContent = `Bienvenue, ${data.username}`;
+          overlay.classList.add('visible');
+
+          setTimeout(() => {
+            overlay.classList.add('fade-out');
+            setTimeout(() => { window.location.href = 'dashboard.html'; }, 1000);
+          }, 2500);
 
         } catch (err) {
           console.error('[login]', err);
