@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yul — Reference Rapide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'IM Fell English', serif;
+      font-size: 1.05rem;
+      line-height: 1.95;
+      color: #2a1a0a;
+      background: #111;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(15, 12, 6, 0.96);
+      border-bottom: 1px solid #5a4a20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 2rem;
+      backdrop-filter: blur(4px);
+    }
+    nav a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #c4a830;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: #e8cc60; }
+    nav .nav-links { display: flex; gap: 2rem; }
+
+    /* COVER — aged cream paper / index */
+    #cover {
+      min-height: 100vh;
+      background: #f0e4c0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(100,70,20,0.06) 28px, rgba(100,70,20,0.06) 29px);
+    }
+    .cover-frame {
+      position: relative;
+      z-index: 1;
+      border: 1px dashed #8a6a30;
+      padding: 3rem 4rem;
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+    }
+    .cover-frame::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 1px dashed rgba(138,106,48,0.35);
+      pointer-events: none;
+    }
+    .cover-title {
+      font-family: 'IM Fell English', serif;
+      font-size: 2.2rem;
+      color: #2a1a0a;
+      margin-bottom: 0.3rem;
+      line-height: 1.2;
+    }
+    .cover-name {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: #6a4a20;
+      margin-bottom: 1rem;
+    }
+    .cover-rule {
+      border: none;
+      border-top: 1px solid rgba(90,60,20,0.3);
+      margin: 0.8rem auto;
+      width: 45%;
+    }
+    .cover-subtitle {
+      font-family: 'Cinzel', serif;
+      font-size: 0.5rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #7a5a20;
+      line-height: 1.9;
+    }
+
+    /* CONTENT */
+    #content {
+      background: #f5e8cc;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(139,90,43,0.08) 31px, rgba(139,90,43,0.08) 32px),
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(200,160,80,0.12) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 60% at 80% 90%, rgba(160,120,60,0.08) 0%, transparent 50%);
+      padding: 5rem 1.5rem 4rem;
+    }
+    .content-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: #5a3a10;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    .table-section {
+      margin-bottom: 3.5rem;
+    }
+
+    .table-title {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.35rem;
+      color: #3a2010;
+      margin-bottom: 0.8rem;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'IM Fell English', serif;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #2a1a0a;
+      min-width: 500px;
+    }
+
+    th {
+      background: #d4b870;
+      color: #2a1a08;
+      font-family: 'Cinzel', serif;
+      font-size: 0.5rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 0.6rem 0.8rem;
+      text-align: left;
+      border: 1px solid #8a6030;
+    }
+
+    td {
+      padding: 0.55rem 0.8rem;
+      border: 1px solid #8a6030;
+      vertical-align: top;
+    }
+
+    tr:nth-child(odd) td  { background: #f5e8cc; }
+    tr:nth-child(even) td { background: #ede0b8; }
+
+    .entry-divider {
+      border: none;
+      border-top: 1px solid rgba(139,90,43,0.35);
+      margin: 2.5rem 0;
+    }
+
+    .separator {
+      text-align: center;
+      color: rgba(139,90,43,0.5);
+      font-size: 0.9rem;
+      letter-spacing: 0.8em;
+      margin: 2rem 0;
+    }
+
+    .intro-note {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: #4a2a0a;
+      margin-bottom: 2.5rem;
+      padding: 0.8rem 1.2rem;
+      border-left: 3px solid #8a6030;
+      background: rgba(139,90,43,0.05);
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../../yul-library.html">← Collection Privee</a>
+  <div class="nav-links">
+    <a href="#cover">Couverture</a>
+    <a href="#content">Lire</a>
+  </div>
+</nav>
+
+<!-- COVER -->
+<section id="cover">
+  <div class="cover-frame">
+    <h1 class="cover-title">Yul</h1>
+    <p class="cover-name">Reference Rapide</p>
+    <hr class="cover-rule">
+    <p class="cover-subtitle">Index de la collection complete.<br>Toutes les tables, tous les termes.</p>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<section id="content">
+  <div class="content-inner">
+
+    <p class="intro-note">Ce document regroupe les tables de reference de l'ensemble de la collection. Pour le detail narratif de chaque entree, consulter le volume correspondant.</p>
+
+    <!-- TABLE 1: BESTIAIRE -->
+    <div class="table-section">
+      <span class="section-label">Table I</span>
+      <h2 class="table-title">Bestiaire Exotique — Faune Rare du Monde Connu</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Creature</th>
+              <th>Origine</th>
+              <th>Particularite anatomique</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Leviathan Soyeux</td>
+              <td>Mers de Thurak</td>
+              <td>Double hemipene enroule, micro-crochets de keratine, bioluminescent</td>
+            </tr>
+            <tr>
+              <td>Rhinobovin de Dehr</td>
+              <td>Plaines de Dehr</td>
+              <td>Penis en tire-bouchon avec rotation de 180°, vagin a parois spiralees inverses</td>
+            </tr>
+            <tr>
+              <td>Pieuvre Cardinale</td>
+              <td>Recifs d'Ossavar</td>
+              <td>Hectocotyle a six filaments cilies secretant un anesthesiant leger</td>
+            </tr>
+            <tr>
+              <td>Cheval des Vents</td>
+              <td>Archipel de Yeress</td>
+              <td>Couronne de six bourrelets cartilagineux concentriques, fourreau a contractions rythmiques</td>
+            </tr>
+            <tr>
+              <td>Lezard Miroir</td>
+              <td>Salines de Kreth</td>
+              <td>Double hemipene a rosettes de keratine en forme de fleur, cloaque a anneau triple</td>
+            </tr>
+            <tr>
+              <td>Grand Ours-Araignee</td>
+              <td>Forets de Nhal</td>
+              <td>Gland bifurque a deux lobes, glande secretant une substance soyeuse filante</td>
+            </tr>
+            <tr>
+              <td>Baleine Cendree</td>
+              <td>Gouffre de Vel</td>
+              <td>Structure telescopique en trois segments, gland en dome aplati rose vif</td>
+            </tr>
+            <tr>
+              <td>Renard a Six Queues</td>
+              <td>Steppes de Calvor</td>
+              <td>Gland segmente en quatre quartiers, bulbe erectile bloquant le retrait</td>
+            </tr>
+            <tr>
+              <td>Papillon de Chair</td>
+              <td>Marais de Sorvaine</td>
+              <td>Edeage a cils vibrants haute frequence, deux chambres receptrices distinctes</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- TABLE 2: CATALOGUE MECANIQUE -->
+    <div class="table-section">
+      <span class="section-label">Table II</span>
+      <h2 class="table-title">Catalogue Mecanique — Instruments de Plaisir Artisanaux</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Objet</th>
+              <th>Origine</th>
+              <th>Description courte</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Le Respirateur de Mer</td>
+              <td>Thurak-Vel</td>
+              <td>Masque a soupape reglable — trois niveaux de resistance respiratoire</td>
+            </tr>
+            <tr>
+              <td>La Paire de Baleines</td>
+              <td>Ile de Thurak-Sann</td>
+              <td>Deux spheres d'os de Leviathan a billes internes, port prolonge</td>
+            </tr>
+            <tr>
+              <td>Le Cartographe</td>
+              <td>Vel-Harath-Profond</td>
+              <td>Gant a lamelles d'os — multiplie les points de contact par cinquante</td>
+            </tr>
+            <tr>
+              <td>La Cloche de Pierre Chaude</td>
+              <td>Vel-Harath-Surface</td>
+              <td>Demi-sphere volcanique creuse — chaleur focalisee, 2h de maintien</td>
+            </tr>
+            <tr>
+              <td>Le Fil du Vent</td>
+              <td>Yeress, Clan Ssevrak-Haut</td>
+              <td>Cuir de Cheval des Vents — se rechauffe a la peau, sensation de contact vivant</td>
+            </tr>
+            <tr>
+              <td>Le Noeud de Ssevrak</td>
+              <td>Yeress, Clan Ssevrak-Bas</td>
+              <td>Anneau a micro-reliefs contradictoires — stimulation paradoxale</td>
+            </tr>
+            <tr>
+              <td>Le Cocon du Tisseur</td>
+              <td>Nhal-Canopee</td>
+              <td>Soie brute qui se resserre de 5–8% a la chaleur corporelle sur 20 min</td>
+            </tr>
+            <tr>
+              <td>L'Aiguille de Resine</td>
+              <td>Nhal-Sol</td>
+              <td>Resine d'Arbre-Chrysalide — absorbe la chaleur, refroidit progressivement</td>
+            </tr>
+            <tr>
+              <td>Les Miroirs de Lezard</td>
+              <td>Kreth-Vieux</td>
+              <td>Oeufs de sel cristallise, thermique, finance la resistance Krethin</td>
+            </tr>
+            <tr>
+              <td>La Ceinture de Sel</td>
+              <td>Kreth-Vieux</td>
+              <td>Plaques de sel translucides — micro-contact continu, projette des arcs-en-ciel</td>
+            </tr>
+            <tr>
+              <td>Le Baton de Vent</td>
+              <td>Calvor-Centre</td>
+              <td>Bois perce — vibration modulable par le souffle, frequence re bemol</td>
+            </tr>
+            <tr>
+              <td>La Fourrure de Renard</td>
+              <td>Haute-Steppe, Calvor</td>
+              <td>Poil de Renard a Six Queues — triboluminescent dans l'obscurite complete</td>
+            </tr>
+            <tr>
+              <td>L'Oeuf de Nulle Part</td>
+              <td>Origine inconnue</td>
+              <td>Materiau non identifie, poids variable, chaud en permanence, flotte a mi-eau</td>
+            </tr>
+            <tr>
+              <td>Les Des du Duc Vexantion</td>
+              <td>Cour Corvidéenne</td>
+              <td>Obsidienne gravee d'ideogrammes — resultat identique pour les memes mains</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- TABLE 3: SUBSTANCES -->
+    <div class="table-section">
+      <span class="section-label">Table III</span>
+      <h2 class="table-title">Catalogue des Substances Rares</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Substance</th>
+              <th>Type</th>
+              <th>Effet principal</th>
+              <th>Espece</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Huile de Veuve Doree</td>
+              <td>Topique / lubrifiant</td>
+              <td>Amplifie la chaleur corporelle, legere pulsation vasodilatatrice</td>
+              <td>Aelfir principalement</td>
+            </tr>
+            <tr>
+              <td>Poudre de Seuil</td>
+              <td>Inhalee</td>
+              <td>Phase 1 : hypersensibilite tactile — Phase 2 : fusion douleur/plaisir</td>
+              <td>Drows uniquement</td>
+            </tr>
+            <tr>
+              <td>The des Mille Noeuds (keth-vor)</td>
+              <td>Bue</td>
+              <td>Prolonge x2–4 le temps avant sanneth ; synesthesie chez les aelfirs</td>
+              <td>Toutes especes</td>
+            </tr>
+            <tr>
+              <td>Sel de Presage</td>
+              <td>Topique</td>
+              <td>Conscience elargie des reactions du partenaire ; breves visions corvines</td>
+              <td>Drows &amp; humains</td>
+            </tr>
+            <tr>
+              <td>Resine de Metamorphose</td>
+              <td>Topique / gel</td>
+              <td>Hypersensibilisation progressive et ciblee, legere tumescence</td>
+              <td>Drows exclusivement</td>
+            </tr>
+            <tr>
+              <td>Elixir de la Baronne</td>
+              <td>Bue</td>
+              <td>Effets radicalement differents par espece ; Maera en possede 3 flacons intacts</td>
+              <td>Toutes especes</td>
+            </tr>
+            <tr>
+              <td>Venin Doux de la Meduse des Brumes</td>
+              <td>Topique / injecte</td>
+              <td>Bloque douleur et temperature, amplifie pression et vibration</td>
+              <td>Humains &amp; drows</td>
+            </tr>
+            <tr>
+              <td>Braises d'Ishkrah</td>
+              <td>Fumee inhalee</td>
+              <td>Fusion des frontieres du soi — intimite d'une intensite emotionnelle durable</td>
+              <td>Drows exclusivement</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- TABLE 4: COUTUMES -->
+    <div class="table-section">
+      <span class="section-label">Table IV</span>
+      <h2 class="table-title">Coutumes Charnelles du Monde Exterieur</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Region</th>
+              <th>Coutume centrale</th>
+              <th>Ce que ca revele</th>
+              <th>Hook pour y aller</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Thurak-Vel</td>
+              <td>Sel-partage — entree dans la mer jusqu'a l'hypothermie legere, nuit de chaleur partagee</td>
+              <td>Vulnerabilite avant le desir</td>
+              <td>Leviathans Soyeux sacres, tunnels sous-Spire a Dehr</td>
+            </tr>
+            <tr>
+              <td>Dehr</td>
+              <td>Derrak — brulure permanente avant un depart long ou dangereux</td>
+              <td>Memoire de la chair contre l'impermanence</td>
+              <td>Epaves aelfir non pillees a Ossavar</td>
+            </tr>
+            <tr>
+              <td>Ossavar</td>
+              <td>Plongeon d'enseignement — transmission de savoir par contact corporel total</td>
+              <td>Enseigner = forme d'intimite</td>
+              <td>Consul aelfir a eliminer contre acces aux epaves</td>
+            </tr>
+            <tr>
+              <td>Calvor</td>
+              <td>Nuit Blanche (survie dans la neige) + Nuit Rouge (solitude et desirs dits au vent)</td>
+              <td>Le desir comme phenomene climatique</td>
+              <td>Sorciers-vent dont les etudiants ne reviennent jamais</td>
+            </tr>
+            <tr>
+              <td>Vel-Harath</td>
+              <td>Chant de Forge + Cartographiage dans le noir total</td>
+              <td>Connaitre avant de batir</td>
+              <td>Gravures des "Premiers" — civilisation anterieure non identifiee</td>
+            </tr>
+            <tr>
+              <td>Sorvaine</td>
+              <td>Fil de Passage — echange d'un objet sans valeur apres chaque intimite</td>
+              <td>L'ephemere assume, les traces qui restent</td>
+              <td>Pharmacopee orale non ecrite, la plus vaste du monde</td>
+            </tr>
+            <tr>
+              <td>Yeress</td>
+              <td>Vol Lie — ascension d'un pic attaches ensemble, nuit au sommet</td>
+              <td>Ce qui compte se gagne</td>
+              <td>Deux bibliotheques magiques incompatibles sur Ssevrak</td>
+            </tr>
+            <tr>
+              <td>Nhal</td>
+              <td>Nid — construction a deux mains d'un filet de soie, duree de l'union</td>
+              <td>Une relation = quelque chose qu'on fabrique</td>
+              <td>Accords d'exploitation en attente depuis des decennies</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- TABLE 5: GLOSSAIRE DE BASE -->
+    <div class="table-section">
+      <span class="section-label">Table V</span>
+      <h2 class="table-title">Glossaire des Ceremonies Aelfir — Termes de Base</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Terme</th>
+              <th>Phonetique</th>
+              <th>Definition</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Corsivael</td>
+              <td>cor-si-vaël</td>
+              <td>La ceremonie — "le serment qui epouse la forme de ce qui est"</td>
+            </tr>
+            <tr>
+              <td>Anath</td>
+              <td>ah-nath</td>
+              <td>Le nouveau-venu a sa premiere ceremonie</td>
+            </tr>
+            <tr>
+              <td>Soh-ko-mat</td>
+              <td>soh-ko-mat</td>
+              <td>La chambre ceremonielle impregnee de cent ceremonies</td>
+            </tr>
+            <tr>
+              <td>Vel-arath</td>
+              <td>vel-ah-rath</td>
+              <td>Le depouillement rituel — reveler ce qui etait potentiel</td>
+            </tr>
+            <tr>
+              <td>Soleth</td>
+              <td>so-leth</td>
+              <td>La bioluminescence — le corps qui dit ce que l'esprit garde</td>
+            </tr>
+            <tr>
+              <td>Kael-veth</td>
+              <td>kaël-veth</td>
+              <td>Les aines qui tiennent la forme sans diriger</td>
+            </tr>
+            <tr>
+              <td>Thessan</td>
+              <td>thes-san</td>
+              <td>Le premier contact — bout des doigts sur le poignet, une seconde : es-tu la ?</td>
+            </tr>
+            <tr>
+              <td>Leth-kor</td>
+              <td>leth-kor</td>
+              <td>L'onction aux epaules et tempes — marque le passage d'un etat a l'autre</td>
+            </tr>
+            <tr>
+              <td>Mirehn</td>
+              <td>mi-rehn</td>
+              <td>L'etat de visibilite complete — nu de corps et de posture</td>
+            </tr>
+            <tr>
+              <td>Ossivael</td>
+              <td>os-si-vaël</td>
+              <td>Le vrai demasquage — cesser de gerer sa propre image</td>
+            </tr>
+            <tr>
+              <td>Thurisath</td>
+              <td>thu-ri-sath</td>
+              <td>La configuration de plusieurs corps, les notes d'un accord</td>
+            </tr>
+            <tr>
+              <td>Vael-no</td>
+              <td>vaël-no</td>
+              <td>Le silence des serments — l'espace entre deux mots</td>
+            </tr>
+            <tr>
+              <td>Maerath</td>
+              <td>mae-rath</td>
+              <td>La priere ancienne adressee aux corps eux-memes, pas aux dieux</td>
+            </tr>
+            <tr>
+              <td>Sereth</td>
+              <td>se-reth</td>
+              <td>La cloture — bain froid, silence, retour des masques</td>
+            </tr>
+            <tr>
+              <td>Drevan</td>
+              <td>dre-van</td>
+              <td>La lumiere de l'apres — l'etat qui dure des jours post-ceremonie</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- TABLE 6: GLOSSAIRE AVANCE -->
+    <div class="table-section">
+      <span class="section-label">Table VI</span>
+      <h2 class="table-title">Glossaire — Termes Avances</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Terme</th>
+              <th>Phonetique</th>
+              <th>Definition</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Veth-ossivael</td>
+              <td>veth-os-si-vaël</td>
+              <td>La dissolution volontaire — entrer dans l'ossivael les yeux ouverts, par decision</td>
+            </tr>
+            <tr>
+              <td>Tharissovael</td>
+              <td>tha-ris-so-vaël</td>
+              <td>La fusion des soleth — quand plusieurs lumieres forment une lumiere sans proprietaire</td>
+            </tr>
+            <tr>
+              <td>Kaethuris-vel</td>
+              <td>kaë-thu-ris-vel</td>
+              <td>Configuration de 5+ corps qui emerge sans etre planifiee</td>
+            </tr>
+            <tr>
+              <td>Sanneth</td>
+              <td>san-neth</td>
+              <td>La crete — le sommet de la courbe, pas necessairement l'orgasme</td>
+            </tr>
+            <tr>
+              <td>Kaethuris-sanneth</td>
+              <td>kaë-thu-ris-san-neth</td>
+              <td>La sanneth collective de plusieurs corps quasi-simultanee</td>
+            </tr>
+            <tr>
+              <td>Thessan-moraeth</td>
+              <td>thes-san-mo-raeth</td>
+              <td>Main sur la poitrine, deux secondes : je te reconnais en tant que toi</td>
+            </tr>
+            <tr>
+              <td>Vel-kaenoth</td>
+              <td>vel-kaë-noth</td>
+              <td>Le voeu d'immobilite — sentir sans executer le reflexe, discipline avancee</td>
+            </tr>
+            <tr>
+              <td>Ossiveth-kael</td>
+              <td>os-si-veth-kaël</td>
+              <td>Choisir d'etre receptacle conscient — presence totale dans la reception</td>
+            </tr>
+            <tr>
+              <td>Cor-vael-neth</td>
+              <td>cor-vaël-neth</td>
+              <td>La promesse du coeur — seule formule non fixee, chuchotee a un seul</td>
+            </tr>
+            <tr>
+              <td>Vel-mirehn-kor</td>
+              <td>vel-mi-rehn-kor</td>
+              <td>Onction sur les zones cachees — reconnaissance de ce qui est dissimule</td>
+            </tr>
+            <tr>
+              <td>Soh-vael-mat</td>
+              <td>soh-vaël-mat</td>
+              <td>La chambre-serment — soh-ko-mat ancienne chargee de ceremonies</td>
+            </tr>
+            <tr>
+              <td>Drevan-vel</td>
+              <td>dre-van-vel</td>
+              <td>Le drevan permanent du kael-veth — la conscience du bord maintenue seule</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="separator">— — —</div>
+
+  </div>
+</section>
+
+<script>
+  const user = localStorage.getItem('spire_user');
+  const allowed = ['Yul', 'admin'];
+  if (!localStorage.getItem('spire_token') || !allowed.includes(user)) {
+    window.location.href = '../../dashboard.html';
+  }
+</script>
+</body>
+</html>

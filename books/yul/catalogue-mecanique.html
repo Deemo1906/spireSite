@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalogue Mecanique — Instruments de Plaisir Artisanaux</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'IM Fell English', serif;
+      font-size: 1.05rem;
+      line-height: 1.95;
+      color: #2a1a0a;
+      background: #0a0a10;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(5, 8, 18, 0.96);
+      border-bottom: 1px solid #1a2a4a;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 2rem;
+      backdrop-filter: blur(4px);
+    }
+    nav a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #c4a830;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: #e8cc60; }
+    nav .nav-links { display: flex; gap: 2rem; }
+
+    /* COVER — dark navy technical */
+    #cover {
+      min-height: 100vh;
+      background: #0a0f1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Horizontal ruled lines overlay */
+    #cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 24px,
+        rgba(100,130,200,0.04) 24px,
+        rgba(100,130,200,0.04) 25px
+      );
+    }
+    .cover-frame {
+      position: relative;
+      z-index: 1;
+      border: 2px solid #1a2a4a;
+      padding: 3.5rem 4rem;
+      max-width: 560px;
+      width: 90%;
+      text-align: center;
+    }
+    /* CSS corner brackets */
+    .cover-frame::before {
+      content: '';
+      position: absolute;
+      top: 10px; left: 10px;
+      width: 28px; height: 28px;
+      border-top: 2px solid rgba(100,150,220,0.4);
+      border-left: 2px solid rgba(100,150,220,0.4);
+    }
+    .cover-frame::after {
+      content: '';
+      position: absolute;
+      bottom: 10px; right: 10px;
+      width: 28px; height: 28px;
+      border-bottom: 2px solid rgba(100,150,220,0.4);
+      border-right: 2px solid rgba(100,150,220,0.4);
+    }
+    .cover-corner-tr {
+      position: absolute;
+      top: 10px; right: 10px;
+      width: 28px; height: 28px;
+      border-top: 2px solid rgba(100,150,220,0.4);
+      border-right: 2px solid rgba(100,150,220,0.4);
+    }
+    .cover-corner-bl {
+      position: absolute;
+      bottom: 10px; left: 10px;
+      width: 28px; height: 28px;
+      border-bottom: 2px solid rgba(100,150,220,0.4);
+      border-left: 2px solid rgba(100,150,220,0.4);
+    }
+    .cover-ornament {
+      font-size: 2rem;
+      color: #6a8ab0;
+      display: block;
+      margin-bottom: 1rem;
+      opacity: 0.7;
+    }
+    .cover-title {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.9rem;
+      color: #8aaccc;
+      line-height: 1.3;
+      margin-bottom: 0.6rem;
+    }
+    .cover-subtitle {
+      font-family: 'Cinzel', serif;
+      font-size: 0.48rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: #4a6a8a;
+      margin-bottom: 1.5rem;
+    }
+    .cover-rule {
+      border: none;
+      border-top: 1px solid rgba(100,150,200,0.25);
+      margin: 1rem auto;
+      width: 55%;
+    }
+    .cover-ref {
+      font-family: 'Cinzel', serif;
+      font-size: 0.45rem;
+      letter-spacing: 4px;
+      color: rgba(100,130,180,0.35);
+    }
+
+    /* CONTENT */
+    #content {
+      background: #f5e8cc;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(139,90,43,0.08) 31px, rgba(139,90,43,0.08) 32px),
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(200,160,80,0.12) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 60% at 80% 90%, rgba(160,120,60,0.08) 0%, transparent 50%);
+      padding: 5rem 1.5rem 4rem;
+    }
+    .content-inner {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: #5a3a10;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    .part-header {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: #5a3a10;
+      text-align: center;
+      margin: 3rem 0 2rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(139,90,43,0.35);
+    }
+
+    .item-title {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.35rem;
+      color: #3a2010;
+      margin-bottom: 0.3rem;
+    }
+
+    .item-origin {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #7a5020;
+      margin-bottom: 0.8rem;
+    }
+
+    .field-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.5rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #5a3a10;
+      margin-top: 0.8rem;
+      margin-bottom: 0.2rem;
+      display: block;
+    }
+
+    .intro-blockquote {
+      border-left: 3px solid #8a6030;
+      padding: 0.8rem 1.2rem;
+      margin: 1.5rem 0 2.5rem;
+      font-style: italic;
+      color: #3a2010;
+      background: rgba(139,90,43,0.05);
+    }
+
+    p { color: #2a1a0a; margin-bottom: 0; }
+    p + p { text-indent: 1.5em; }
+
+    .item-block { margin-bottom: 2.5rem; }
+
+    .entry-divider {
+      border: none;
+      border-top: 1px solid rgba(139,90,43,0.35);
+      margin: 2rem 0;
+    }
+
+    .separator {
+      text-align: center;
+      color: rgba(139,90,43,0.5);
+      font-size: 0.9rem;
+      letter-spacing: 0.8em;
+      margin: 2rem 0;
+    }
+
+    .note-special {
+      border-left: 2px solid rgba(139,90,43,0.4);
+      padding-left: 0.8rem;
+      margin-top: 0.5rem;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: #4a2a0a;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../../yul-library.html">← Collection Privee</a>
+  <div class="nav-links">
+    <a href="#cover">Couverture</a>
+    <a href="#content">Lire</a>
+  </div>
+</nav>
+
+<!-- COVER -->
+<section id="cover">
+  <div class="cover-frame">
+    <div class="cover-corner-tr"></div>
+    <div class="cover-corner-bl"></div>
+    <span class="cover-ornament">&#x2699;</span>
+    <h1 class="cover-title">Catalogue Mecanique</h1>
+    <p class="cover-subtitle">Instruments de Plaisir Artisanaux</p>
+    <hr class="cover-rule">
+    <p class="cover-subtitle" style="margin-bottom:0; margin-top: 0.5rem;">Importations Rares, Pieces de Collection &amp; Curiosites du Monde Connu</p>
+    <hr class="cover-rule">
+    <p class="cover-ref">Ref. YUL-CAT-MEC / Edition Courante</p>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<section id="content">
+  <div class="content-inner">
+
+    <blockquote class="intro-blockquote">
+      Ce catalogue recense des objets artisanaux produits hors de Spire, dont la majorite n'est pas commercialement disponible dans la cite. Les informations sur l'acquisition sont donnees quand elles sont connues. Pour les objets sans filiere identifiee : bonne chance, et mentionnez que vous venez de ma part. — Y.
+    </blockquote>
+
+    <!-- PARTIE I -->
+    <div class="part-header">Partie I — Thurak-Vel</div>
+
+    <div class="item-block">
+      <span class="section-label">Instrument I.1</span>
+      <h2 class="item-title">Le Respirateur de Mer</h2>
+      <p class="item-origin">Origine : Cote de Thurak-Vel, artisans souffleurs de verre</p>
+      <span class="field-label">Description</span>
+      <p>Masque facial en verre epais souffle a la main, joint en peau de Leviathan tannee, equipe d'une soupape d'expiration a trois positions reglables. Trois niveaux de resistance : Mer calme, Mer agitee, Tempete. Le nom des niveaux est grave en commun sur le bord de la soupape.</p>
+      <span class="field-label">Usage</span>
+      <p>Port durant des activites intimes. La resistance a l'expiration cree une contrainte musculaire sur la respiration qui, selon les utilisateurs documentes, produit une alteration perceptive cumulatrice au fil du temps. Les trois niveaux permettent une progression ou une alternance selon le degre de contrainte desire.</p>
+      <span class="field-label">Note</span>
+      <p>Fabrique en serie artisanale de six exemplaires par saison. L'artisan de Thurak-Vel accepte les commandes specifiques. Delai : trois mois. Prix : en poissons secs ou en monnaie de Spire, taux de change defavorable.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <div class="item-block">
+      <span class="section-label">Instrument I.2</span>
+      <h2 class="item-title">La Paire de Baleines</h2>
+      <p class="item-origin">Origine : Ile de Thurak-Sann, tailleurs d'os rituels</p>
+      <span class="field-label">Description</span>
+      <p>Deux spheres parfaitement identiques de cinq centimetres de diametre, fabriquees dans l'os translucide du Leviathan Soyeux adulte. Chaque sphere contient a l'interieur une serie de billes d'os plus petites dont le mouvement produit un son et une vibration interne distinctive a chaque deplacement.</p>
+      <span class="field-label">Usage</span>
+      <p>Port simultane prolonge — heures ou journee entiere. Le mouvement naturel du corps mobilise les billes internes en permanence. L'effet cumulatif du port prolonge est la specialite de cet objet ; il n'est pas concu pour une intensite immediate mais pour une accumulation lente.</p>
+      <span class="field-label">Particularite</span>
+      <p>L'os de Leviathan est translucide. Sous lumiere directe, on distingue le mouvement des billes internes. Les tailleurs de Thurak-Sann considerent cela comme une caracteristique esthetique, pas un defaut.</p>
+    </div>
+
+    <!-- PARTIE II -->
+    <div class="part-header">Partie II — Vel-Harath</div>
+
+    <div class="item-block">
+      <span class="section-label">Instrument II.1</span>
+      <h2 class="item-title">Le Cartographe</h2>
+      <p class="item-origin">Origine : Vel-Harath-Profond, cinquieme niveau, ateliers de precision</p>
+      <span class="field-label">Description</span>
+      <p>Gant de cuir fin sur lequel sont rivetees cinquante lamelles d'os polies, chacune de deux centimetres, articulees individuellement sur un pivot de bronze. Les lamelles recouvrent la paume et les cinq doigts sur leur face interne. Le gant s'ajuste par lacets a l'arriere de la main.</p>
+      <span class="field-label">Usage</span>
+      <p>Port sur une main. Les cinquante points de contact osseux multiplient la surface de stimulation et creent un profil de contact radicalement different du contact cutane direct. L'articulation individuelle des lamelles permet a chaque point de s'adapter independamment a la topographie de la surface exploree. Utilise en deplacement lent et methodique — d'ou le nom.</p>
+      <span class="field-label">Note</span>
+      <p>Vendu avec un feuillet d'instructions en nain. Traduction disponible a Spire chez au moins deux marchands de l'Academie. Les nains de Vel-Harath ont des opinions sur la maniere correcte d'utiliser cet objet et en parleraient volontiers si on les y invite respectueusement.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <div class="item-block">
+      <span class="section-label">Instrument II.2</span>
+      <h2 class="item-title">La Cloche de Pierre Chaude</h2>
+      <p class="item-origin">Origine : Vel-Harath-Surface, carriers de pierre volcanique</p>
+      <span class="field-label">Description</span>
+      <p>Demi-sphere creuse taillée dans la pierre volcanique de Vel-Harath — une roche poreuse d'origine magmatique a tres haute retention thermique. Disponible en six tailles standards, de six a dix-huit centimetres de diametre. La surface interne est polie ; la surface externe est brute.</p>
+      <span class="field-label">Usage</span>
+      <p>Chauffage au bain-marie ou a la pierre chaude — jamais au feu direct, ce qui ferait eclater la structure poreuse. Une fois a temperature, la demi-sphere maintient sa chaleur environ deux heures. Appliquee sur le corps, elle diffuse une chaleur focalisee et continue sans possibilite de bruler. Vendue par paires.</p>
+      <span class="field-label">Note de vente</span>
+      <p class="note-special">"Une seule main n'a jamais bien construit quoi que ce soit." — gravure presente sur chaque emballage de paire.</p>
+    </div>
+
+    <!-- PARTIE III -->
+    <div class="part-header">Partie III — Yeress</div>
+
+    <div class="item-block">
+      <span class="section-label">Instrument III.1</span>
+      <h2 class="item-title">Le Fil du Vent</h2>
+      <p class="item-origin">Origine : Yeress, Clan Ssevrak-Haut, tanneurs d'altitude</p>
+      <span class="field-label">Description</span>
+      <p>Cordage de vingt centimetres de diametre, longueur standard quatre metres, fabrique en cuir brut de Cheval des Vents tresse en sept couches. Couleur grise naturelle du cuir non traite. La surface externe presente les micro-structures du poil raye caracteristiques de cette espece, meme apres tannage.</p>
+      <span class="field-label">Usage</span>
+      <p>Ligature, suspension, ou simplement contact prolonge. Le cuir de Cheval des Vents possede une propriete thermique notable : il se rechauffe lentement a la temperature cutanee et la maintient sans l'exceder, produisant une sensation de contact avec quelque chose de vivant. Les utilisateurs reguliers rapportent que la sensation devient plus marquee avec l'usage — le cuir garde apparemment une memoire thermique.</p>
+      <span class="field-label">Particularite</span>
+      <p class="note-special">"Ssevrak est dans le cuir." — formule du Clan Ssevrak-Haut, signification non precisee mais dite avec serieux.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <div class="item-block">
+      <span class="section-label">Instrument III.2</span>
+      <h2 class="item-title">Le Noeud de Ssevrak</h2>
+      <p class="item-origin">Origine : Yeress, Clan Ssevrak-Bas, sculpteurs de corne</p>
+      <span class="field-label">Description</span>
+      <p>Anneau de corne de Cheval des Vents, diametre interne ajustable par systemede lamelle coulissante, surface externe portant des micro-reliefs en deux series contradictoires : une serie de stries longitudinales et une serie de nodules transversaux superposee en decalage. Au toucher, l'anneau est simultanément lisse et rugueux selon la direction du deplacement.</p>
+      <span class="field-label">Usage</span>
+      <p>Port ou manipulation directe. Les deux series de micro-reliefs produisent une stimulation paradoxale : le mouvement dans un sens active principalement les stries, dans l'autre sens principalement les nodules. L'effet varie donc avec la direction du mouvement plutot qu'avec son intensite.</p>
+      <span class="field-label">Note</span>
+      <p>Certains utilisateurs rapportent ne jamais s'habituer a la contradiction tactile. D'autres rapportent que c'est precisement ce qu'ils recherchent.</p>
+    </div>
+
+    <!-- PARTIE IV -->
+    <div class="part-header">Partie IV — Nhal</div>
+
+    <div class="item-block">
+      <span class="section-label">Instrument IV.1</span>
+      <h2 class="item-title">Le Cocon du Tisseur</h2>
+      <p class="item-origin">Origine : Nhal-Canopee, Tisseurs-de-Nhal, production saisonniere</p>
+      <span class="field-label">Description</span>
+      <p>Longueur de soie brute non traitee de l'Ours-Araignee de Nhal, six metres standard. Couleur creme a beige selon la saison de production. La soie est legerement filante au toucher a temperature ambiante.</p>
+      <span class="field-label">Usage</span>
+      <p>Ligature, enveloppement, ou suspension. La propriete centrale : la soie se resserre de cinq a huit pour cent au contact de la chaleur corporelle sur une periode de vingt minutes. L'enveloppement n'est donc pas statique — il s'ajuste lentement. Ce resserrement est minimal mais perceptible et continu pendant la duree de maintien de la temperature.</p>
+      <span class="field-label">Disponibilite</span>
+      <p>Produit uniquement pendant la saison de production des Tisseurs, qui ne correspond pas au calendrier de Spire. Revendu par intermediaires avec une majoration significative. Les Tisseurs eux-memes preferent offrir leur soie plutot que la vendre — si vous avez une relation directe avec un Tisseur, c'est la voie recommandee.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <div class="item-block">
+      <span class="section-label">Instrument IV.2</span>
+      <h2 class="item-title">L'Aiguille de Resine</h2>
+      <p class="item-origin">Origine : Nhal-Sol, alchimistes des sous-bois, production limitee</p>
+      <span class="field-label">Description</span>
+      <p>Baguette de dix centimetres de long et un centimetre de diametre, fabriquee en resine solidifiee de l'Arbre-Chrysalide de Nhal. Transparente avec des inclusions ambre. Legerement tacky au toucher. Ne se brise pas ; flechit sous pression et reprend sa forme.</p>
+      <span class="field-label">Usage</span>
+      <p>Contact topique direct. La resine d'Arbre-Chrysalide absorbe la chaleur corporelle sur contact — la baguette se rechauffe progressivement pendant les premieres minutes d'utilisation, atteignant un plateau de temperature agreablement elevee, puis commence lentement a refroidir apres retrait du contact. L'effet thermique produit un cycle chaud-froid perceptible sur une periode de dix a quinze minutes apres usage.</p>
+      <span class="field-label">Note</span>
+      <p>A ne pas confondre avec la Resine de Metamorphose (substance du Catalogue des Substances Rares). Ce sont deux produits distincts. L'un est un objet ; l'autre est une preparation pharmacologique. La confusion a deja ete faite. Les consequences etaient inconfortables.</p>
+    </div>
+
+    <!-- PARTIE V -->
+    <div class="part-header">Partie V — Kreth</div>
+
+    <div class="item-block">
+      <span class="section-label">Instrument V.1</span>
+      <h2 class="item-title">Les Miroirs de Lezard</h2>
+      <p class="item-origin">Origine : Kreth-Vieux, artisans du sel de la Resistance Krethin</p>
+      <span class="field-label">Description</span>
+      <p>Paire d'oeufs de sel cristallise, environ sept centimetres de long, surface exterieure parfaitement lisse et semi-reflechissante comme les plaques du Lezard Miroir. Contenu interne : eau saline dense. Thermiquement neutre a temperature ambiante.</p>
+      <span class="field-label">Usage</span>
+      <p>Chauffe ou refroidissement prealable selon l'effet desire, puis port interne ou contact externe. La surface lisse et legerement reflechissante repond visuellement a la lumiere de maniere distinctive. La masse interne liquide produit une legerete et un mouvement particuliers.</p>
+      <span class="field-label">Note politique</span>
+      <p class="note-special">L'integralite du produit de vente de ces objets finance la Resistance Krethin contre l'occupation des Salines. Acheter ces Miroirs est un acte politique. C'est signale pour information, pas pour dissuasion.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <div class="item-block">
+      <span class="section-label">Instrument V.2</span>
+      <h2 class="item-title">La Ceinture de Sel</h2>
+      <p class="item-origin">Origine : Kreth-Vieux, memes artisans</p>
+      <span class="field-label">Description</span>
+      <p>Vingt-quatre plaques de sel cristallise translucides, chacune de trois centimetres carre, serties dans un cuir souple et reliees par des anneaux de cuivre. Tour de taille ajustable de soixante a cent dix centimetres. Les plaques sont legeres et en contact direct avec la peau quand portees.</p>
+      <span class="field-label">Usage</span>
+      <p>Port continu pendant des activites normales ou intimes. Les plaques de sel produisent un micro-contact continu qui, sur la duree, devient une stimulation de fond permanente. En lumiere directe, les plaques translucides projettent sur les surfaces environnantes de petits arcs-en-ciel mobiles.</p>
+      <span class="field-label">Note</span>
+      <p>Cet objet peut etre porte sous des vetements ordinaires sans etre visible. Plusieurs personnes a Spire le font. On ne sait pas qui.</p>
+    </div>
+
+    <!-- PARTIE VI -->
+    <div class="part-header">Partie VI — Calvor</div>
+
+    <div class="item-block">
+      <span class="section-label">Instrument VI.1</span>
+      <h2 class="item-title">Le Baton de Vent</h2>
+      <p class="item-origin">Origine : Calvor-Centre, facteurs d'instruments nomades</p>
+      <span class="field-label">Description</span>
+      <p>Bois de steppe de Calvor, cylindre de trente centimetres percé de sept trous de tailles differentes repartis en spirale. Les extremites sont ouvertes. Le materiau est dense et d'un gris argente a la coupe. Se rechauffe peu entre les mains.</p>
+      <span class="field-label">Usage</span>
+      <p>Le souffle du porteur dans l'instrument produit une vibration modulable par la pression de souffle et l'occlusion partielle des trous. La frequence naturelle de l'instrument en position neutre est le re bemol. Contact corporel direct pendant l'emission de vibration. L'effet vibratoire transmis est modulable en amplitude et en frequence par le souffle.</p>
+      <span class="field-label">Note</span>
+      <p>Les nomades de Calvor l'utilisent d'abord comme instrument de musique. Son usage present est une decouverte secondaire dont ils sont au courant et qu'ils trouvent moderement amusante.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <div class="item-block">
+      <span class="section-label">Instrument VI.2</span>
+      <h2 class="item-title">La Fourrure de Renard</h2>
+      <p class="item-origin">Origine : Haute-Steppe de Calvor, chasseurs saisonniers</p>
+      <span class="field-label">Description</span>
+      <p>Fourrure brute du Renard a Six Queues de Calvor, traitement minimal — degraissage uniquement, sans teinture ni traitement chimique. Couleur variable selon la saison d'abattage : blanc hivernal, roux estival. Douceur exceptionnelle. Les six queues sont conservees.</p>
+      <span class="field-label">Usage</span>
+      <p>Contact direct. Enveloppement. La propriete principale de la fourrure du Renard a Six Queues : triboluminescence en obscurite complete. Le frottement de la fourrure contre une surface genere de petites decharges lumineuses bleues-blanches visibles uniquement dans l'obscurite totale. Le phenomene est imperceptible en lumiere normale.</p>
+      <span class="field-label">Note</span>
+      <p>La triboluminescence est un phenomene naturel du poil vivant et mort du Renard. Les chasseurs de Calvor qui la mentionnent le font avec une nonchalance qui suggere qu'ils ne comprennent pas pourquoi c'est remarquable. C'est remarquable.</p>
+    </div>
+
+    <!-- PARTIE VII -->
+    <div class="part-header">Partie VII — Objets Sans Origine Identifiee</div>
+
+    <div class="item-block">
+      <span class="section-label">Instrument VII.1</span>
+      <h2 class="item-title">L'Oeuf de Nulle Part</h2>
+      <p class="item-origin">Origine : Inconnue</p>
+      <span class="field-label">Description</span>
+      <p>Objet ovoide de douze centimetres de long, surface lisse et mate d'un gris tres legerement bleu. Le materiau est non identifie — ni pierre, ni metal, ni os, ni resine. Poids variable selon le moment de la pesee : entre deux cent quarante et trois cent dix grammes selon les mesures effectuees, sans explication mecanique. Chaud en permanence, meme apres une nuit dans une cave froide. Flotte immobile a mi-profondeur dans un bassin d'eau, sans couler ni remonter a la surface.</p>
+      <span class="field-label">Usage</span>
+      <p>Usage intime documenté par trois sources distinctes, toutes trois incapables ou refusant d'etre plus specifiques que "c'est extraordinaire." La chaleur permanente est la caracteristique pratique centrale.</p>
+      <span class="field-label">Disponibilite</span>
+      <p class="note-special">Prix : negociable. L'objet n'inspire pas confiance mais ne peut pas etre ignore. Il y en a peut-etre trois au monde. Peut-etre deux. Peut-etre un seul et il se duplique. Personne ne sait.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <div class="item-block">
+      <span class="section-label">Instrument VII.2</span>
+      <h2 class="item-title">Les Des du Duc Vexantion</h2>
+      <p class="item-origin">Origine : Cour Corvidéenne — Duc Vexantion (decede)</p>
+      <span class="field-label">Description</span>
+      <p>Six des d'obsidienne parfaitement calibres, chacun de deux centimetres de cote, graves chacun d'un idéogramme sur chaque face en lieu et place des chiffres usuels. Les six idéogrammes sont : Bruler, Geler, Effleurer, Saisir, Attendre, Recommencer.</p>
+      <span class="field-label">Usage</span>
+      <p>Jets libres. Les resultats obtenus indiquent une action ou une disposition. La propriete documentee la plus remarquable : les memes mains obtiennent toujours les memes resultats — pas les memes nombres, mais les memes idéogrammes, dans les memes proportions, indefiniment. Des mains differentes obtiennent des distributions differentes. La raison est inconnue.</p>
+      <span class="field-label">Disponibilite</span>
+      <p class="note-special">Ils ne sont pas a vendre. Mais si vous faites quelque chose qui les merite, ils pourraient devenir les votres. Le Duc Vexantion avait des criteres. Ses heritiers aussi.</p>
+    </div>
+
+    <div class="separator">— — —</div>
+
+  </div>
+</section>
+
+<script>
+  const user = localStorage.getItem('spire_user');
+  const allowed = ['Yul', 'admin'];
+  if (!localStorage.getItem('spire_token') || !allowed.includes(user)) {
+    window.location.href = '../../dashboard.html';
+  }
+</script>
+</body>
+</html>

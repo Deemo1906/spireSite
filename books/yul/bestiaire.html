@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bestiaire Exotique — Faune Rare du Monde Connu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'IM Fell English', serif;
+      font-size: 1.05rem;
+      line-height: 1.95;
+      color: #2a1a0a;
+      background: #111;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(10, 18, 10, 0.96);
+      border-bottom: 1px solid #2a4a1a;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 2rem;
+      backdrop-filter: blur(4px);
+    }
+    nav a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #c4a830;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: #e8cc60; }
+    nav .nav-links { display: flex; gap: 2rem; }
+
+    /* COVER */
+    #cover {
+      min-height: 100vh;
+      background: #1a2a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 8px,
+          rgba(196,168,48,0.04) 8px,
+          rgba(196,168,48,0.04) 9px
+        ),
+        repeating-linear-gradient(
+          -45deg,
+          transparent,
+          transparent 8px,
+          rgba(196,168,48,0.03) 8px,
+          rgba(196,168,48,0.03) 9px
+        );
+    }
+    .cover-frame {
+      position: relative;
+      border: 2px solid #2a4a1a;
+      padding: 3rem 4rem;
+      max-width: 540px;
+      width: 90%;
+      text-align: center;
+    }
+    .cover-frame::before {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      border: 1px solid rgba(196,168,48,0.3);
+      pointer-events: none;
+    }
+    .cover-frame::after {
+      content: '';
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(42,74,26,0.5);
+      pointer-events: none;
+    }
+    .cover-ornament {
+      font-size: 1.4rem;
+      color: #c4a830;
+      margin-bottom: 1.2rem;
+      display: block;
+      opacity: 0.8;
+    }
+    .cover-title {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.9rem;
+      color: #c4a830;
+      line-height: 1.3;
+      margin-bottom: 0.8rem;
+      text-shadow: 0 0 30px rgba(196,168,48,0.2);
+    }
+    .cover-subtitle {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: #7a9a5a;
+      margin-bottom: 1.5rem;
+    }
+    .cover-rule {
+      border: none;
+      border-top: 1px solid rgba(196,168,48,0.25);
+      margin: 1rem auto;
+      width: 60%;
+    }
+    .cover-tagline {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 0.75rem;
+      color: rgba(196,168,48,0.5);
+      line-height: 1.6;
+    }
+
+    /* CONTENT */
+    #content {
+      background: #f5e8cc;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(139,90,43,0.08) 31px, rgba(139,90,43,0.08) 32px),
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(200,160,80,0.12) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 60% at 80% 90%, rgba(160,120,60,0.08) 0%, transparent 50%);
+      padding: 5rem 1.5rem 4rem;
+    }
+    .content-inner {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: #5a3a10;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    .intro-blockquote {
+      border-left: 3px solid #8a6030;
+      padding: 0.8rem 1.2rem;
+      margin: 1.5rem 0 2.5rem;
+      font-style: italic;
+      color: #3a2010;
+      background: rgba(139,90,43,0.05);
+    }
+
+    .creature-entry {
+      margin-bottom: 2.8rem;
+    }
+    .creature-name {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.35rem;
+      color: #3a2010;
+      margin-bottom: 0.3rem;
+    }
+    .creature-origin {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #7a5020;
+      margin-bottom: 0.8rem;
+    }
+    .creature-desc {
+      text-indent: 0;
+      margin-bottom: 0.8rem;
+      color: #2a1a0a;
+    }
+    .creature-anatomy {
+      text-indent: 1.5em;
+      color: #2a1a0a;
+    }
+
+    .entry-divider {
+      border: none;
+      border-top: 1px solid rgba(139,90,43,0.35);
+      margin: 2.2rem 0;
+    }
+
+    p { margin-bottom: 0; }
+    p + p { text-indent: 1.5em; }
+    p:first-of-type { text-indent: 0; }
+
+    .separator {
+      text-align: center;
+      color: rgba(139,90,43,0.5);
+      font-size: 0.9rem;
+      letter-spacing: 0.8em;
+      margin: 2rem 0;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../../yul-library.html">← Collection Privee</a>
+  <div class="nav-links">
+    <a href="#cover">Couverture</a>
+    <a href="#content">Lire</a>
+  </div>
+</nav>
+
+<!-- COVER -->
+<section id="cover">
+  <div class="cover-frame">
+    <span class="cover-ornament">&#x269C;</span>
+    <h1 class="cover-title">Bestiaire Exotique</h1>
+    <p class="cover-subtitle">Faune Rare du Monde Connu</p>
+    <hr class="cover-rule">
+    <p class="cover-tagline">Catalogue de creatures rares et d'interet anatomique particulier</p>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<section id="content">
+  <div class="content-inner">
+
+    <blockquote class="intro-blockquote">
+      Ce bestiaire est le fruit de vingt annees de terrain, de correspondances avec des naturalistes de douze regions, et d'observations directes que la bienséance m'interdit de detailler en introduction. Chaque entree a ete verifiee par au moins deux sources independantes. Les descriptions anatomiques sont donnees sans jugement et sans complaisance — la nature n'a pas de morale, seulement des solutions.
+    </blockquote>
+
+    <!-- 1 -->
+    <div class="creature-entry">
+      <span class="section-label">Entree I — Faune Marine</span>
+      <h2 class="creature-name">Le Leviathan Soyeux des Mers de Thurak</h2>
+      <p class="creature-origin">Origine : Detroits de Thurak, a l'est du continent, la ou la mer devient noire et tiede.</p>
+      <p class="creature-desc">Serpent marin de vingt metres, au corps recouvert d'ecailles translucides laissant voir la bioluminescence de ses organes internes. Se deplace en spirale lente, laissant une trainee lumineuse dans l'eau sombre.</p>
+      <p class="creature-anatomy"><strong>Anatomie reproductive :</strong> L'organe male est double — deux structures hemipeniformes enroulees l'une autour de l'autre au repos, qui se deroulent separement a l'usage. La surface est couverte de micro-crochets de keratine souple, orientes vers l'arriere, produisant une friction asymetrique a l'insertion et au retrait. La coloration passe du bleu profond au blanc argente selon le degre d'engorgement. Longueur deployee : environ 40 cm pour un specimen adulte. L'organe femelle possede deux orifices distincts, chacun correspondant a un hemipene, bordes d'anneaux musculaires capables de contractions independantes.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- 2 -->
+    <div class="creature-entry">
+      <span class="section-label">Entree II — Faune des Plaines</span>
+      <h2 class="creature-name">Le Rhinobovin des Plaines de Dehr</h2>
+      <p class="creature-origin">Origine : Plaines crayeuses de Dehr, au nord-ouest, a trois semaines de Spire par caravane.</p>
+      <p class="creature-desc">Quadrupede massif, croisement improbable de buffle et de rhinoceros, cornes en spirale, peau ridee couleur argile. Eleve autrefois par les peuples de Dehr pour la viande et le cuir ; aujourd'hui presque eteint suite aux guerres d'annexion aelfir.</p>
+      <p class="creature-anatomy"><strong>Anatomie reproductive :</strong> Le penis est en forme de tire-bouchon — une vrille rigide a la base, souple aux deux-tiers distaux, se terminant par un renflement bulbeux lisse. La torsion est orientee dans le sens inverse des aiguilles d'une montre. Le gland lui-meme presente une surface legerement filamenteuse, comme du daim. En erection complete, l'organe realise une rotation de 180° par rapport a sa position au repos. La femelle possede un vagin a parois spiralees en sens contraire, concu anatomiquement pour verrouiller la torsion male lors de l'accouplement.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- 3 -->
+    <div class="creature-entry">
+      <span class="section-label">Entree III — Faune Marine</span>
+      <h2 class="creature-name">La Pieuvre Cardinale des Recifs d'Ossavar</h2>
+      <p class="creature-origin">Origine : Recifs coralliens d'Ossavar, archipel au sud, repute pour ses eaux rouge sang a la saison des pluies.</p>
+      <p class="creature-desc">Cephalopode de taille moyenne, huit bras dont les quatre inferieurs sont deux fois plus longs que les superieurs. Coloration de base ecarlate avec des motifs blancs se depacant sur la peau comme des vagues. Extremement intelligente.</p>
+      <p class="creature-anatomy"><strong>Anatomie reproductive :</strong> L'hectocotyle — le bras reproducteur male — est le troisieme bras gauche, reconnaissable a son extremite modifiee : une cupule centrale entouree de six filaments cilies capables de mouvements autonomes et d'extension independante. Les cils secretent une substance legerement anesthesiante qui detend les tissus recepteurs. Chez la femelle, la cavite palleale est tapissee de papilles sensorielles actives, capable de saisir et de guider l'hectocotyle par pression musculaire dirigee. La femelle choisit toujours.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- 4 -->
+    <div class="creature-entry">
+      <span class="section-label">Entree IV — Faune Insulaire</span>
+      <h2 class="creature-name">Le Cheval des Vents de l'Archipel Flottant de Yeress</h2>
+      <p class="creature-origin">Origine : Yeress — une chaine d'iles volcaniques en levitation permanente, reliees par des ponts de vigne, au large des cotes orientales.</p>
+      <p class="creature-desc">Equide sauvage adapte aux terrains instables : sabots larges et prensiles, criniere en permanence electrostatique, capable de sauts de sept metres. Venere localement comme manifestation du dieu-vent Ssevrak.</p>
+      <p class="creature-anatomy"><strong>Anatomie reproductive :</strong> Le penis est retractile dans un fourreau musculaire particulierement developpe, et presente a son extremite distale une couronne de bourrelets concentriques — six anneaux cartilagineux souples, chacun legerement decale par rapport au precedent, creant un profil en relief escalier. La texture de surface rappelle le velours cotele fin. En excitation maximale, le fourreau se contracte rhythmiquement, generant des pulsations dans le corps de l'organe. La jument possede des levres vulvaires epaisses et tres musclees, capables d'une prension active independante de toute penetration.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- 5 -->
+    <div class="creature-entry">
+      <span class="section-label">Entree V — Faune des Deserts</span>
+      <h2 class="creature-name">Le Lezard Miroir des Salines de Kreth</h2>
+      <p class="creature-origin">Origine : Salines de Kreth, desert cotier a l'extreme sud, ou le sel cristallise en colonnes de deux metres.</p>
+      <p class="creature-desc">Reptile d'un metre cinquante, peau couverte de plaques reflechissantes imitant l'environnement immediat comme un miroir parfait. Presque impossible a apercevoir a l'arret. Ses cretes dorsales changent de forme selon son humeur.</p>
+      <p class="creature-anatomy"><strong>Anatomie reproductive :</strong> Hemipeniforme double comme la plupart des squamates, mais d'une architecture remarquable : chaque hemipene est couvert de rosettes — des structures florales de keratine souple, huit petales chacune, qui s'etalent a plat au contact de la chaleur corporelle et se referment lentement au retrait, creant un effet de massage ornemental. La surface entre les rosettes est striee longitudinalement. La femelle possede un cloaque a musculature en anneau triple, chaque anneau contractile independamment, permettant une regulation tres precise de la pression interne.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- 6 -->
+    <div class="creature-entry">
+      <span class="section-label">Entree VI — Faune des Forets</span>
+      <h2 class="creature-name">Le Grand Ours-Araignee des Forets de Nhal</h2>
+      <p class="creature-origin">Origine : Forets de Nhal — jungle dense et poisseuse au nord-est, territoire des Araignees-Dieux selon les cultes locaux.</p>
+      <p class="creature-desc">Mammifere de grande taille, fourrure noire et dense, huit membres dont les deux posterieurs sont atrophies et servent uniquement a tisser une toile de soie organique utilisee comme nid et piege. Carnivore. Docile en captivite si eleve des le nourrisson.</p>
+      <p class="creature-anatomy"><strong>Anatomie reproductive :</strong> Le penis est osseux a la base — un baculum de forme recourbee — et se termine par un gland bifurque en deux lobes distincts, chacun legerement divergent. La surface presente des nodules regulierement espaces dont la durete diminue progressivement de la base vers l'extremite. Une glande perineale secrete pendant l'accouplement une substance soyeuse, legerement filante, qui lubrifie et laisse une trace odorante distinctive. La femelle possede deux paires de levres — les internes lisses, les externes recouvertes d'un fin duvet — et une musculature vaginale capable de contractions ondulatoires de la base vers l'ouverture.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- 7 -->
+    <div class="creature-entry">
+      <span class="section-label">Entree VII — Faune Abyssale</span>
+      <h2 class="creature-name">La Baleine Cendree des Abysses du Gouffre de Vel</h2>
+      <p class="creature-origin">Origine : Le Gouffre de Vel — fosse oceanique au large du continent meridional, si profonde que la lumiere n'y arrive pas.</p>
+      <p class="creature-desc">Cetace des profondeurs, peau grise et lisse, yeux vestigiaux, navigation integrale par echolocation. Absence totale de membres. Longueur : de vingt a quarante metres selon l'age.</p>
+      <p class="creature-anatomy"><strong>Anatomie reproductive :</strong> Le penis est invagine au repos dans une poche abdominale et ne se deplie que lors de l'accouplement — structure telescopique en trois segments, chaque segment d'un diametre legerement inferieur au precedent, comme une longue-vue. La surface externe est lisse mais dotee de deux sillons longitudinaux helicoidaux courant sur toute la longueur, produisant lors des mouvements une rotation passive de l'organe. Le gland terminal est en forme de dome aplati, extremement vascularise, de coloration rose vif contrastant avec le gris du reste du corps. La femelle possede une vulve a plis multiples qui se deploient a l'excitation comme une fleur s'ouvre, chaque pli recouvert d'une muqueuse a haute densite de terminaisons nerveuses.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- 8 -->
+    <div class="creature-entry">
+      <span class="section-label">Entree VIII — Faune des Steppes</span>
+      <h2 class="creature-name">Le Renard a Six Queues des Steppes de Calvor</h2>
+      <p class="creature-origin">Origine : Steppes de Calvor, plateau vente entre deux chaines de montagnes, a la frontiere nord du monde connu.</p>
+      <p class="creature-desc">Canide de taille moyenne, pelage blanc en hiver, roux en ete. Six queues plumeuses qu'il deploie en eventail lors des rituels d'intimidation ou de seduction. Extremement intelligent.</p>
+      <p class="creature-anatomy"><strong>Anatomie reproductive :</strong> Le penis presente une forme unique : cylindrique sur les deux-tiers proximaux, il se termine par un renflement bulbeux segmente en quatre quartiers par des sillons profonds — evoquant visuellement une graine de grenade. Chaque quartier du gland est d'une legere teinte differente allant du rose pale au bordeaux profond selon l'engorgement. A la base, un bulbe erectile volumineux se gonfle en fin d'accouplement, empechant le retrait premature pendant plusieurs minutes. La femelle possede un vestibule vaginal etroit s'elargissant brusquement en une chambre interne spacieuse.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- 9 -->
+    <div class="creature-entry">
+      <span class="section-label">Entree IX — Faune des Marais</span>
+      <h2 class="creature-name">Le Papillon de Chair des Marais de Sorvaine</h2>
+      <p class="creature-origin">Origine : Marais de Sorvaine, zone humide poisseuse a deux jours de Spire vers le sud.</p>
+      <p class="creature-desc">Insecte geant — envergure de soixante centimetres — dont les ailes membraneuses sont translucides et parcourues de veines pulsantes, comme un reseau sanguin visible. Au repos, les ailes repliees imitent parfaitement une feuille morte. Vie courte : trois semaines a l'etat adulte.</p>
+      <p class="creature-anatomy"><strong>Anatomie reproductive :</strong> L'edeage male est une structure semi-rigide en forme d'hamecon inverse, recourbee vers l'arriere, dont la surface porte des rangees de cils microscopiques capables de vibrations a haute frequence. Ces vibrations sont transmises directement aux tissus recepteurs lors de l'accouplement, creant une stimulation mecanique continue independante de tout mouvement de l'insecte lui-meme. La femelle possede une bursa copulatrix a deux chambres distinctes reliees par un canal etroit — seule la chambre secondaire recoit le sperme ; la chambre primaire sert uniquement a la stimulation initiale, anatomiquement separee de toute fonction reproductrice.</p>
+    </div>
+
+    <div class="separator">— — —</div>
+
+  </div>
+</section>
+
+<script>
+  const user = localStorage.getItem('spire_user');
+  const allowed = ['Yul', 'admin'];
+  if (!localStorage.getItem('spire_token') || !allowed.includes(user)) {
+    window.location.href = '../../dashboard.html';
+  }
+</script>
+</body>
+</html>

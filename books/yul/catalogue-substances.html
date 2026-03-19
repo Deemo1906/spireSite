@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalogue des Substances Rares — Usage Intime et Recreatif</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'IM Fell English', serif;
+      font-size: 1.05rem;
+      line-height: 1.95;
+      color: #2a1a0a;
+      background: #111;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(20, 5, 5, 0.96);
+      border-bottom: 1px solid #3a1010;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 2rem;
+      backdrop-filter: blur(4px);
+    }
+    nav a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #c4a830;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: #e8cc60; }
+    nav .nav-links { display: flex; gap: 2rem; }
+
+    /* COVER */
+    #cover {
+      min-height: 100vh;
+      background: #1f0a0a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-conic-gradient(
+          from 0deg at 50% 50%,
+          transparent 0deg,
+          transparent 10deg,
+          rgba(196,48,48,0.03) 10deg,
+          rgba(196,48,48,0.03) 11deg
+        );
+    }
+    #cover::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(80,10,10,0.0) 0%, rgba(10,0,0,0.6) 100%);
+      pointer-events: none;
+    }
+    .cover-frame {
+      position: relative;
+      z-index: 1;
+      border: 2px solid #3a1010;
+      padding: 3rem 4rem;
+      max-width: 540px;
+      width: 90%;
+      text-align: center;
+    }
+    .cover-frame::before {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      border: 1px solid rgba(196,168,48,0.25);
+      pointer-events: none;
+    }
+    .cover-frame::after {
+      content: '';
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(58,16,16,0.5);
+      pointer-events: none;
+    }
+    .cover-ornament {
+      font-size: 2rem;
+      color: #c4a830;
+      margin-bottom: 1rem;
+      display: block;
+      opacity: 0.7;
+    }
+    .cover-title {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.7rem;
+      color: #c4a830;
+      line-height: 1.35;
+      margin-bottom: 0.8rem;
+      text-shadow: 0 0 30px rgba(196,48,48,0.3);
+    }
+    .cover-subtitle {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: #8a4040;
+      margin-bottom: 1.5rem;
+    }
+    .cover-rule {
+      border: none;
+      border-top: 1px solid rgba(196,168,48,0.2);
+      margin: 1rem auto;
+      width: 60%;
+    }
+    .cover-warning {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 0.7rem;
+      color: rgba(160,80,80,0.55);
+      line-height: 1.6;
+    }
+
+    /* CONTENT */
+    #content {
+      background: #f5e8cc;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(139,90,43,0.08) 31px, rgba(139,90,43,0.08) 32px),
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(200,160,80,0.12) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 60% at 80% 90%, rgba(160,120,60,0.08) 0%, transparent 50%);
+      padding: 5rem 1.5rem 4rem;
+    }
+    .content-inner {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: #5a3a10;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    .intro-blockquote {
+      border-left: 3px solid #8a6030;
+      padding: 0.8rem 1.2rem;
+      margin: 1.5rem 0 2.5rem;
+      font-style: italic;
+      color: #3a2010;
+      background: rgba(139,90,43,0.05);
+    }
+
+    .substance-entry { margin-bottom: 2.8rem; }
+
+    .substance-name {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.35rem;
+      color: #3a2010;
+      margin-bottom: 0.5rem;
+    }
+
+    .substance-meta {
+      font-family: 'Cinzel', serif;
+      font-style: italic;
+      font-size: 0.6rem;
+      letter-spacing: 2px;
+      color: #7a5020;
+      margin-bottom: 1rem;
+      line-height: 1.8;
+    }
+    .substance-meta span { display: block; }
+
+    .substance-section-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #5a3a10;
+      margin-top: 0.8rem;
+      margin-bottom: 0.3rem;
+    }
+
+    p { color: #2a1a0a; }
+    p + p { text-indent: 1.5em; }
+
+    .entry-divider {
+      border: none;
+      border-top: 1px solid rgba(139,90,43,0.35);
+      margin: 2.2rem 0;
+    }
+
+    .separator {
+      text-align: center;
+      color: rgba(139,90,43,0.5);
+      font-size: 0.9rem;
+      letter-spacing: 0.8em;
+      margin: 2rem 0;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../../yul-library.html">← Collection Privee</a>
+  <div class="nav-links">
+    <a href="#cover">Couverture</a>
+    <a href="#content">Lire</a>
+  </div>
+</nav>
+
+<!-- COVER -->
+<section id="cover">
+  <div class="cover-frame">
+    <span class="cover-ornament">&#x2697;</span>
+    <h1 class="cover-title">Catalogue des Substances Rares</h1>
+    <p class="cover-subtitle">Usage Intime et Recreatif</p>
+    <hr class="cover-rule">
+    <p class="cover-warning">Ce document ne constitue pas une endorsation.</p>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<section id="content">
+  <div class="content-inner">
+
+    <blockquote class="intro-blockquote">
+      Les substances repertoriees ici sont le fruit de traditions pharmacologiques distinctes, parfois pluriseculaires. Elles ne sont pas toutes legales a Spire. Certaines ne sont accessibles qu'a certaines especes. Toutes comportent des risques. Ce catalogue ne constitue pas un guide d'acquisition ni de consommation — il est un document de reference pour ceux qui ont besoin de comprendre ce qui circule.
+    </blockquote>
+
+    <!-- 1 -->
+    <div class="substance-entry">
+      <span class="section-label">Substance I</span>
+      <h2 class="substance-name">L'Huile de Veuve Doree</h2>
+      <div class="substance-meta">
+        <span>Origine : Forets de Nhal, extracteurs aelfir</span>
+        <span>Type : Topique / lubrifiant</span>
+        <span>Producteur : Guildes apicoles aelfir (monopole non officiel)</span>
+        <span>Especes utilisatrices : Aelfirs principalement ; toleree chez humains</span>
+      </div>
+      <p class="substance-section-title">Fabrication</p>
+      <p>Extraite de la glande abdominale de l'araignee Veuve Doree de Nhal, distillee a froid sur quarante-huit heures, melangee a une base d'huile de graine d'Arbre-Chrysalide et stabilisee a la cire de larve. Le processus entier dure trois semaines. Les araignees survivent a l'extraction.</p>
+      <p class="substance-section-title">Effets</p>
+      <p>Amplifie graduellement la chaleur corporelle dans la zone d'application sur un delai de quinze a vingt minutes. Effet vasodilatatoire leger et pulse — comme une main chaude pressant rhythmiquement de l'interieur. Ne provoque pas d'engorgement artificiel mais intensifie la perception des engorgements naturels. Duree : deux a trois heures selon la quantite appliquee.</p>
+      <p class="substance-section-title">Usage social</p>
+      <p>Produit de luxe aelfir, offert lors des ceremonies d'union de premier rang. Presence d'un flacon dans une chambre aelfir signale generalement une soiree ceremonielle. Se trouve sur le marche noir de Spire a des prix exorbitants. Maera Voss en aurait un stock personnel.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- 2 -->
+    <div class="substance-entry">
+      <span class="section-label">Substance II</span>
+      <h2 class="substance-name">La Poudre de Seuil</h2>
+      <div class="substance-meta">
+        <span>Origine : Preparation des Midwives, localisation variable</span>
+        <span>Type : Inhalee</span>
+        <span>Producteur : Midwives drows (usage ceremoniel)</span>
+        <span>Especes utilisatrices : Drows uniquement — effets impredictibles et dangereux hors espece</span>
+      </div>
+      <p class="substance-section-title">Fabrication</p>
+      <p>Connue familierement sous le nom de "poussiere d'os" — sans que personne ne veuille confirmer si le nom est metaphorique. La composition exacte est un secret des Midwives. La poudre est grise, tres fine, avec une odeur minerale. Elle ne brule pas et ne peut pas etre dissolue dans un liquide sans perdre ses proprietes.</p>
+      <p class="substance-section-title">Effets</p>
+      <p>Phase 1, les dix premieres minutes : hypersensibilite tactile totale. Le contact le plus leger est percu avec une precision et une intensite extremes — temperature, texture, pression deviennent des informations tres denses. Phase 2, a partir de vingt minutes : la frontiere entre douleur et plaisir commence a se dissoudre. Ce qui serait normalement douloureux ne l'est plus — ou bien l'est et ne l'est pas simultanement. Duree totale : quarante-cinq minutes a une heure.</p>
+      <p class="substance-section-title">Usage social</p>
+      <p>Usage exclusivement ceremoniel dans les communautes drows. La prendre hors d'un cadre encadre par une Midwife est considere comme irrespectueux au mieux, stupide au pire. Elle n'est pas vendue. Elle est donnee, dans un contexte precis, a ceux pour qui elle a ete preparee.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- 3 -->
+    <div class="substance-entry">
+      <span class="section-label">Substance III</span>
+      <h2 class="substance-name">Le The des Mille Noeuds</h2>
+      <div class="substance-meta">
+        <span>Origine : Marais de Sorvaine</span>
+        <span>Type : Bue (infusion)</span>
+        <span>Producteur : Herboristes keth-vor de Sorvaine</span>
+        <span>Especes utilisatrices : Toutes especes (effets varies)</span>
+      </div>
+      <p class="substance-section-title">Fabrication</p>
+      <p>Infusion de six plantes de marais, dont deux dont les noms locaux ne se traduisent pas proprement en commun. Preparation a l'eau froide sur vingt-quatre heures — jamais a chaud, ce qui denaturerait les composes actifs. Le liquide obtenu est presque noir et d'un gout amer-sucre particulier. Se boit chaud, mais n'est jamais prepare chaud.</p>
+      <p class="substance-section-title">Effets</p>
+      <p>Prolonge significativement le temps avant ce que les keth-vor appellent le sanneth — la crete de la courbe. Selon les individus, ce facteur est de deux a quatre fois la duree normale. Chez les aelfirs uniquement : effet secondaire de synesthesie moderee, les sons devenant des sensations tactiles et les couleurs des sons. Chez les autres especes, l'effet se limite a la prolongation.</p>
+      <p class="substance-section-title">Usage social</p>
+      <p>Commerce legal dans la plupart des regions. A Spire, vendu dans les herboristeries du bas-marche sous des noms varies. Les keth-vor le considerent comme une plante medicinale ordinaire et s'amusent de la discretion avec laquelle les autres especes l'achetent.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- 4 -->
+    <div class="substance-entry">
+      <span class="section-label">Substance IV</span>
+      <h2 class="substance-name">Le Sel de Presage</h2>
+      <div class="substance-meta">
+        <span>Origine : Sky Docks, preparation corvidienne</span>
+        <span>Type : Topique (cristaux appliques en solution)</span>
+        <span>Producteur : Megacorvidae (Grand-Corbeau de la cour)</span>
+        <span>Especes utilisatrices : Drows et humains principalement</span>
+      </div>
+      <p class="substance-section-title">Fabrication</p>
+      <p>Cristaux extraits du plumage de contact des Megacorvidae lors de la saison de mue. Dissous dans une solution saline a densite precise, appliques en compression sur les zones de forte vascularisation. La preparation varie selon le Corbeau qui la produit — il n'y a pas de standardisation. Chaque lot est donc legerement different.</p>
+      <p class="substance-section-title">Effets</p>
+      <p>Conscience elargie des reactions physiologiques du ou des partenaires — pas telepathique, mais une lecture tres fine des variations de temperature, de tension musculaire, de rythme cardiaque par le toucher. Comme si les mains devenaient des instruments de mesure. Accompagne de breves visions en noir et blanc d'une duree de deux a cinq secondes, de nature corvine — images vues de haut, fragments de memoire du Corbeau qui a produit le lot.</p>
+      <p class="substance-section-title">Usage social</p>
+      <p>Rarissime. Disponible uniquement par relation directe avec un Megacorvidae ou par l'intermediaire d'un courtier ayant acces aux Sky Docks. Son prix est fixe par le Corbeau lui-meme, en termes non monetaires : il veut quelque chose que vous avez, ou un service, ou une information.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- 5 -->
+    <div class="substance-entry">
+      <span class="section-label">Substance V</span>
+      <h2 class="substance-name">La Resine de Metamorphose</h2>
+      <div class="substance-meta">
+        <span>Origine : Forets de Nhal</span>
+        <span>Type : Topique (gel)</span>
+        <span>Producteur : Alchimistes drows de Nhal</span>
+        <span>Especes utilisatrices : Drows exclusivement</span>
+      </div>
+      <p class="substance-section-title">Fabrication</p>
+      <p>Connue sous le nom de "resine d'eveil" dans les communautes drows. Extraite de l'Arbre-Chrysalide en phase de transformation larvaire, stabilisee par un processus alchimique specifique aux drows. Consistance de gel epais, couleur ambre clair, odeur de resine et de terre mouilee.</p>
+      <p class="substance-section-title">Effets</p>
+      <p>Hypersensibilisation progressive et ciblee de la zone d'application — la sensibilite tactile augmente sur une periode de dix a trente minutes pour atteindre un pic maintenu environ une heure. Legere tumescence de la zone traitee. L'effet est strictement local ; aucun effet systemique rapporte. Chez les especes non-drows : inflammation severe de la peau, brlure chimique. Ne pas utiliser hors espece.</p>
+      <p class="substance-section-title">Usage social</p>
+      <p>Usage prive. Pas de commercialisation connue hors des communautes drows. Les rares specimens en circulation a Spire proviennent de drows qui en ont apporte pour usage personnel. Considere comme un produit d'hygiene intime ordinaire par les drows eux-memes.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- 6 -->
+    <div class="substance-entry">
+      <span class="section-label">Substance VI</span>
+      <h2 class="substance-name">L'Elixir de la Baronne</h2>
+      <div class="substance-meta">
+        <span>Origine : Preparation personnelle de la Baronne Werrian-Sax</span>
+        <span>Type : Bue</span>
+        <span>Producteur : La Baronne Werrian-Sax (unique productrice connue)</span>
+        <span>Especes utilisatrices : Toutes — effets radicalement differents selon l'espece</span>
+      </div>
+      <p class="substance-section-title">Fabrication</p>
+      <p>La formule est inconnue. La Baronne Werrian-Sax ne l'a jamais divulguee. L'elixir se presente comme un liquide dore avec des particules en suspension qui ne se decantent jamais. Il est tiede en permanence, meme stocke dans une cave froide. Il ne se degrade pas.</p>
+      <p class="substance-section-title">Effets</p>
+      <p>Chez les drows : alteration du temps subjectif — une heure se vit comme une nuit complete, avec une precision de memoire absolue de chaque instant. Chez les humains : synesthesie complete pendant deux a trois heures — chaque sensation tactile produit une image visuelle et un son. Chez les aelfirs : desinhibition totale de tout controle social appris, pendant une duree variable, sans alteration du jugement moral. Chez les gutterkin : refusent categoriquement d'en parler et deconseilleraient vivement de les interroger a ce sujet.</p>
+      <p class="substance-section-title">Usage social</p>
+      <p>La Baronne n'en vend pas. Elle en donne, rarement, a des gens qu'elle a choisi elle-meme. Maera Voss en possederait trois flacons intacts. Ne pas lui en parler sans une tres bonne raison.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- 7 -->
+    <div class="substance-entry">
+      <span class="section-label">Substance VII</span>
+      <h2 class="substance-name">Le Venin Doux de la Meduse des Brumes</h2>
+      <div class="substance-meta">
+        <span>Origine : Detroits de Thurak</span>
+        <span>Type : Topique ou injecte (selon application)</span>
+        <span>Producteur : Pecheurs-apiculteurs de la cote de Thurak</span>
+        <span>Especes utilisatrices : Humains et drows principalement</span>
+      </div>
+      <p class="substance-section-title">Fabrication</p>
+      <p>Extrait du filament urticant de la Meduse des Brumes de Thurak, une espece pelagique de taille modeste. Le venin est neutralise partiellement par chauffage rapide — trop chauffer le rend inactif, pas assez le rend pleinement toxique. La fenetre de traitement est d'environ trente secondes. C'est un metier.</p>
+      <p class="substance-section-title">Effets</p>
+      <p>Bloque selectivement les recepteurs de la douleur et de la temperature dans la zone d'application, sans affecter les recepteurs de pression, de vibration et de proprioception. En pratique : ce qui serait douloureux ne l'est plus, ce qui serait brulant ou glacant ne l'est plus — mais le toucher, la pression, les vibrations restent integralement percus et sont, selon les rapports, amplifes par l'absence de competition des autres signaux.</p>
+      <p class="substance-section-title">Usage social</p>
+      <p>Utilise medialement dans les communautes de pecheurs de Thurak. Sa repute en usage recreatif est arrivee a Spire avant la substance elle-meme. Disponible avec effort dans les milieux medicaux de la Haute Cite. Les Midwives en ont un avis tres precise qu'elles ne partagent pas spontanement.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- 8 -->
+    <div class="substance-entry">
+      <span class="section-label">Substance VIII</span>
+      <h2 class="substance-name">L'Encens de Gestation — Les Braises d'Ishkrah</h2>
+      <div class="substance-meta">
+        <span>Origine : Preparation des Midwives drows, localisation tenue secrete</span>
+        <span>Type : Fumee inhalee</span>
+        <span>Producteur : Midwives drows (usage ceremoniel exclusif)</span>
+        <span>Especes utilisatrices : Drows exclusivement</span>
+      </div>
+      <p class="substance-section-title">Fabrication</p>
+      <p>Les ingredients ne sont pas connus. L'encens se presente sous forme de braises lentes — des morceaux de matiere carbonisee qui brulent pendant quatre a six heures sans produire de flamme. La fumee est blanche et dense, d'une odeur complexe que les temoins non-drows decrivent toujours differemment : certains disent la resine, d'autres la pierre chaude, d'autres encore quelque chose qu'ils ne savent pas nommer.</p>
+      <p class="substance-section-title">Effets</p>
+      <p>Ishkrah — du mot drow pour gestation ou peut-etre pour croissance, les traducteurs ne s'accordent pas — provoque ce que les Midwives decrivent comme une fusion des frontieres du soi. Pas une perte de conscience de soi, mais une dissolution temporaire des limites percues entre soi et les autres presences dans la piece. L'intimite qui se produit dans cet etat est decrite par ceux qui en parlent comme d'une intensite emotionnelle durable — quelque chose qui ne s'oublie pas dans les annees qui suivent.</p>
+      <p class="substance-section-title">Usage social</p>
+      <p>Strictement ceremoniel. Strictement drows. Strictement encadre par les Midwives. Il n'y a pas de version recreative et les Midwives ont des opinions tres arretees sur ce qui arriverait a quelqu'un qui essaierait d'en creer une.</p>
+    </div>
+
+    <div class="separator">— — —</div>
+
+  </div>
+</section>
+
+<script>
+  const user = localStorage.getItem('spire_user');
+  const allowed = ['Yul', 'admin'];
+  if (!localStorage.getItem('spire_token') || !allowed.includes(user)) {
+    window.location.href = '../../dashboard.html';
+  }
+</script>
+</body>
+</html>

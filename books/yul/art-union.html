@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L'Art de l'Union — Guide Comparatif des Pratiques Intimes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'IM Fell English', serif;
+      font-size: 1.05rem;
+      line-height: 1.95;
+      color: #2a1a0a;
+      background: #111;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(18, 16, 12, 0.96);
+      border-bottom: 1px solid #6a5a3a;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 2rem;
+      backdrop-filter: blur(4px);
+    }
+    nav a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #c4a830;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: #e8cc60; }
+    nav .nav-links { display: flex; gap: 2rem; }
+
+    /* COVER — aged linen / academic */
+    #cover {
+      min-height: 100vh;
+      background: #e8dfc0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Foxing spots */
+    #cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 8% 6% at 12% 18%, rgba(160,120,60,0.15) 0%, transparent 70%),
+        radial-gradient(ellipse 5% 4% at 78% 22%, rgba(140,100,50,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 7% 5% at 88% 65%, rgba(150,110,55,0.1) 0%, transparent 70%),
+        radial-gradient(ellipse 4% 3% at 25% 80%, rgba(160,120,60,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 6% 4% at 55% 90%, rgba(130,95,45,0.09) 0%, transparent 70%),
+        radial-gradient(ellipse 3% 2% at 40% 10%, rgba(155,115,55,0.1) 0%, transparent 70%);
+    }
+    /* Coffee stain */
+    #cover::after {
+      content: '';
+      position: absolute;
+      width: 120px;
+      height: 90px;
+      border-radius: 50%;
+      border: 3px solid rgba(120,80,30,0.12);
+      top: 15%;
+      right: 12%;
+      background: radial-gradient(ellipse at 40% 40%, rgba(100,65,20,0.07) 0%, transparent 60%);
+    }
+    .cover-frame {
+      position: relative;
+      z-index: 1;
+      border: 2px solid #a09060;
+      padding: 3rem 4rem;
+      max-width: 560px;
+      width: 90%;
+      text-align: center;
+      background: rgba(232,223,192,0.3);
+    }
+    .cover-frame::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgba(120,90,40,0.3);
+      pointer-events: none;
+    }
+    /* Worn corners */
+    .cover-frame .corner {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+    }
+    .cover-frame .corner-tl { top: -2px; left: -2px; border-top: 3px solid #8a6030; border-left: 3px solid #8a6030; }
+    .cover-frame .corner-tr { top: -2px; right: -2px; border-top: 3px solid #8a6030; border-right: 3px solid #8a6030; }
+    .cover-frame .corner-bl { bottom: -2px; left: -2px; border-bottom: 3px solid #8a6030; border-left: 3px solid #8a6030; }
+    .cover-frame .corner-br { bottom: -2px; right: -2px; border-bottom: 3px solid #8a6030; border-right: 3px solid #8a6030; }
+
+    .cover-stamp {
+      font-family: 'Cinzel', serif;
+      font-size: 0.45rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(90,60,20,0.45);
+      border: 1px solid rgba(90,60,20,0.25);
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      margin-bottom: 1.2rem;
+    }
+    .cover-title {
+      font-family: 'IM Fell English', serif;
+      font-size: 1.6rem;
+      color: #2a1a0a;
+      line-height: 1.3;
+      margin-bottom: 0.4rem;
+    }
+    .cover-subtitle {
+      font-family: 'Cinzel', serif;
+      font-size: 0.5rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #6a4a20;
+      margin-bottom: 1.2rem;
+    }
+    .cover-rule {
+      border: none;
+      border-top: 1px solid rgba(90,60,20,0.3);
+      margin: 0.8rem auto;
+      width: 50%;
+    }
+    .cover-edition {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 0.75rem;
+      color: rgba(60,40,10,0.5);
+    }
+
+    /* CONTENT */
+    #content {
+      background: #f5e8cc;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(139,90,43,0.08) 31px, rgba(139,90,43,0.08) 32px),
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(200,160,80,0.12) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 60% at 80% 90%, rgba(160,120,60,0.08) 0%, transparent 50%);
+      padding: 5rem 1.5rem 4rem;
+    }
+    .content-inner {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: #5a3a10;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    .chapter-title {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.35rem;
+      color: #3a2010;
+      margin-bottom: 0.8rem;
+    }
+
+    .intro-blockquote {
+      border-left: 3px solid #8a6030;
+      padding: 0.8rem 1.2rem;
+      margin: 1.5rem 0 2.5rem;
+      font-style: italic;
+      color: #3a2010;
+      background: rgba(139,90,43,0.05);
+    }
+
+    p { color: #2a1a0a; margin-bottom: 0; }
+    p + p { text-indent: 1.5em; }
+
+    .chapter-block { margin-bottom: 3rem; }
+
+    .sub-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.5rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #7a5020;
+      margin-top: 1rem;
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+
+    .entry-divider {
+      border: none;
+      border-top: 1px solid rgba(139,90,43,0.35);
+      margin: 2.2rem 0;
+    }
+
+    .separator {
+      text-align: center;
+      color: rgba(139,90,43,0.5);
+      font-size: 0.9rem;
+      letter-spacing: 0.8em;
+      margin: 2rem 0;
+    }
+
+    .closing-note {
+      border: 1px solid rgba(139,90,43,0.4);
+      padding: 1.2rem 1.5rem;
+      margin-top: 3rem;
+      background: rgba(139,90,43,0.04);
+      font-style: italic;
+      font-size: 0.95rem;
+      color: #3a2010;
+    }
+
+    .appendix-entry { margin-bottom: 1.5rem; }
+    .appendix-pair {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #6a4020;
+      margin-bottom: 0.3rem;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../../yul-library.html">← Collection Privee</a>
+  <div class="nav-links">
+    <a href="#cover">Couverture</a>
+    <a href="#content">Lire</a>
+  </div>
+</nav>
+
+<!-- COVER -->
+<section id="cover">
+  <div class="cover-frame">
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+    <div class="cover-stamp">Institut de Naturalisme Comparatif</div>
+    <h1 class="cover-title">L'Art de l'Union</h1>
+    <p class="cover-subtitle">Guide Comparatif des Pratiques Intimes a Travers les Especes Douees de Raison</p>
+    <hr class="cover-rule">
+    <p class="cover-edition">Troisieme edition revue et augmentee</p>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<section id="content">
+  <div class="content-inner">
+
+    <span class="section-label">Preambule</span>
+    <h2 class="chapter-title">De la Diversite des Corps et des Cultures</h2>
+
+    <blockquote class="intro-blockquote">
+      Il n'existe pas un seul modele d'union intime entre etres doues de raison. Il en existe autant que d'especes, de cultures, de regions climatiques, de traditions philosophiques, et d'individus. Ce guide ne pretend pas a l'exhaustivite — il pretend a l'honnetete. Chaque chapitre est fonde sur des observations de terrain, des entretiens directs, et une lecture attentive des rares textes primaires disponibles. La curiosite qui anime ce travail est celle du naturaliste, pas du voyeur.
+    </blockquote>
+
+    <hr class="entry-divider">
+
+    <!-- Ch I -->
+    <div class="chapter-block">
+      <span class="section-label">Chapitre I</span>
+      <h2 class="chapter-title">Les Drows</h2>
+      <p>Espece ovipare dont le cycle reproducteur est trimestriel et non continu, ce qui implique que l'intimite n'est pas liee a la reproduction de maniere aussi systematique que chez les especes mammiferes. Cette dissociation structurelle a produit une culture pragmatique et tres deliberee autour du plaisir et du lien — deux choses considerees comme distinctes et meritant chacune leur propre langage.</p>
+      <span class="sub-label">Cadre culturel</span>
+      <p>L'eclairage joue un role central. Les Midwives drows utilisent systematiquement la bougie — une flamme unique — dans les contextes ceremoniel. La lumiere directe est consideree comme impudique non par pudeur mais parce qu'elle efface les nuances. L'ombre partielle est le medium de l'intimite.</p>
+      <span class="sub-label">Pratiques documentees</span>
+      <p>La preparation est longue — contact progressif, rituel de passage d'un etat a l'autre marque par des gestes precis, dont certains sont decrits en detail dans le Glossaire des Ceremonies Aelfir adapte aux conventions drows. La culture drow valorise la precision plutot que l'improvisation. Ce qui est fait est fait consciemment, pour une raison, au moment choisi.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- Ch II -->
+    <div class="chapter-block">
+      <span class="section-label">Chapitre II</span>
+      <h2 class="chapter-title">Les Aelfirs</h2>
+      <p>La bioluminescence aelfir — le soleth, dans leur langue — est un systeme de communication involontaire dont l'aelfir ne controle pas entierement les manifestations. En contexte d'intimite, le soleth est a la fois un don et une vulnerabilite : il dit ce que la parole ne dirait pas. C'est pour cette raison que les Aelfirs portent des masques dans leurs ceremonies les plus intenses — le masque protege la face pendant que le corps, lui, ne peut pas mentir.</p>
+      <span class="sub-label">Cadre culturel</span>
+      <p>Les Aelfirs vivent deux siecles. Cela produit une relation au desir tres differente de celle des especes courtes — le desir est moins urgent, plus strategique, plus theatral. La hierarchie est toujours presente, meme en contexte intime. Qui pose les termes de l'union ? Qui decide du rythme ? Ces questions ne sont jamais ignorees. Le theatral et le hierarchique ne sont pas des obstacles au veritable lien — ils en sont le cadre institutionnel.</p>
+      <span class="sub-label">Pratiques documentees</span>
+      <p>La ceremonie du corsivael et ses elements — decrits en detail dans le Glossaire — est la forme aelfir d'une intimite elevated. Ce n'est pas la seule forme, mais c'est celle dont on parle le moins et qui dit le plus. L'ossivael — le vrai demasquage — est considere comme le niveau de vulnerabilite le plus eleve qu'un Aelfir puisse atteindre.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- Ch III -->
+    <div class="chapter-block">
+      <span class="section-label">Chapitre III</span>
+      <h2 class="chapter-title">Les Humains</h2>
+      <p>L'anatomie humaine est standard et amplement documentee ailleurs. Ce qui est pertinent ici, c'est la plasticite remarquable des humains face aux influences culturelles, aux substances, et aux partenaires d'autres especes. Les humains s'adaptent avec une facilite que d'autres especes trouvent parfois desconcertante.</p>
+      <span class="sub-label">Cadre culturel</span>
+      <p>La vie courte des humains produit un rapport au desir plus constant — moins strategique que chez les Aelfirs, moins ceremoniel que chez les Drows, mais d'une intensite immediate que ni l'un ni l'autre n'ont tout a fait. Ce que les humains perdent en longueur, ils le gagnent en densite de presence.</p>
+      <span class="sub-label">Pratiques documentees</span>
+      <p>Enormement variables selon la region d'origine, la classe sociale et l'exposition a d'autres cultures. Les humains de Spire, en particulier, ont developpe des pratiques hybrides absorbant des elements de toutes les especes avec lesquelles ils cohabitent. Ils font ca avec tout, en realite.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- Ch IV -->
+    <div class="chapter-block">
+      <span class="section-label">Chapitre IV</span>
+      <h2 class="chapter-title">Les Nains</h2>
+      <p>La densite physique des nains — masse osseuse, musculature, chaleur metabolique elevee — est le fait anatomique central. Un nain degage en permanence une chaleur corporelle qui est, selon les partenaires humains et drows interroges, simultanement confortable et intense. L'endurance physique naine est legendaire et n'est pas que legende.</p>
+      <span class="sub-label">Cadre culturel</span>
+      <p>L'endurance est une vertu explicite dans la culture naine de Vel-Harath. Ce qui dure longtemps est bien fait. Ce principe s'applique a l'architecture, a l'amitie, au travail, et a l'intimite sans distinction hierarchique entre ces domaines.</p>
+      <span class="sub-label">Pratiques documentees</span>
+      <p>Le Chant de Forge est une analogie culturelle centrale : comme le metal qui prend sa forme sous chaleur et pression repetee, un lien intime prend sa forme veritable par le travail patient et l'intensite soutenue. Les nains ne parlent pas de tout cela avec des etrangers. Ce chapitre est le fruit de deux annees de confiance mutuelle avec une source unique.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- Ch V -->
+    <div class="chapter-block">
+      <span class="section-label">Chapitre V</span>
+      <h2 class="chapter-title">Les Lezardsang</h2>
+      <p>Sang froid — au sens strictement physiologique. La temperature corporelle des Lezardsang depend de l'environnement immediat. Cela pose un prerequis thermique a tout contact intime : le corps doit d'abord etre chauffe, externalement ou par une piece templee, avant que l'excitation soit possible. Un Lezardsang froid n'est pas disponible. Ce n'est pas une metaphore.</p>
+      <span class="sub-label">Anatomie de reference</span>
+      <p>Hemipeniforme double chez les males, langue bifide a haute sensibilite chimio-sensorielle. La langue est utilisee activement en contexte intime — elle lit l'etat physiologique du partenaire avec une precision que les autres especes ne peuvent pas egaler sans substances chimiques. Un Lezardsang qui "gote l'air" en votre presence lit votre cortisol, votre temperature, votre rythme cardiaque.</p>
+      <span class="sub-label">Pratiques documentees</span>
+      <p>La preparation thermique est un rituel en elle-meme. Les bains de pierre chaude, les tentes de vapeur, les couvertures lourdes — tout cela precede l'intimite de maniere structuree. La langue bifide est utilisee comme premier contact, avant toute autre forme de toucher.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- Ch VI -->
+    <div class="chapter-block">
+      <span class="section-label">Chapitre VI</span>
+      <h2 class="chapter-title">Les Gnolls</h2>
+      <p>Societe matriarcale stricte. Le fait anatomique le plus notable pour un lecteur non-gnoll : les femelles possedent un pseudo-penis erectile de huit a quinze centimetres, fonctionnel dans l'excitation, non reproducteur. Les males possedent un baculum — une structure osseuse penienne — et des glandes odorantes dont la signification sociale depasse largement le seul contexte intime.</p>
+      <span class="sub-label">Cadre culturel</span>
+      <p>Le statut matriarcal n'est pas simplement politique chez les Gnolls — il est incorpore dans les pratiques intimes de maniere explicite. Qui initie, qui positionne, qui termine : ces questions ont des reponses culturelles claires, et les Gnolls ne les negocie pas, ils les incarnent. Les etrangers qui ne comprennent pas ca avant d'entrer dans un contexte intime avec un Gnoll font des erreurs importantes.</p>
+      <span class="sub-label">Pratiques documentees</span>
+      <p>Les glandes odorantes produisent des signaux distincts pour l'interet, le statut, et l'etat d'excitation. Un Gnoll peut litteralement sentir si un partenaire est nerveux, interesse, ou dominant. Ce n'est pas percu comme invasif — c'est percu comme lire le visage de quelqu'un.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- Ch VII -->
+    <div class="chapter-block">
+      <span class="section-label">Chapitre VII</span>
+      <h2 class="chapter-title">Les Demi-Arachnides Tisseurs-de-Nhal</h2>
+      <p>La production de soie est involontaire en etat d'excitation — comme la bioluminescence aelfir, c'est un signal corporel que l'individu ne choisit pas d'emettre. La soie produite en contexte intime est d'une qualite differente de la soie de construction : plus fine, plus elastique, a une odeur specifique. Les Tisseurs-de-Nhal en sont generalement conscients et navigent ce fait avec des degres varies de confort.</p>
+      <span class="sub-label">Sensorialite</span>
+      <p>La sensibilite vibratoire des Tisseurs est extraordinaire. Ils percoivent les vibrations du sol, de l'air, des surfaces de contact avec une resolution que les autres especes n'ont pas. En contexte intime, cela signifie que le rythme cardiaque du partenaire, sa respiration, les micro-tremblements musculaires — tout cela est recu comme information directe.</p>
+      <span class="sub-label">Pratiques documentees</span>
+      <p>La soie est parfois utilisee comme outil rituel — tisser autour d'un partenaire volontaire, de maniere precise, est considere comme un acte d'intimite profonde plutot que restrictive. La signification depend entierement du contexte et du consentement. Un Tisseur qui tisse autour de vous dit quelque chose d'important. Ecoutez-le.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- Ch VIII -->
+    <div class="chapter-block">
+      <span class="section-label">Chapitre VIII</span>
+      <h2 class="chapter-title">Les Morbacks</h2>
+      <p>Espece amphibie dont les organes reproducteurs sont internes au repos et ne se manifestent a la surface qu'en contexte d'excitation et de temperature appropriee — prerequis hydrique important ; un Morback deshydrate n'est physiologiquement pas en etat d'intimite, indifferemment de son desir subjectif.</p>
+      <span class="sub-label">Bioluminescence</span>
+      <p>La bioluminescence morback est differente de celle des Aelfirs — elle ne localise pas des emotions specifiques mais se produit en vagues sur l'ensemble du corps, comme des marees. Ses patterns sont lisibles par les autres Morbacks comme une langue secondaire. Pour les autres especes, c'est simplement extraordinairement beau.</p>
+      <span class="sub-label">Pratiques documentees</span>
+      <p>L'eau est centrale — pas necessairement une immersion complete, mais une presence. L'air sec est physiquement inconfortable pour les Morbacks en etat d'excitation. Les partenaires d'autres especes qui s'interessent aux Morbacks apprennent rapidement a maintenir une certaine humidite ambiante. Les bains chauds sont une solution pratique et souvent appreciee de tous les participants.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <!-- Appendice -->
+    <div class="chapter-block">
+      <span class="section-label">Appendice</span>
+      <h2 class="chapter-title">Unions Interspecifiques — Notes Pratiques</h2>
+
+      <blockquote class="intro-blockquote">
+        Les notes suivantes sont issues d'observations et d'entretiens. Elles ne sont pas prescriptives — elles sont informatives. Chaque union est unique. Ces generalisations sont des points de depart, pas des conclusions.
+      </blockquote>
+
+      <div class="appendix-entry">
+        <p class="appendix-pair">Drow × Aelfir</p>
+        <p>Compatibilite physiologique haute. Compatibilite culturelle : moderee a elevee avec preparation. Les deux cultures valorisent la deliberation et la forme. La difference : les Drows travaillent dans l'ombre et la precision ; les Aelfirs dans la lumiere et le theatral. La negociation de l'eclairage est souvent le premier point de friction et le premier point de resolution.</p>
+      </div>
+
+      <div class="appendix-entry">
+        <p class="appendix-pair">Humain × Nain</p>
+        <p>Difference de chaleur metabolique notable mais adaptable. La capacite d'endurance naine peut etre desorientante pour les partenaires humains non prepares. Communication explicite sur le rythme recommandee. Le partenaire humain finit generalement par apprecier l'endurance naine. Le partenaire nain finit generalement par apprecier l'improvisation humaine.</p>
+      </div>
+
+      <div class="appendix-entry">
+        <p class="appendix-pair">Lezardsang × Drow</p>
+        <p>La langue bifide et la precision du toucher drow forment une combinaison que plusieurs sources decrivent de maniere difficile a restituer par ecrit. Prerequis thermique a gerer — les Drows tolerent bien la chaleur ; un bain chaud avant contact resout le probleme de preparation thermique du Lezardsang et est souvent integre dans le rituel d'approche drow de toute facon.</p>
+      </div>
+
+      <div class="appendix-entry">
+        <p class="appendix-pair">Gnoll × Humain</p>
+        <p>Prerequis culturel : le partenaire humain doit comprendre la structure matriarcale gnoll et etre a l'aise avec son role dans ce cadre, quelle que soit son identite de genre. Les Gnolls lisent les signaux chimiques — nervosité, ambivalence et enthousiasme sont tous detectable. L'authenticite est non-negociable.</p>
+      </div>
+
+      <div class="appendix-entry">
+        <p class="appendix-pair">Tisseur-de-Nhal × N'importe quelle espece</p>
+        <p>La sensibilite vibratoire du Tisseur rend la communication corporelle extremement riche mais aussi tres exposante — il ou elle sait ce que vous ressentez physiologiquement avec une precision que vous n'avez pas vous-meme. Cela peut etre profondement intime ou profondement inconfortable selon votre rapport a la transparence. Sachez ou vous en etes avant de commencer.</p>
+      </div>
+    </div>
+
+    <div class="closing-note">
+      L'auteur rappelle que la connaissance sans le consentement n'est qu'une liste d'opportunites non demandees. Ce guide est un outil d'information, non d'autorisation.
+    </div>
+
+    <div class="separator">— — —</div>
+
+  </div>
+</section>
+
+<script>
+  const user = localStorage.getItem('spire_user');
+  const allowed = ['Yul', 'admin'];
+  if (!localStorage.getItem('spire_token') || !allowed.includes(user)) {
+    window.location.href = '../../dashboard.html';
+  }
+</script>
+</body>
+</html>

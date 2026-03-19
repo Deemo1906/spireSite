@@ -139,6 +139,11 @@
           <span class="dash-card-label">Bibliothèque</span>
           <span class="dash-card-sub">Œuvres & Archives</span>
         </a>
+        <a class="dash-card" href="yul-library.html" id="yulCard" style="display:none;">
+          <span class="dash-card-icon">🔒</span>
+          <span class="dash-card-label">Collection Privée</span>
+          <span class="dash-card-sub">Bibliothèque de Yul</span>
+        </a>
       </nav>
 
       <button class="dash-logout" id="logoutBtn">Se déconnecter</button>
@@ -151,6 +156,9 @@
         window.location.href = 'connect.html';
       } else {
         document.getElementById('dashUser').textContent = username;
+        if (['Yul', 'admin'].includes(username)) {
+          document.getElementById('yulCard').style.display = '';
+        }
       }
 
       document.getElementById('logoutBtn').addEventListener('click', () => {

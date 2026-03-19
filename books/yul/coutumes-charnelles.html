@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coutumes Charnelles du Monde Exterieur — Un Voyage par la Chair</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'IM Fell English', serif;
+      font-size: 1.05rem;
+      line-height: 1.95;
+      color: #2a1a0a;
+      background: #111;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(20, 14, 4, 0.96);
+      border-bottom: 1px solid #4a3010;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 2rem;
+      backdrop-filter: blur(4px);
+    }
+    nav a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #c4a830;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: #e8cc60; }
+    nav .nav-links { display: flex; gap: 2rem; }
+
+    /* COVER — worn travel diary */
+    #cover {
+      min-height: 100vh;
+      background: #2a1e0a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Vertical grain lines */
+    #cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 18px,
+        rgba(196,168,48,0.025) 18px,
+        rgba(196,168,48,0.025) 19px
+      );
+    }
+    #cover::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0,0,0,0.4) 100%);
+    }
+    .cover-frame {
+      position: relative;
+      z-index: 1;
+      border: 2px solid #6a4a1a;
+      padding: 3rem 4rem;
+      max-width: 540px;
+      width: 90%;
+      text-align: center;
+    }
+    .cover-frame::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgba(196,168,48,0.2);
+      pointer-events: none;
+    }
+    /* Author initial */
+    .cover-initial {
+      position: absolute;
+      top: 0.8rem;
+      left: 1.2rem;
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 2.2rem;
+      color: rgba(196,168,48,0.35);
+      line-height: 1;
+    }
+    .cover-title {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.75rem;
+      color: #c4a830;
+      line-height: 1.3;
+      margin-bottom: 0.6rem;
+      text-shadow: 0 0 20px rgba(196,168,48,0.15);
+    }
+    .cover-subtitle {
+      font-family: 'Cinzel', serif;
+      font-size: 0.5rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: #8a6a2a;
+      margin-bottom: 1.5rem;
+    }
+    .cover-rule {
+      border: none;
+      border-top: 1px solid rgba(196,168,48,0.2);
+      margin: 1rem auto;
+      width: 55%;
+    }
+    .cover-author-note {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 0.8rem;
+      color: rgba(196,168,48,0.45);
+      line-height: 1.6;
+    }
+
+    /* CONTENT */
+    #content {
+      background: #f5e8cc;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(139,90,43,0.08) 31px, rgba(139,90,43,0.08) 32px),
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(200,160,80,0.12) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 60% at 80% 90%, rgba(160,120,60,0.08) 0%, transparent 50%);
+      padding: 5rem 1.5rem 4rem;
+    }
+    .content-inner {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: #5a3a10;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    .part-header {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: #5a3a10;
+      text-align: center;
+      margin: 3rem 0 2rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(139,90,43,0.35);
+    }
+
+    .chapter-title {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.35rem;
+      color: #3a2010;
+      margin-bottom: 0.8rem;
+    }
+
+    .intro-blockquote {
+      border-left: 3px solid #8a6030;
+      padding: 0.8rem 1.2rem;
+      margin: 1.5rem 0 2.5rem;
+      font-style: italic;
+      color: #3a2010;
+      background: rgba(139,90,43,0.05);
+    }
+
+    p { color: #2a1a0a; margin-bottom: 0; }
+    p + p { text-indent: 1.5em; }
+
+    .culture-block { margin-bottom: 2.8rem; }
+
+    .field-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.5rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #7a5020;
+      margin-top: 0.9rem;
+      margin-bottom: 0.25rem;
+      display: block;
+    }
+
+    .ritual-name {
+      font-style: italic;
+    }
+
+    .entry-divider {
+      border: none;
+      border-top: 1px solid rgba(139,90,43,0.35);
+      margin: 2.2rem 0;
+    }
+
+    .separator {
+      text-align: center;
+      color: rgba(139,90,43,0.5);
+      font-size: 0.9rem;
+      letter-spacing: 0.8em;
+      margin: 2rem 0;
+    }
+
+    .epilogue {
+      border: 1px solid rgba(139,90,43,0.4);
+      padding: 1.5rem 1.8rem;
+      margin-top: 3rem;
+      background: rgba(139,90,43,0.04);
+    }
+    .epilogue-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: #5a3a10;
+      margin-bottom: 0.8rem;
+    }
+    .epilogue p {
+      font-style: italic;
+    }
+    .epilogue-signature {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 2px;
+      color: #6a4a20;
+      margin-top: 0.8rem;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../../yul-library.html">← Collection Privee</a>
+  <div class="nav-links">
+    <a href="#cover">Couverture</a>
+    <a href="#content">Lire</a>
+  </div>
+</nav>
+
+<!-- COVER -->
+<section id="cover">
+  <div class="cover-frame">
+    <span class="cover-initial">T.</span>
+    <h1 class="cover-title">Coutumes Charnelles du Monde Exterieur</h1>
+    <p class="cover-subtitle">Un Voyage par la Chair</p>
+    <hr class="cover-rule">
+    <p class="cover-author-note">Vingt ans dehors. Trop longtemps rentree.</p>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<section id="content">
+  <div class="content-inner">
+
+    <blockquote class="intro-blockquote">
+      J'ai passe vingt ans a traverser le monde connu avec un carnet, une boussole qui ne fonctionnait pas toujours, et une curiosite que mes professeurs a l'Institut de Naturalisme Comparatif auraient probablement qualifiee d'indecente. Ce document est ce que ce carnet est devenu. Il est incomplet. Le monde est plus grand que vingt ans.
+    </blockquote>
+
+    <!-- PARTIE I -->
+    <div class="part-header">Partie I — Orient</div>
+
+    <div class="culture-block">
+      <span class="section-label">Orient — Region I</span>
+      <h2 class="chapter-title">Thurak-Vel</h2>
+      <span class="field-label">Ou c'est</span>
+      <p>Les detroits de Thurak et leur arriere-pays immediat, la ou la mer devient noire et tiede et ou les pecheurs racontent que la profondeur n'a pas de fond.</p>
+      <span class="field-label">Ce qu'ils font</span>
+      <p>Le <span class="ritual-name">sel-partage</span> : avant une nuit d'intimite de premiere importance — premiere fois entre deux personnes, reconciliation apres une rupture, ou simplement nuit d'ete particulierement chargee — les deux partenaires entrent ensemble dans la mer, jusqu'au cou, et y restent jusqu'a ce que la legere hypothermie commence. Ensuite ils rentrent, se couvrent l'un l'autre de laine epaisse, et ne se separent pas de la nuit. La chaleur partagee dans les heures qui suivent est consideree comme la vraie intimite — le reste arrive a l'interieur de ce cadre thermique.</p>
+      <span class="field-label">Ce que ca dit d'eux</span>
+      <p>La vulnerabilite precede le desir. On se refroidit ensemble d'abord. Ce qui vient apres est donne, pas suppose.</p>
+      <span class="field-label">Pourquoi y aller</span>
+      <p>Les Leviathans Soyeux sont sacres dans les communautes cotieres et ne sont pas chasses — on peut les observer de pres depuis des barques plates. Il y aurait aussi des tunnels sous-Spire qui rejoindraient les caves de Dehr ; personne ne sait qui les a construits ni pourquoi ils sont encore utilises.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <div class="culture-block">
+      <span class="section-label">Orient — Region II</span>
+      <h2 class="chapter-title">Dehr</h2>
+      <span class="field-label">Ou c'est</span>
+      <p>Les plaines crayeuses du nord-ouest continental. Trois semaines de caravane depuis Spire. Le vent y est permanent. La poudre de craie colore tout en blanc apres une journee.</p>
+      <span class="field-label">Ce qu'ils font</span>
+      <p>Le <span class="ritual-name">Derrak</span> — la brulure permanente. Avant un depart long ou potentiellement definitif — voyage dangereux, guerre, exil — le ou les partenaires marquent le corps de l'absent d'une petite brulure deliberee, dans un endroit choisi ensemble, de maniere precisement rituelle. La brulure guerit et laisse une cicatrice legere. L'idee : meme si le corps ne revient pas, la chair se souvient de ce qu'elle a ete.</p>
+      <span class="field-label">Ce que ca dit d'eux</span>
+      <p>La memoire de la chair contre l'impermanence. Les gens de Dehr ont perdu trop de monde aux guerres d'annexion aelfir pour traiter le depart comme une chose abstraite.</p>
+      <span class="field-label">Pourquoi y aller</span>
+      <p>Des epaves aelfir non pillees au large d'Ossavar, qui necessitent de passer par Dehr — un consul aelfir local a eliminer contre un acces facilite. L'information sur ces epaves circule prudemment.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <div class="culture-block">
+      <span class="section-label">Orient — Region III</span>
+      <h2 class="chapter-title">Ossavar</h2>
+      <span class="field-label">Ou c'est</span>
+      <p>Archipel au sud des cotes orientales, repute pour ses eaux rouge sang a la saison des pluies — en realite des algues, pas du sang, mais la distinction n'interesse pas les gens qui nomment les choses.</p>
+      <span class="field-label">Ce qu'ils font</span>
+      <p>Le <span class="ritual-name">plongeon d'enseignement</span> : la transmission de savoir — artisanal, medical, culinaire — passe en premier par le corps. Avant d'enseigner verbalement une technique, le maitre la fait vivre physiquement au novice : mains sur mains, position du corps guidee, rythme transmis par contact direct. L'aspect intime vient du fait que ce contact peut durer des heures et qu'il n'y a pas de pudeur dans l'enseignement par le corps — la peau enseigne a la peau.</p>
+      <span class="field-label">Ce que ca dit d'eux</span>
+      <p>Enseigner est une forme d'intimite. Apprendre est une forme de se laisser former. Les deux supposent une confiance qui n'est pas tres differente de ce qu'on offre dans un lit.</p>
+      <span class="field-label">Pourquoi y aller</span>
+      <p>Le meme consul aelfir de Dehr bloque l'acces aux epaves d'Ossavar depuis des annees. Quelqu'un a un motif valable pour resoudre cette situation. La Pieuvre Cardinale des recifs locaux est, au passage, tres intelligente et d'une sociabilite etonnante avec les plongeurs qui lui offrent des coquillages.</p>
+    </div>
+
+    <!-- PARTIE II -->
+    <div class="part-header">Partie II — Nord</div>
+
+    <div class="culture-block">
+      <span class="section-label">Nord — Region I</span>
+      <h2 class="chapter-title">Calvor</h2>
+      <span class="field-label">Ou c'est</span>
+      <p>Le plateau de Calvor, entre deux chaines de montagnes, frontiere nord du monde connu. Le vent n'arrete jamais. En hiver, la neige est horizontale. Les Renards a Six Queues y sont veneres comme des messagers meteorologiques.</p>
+      <span class="field-label">Ce qu'ils font</span>
+      <p>Deux rituels distincts. La <span class="ritual-name">Nuit Blanche</span> : un couple part passer une nuit dans la neige, sans abri superieur a une couverture. La survie ensemble, la chaleur partagee contre le froid extreme, est l'acte d'union — ce qui se passe sous la couverture en decoule naturellement. La <span class="ritual-name">Nuit Rouge</span> : nuit solitaire passee debout dans le vent, a dire a voix haute tout ce qu'on desire sans jamais l'obtenir. Pas partage avec qui que ce soit. Les mots vont dans le vent. Certains disent que le vent les porte au bon endroit.</p>
+      <span class="field-label">Ce que ca dit d'eux</span>
+      <p>Le desir comme phenomene climatique. Quelque chose qu'on ne controle pas, qui est plus grand que soi, contre lequel on survit ensemble ou pas. La Nuit Rouge dit aussi : certains desirs sont des desirs, pas des demandes.</p>
+      <span class="field-label">Pourquoi y aller</span>
+      <p>Des sorciers-vent dont les etudiants ne reviennent jamais. Ce n'est pas necessairement mauvais signe — mais ca merite d'etre verifie. Calvor produit aussi les seules cartes connues des territoires au-dela de la frontiere nord.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <div class="culture-block">
+      <span class="section-label">Nord — Region II</span>
+      <h2 class="chapter-title">Vel-Harath</h2>
+      <span class="field-label">Ou c'est</span>
+      <p>Les cites souterraines naines sous la chaine montagnarde de Vel-Harath. Pour y entrer, on descend. La lumiere naturelle disparait apres le troisieme niveau. Les nains qui y vivent ont une vision en quasi-obscurite que les autres especes n'ont pas.</p>
+      <span class="field-label">Ce qu'ils font</span>
+      <p>Le <span class="ritual-name">Chant de Forge</span> : un travail artisanal realise simultanement par deux partenaires, dans un etat proche de la transe, le corps en contact pendant la creation — epaule contre epaule, rythme de marteau accorde. Ce qui est cree ensemble porte le lien. Le <span class="ritual-name">Cartographiage</span> : explorer le corps du partenaire dans l'obscurite complete, avec uniquement le toucher, comme un cartographe arpente un territoire inconnu — systematiquement, patiemment, sans sauter de region.</p>
+      <span class="field-label">Ce que ca dit d'eux</span>
+      <p>Connaitre avant de batir. Ce qu'on ne comprend pas, on ne le construit pas bien. Connaitre un corps comme connaitre une pierre — dans l'obscurite, a taton, avec patience et sans presomption.</p>
+      <span class="field-label">Pourquoi y aller</span>
+      <p>Des gravures aux murs du cinquieme niveau sous Vel-Harath representant une civilisation que personne n'identifie. Les nains les appellent les Premiers et n'en disent pas plus. Les gravures incluent des cartes qui ne correspondent a aucune geographie connue — ou peut-etre a une geographie qui existait avant.</p>
+    </div>
+
+    <!-- PARTIE III -->
+    <div class="part-header">Partie III — Sud et Terres Etranges</div>
+
+    <div class="culture-block">
+      <span class="section-label">Sud — Region I</span>
+      <h2 class="chapter-title">Sorvaine</h2>
+      <span class="field-label">Ou c'est</span>
+      <p>Les marais de Sorvaine, deux jours au sud de Spire. Zone humide et poisseuse dont l'odeur prend trois jours a quitter les vetements. Habite par les keth-vor et par plus de pharmacopee vivante au metre carre que partout ailleurs dans le monde connu.</p>
+      <span class="field-label">Ce qu'ils font</span>
+      <p>Le <span class="ritual-name">Fil de Passage</span> : apres chaque intimite, les partenaires echangent un objet sans valeur monetaire — un caillou, un bouton, un bout de ficelle. L'objet est garde. Il ne symbolise pas la relation — il est la trace que quelque chose a eu lieu. Pas une promesse. Juste : ca a ete.</p>
+      <span class="field-label">Ce que ca dit d'eux</span>
+      <p>L'ephemere assume et les traces qui restent. Les keth-vor ne cherchent pas la permanence. Ils cherchent a ne pas effacer. Il y a une difference.</p>
+      <span class="field-label">Pourquoi y aller</span>
+      <p>La pharmacopee orale des keth-vor est la plus vaste du monde connu et n'est pas ecrite. Si vous avez un probleme medical non resolu ou une question sur une substance introuvable ailleurs, Sorvaine est votre destination. Il faudra offrir quelque chose en echange — pas de l'argent.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <div class="culture-block">
+      <span class="section-label">Terres Etranges — Region I</span>
+      <h2 class="chapter-title">Yeress — Les Iles Flottantes</h2>
+      <span class="field-label">Ou c'est</span>
+      <p>Une chaine d'iles volcaniques en levitation permanente au large des cotes orientales, reliees par des ponts de vigne qui oscillent dans le vent. Les acces maritimes sont difficiles car les iles derivent lentement. Vous devez calculer ou elles seront, pas ou elles sont.</p>
+      <span class="field-label">Ce qu'ils font</span>
+      <p>Le <span class="ritual-name">Vol Lie</span> : les partenaires ascensionnent ensemble le pic le plus eleve de l'ile, attaches l'un a l'autre par une corde, et passent la nuit au sommet. La descente est faite ensemble au matin. Ce qui se passe au sommet est prive — la coutume specifie uniquement qu'on ne redescend pas avant l'aube.</p>
+      <span class="field-label">Ce que ca dit d'eux</span>
+      <p>Ce qui compte se gagne. L'ascension est l'offrande. Ce qu'on offre ensemble a plus de valeur que ce qu'on offre chacun de son cote.</p>
+      <span class="field-label">Pourquoi y aller</span>
+      <p>Deux bibliotheques magiques sur l'ile principale — l'une appartenant au culte de Ssevrak, l'autre a un hermite dont personne ne sait le nom — sont apparemment incompatibles sur la question de la vraie nature du dieu-vent. Les deux pretendent avoir les textes originaux. Ce serait utile de savoir qui dit vrai.</p>
+    </div>
+
+    <hr class="entry-divider">
+
+    <div class="culture-block">
+      <span class="section-label">Terres Etranges — Region II</span>
+      <h2 class="chapter-title">Nhal — La Jungle</h2>
+      <span class="field-label">Ou c'est</span>
+      <p>La jungle de Nhal, au nord-est du continent — dense, humide, poisseuse, magnifique d'une maniere qu'on ne trouve nulle part ailleurs. Territoire des Tisseurs-de-Nhal et, selon les cultes locaux, des Araignees-Dieux.</p>
+      <span class="field-label">Ce qu'ils font</span>
+      <p>Le <span class="ritual-name">Nid</span> : les partenaires construisent ensemble, de leurs propres mains, un filet de soie suspendu entre deux arbres — chacun tissant une moitie depuis sa rive, se rejoignant au centre. La duree de construction est la duree symbolique de l'union : une heure, une nuit, plusieurs jours. Le nid n'est pas garde — il est laisse a la jungle apres usage. La jungle en fera quelque chose d'autre.</p>
+      <span class="field-label">Ce que ca dit d'eux</span>
+      <p>Une relation est quelque chose qu'on fabrique. La fabrication est l'union. Ce qu'on fait ensemble a la nature de ce qu'on est ensemble. Et quand c'est fini, on le donne a autre chose.</p>
+      <span class="field-label">Pourquoi y aller</span>
+      <p>Des accords d'exploitation forestiere signes par des intermediaires a Spire attendent depuis des decennies l'accord des Tisseurs-de-Nhal locaux. Les Tisseurs n'ont jamais refuse explicitement. Ils n'ont simplement jamais repondu. Quelqu'un qui comprend leur mode de communication pourrait faire avancer cela — dans un sens ou dans l'autre.</p>
+    </div>
+
+    <div class="epilogue">
+      <p class="epilogue-title">Epilogue</p>
+      <p>Vous etes rentres a Spire depuis des mois ou des annees. Vous vivez dans ses couloirs, ses niveaux, ses arcanes et ses marches. Vous avez oublie comment le vent sent a Calvor, comment la mer est tiede a Thurak en ete, comment le silence absolu du cinquieme niveau de Vel-Harath ressemble a quelque chose qu'on n'a pas dans le corps en surface.</p>
+      <p>Spire est une prison magnifique. Le monde, lui, est juste magnifique.</p>
+      <span class="epilogue-signature">— T., naturaliste, vingt ans dehors, trop longtemps rentree</span>
+    </div>
+
+    <div class="separator">— — —</div>
+
+  </div>
+</section>
+
+<script>
+  const user = localStorage.getItem('spire_user');
+  const allowed = ['Yul', 'admin'];
+  if (!localStorage.getItem('spire_token') || !allowed.includes(user)) {
+    window.location.href = '../../dashboard.html';
+  }
+</script>
+</body>
+</html>

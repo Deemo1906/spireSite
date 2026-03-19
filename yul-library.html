@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Collection Privée — Yul</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      body {
+        min-height: 100vh;
+        background: #100d07;
+        font-family: 'IM Fell English', serif;
+        overflow-x: hidden;
+      }
+
+      /* Candlelight ambient glow */
+      body::before {
+        content: '';
+        position: fixed; inset: 0;
+        background:
+          radial-gradient(ellipse 60% 40% at 50% 0%, rgba(200,140,40,0.08) 0%, transparent 60%),
+          radial-gradient(ellipse 40% 60% at 10% 50%, rgba(180,100,20,0.05) 0%, transparent 50%),
+          radial-gradient(ellipse 40% 60% at 90% 50%, rgba(180,100,20,0.05) 0%, transparent 50%);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .back-link {
+        position: fixed; top: 1.5rem; left: 2rem;
+        font-family: 'Cinzel', serif; font-size: 0.6rem;
+        letter-spacing: 0.4em; text-transform: uppercase;
+        color: #6a5030; text-decoration: none;
+        transition: color 0.2s; z-index: 100;
+      }
+      .back-link:hover { color: #a07840; }
+
+      .library-page {
+        position: relative; z-index: 1;
+        padding: 5rem 2rem 6rem;
+        max-width: 960px; margin: 0 auto;
+      }
+
+      /* Header */
+      .lib-header {
+        text-align: center; margin-bottom: 4rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid #2a1e0a;
+      }
+
+      .lib-eyebrow {
+        font-family: 'Cinzel', serif; font-size: 0.55rem;
+        letter-spacing: 0.55em; text-transform: uppercase;
+        color: #5a4020; margin-bottom: 1rem;
+      }
+
+      .lib-title {
+        font-family: 'IM Fell English', serif; font-style: italic;
+        font-size: clamp(1.6rem, 4vw, 2.4rem);
+        color: #c4a050; margin-bottom: 0.75rem;
+        text-shadow: 0 2px 20px rgba(200,150,50,0.2);
+      }
+
+      .lib-subtitle {
+        font-family: 'IM Fell English', serif; font-style: italic;
+        font-size: 0.95rem; color: #5a4520;
+      }
+
+      .lib-rule {
+        width: 80px; height: 1px;
+        background: linear-gradient(to right, transparent, #5a3a10, transparent);
+        margin: 1.5rem auto 0;
+      }
+
+      /* Book grid */
+      .book-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+      }
+
+      .book-entry {
+        display: flex; flex-direction: column; gap: 0.75rem;
+      }
+
+      /* Book cover base */
+      .book-cover {
+        aspect-ratio: 5 / 8;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        text-align: center;
+        text-decoration: none;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+        position: relative; overflow: hidden;
+        cursor: pointer;
+      }
+      .book-cover:hover {
+        transform: translateY(-10px) rotate(-0.5deg);
+        box-shadow: 10px 20px 50px rgba(0,0,0,0.8), 0 0 30px rgba(200,140,40,0.15);
+        filter: brightness(1.1);
+      }
+
+      /* Wear overlay on all covers */
+      .book-cover::after {
+        content: '';
+        position: absolute; inset: 0;
+        background:
+          radial-gradient(ellipse 80% 40% at 30% 20%, rgba(255,240,200,0.06) 0%, transparent 60%),
+          radial-gradient(ellipse 60% 40% at 70% 80%, rgba(0,0,0,0.2) 0%, transparent 50%);
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      /* ── 1. Bestiaire — hunter green cracked leather ── */
+      .cover-bestiaire {
+        background: #1a2a1a;
+        border: 2px solid #2a3a1a;
+        padding: 1.75rem;
+      }
+      .cover-bestiaire::before {
+        content: '';
+        position: absolute; inset: 6px;
+        border: 1px solid #223022;
+        background: repeating-linear-gradient(
+          135deg, transparent, transparent 8px,
+          rgba(30,50,20,0.3) 8px, rgba(30,50,20,0.3) 9px
+        );
+        pointer-events: none; z-index: 1;
+      }
+      .best-spine {
+        position: absolute; left: 0; top: 0; bottom: 0; width: 6px;
+        background: linear-gradient(to right, #0a1a0a, #223022);
+      }
+      .best-top { font-family: 'Cinzel', serif; font-size: 0.45rem; letter-spacing: 3px; text-transform: uppercase; color: #4a7030; margin-bottom: 1.5rem; position: relative; z-index: 3; }
+      .best-ornament { font-size: 1.4rem; color: #6a9040; margin-bottom: 0.75rem; position: relative; z-index: 3; opacity: 0.7; }
+      .best-title { font-family: 'IM Fell English', serif; font-style: italic; font-size: 1rem; color: #c4a830; line-height: 1.4; position: relative; z-index: 3; }
+      .best-rule { width: 35px; height: 1px; background: #4a7030; margin: 0.75rem auto; position: relative; z-index: 3; }
+      .best-sub { font-family: 'Cinzel', serif; font-size: 0.4rem; letter-spacing: 2px; text-transform: uppercase; color: #4a7030; position: relative; z-index: 3; }
+      .best-number { position: absolute; bottom: 1rem; right: 1.2rem; font-family: 'IM Fell English', serif; font-style: italic; font-size: 0.6rem; color: #3a5020; z-index: 3; }
+
+      /* ── 2. Substances — oxblood alchemical ── */
+      .cover-substances {
+        background: #1f0a0a;
+        border: 1px solid #3a1010;
+        padding: 1.75rem;
+      }
+      .cover-substances::before {
+        content: '';
+        position: absolute; inset: 5px;
+        border: 1px solid #2a0808;
+        pointer-events: none; z-index: 1;
+      }
+      .sub-flask { font-size: 1.2rem; color: #8a2010; margin-bottom: 0.5rem; position: relative; z-index: 3; opacity: 0.6; }
+      .sub-title { font-family: 'IM Fell English', serif; font-style: italic; font-size: 0.9rem; color: #c4a050; line-height: 1.5; margin-bottom: 0.75rem; position: relative; z-index: 3; }
+      .sub-deco { font-size: 0.7rem; color: #5a1a10; letter-spacing: 5px; position: relative; z-index: 3; }
+      .sub-rule { width: 25px; height: 1px; background: #5a1a10; margin: 0.6rem auto; position: relative; z-index: 3; }
+      .sub-note { font-family: 'IM Fell English', serif; font-style: italic; font-size: 0.5rem; color: #4a2020; line-height: 1.5; margin-top: 0.75rem; position: relative; z-index: 3; }
+      .sub-bg {
+        position: absolute; inset: 0;
+        background: repeating-radial-gradient(circle at 50% 40%, transparent, transparent 15px, rgba(100,20,10,0.04) 16px, transparent 17px);
+        z-index: 1;
+      }
+
+      /* ── 3. Art de l'Union — cream academic cloth ── */
+      .cover-union {
+        background: #e8dfc0;
+        border: 2px solid #b8a870;
+        padding: 1.75rem;
+      }
+      .cover-union::before {
+        content: '';
+        position: absolute; inset: 5px;
+        border: 1px solid #c8b880;
+        pointer-events: none; z-index: 1;
+      }
+      .union-stamp {
+        font-family: 'Cinzel', serif; font-size: 0.38rem;
+        letter-spacing: 2px; text-transform: uppercase;
+        color: #7a6030; border: 1px solid #7a6030;
+        padding: 2px 6px; margin-bottom: 1rem;
+        position: relative; z-index: 3; display: inline-block;
+        opacity: 0.7;
+      }
+      .union-title { font-family: 'IM Fell English', serif; font-size: 1rem; color: #2a1a08; line-height: 1.4; position: relative; z-index: 3; margin-bottom: 0.25rem; }
+      .union-subtitle { font-family: 'IM Fell English', serif; font-style: italic; font-size: 0.65rem; color: #5a4020; position: relative; z-index: 3; }
+      .union-rule { width: 50px; height: 1px; background: #8a7040; margin: 0.75rem auto; position: relative; z-index: 3; }
+      .union-author { font-family: 'Cinzel', serif; font-size: 0.4rem; letter-spacing: 2px; text-transform: uppercase; color: #7a6030; position: relative; z-index: 3; }
+      .union-stain {
+        position: absolute; bottom: 20%; right: 10%;
+        width: 30px; height: 30px;
+        background: radial-gradient(ellipse, rgba(150,110,50,0.15) 0%, transparent 70%);
+        border-radius: 50%; pointer-events: none; z-index: 1;
+      }
+      /* Foxing spots */
+      .union-fox1, .union-fox2, .union-fox3 {
+        position: absolute; border-radius: 50%;
+        background: rgba(140,100,40,0.12); pointer-events: none; z-index: 1;
+      }
+      .union-fox1 { width: 8px; height: 8px; top: 15%; left: 12%; }
+      .union-fox2 { width: 5px; height: 5px; top: 70%; right: 15%; }
+      .union-fox3 { width: 12px; height: 8px; bottom: 10%; left: 20%; }
+
+      /* ── 4. Coutumes Charnelles — worn travel journal ── */
+      .cover-coutumes {
+        background: #2a1e0a;
+        border: 2px solid #3a2a10;
+        padding: 1.75rem;
+      }
+      .cover-coutumes::before {
+        content: '';
+        position: absolute; inset: 0;
+        background: repeating-linear-gradient(
+          90deg, transparent, transparent 40px,
+          rgba(60,40,10,0.15) 40px, rgba(60,40,10,0.15) 41px
+        );
+        pointer-events: none; z-index: 1;
+      }
+      .cout-label { font-family: 'Cinzel', serif; font-size: 0.38rem; letter-spacing: 3px; text-transform: uppercase; color: #6a4a20; margin-bottom: 1rem; position: relative; z-index: 3; }
+      .cout-title { font-family: 'IM Fell English', serif; font-style: italic; font-size: 0.95rem; color: #d4a850; line-height: 1.45; position: relative; z-index: 3; }
+      .cout-sub { font-family: 'IM Fell English', serif; font-style: italic; font-size: 0.6rem; color: #7a5a28; margin-top: 0.5rem; position: relative; z-index: 3; }
+      .cout-rule { width: 30px; height: 1px; background: #5a3a10; margin: 0.75rem auto; position: relative; z-index: 3; }
+      .cout-note { font-family: 'IM Fell English', serif; font-style: italic; font-size: 0.45rem; color: #4a3010; margin-top: 0.75rem; position: relative; z-index: 3; line-height: 1.6; }
+      .cout-scratch {
+        position: absolute; top: 8%; left: 8%; font-size: 0.5rem;
+        color: #5a3a10; opacity: 0.4; z-index: 3;
+        font-style: italic; transform: rotate(-8deg);
+      }
+
+      /* ── 5. Catalogue Mécanique — navy technical ── */
+      .cover-mecanique {
+        background: #0a0f1a;
+        border: 1px solid #1a2a3a;
+        padding: 1.75rem;
+      }
+      /* Brass corner brackets */
+      .cover-mecanique::before {
+        content: '';
+        position: absolute; inset: 0;
+        background:
+          linear-gradient(135deg, #2a3a1a 0px, transparent 15px) top left,
+          linear-gradient(225deg, #2a3a1a 0px, transparent 15px) top right,
+          linear-gradient(315deg, #2a3a1a 0px, transparent 15px) bottom right,
+          linear-gradient(45deg,  #2a3a1a 0px, transparent 15px) bottom left;
+        background-size: 20px 20px;
+        background-repeat: no-repeat;
+        pointer-events: none; z-index: 1;
+      }
+      .mec-label { font-family: 'Cinzel', serif; font-size: 0.38rem; letter-spacing: 3px; text-transform: uppercase; color: #3a5060; margin-bottom: 1rem; position: relative; z-index: 3; }
+      .mec-gear { font-size: 1.2rem; color: #4a6070; margin-bottom: 0.75rem; position: relative; z-index: 3; opacity: 0.5; }
+      .mec-title { font-family: 'IM Fell English', serif; font-size: 0.9rem; color: #8ab0c0; line-height: 1.45; position: relative; z-index: 3; }
+      .mec-sub { font-family: 'IM Fell English', serif; font-style: italic; font-size: 0.55rem; color: #3a5060; margin-top: 0.5rem; position: relative; z-index: 3; }
+      .mec-rule { width: 30px; height: 1px; background: #2a4050; margin: 0.75rem auto; position: relative; z-index: 3; }
+      .mec-author { font-family: 'Cinzel', serif; font-size: 0.38rem; letter-spacing: 2px; text-transform: uppercase; color: #3a5060; position: relative; z-index: 3; }
+      .mec-lines {
+        position: absolute; inset: 0;
+        background: repeating-linear-gradient(0deg, transparent, transparent 18px, rgba(50,80,100,0.06) 18px, rgba(50,80,100,0.06) 19px);
+        z-index: 1;
+      }
+
+      /* ── 6. Référence Rapide — thin pamphlet ── */
+      .cover-reference {
+        background: #f0e4c0;
+        border: 1px solid #c0a860;
+        padding: 1.5rem;
+      }
+      .cover-reference::before {
+        content: '';
+        position: absolute; inset: 4px;
+        border: 1px dashed #c0a060;
+        pointer-events: none; z-index: 1;
+        opacity: 0.5;
+      }
+      .ref-lines {
+        position: absolute; inset: 0;
+        background: repeating-linear-gradient(0deg, transparent, transparent 22px, rgba(140,100,40,0.12) 22px, rgba(140,100,40,0.12) 23px);
+        z-index: 1;
+      }
+      .ref-title { font-family: 'IM Fell English', serif; font-size: 1rem; color: #2a1a08; line-height: 1.4; position: relative; z-index: 3; margin-bottom: 0.5rem; }
+      .ref-sub { font-family: 'IM Fell English', serif; font-style: italic; font-size: 0.65rem; color: #5a4020; position: relative; z-index: 3; }
+      .ref-rule { width: 40px; height: 1px; background: #8a6030; margin: 0.75rem auto; position: relative; z-index: 3; }
+      .ref-note { font-family: 'IM Fell English', serif; font-style: italic; font-size: 0.55rem; color: #6a4a20; position: relative; z-index: 3; margin-top: 0.75rem; line-height: 1.6; }
+
+      /* Title below each cover */
+      .book-title-label {
+        font-family: 'IM Fell English', serif; font-style: italic;
+        font-size: 0.9rem; color: #7a5a28; text-align: center;
+        line-height: 1.4;
+      }
+      .book-type-label {
+        font-family: 'Cinzel', serif; font-size: 0.5rem;
+        letter-spacing: 0.2em; text-transform: uppercase;
+        color: #4a3015; text-align: center;
+      }
+
+      @media (max-width: 700px) {
+        .book-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+      }
+      @media (max-width: 480px) {
+        .book-grid { grid-template-columns: 1fr; max-width: 260px; margin: 0 auto; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="dashboard.html" class="back-link">← Retour</a>
+
+    <div class="library-page">
+      <div class="lib-header">
+        <p class="lib-eyebrow">Collection Privée</p>
+        <h1 class="lib-title">Bibliothèque de Yul</h1>
+        <p class="lib-subtitle">Ouvrages à circulation restreinte. Accès réservé.</p>
+        <div class="lib-rule"></div>
+      </div>
+
+      <div class="book-grid">
+
+        <!-- Bestiaire -->
+        <div class="book-entry">
+          <a class="book-cover cover-bestiaire" href="books/yul/bestiaire.html">
+            <div class="best-spine"></div>
+            <p class="best-top">Naturalisme Appliqué</p>
+            <p class="best-ornament">⚜</p>
+            <h2 class="best-title">Bestiaire Exotique</h2>
+            <p class="best-rule"></p>
+            <p class="best-sub">Faune Rare du Monde Connu</p>
+            <p class="best-number">Vol. I</p>
+          </a>
+          <p class="book-title-label">Bestiaire Exotique</p>
+          <p class="book-type-label">Catalogues naturaliste</p>
+        </div>
+
+        <!-- Substances -->
+        <div class="book-entry">
+          <a class="book-cover cover-substances" href="books/yul/catalogue-substances.html">
+            <div class="sub-bg"></div>
+            <p class="sub-flask">⚗</p>
+            <h2 class="sub-title">Catalogue des Substances Rares</h2>
+            <div class="sub-rule"></div>
+            <p class="sub-deco">✦ ✦ ✦</p>
+            <p class="sub-note">Usage Intime<br/>et Récréatif</p>
+          </a>
+          <p class="book-title-label">Catalogue des Substances</p>
+          <p class="book-type-label">Apothicaire — restreint</p>
+        </div>
+
+        <!-- Art de l'Union -->
+        <div class="book-entry">
+          <a class="book-cover cover-union" href="books/yul/art-union.html">
+            <div class="union-stain"></div>
+            <div class="union-fox1"></div>
+            <div class="union-fox2"></div>
+            <div class="union-fox3"></div>
+            <p class="union-stamp">Académie des Sciences Naturelles</p>
+            <h2 class="union-title">L'Art de l'Union</h2>
+            <p class="union-subtitle">Guide Comparatif des Pratiques<br/>Intimes à Travers les Espèces</p>
+            <div class="union-rule"></div>
+            <p class="union-author">Un Praticien Anonyme</p>
+          </a>
+          <p class="book-title-label">L'Art de l'Union</p>
+          <p class="book-type-label">Traité naturaliste</p>
+        </div>
+
+        <!-- Coutumes Charnelles -->
+        <div class="book-entry">
+          <a class="book-cover cover-coutumes" href="books/yul/coutumes-charnelles.html">
+            <p class="cout-scratch">T.</p>
+            <p class="cout-label">Carnets de Voyage</p>
+            <h2 class="cout-title">Coutumes Charnelles du Monde Extérieur</h2>
+            <p class="cout-sub">Un Voyage par la Chair</p>
+            <div class="cout-rule"></div>
+            <p class="cout-note">Vingt ans dehors.<br/>Trop longtemps rentrée.</p>
+          </a>
+          <p class="book-title-label">Coutumes Charnelles</p>
+          <p class="book-type-label">Carnet de voyage</p>
+        </div>
+
+        <!-- Catalogue Mécanique -->
+        <div class="book-entry">
+          <a class="book-cover cover-mecanique" href="books/yul/catalogue-mecanique.html">
+            <div class="mec-lines"></div>
+            <p class="mec-label">Importations Rares</p>
+            <p class="mec-gear">⚙</p>
+            <h2 class="mec-title">Catalogue Mécanique</h2>
+            <p class="mec-sub">Instruments de Plaisir Artisanaux</p>
+            <div class="mec-rule"></div>
+            <p class="mec-author">Pièces de Collection</p>
+          </a>
+          <p class="book-title-label">Catalogue Mécanique</p>
+          <p class="book-type-label">Catalogue marchand</p>
+        </div>
+
+        <!-- Référence Rapide -->
+        <div class="book-entry">
+          <a class="book-cover cover-reference" href="books/yul/reference-rapide.html">
+            <div class="ref-lines"></div>
+            <h2 class="ref-title">Yul — Référence Rapide</h2>
+            <div class="ref-rule"></div>
+            <p class="ref-sub">Index de la collection complète</p>
+            <p class="ref-note">Toutes les tables.<br/>Tous les termes.</p>
+          </a>
+          <p class="book-title-label">Référence Rapide</p>
+          <p class="book-type-label">Index & tables</p>
+        </div>
+
+      </div>
+    </div>
+
+    <script>
+      const user = localStorage.getItem('spire_user');
+      const allowed = ['Yul', 'admin'];
+      if (!localStorage.getItem('spire_token') || !allowed.includes(user)) {
+        window.location.href = 'dashboard.html';
+      }
+    </script>
+  </body>
+</html>
