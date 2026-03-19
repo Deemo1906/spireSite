@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Identify Yourself — Spire</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="connect.css" />
+  </head>
+
+  <body class="connect-page">
+
+    <a href="index.html" class="back-link" aria-label="Return to main site">
+      ← Return
+    </a>
+
+    <main class="connect-main">
+
+      <!-- Background circles -->
+      <div class="connect-bg" aria-hidden="true"></div>
+
+      <div class="connect-panel">
+
+        <!-- Header -->
+        <div class="connect-header">
+          <p class="connect-eyebrow">Vermissian Secure Channel</p>
+          <h1 class="connect-title">IDENTIFY<br/>YOURSELF</h1>
+          <div class="connect-rule" aria-hidden="true"></div>
+          <p class="connect-sub">
+            Access to the network is restricted.<br />
+            State your name and your word.
+          </p>
+        </div>
+
+        <!-- Form -->
+        <form class="connect-form" action="#" method="post" novalidate>
+
+          <div class="field">
+            <label class="field-label" for="username">Operative Name</label>
+            <input
+              class="field-input"
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Who are you?"
+              autocomplete="username"
+              required
+            />
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="password">Passphrase</label>
+            <input
+              class="field-input"
+              type="password"
+              id="password"
+              name="password"
+              placeholder="What was spoken in the dark?"
+              autocomplete="current-password"
+              required
+            />
+          </div>
+
+          <button class="connect-submit" type="submit">
+            <span>Enter the Spire</span>
+          </button>
+
+        </form>
+
+        <!-- Footer note -->
+        <p class="connect-warning">
+          If you do not have credentials, you were not invited.<br/>
+          Close this channel and forget you found it.
+        </p>
+
+      </div>
+    </main>
+
+  </body>
+</html>
