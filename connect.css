@@ -201,6 +201,17 @@
   transform: scaleX(1);
 }
 
+/* ── Error message ── */
+.connect-error {
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--red-300);
+  min-height: 1.2em;
+  text-align: center;
+}
+
 /* ── Warning note ── */
 .connect-warning {
   text-align: center;

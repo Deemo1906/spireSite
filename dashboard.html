@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>La Flèche — Spire</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="connect.css" />
+  </head>
+
+  <body class="connect-page">
+
+    <main class="connect-main">
+      <div class="connect-bg" aria-hidden="true"></div>
+
+      <div class="connect-panel">
+        <div class="connect-header">
+          <p class="connect-eyebrow">Accès accordé</p>
+          <h1 class="connect-title">BIENVENUE<br/>DANS<br/>SPIRE</h1>
+          <div class="connect-rule" aria-hidden="true"></div>
+          <p class="connect-sub" id="welcomeMsg">
+            Vous êtes connecté.
+          </p>
+        </div>
+
+        <button class="connect-submit" id="logoutBtn" style="margin-top:1rem;">
+          <span>Se déconnecter</span>
+        </button>
+      </div>
+    </main>
+
+    <script>
+      const token    = localStorage.getItem('spire_token');
+      const username = localStorage.getItem('spire_user');
+
+      if (!token) {
+        window.location.href = 'connect.html';
+      } else {
+        document.getElementById('welcomeMsg').textContent =
+          `Opérative ${username}. La résistance vous attend.`;
+      }
+
+      document.getElementById('logoutBtn').addEventListener('click', () => {
+        localStorage.removeItem('spire_token');
+        localStorage.removeItem('spire_user');
+        window.location.href = 'index.html';
+      });
+    </script>
+
+  </body>
+</html>

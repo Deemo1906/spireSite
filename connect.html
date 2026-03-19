@@ -38,7 +38,7 @@
           </p>
         </div>
 
-        <form class="connect-form" action="#" method="post" novalidate>
+        <form class="connect-form" id="loginForm" novalidate>
 
           <div class="field">
             <label class="field-label" for="username">Nom d'Opérative</label>
@@ -66,7 +66,9 @@
             />
           </div>
 
-          <button class="connect-submit" type="submit">
+          <p class="connect-error" id="errorMsg" aria-live="polite"></p>
+
+          <button class="connect-submit" type="submit" id="submitBtn">
             <span>Entrer dans Spire</span>
           </button>
 
@@ -79,6 +81,58 @@
 
       </div>
     </main>
+
+    <script>
+      // Replace with your Render URL once deployed
+      const API = 'https://spire-api.onrender.com';
+
+      const form      = document.getElementById('loginForm');
+      const errorMsg  = document.getElementById('errorMsg');
+      const submitBtn = document.getElementById('submitBtn');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        errorMsg.textContent = '';
+
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
+
+        if (!username || !password) {
+          errorMsg.textContent = 'Veuillez remplir tous les champs.';
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.querySelector('span').textContent = 'Vérification…';
+
+        try {
+          const res = await fetch(`${API}/api/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password }),
+          });
+
+          const data = await res.json();
+
+          if (!res.ok) {
+            errorMsg.textContent = data.error ?? 'Erreur inconnue.';
+            return;
+          }
+
+          // Store session token and redirect to the main site
+          localStorage.setItem('spire_token', data.token);
+          localStorage.setItem('spire_user', data.username);
+          window.location.href = 'dashboard.html';
+
+        } catch (err) {
+          console.error('[login]', err);
+          errorMsg.textContent = 'Impossible de joindre le serveur. Réessayez.';
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.querySelector('span').textContent = 'Entrer dans Spire';
+        }
+      });
+    </script>
 
   </body>
 </html>
