@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Liberate! — Édition 1</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=VT323&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#888; font-family:'Courier Prime',monospace; color:#111; }
+    .page {
+      width:210mm; min-height:297mm; margin:20px auto;
+      background:#f0ebe0;
+      padding:14mm 16mm;
+      box-shadow:0 0 0 2px #555, 0 4px 20px rgba(0,0,0,0.4);
+      /* Slight rotation for photocopied feel */
+      transform:rotate(-0.3deg);
+      position:relative;
+    }
+
+    /* Paper texture overlay */
+    .page::before {
+      content:'';
+      position:absolute; inset:0;
+      background:repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(0,0,0,0.015) 28px, rgba(0,0,0,0.015) 29px);
+      pointer-events:none;
+    }
+
+    /* MASTHEAD */
+    .masthead { text-align:center; border:3px solid #111; padding:8px 6px 6px; margin-bottom:10px; position:relative; }
+    .masthead::before { content:''; position:absolute; top:3px; left:3px; right:3px; bottom:3px; border:1px solid #111; pointer-events:none; }
+    .top-line { font-family:'Special Elite',cursive; font-size:8pt; letter-spacing:2px; color:#333; margin-bottom:6px; }
+    .paper-name { font-family:'VT323',monospace; font-size:72pt; line-height:0.9; color:#111; letter-spacing:-2px; }
+    .excl { color:#8a0000; }
+    .tagline { font-family:'Courier Prime',monospace; font-size:8.5pt; font-style:italic; color:#333; margin-top:4px; letter-spacing:1px; }
+    .warning-band { background:#111; color:#f0ebe0; font-family:'Special Elite',cursive; font-size:8pt; letter-spacing:3px; padding:3px 0; margin-top:6px; }
+
+    /* HEADLINE */
+    .headline-block { margin:10px 0 8px; padding:8px 0; border-top:3px solid #111; border-bottom:3px solid #111; }
+    .headline { font-family:'Special Elite',cursive; font-size:20pt; line-height:1.2; color:#111; text-transform:uppercase; }
+    .deck { font-family:'Courier Prime',monospace; font-size:9.5pt; font-style:italic; color:#333; margin-top:6px; line-height:1.5; }
+
+    /* BODY */
+    .body-text { font-size:9.5pt; line-height:1.65; text-align:left; }
+    .body-text p { margin-bottom:10px; }
+
+    /* Section heads — typed underlined */
+    .section-head { font-family:'Special Elite',cursive; font-size:12pt; text-transform:uppercase; margin:14px 0 6px; padding-bottom:3px; border-bottom:2px solid #111; letter-spacing:2px; }
+
+    /* Emphatic inline styles */
+    .red { color:#8a0000; font-weight:bold; }
+    .underline { text-decoration:underline; text-decoration-thickness:2px; }
+    .typed-bold { font-family:'Special Elite',cursive; font-size:10pt; }
+
+    /* Pulled accusation — like a hand-stamped box */
+    .accusation { border:2px solid #111; padding:10px 12px; margin:12px 0; background:#e8e0cc; position:relative; }
+    .accusation::before { content:'!!!'; position:absolute; top:-10px; left:10px; background:#e8e0cc; padding:0 4px; font-family:'Special Elite',cursive; font-size:12pt; color:#8a0000; }
+    .accusation p { font-family:'Special Elite',cursive; font-size:10.5pt; line-height:1.5; color:#111; }
+
+    /* Handwritten-style margin note */
+    .margin-note { font-family:'Special Elite',cursive; font-size:8pt; color:#555; font-style:italic; float:right; max-width:80px; margin-left:8px; line-height:1.4; transform:rotate(1.5deg); }
+
+    /* Footer */
+    .footer { margin-top:16px; border-top:3px double #111; padding-top:8px; }
+    .footer-main { font-family:'Special Elite',cursive; font-size:10pt; color:#111; margin-bottom:4px; }
+    .footer-small { font-family:'Courier Prime',monospace; font-size:7.5pt; font-style:italic; color:#555; line-height:1.5; }
+
+    @page {
+      size: A4;
+      margin: 10mm 12mm;
+    }
+    @media print {
+      html, body { background: white; width: 100%; height: auto; overflow: visible; }
+      .page {
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        border: none;
+        width: 100%;
+        min-height: unset;
+        height: auto;
+        transform: none;
+        overflow: visible;
+      }
+      .page::before { display: none; }
+    }
+  </style>
+</head>
+<body><div class="page">
+  <header class="masthead">
+    <div class="top-line">La seule presse qui ne leur appartient pas — Faites circuler, brûlez après lecture</div>
+    <div class="paper-name">LIBERATE<span class="excl">!</span></div>
+    <div class="tagline">Pamphlet — Numéro non daté</div>
+    <div class="warning-band">POSSESSION DANGEREUSE — DIFFUSION IMMÉDIATE RECOMMANDÉE</div>
+  </header>
+
+  <div class="headline-block">
+    <div class="headline">Le Malak que tu bois,<br>la poudre qu'ils reniflent</div>
+    <div class="deck">Depuis dix-sept ans, ils nous interdisent le Malak. Pendant ce temps, leur élite consomme nos morts.</div>
+  </div>
+
+  <div class="body-text">
+    <p>Depuis dix-sept ans, ils nous interdisent le Malak. Dix-sept ans qu'un drow surpris avec une teinture d'algues sur la langue risque l'arrestation, la bastonnade, le travail forcé. Dix-sept ans que des adolescents drows disparaissent dans les geôles aelfir pour avoir dormi comme leurs mères leur avaient appris à dormir.</p>
+
+    <p>Pendant ce temps — <span class="typed-bold">Elise Marcombe</span>, Ministre des Drogues et des Alcools, artisane de cette interdiction, réclame <span class="underline">en urgence</span>, à voix basse, des produits qu'elle refuse de nommer à ses propres pairs. Que fume la Ministre dans ses appartements privés&nbsp;?</p>
+
+    <div class="accusation">
+      <p>Le Sulphur, dans sa forme la plus chère — celle qu'on ne trouve pas dans les ruelles du Works — ce ne sont pas des cristaux de hasard. Ce sont <span class="red">les restes des nôtres.</span> Les drows qui meurent en forçant leur Brèche laissent un résidu. Ceux qui savent comment les extraire les vendent en poudre. Et les aelfir les reniflent pour avoir des visions.</p>
+      <p><span class="red">Ils interdisent notre sommeil. Ils consomment notre mort.</span></p>
+    </div>
+
+    <div class="section-head">Ce qui se passe aux Sky Docks</div>
+    <span class="margin-note">soutenez<br>l'Hospice</span>
+    <p>Les <strong>Midwives</strong> ont ouvert <strong>l'Hospice du Fil Tendu</strong> entre les Basses Cales et les plates-formes médianes. Un lieu réel — les drows blessés y entrent et en ressortent en vie. La <strong>Matrone Shaev Tisse-dans-le-Vide</strong> et les siens n'ont pas demandé l'autorisation de la Guilde. Ils n'en avaient pas besoin.</p>
+    <p><em>The Torch</em> les appelle dangereux. <em>The Torch</em> est financé par des gens qui ont tout intérêt à ce que vous n'ayez nulle part où vous soigner en dehors de leurs propres circuits.</p>
+
+    <div class="section-head">Le vote de vendredi</div>
+    <p><strong>Mesyé Só</strong> a été reconduit. Le système fonctionne — pour ceux pour qui il est conçu.</p>
+    <p><strong>Echo-of-Hands-Long-Burned</strong> a déclaré, à voix haute dans une salle pleine, que les drows représentent un <em>"danger permanent"</em> dans les espaces aelfir. Notez le nom. Personne parmi les voix favorables à Mesyé Só n'a jugé utile de répondre.</p>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-main">Distribuez. Notez les noms. Soutenez ceux qui soignent sans permission.</div>
+    <div class="footer-small">
+      Liberate! n'est pas imprimé dans le Works. N'est pas financé par le Silver Quarter.<br>
+      N'est pas protégé par qui que ce soit d'assez puissant pour que nous mentionnions son nom ici.<br>
+      <em>Parce qu'ils nous volent notre sommeil. Parce qu'ils sniffent nos morts.</em>
+    </div>
+  </footer>
+</div></body>
+</html>

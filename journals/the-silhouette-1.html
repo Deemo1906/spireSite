@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>The Silhouette — Édition 1</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poiret+One&family=Raleway:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap');
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#d0ccc8; font-family:'Libre Baskerville',Georgia,serif; color:#1c1c1c; }
+    .page { width:210mm; min-height:297mm; margin:20px auto; background:#fafafa; border:none; padding:16mm 18mm; box-shadow:0 2px 40px rgba(0,0,0,0.15); }
+
+    /* MASTHEAD — art deco, minimal */
+    .masthead { text-align:center; padding-bottom:10px; margin-bottom:2px; }
+    .masthead-top { display:flex; justify-content:space-between; font-family:'Raleway',sans-serif; font-size:7pt; letter-spacing:3px; text-transform:uppercase; color:#888; margin-bottom:14px; }
+    .top-rule { border-top:3px solid #1c1c1c; margin-bottom:2px; }
+    .thin-rule { border-top:1px solid #1c1c1c; margin-top:2px; }
+    .paper-name { font-family:'Poiret One',sans-serif; font-size:52pt; letter-spacing:14px; color:#1c1c1c; line-height:1; text-transform:uppercase; }
+    .tagline { font-family:'Raleway',sans-serif; font-weight:300; font-style:italic; font-size:9pt; letter-spacing:4px; color:#555; margin:6px 0; text-transform:uppercase; }
+    .deco-line { display:flex; align-items:center; gap:10px; margin:8px 0; }
+    .deco-line hr { flex:1; border:none; border-top:1px solid #bbb; }
+    .deco-line span { font-family:'Raleway',sans-serif; font-size:7pt; letter-spacing:4px; text-transform:uppercase; color:#999; white-space:nowrap; }
+
+    /* HEADLINE */
+    .headline-block { margin:14px 0 10px; padding-bottom:10px; border-bottom:1px solid #ccc; }
+    .rubric { font-family:'Raleway',sans-serif; font-size:7.5pt; letter-spacing:5px; text-transform:uppercase; color:#888; margin-bottom:8px; }
+    .headline { font-family:'Poiret One',sans-serif; font-size:26pt; letter-spacing:4px; text-transform:uppercase; color:#1c1c1c; line-height:1.15; }
+    .deck { font-family:'Raleway',sans-serif; font-weight:300; font-style:italic; font-size:10.5pt; color:#555; margin-top:6px; line-height:1.5; letter-spacing:1px; }
+
+    /* THREE COLUMNS */
+    .columns { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-top:12px; }
+    .col { font-size:9.5pt; line-height:1.65; text-align:justify; hyphens:auto; }
+    .col p { margin-bottom:9px; }
+    .col p:first-child::first-letter { font-family:'Poiret One',sans-serif; font-size:30pt; float:left; line-height:0.85; margin-right:4px; margin-top:6px; color:#1c1c1c; }
+    .col + .col { padding-left:12px; border-left:1px solid #ddd; }
+    .no-drop::first-letter { font-size:9.5pt !important; font-family:'Libre Baskerville',serif !important; float:none !important; line-height:1.65 !important; margin:0 !important; }
+
+    /* INCIDENT SECTION */
+    .incident { margin-top:14px; padding-top:12px; border-top:2px solid #1c1c1c; }
+    .incident-head { font-family:'Poiret One',sans-serif; font-size:17pt; letter-spacing:5px; text-transform:uppercase; color:#1c1c1c; margin-bottom:4px; }
+    .incident-deck { font-family:'Raleway',sans-serif; font-weight:300; font-style:italic; font-size:9.5pt; color:#666; margin-bottom:10px; letter-spacing:1px; }
+    .incident .columns { margin-top:0; }
+
+    /* BRIEFS */
+    .briefs { margin-top:14px; border-top:1px solid #ccc; padding-top:10px; }
+    .briefs-head { font-family:'Raleway',sans-serif; font-size:7.5pt; letter-spacing:5px; text-transform:uppercase; color:#888; margin-bottom:10px; text-align:center; }
+    .brief { font-size:9pt; line-height:1.55; padding:6px 0; border-bottom:1px dotted #ddd; display:flex; gap:8px; }
+    .brief:last-child { border-bottom:none; }
+    .brief-dash { color:#aaa; }
+
+    /* FOOTER */
+    .footer { margin-top:16px; display:flex; justify-content:space-between; align-items:center; border-top:3px solid #1c1c1c; padding-top:6px; }
+    .footer-left { font-family:'Raleway',sans-serif; font-size:7.5pt; letter-spacing:2px; text-transform:uppercase; color:#888; }
+    .footer-center { font-family:'Poiret One',sans-serif; font-size:14pt; letter-spacing:6px; text-transform:uppercase; color:#1c1c1c; }
+    .footer-right { font-family:'Raleway',sans-serif; font-size:7.5pt; letter-spacing:2px; text-transform:uppercase; color:#888; }
+
+    @media print { body{background:white;} .page{margin:0;box-shadow:none;width:100%;padding:10mm 14mm;} }
+  </style>
+</head>
+<body><div class="page">
+  <header class="masthead">
+    <div class="masthead-top"><span>Chronique mondaine</span><span>Édition du vendredi</span></div>
+    <div class="top-rule"></div>
+    <div class="thin-rule"></div>
+    <div class="paper-name">The Silhouette</div>
+    <div class="thin-rule"></div>
+    <div class="top-rule"></div>
+    <div class="tagline">Ce qui se voit &nbsp;·&nbsp; Ce qui se sait &nbsp;·&nbsp; Ce qui ne se dit pas</div>
+    <div class="deco-line"><hr><span>Silver Quarter — Amaranth — Ivory Row</span><hr></div>
+  </header>
+
+  <div class="headline-block">
+    <div class="rubric">Cette semaine en société</div>
+    <div class="headline">La saison reprend —<br>et avec elle, ses surprises</div>
+    <div class="deck">Le bal annuel du Silver Quarter a tenu toutes ses promesses cette semaine — et quelques autres que personne n'avait commandées.</div>
+  </div>
+
+  <div class="columns">
+    <div class="col">
+      <p><strong>Gold-Quiet-Behind-the-Eyes</strong> a fait une entrée remarquée par le grand escalier, ponctuelle à l'excès, esthétique dorée intacte depuis la dernière saison. On a noté sa discrétion inhabituelle — peu d'échanges, aucune déclaration, un verre à la main pendant la totalité de la soirée. <em>The Silhouette</em> n'émet pas d'hypothèse. <em>The Silhouette</em> observe.</p>
+    </div>
+    <div class="col">
+      <p class="no-drop"><strong>Perfume-of-Rain-on-Iron</strong> était présent, entouré comme toujours de ses gardes rapprochés, en compagnie de l'estimé <strong>Ash-Bloom-at-Dawn</strong> dont on notait une légère distraction — tenant sous le bras ce qui semblait être un volume relié, de provenance récente. Les initiés sauront reconnaître le genre de livre qu'on ne montre pas à table mais qu'on emporte néanmoins.</p>
+    </div>
+    <div class="col">
+      <p class="no-drop">Côté réjouissances politiques : <strong>Mesyé Só</strong> repart pour une saison à la tête de la Maison, avec un score suffisant mais pas triomphal. Quatre voix acquises, quatre abstentions, deux oppositions. <strong>Sun-on-Stone</strong>, son irremplaçable collaboratrice, a circulé avec la fluidité d'une personne qui savait depuis le début comment le vote allait se dérouler.</p>
+    </div>
+  </div>
+
+  <div class="incident">
+    <div class="incident-head">L'Incident</div>
+    <div class="incident-deck">Nous y venons.</div>
+    <div class="columns">
+      <div class="col">
+        <p><strong>Silk-Drawn-Through-Blood</strong> — dont le goût pour le dramatique n'est un secret pour personne dans ces cercles — a produit, en milieu de soirée, un moment que nous qualifierons diplomatiquement de <em>mémorable.</em> La dame a affirmé percevoir une présence hostile dans la salle. Les gardes ont été mobilisés. Rien n'a été trouvé.</p>
+      </div>
+      <div class="col">
+        <p class="no-drop">Ce qui mérite d'être noté : <strong>Echo-of-Hands-Long-Burned</strong> a saisi l'occasion pour prononcer, à voix suffisamment haute pour être entendue, plusieurs remarques sur le "danger permanent" que représentent certaines présences drows dans les espaces aelfir. Une prise de position dont <em>The Silhouette</em> prend acte sans commentaire.</p>
+      </div>
+      <div class="col">
+        <p class="no-drop">La déescalade est venue, dit-on, d'une inconnue — invitée de <strong>Mesyé Só</strong> — dont le prénom nous a été soufflé mais que nous gardons en réserve pour une prochaine édition. <strong>Silk-Drawn-Through-Blood</strong> est partie avant le vote. Sa raison officieuse : à votre imagination.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="briefs">
+    <div class="briefs-head">En bref</div>
+    <div class="brief"><span class="brief-dash">—</span><span><strong>Maera Flintrow</strong> n'était pas présente. Son absence était, selon certains, plus éloquente que n'importe quelle présence.</span></div>
+    <div class="brief"><span class="brief-dash">—</span><span><strong>Moonlight-Caught-in-a-Crack</strong> a passé la soirée en conversation prolongée avec une invitée dont le style tranchait avec le reste de l'assemblée. <em>The Silhouette</em> s'en souvient.</span></div>
+    <div class="brief"><span class="brief-dash">—</span><span><strong>Silver-Promise-Swallowed-Whole</strong> était là, comme toujours — discret, attentif, dégageant cette qualité de présence immobile qui lui est propre. Certains disent qu'il observe. Nous pensons qu'il écoute.</span></div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-left">Spire — Silver Quarter</div>
+    <div class="footer-center">The Silhouette</div>
+    <div class="footer-right">Édition du vendredi</div>
+  </footer>
+</div></body>
+</html>

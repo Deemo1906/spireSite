@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Ambrosia — Édition 1</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap');
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#2a1f0e; font-family:'Cormorant Garamond',Georgia,serif; color:#1a0f05; }
+    .page { width:210mm; min-height:297mm; margin:20px auto; background:#f7f0e3; border:1px solid #8a6a3a; padding:14mm; box-shadow:0 4px 30px rgba(0,0,0,0.5); position:relative; }
+
+    /* Ornamental border */
+    .page::before { content:''; position:absolute; top:8mm; left:8mm; right:8mm; bottom:8mm; border:1px solid #8a6a3a; pointer-events:none; }
+    .page::after { content:'✦ ✦ ✦'; position:absolute; top:10.5mm; left:50%; transform:translateX(-50%); font-size:8pt; color:#8a6a3a; letter-spacing:8px; background:#f7f0e3; padding:0 6px; }
+
+    /* MASTHEAD */
+    .masthead { text-align:center; padding:10px 0 8px; border-bottom:2px solid #8a6a3a; margin-bottom:8px; }
+    .masthead-top { display:flex; justify-content:space-between; font-size:7.5pt; font-style:italic; color:#6a4a1a; margin-bottom:8px; font-family:'Cinzel',serif; letter-spacing:1px; }
+    .paper-name { font-family:'Cinzel Decorative',serif; font-size:42pt; letter-spacing:6px; color:#3a1f00; line-height:1; }
+    .ornament { font-size:14pt; color:#8a6a3a; letter-spacing:12px; margin:4px 0; }
+    .tagline { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:10pt; color:#5a3a10; letter-spacing:2px; }
+    .edition-band { margin-top:8px; font-family:'Cinzel',serif; font-size:8pt; letter-spacing:3px; color:#6a4a1a; text-transform:uppercase; }
+
+    /* HEADLINE */
+    .headline-block { text-align:center; margin:12px 0 8px; padding-bottom:10px; border-bottom:1px solid #8a6a3a; position:relative; }
+    .rubric { font-family:'Cinzel',serif; font-size:8pt; letter-spacing:4px; text-transform:uppercase; color:#8a6a3a; margin-bottom:6px; }
+    .headline { font-family:'Cinzel',serif; font-size:22pt; font-weight:700; color:#2a1200; line-height:1.2; }
+    .subhead { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:12pt; color:#5a3a10; margin-top:6px; line-height:1.4; }
+
+    /* COLUMNS */
+    .columns { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:10px; }
+    .col { font-size:10pt; line-height:1.6; text-align:justify; hyphens:auto; color:#1a0f05; }
+    .col p { margin-bottom:9px; }
+    .col p:first-child::first-letter { font-family:'Cinzel Decorative',serif; font-size:34pt; font-weight:400; float:left; line-height:0.85; margin-right:4px; margin-top:6px; color:#6a3a00; }
+    .col2 { padding-left:16px; border-left:1px solid #c4a06a; }
+
+    .pullquote { border-top:1px solid #8a6a3a; border-bottom:1px solid #8a6a3a; padding:10px 8px; margin:12px 0; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:12pt; font-weight:600; text-align:center; line-height:1.5; color:#3a1f00; background:#f0e6cc; }
+
+    .section-break { text-align:center; color:#8a6a3a; font-size:12pt; letter-spacing:10px; margin:12px 0 8px; }
+
+    /* BRIEFS */
+    .briefs { margin-top:12px; border-top:2px solid #8a6a3a; padding-top:10px; }
+    .briefs-title { font-family:'Cinzel',serif; font-size:10pt; letter-spacing:3px; text-transform:uppercase; color:#6a4a1a; margin-bottom:8px; text-align:center; }
+    .brief-item { font-size:9pt; line-height:1.5; margin-bottom:8px; padding-bottom:8px; border-bottom:1px dotted #b09060; }
+    .brief-item:last-child { border-bottom:none; }
+    .brief-title { font-family:'Cinzel',serif; font-size:9pt; font-weight:700; color:#3a1f00; }
+
+    /* FOOTER */
+    .footer { margin-top:14px; border-top:2px solid #8a6a3a; padding-top:8px; text-align:center; }
+    .footer-orn { font-size:10pt; color:#8a6a3a; letter-spacing:8px; margin-bottom:4px; }
+    .footer-text { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:8.5pt; color:#5a3a10; }
+
+    @media print { body{background:white;} .page{margin:0;border:none;box-shadow:none;width:100%;padding:10mm 12mm 14mm 12mm;} }
+  </style>
+</head>
+<body><div class="page">
+  <header class="masthead">
+    <div class="masthead-top"><span>Gazette des Âmes &amp; des Fois</span><span>Cette semaine : Spire Spirituelle</span></div>
+    <div class="paper-name">Ambrosia</div>
+    <div class="ornament">✦ ✧ ✦ ✧ ✦</div>
+    <div class="tagline">Gazette des Âmes, des Fois &amp; des Rumeurs qui les Accompagnent</div>
+    <div class="edition-band">Édition hebdomadaire — Chronique Spirituelle</div>
+  </header>
+
+  <div class="headline-block">
+    <div class="rubric">✦ Enquête exclusive ✦</div>
+    <div class="headline">Le Culte du Fil Vivant<br>— Secte ou Salut ?</div>
+    <div class="subhead">Des jeunes drows disparaissent dans les hospices des Midwives.<br><em>Que leur arrive-t-il vraiment ?</em></div>
+  </div>
+
+  <div class="columns">
+    <div class="col">
+      <p>Nous avons reçu, au cours des dernières semaines, pas moins de sept témoignages concordants concernant les activités de la fraternité connue sous le nom de <strong>Midwives</strong> — ou, pour ceux qui tiennent à la précision liturgique, le <em>Culte des Sages-Accoucheurs d'Ishkrah</em>. Des témoignages qui nous ont troublés, nous le confessons, autant qu'ils nous ont fascinés.</p>
+      <p>Leurs hospices se multiplient. Le dernier en date, <strong>l'Hospice du Fil Tendu</strong>, a ouvert ses portes dans les niveaux intermédiaires des Sky Docks — ce district aérien réputé pour son indépendance d'esprit et ses cultes, disons, <em>créatifs</em>. Dirigé par une certaine <strong>Matrone Shaev Tisse-dans-le-Vide</strong>, l'établissement accueille drows blessés et Crowsmen de la Maison Aliquam dans une promiscuité qui soulève des questions.</p>
+      <div class="pullquote">"Il y avait des fils partout.<br>Des fils vivants. Sur les murs,<br>sur les patients. Et ils chantaient."</div>
+    </div>
+    <div class="col col2">
+      <p>Car ce que nos sources décrivent à l'intérieur de ces hospices dépasse le simple soin des corps.</p>
+      <p><em>"Il y avait des fils partout,"</em> nous confie une jeune drow qui a préféré rester anonyme. <em>"Des fils vivants. Sur les murs, sur les patients. Et ils chantaient, les soignants. Ils n'arrêtaient pas de chanter."</em></p>
+      <p>Les Midwives affirment pratiquer une médecine <em>"sacrée et biologique."</em> Nous ne mettons pas en doute leurs compétences médicales — leurs résultats sont, nous devons l'admettre, remarquables. Ce qui nous interroge, c'est l'aspect <em>doctrinal</em>. Les adeptes parlent d'une divinité en gestation, d'une <em>"Fille d'Ishkrah"</em> que le culte prépare à travers des rites dont la nature exacte reste volontairement obscure.</p>
+      <p><strong>La Matron d'Ishkrah</strong> elle-même, cheffe spirituelle du mouvement, est décrite par ses proches comme une <em>"voyante mourante tissant le futur dans sa propre chair."</em> Nous appelons ça une foi dont nous aimerions comprendre les contours avant que Spire n'ait à en subir les conséquences.</p>
+    </div>
+  </div>
+
+  <div class="section-break">✦ · · · ✦ · · · ✦</div>
+
+  <div class="briefs">
+    <div class="briefs-title">✦ Également dans ce numéro ✦</div>
+    <div class="brief-item"><span class="brief-title">L'Archidiacre Many-the-Seedlings parle :</span> sa vision d'une réconciliation entre le Panthéon Solaire et les cultes drows traditionnels. Exclusive.</div>
+    <div class="brief-item"><span class="brief-title">Nouveau temple, vieux dieux :</span> des prières inédites retrouvées dans le district d'Ivory Row — à qui s'adressaient-elles ?</div>
+    <div class="brief-item"><span class="brief-title">Courrier des lecteurs :</span> <em>"Mon fils a rejoint les Vigilites. Que faire ?"</em></div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-orn">✦ ✧ ✦</div>
+    <div class="footer-text"><em>Ambrosia.</em> Parce que la vérité spirituelle mérite d'être racontée avec soin — et un peu d'épices.</div>
+  </footer>
+</div></body>
+</html>

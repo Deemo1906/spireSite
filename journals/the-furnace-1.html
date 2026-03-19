@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>The Furnace — Édition 1</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IM+Fell+English:ital@0;1&display=swap');
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#e8e0d0; font-family:'IM Fell English',Georgia,serif; color:#1a1a1a; }
+    .page { width:210mm; min-height:297mm; margin:20px auto; background:#faf6ee; border:1px solid #bbb; padding:14mm 14mm 18mm 14mm; box-shadow:0 4px 20px rgba(0,0,0,0.25); }
+
+    .masthead { text-align:center; border-bottom:4px double #1a1a1a; padding-bottom:6px; margin-bottom:4px; }
+    .masthead-top { display:flex; justify-content:space-between; font-size:8pt; font-style:italic; color:#444; margin-bottom:4px; }
+    .paper-name { font-family:'UnifrakturMaguntia',serif; font-size:64pt; line-height:1; color:#0d0d0d; }
+    .tagline { font-style:italic; font-size:10pt; letter-spacing:1px; color:#333; margin:3px 0 6px; }
+    .edition-banner { background:#1a1a1a; color:#faf6ee; font-family:'Playfair Display',serif; font-size:9pt; letter-spacing:3px; text-transform:uppercase; padding:4px 0; }
+
+    .main-headline { text-align:center; margin:10px 0 4px; border-bottom:2px solid #1a1a1a; padding-bottom:8px; }
+    .kicker { font-family:'Playfair Display',serif; font-size:9pt; letter-spacing:4px; text-transform:uppercase; color:#555; margin-bottom:4px; }
+    .headline { font-family:'Playfair Display',serif; font-size:32pt; font-weight:900; line-height:1.05; text-transform:uppercase; }
+    .deck { font-family:'Playfair Display',serif; font-size:13pt; font-weight:700; font-style:italic; color:#333; margin-top:5px; }
+
+    .columns { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:10px; border-bottom:1px solid #888; padding-bottom:12px; }
+    .col { font-size:10pt; line-height:1.55; text-align:justify; hyphens:auto; }
+    .col p { margin-bottom:8px; }
+    .col p:first-child::first-letter { font-family:'Playfair Display',serif; font-size:38pt; font-weight:900; float:left; line-height:0.8; margin-right:3px; margin-top:5px; }
+    .col2 { padding-left:14px; border-left:1px solid #aaa; }
+    .no-drop::first-letter { font-size:10pt !important; font-weight:normal !important; float:none !important; line-height:1.55 !important; margin:0 !important; }
+    .pullquote { border-top:2px solid #1a1a1a; border-bottom:2px solid #1a1a1a; padding:8px 4px; margin:10px 0; font-family:'Playfair Display',serif; font-style:italic; font-size:11.5pt; font-weight:700; text-align:center; line-height:1.4; }
+    .shout { font-family:'Playfair Display',serif; font-weight:900; font-style:italic; }
+    .sc { font-variant:small-caps; font-weight:bold; letter-spacing:1px; }
+
+    .second { margin-top:12px; }
+    .second-head { font-family:'Playfair Display',serif; font-size:16pt; font-weight:700; font-style:italic; border-top:3px solid #1a1a1a; border-bottom:1px solid #888; padding:5px 0; margin-bottom:8px; }
+    .second .col p:first-child::first-letter { font-size:28pt; }
+    .second .columns { border-bottom:none; }
+
+    .footer { margin-top:14px; border-top:3px double #1a1a1a; padding-top:6px; display:flex; justify-content:space-between; align-items:flex-end; }
+    .footer-left { font-size:8pt; font-style:italic; color:#555; max-width:65%; line-height:1.4; }
+    .footer-right { font-family:'UnifrakturMaguntia',serif; font-size:18pt; }
+
+    @media print { body{background:white;} .page{margin:0;border:none;box-shadow:none;width:100%;padding:10mm 12mm 14mm 12mm;} }
+  </style>
+</head>
+<body><div class="page">
+  <header class="masthead">
+    <div class="masthead-top"><span>Imprimé dans le Works — Spire</span><span>Édition hebdomadaire</span></div>
+    <div class="paper-name">The Furnace</div>
+    <div class="tagline">"Nous imprimons ce que les autres n'osent pas."</div>
+    <div class="edition-banner">Édition de cette semaine — Scandale dans les hauteurs</div>
+  </header>
+
+  <div class="main-headline">
+    <div class="kicker">Bal d'Amaranth — Témoignage exclusif</div>
+    <div class="headline">Un assassin au bal d'Amaranth !!</div>
+    <div class="deck">La haute société tremblait — une source nous dit tout</div>
+  </div>
+
+  <div class="columns">
+    <div class="col">
+      <p>La nuit de vendredi dernier a failli se terminer en <span class="shout">bain de sang</span> dans les salons dorés d'Amaranth, là où les aelfirs de la haute pensaient souffler tranquillement entre eux. Sauf qu'<span class="sc">une invitée</span> a failli tout faire basculer.</p>
+      <p><strong>Silk-Drawn-Through-Blood</strong>, figure connue des cercles aristocratiques du Silver Quarter, a interrompu les festivités en hurlant qu'un <span class="shout">assassin invisible</span> rôdait parmi les invités. Selon une source <span class="sc">proche de la famille</span> — qui a tenu à garder l'anonymat pour des "raisons évidentes de sécurité" — la dame aurait <em>"senti une présence meurtrière venant directement d'un couteau non identifié."</em></p>
+      <p>Des gardes du corps ont fouillé la salle. <span class="sc">Rien n'a été trouvé.</span></p>
+      <div class="pullquote">"Elle tremblait de partout.<br>Et elle ne tremble jamais."</div>
+    </div>
+    <div class="col col2">
+      <p class="no-drop">Coïncidence ? Nous ne le pensons pas.</p>
+      <p>Car notre source révèle que <strong>Silk-Drawn-Through-Blood</strong> aurait quitté la salle <em>sans voter</em> lors du scrutin organisé ce soir-là par <strong>Mesyé Só</strong>, dont la réélection à la tête de la Maison vient d'être confirmée par un score serré.</p>
+      <p>L'absence de son vote a-t-elle été <em>arrangée</em> ? Qui avait intérêt à ce qu'elle parte avant de déposer son bulletin ?</p>
+      <p><em>"Elle avait une peur bleue,"</em> nous confie notre source. <em>"Elle tremblait de partout. Et elle ne tremble jamais."</em></p>
+      <p>Les questions restent sans réponse. <span class="sc">The Furnace</span> continue d'enquêter. Si vous étiez présent ce soir-là et avez remarqué quelque chose, nos portes sont ouvertes — et notre discrétion, garantie.</p>
+    </div>
+  </div>
+
+  <div class="second">
+    <div class="second-head">En bonus : Les jouets exotiques qui font rougir le Silver Quarter</div>
+    <div class="columns">
+      <div class="col"><p>Nos informateurs des Sky Docks font état d'une cargaison <em>très particulière</em> retenue depuis plusieurs jours aux entrepôts de la Guilde des Amarreurs. Des objets d'origine étrangère, de <em>"forme anatomique non conventionnelle"</em>, destinés apparemment à une clientèle <em>fortunée et discrète</em> du Silver Quarter.</p></div>
+      <div class="col col2"><p class="no-drop">Nos demandes d'information auprès du revendeur présumé — un certain artisan répondant au nom de <strong>Yul</strong>, actuellement à la Tour des Vents — sont restées sans réponse. Nous continuerons d'investiguer. Et si le Silver Quarter rougit, <span class="sc">The Furnace</span> saura pourquoi.</p></div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-left"><em>The Furnace.</em> On dit ce qu'on pense. Même quand on ne sait pas vraiment. — Toute ressemblance avec des personnages réels est entièrement intentionnelle.</div>
+    <div class="footer-right">The Furnace</div>
+  </footer>
+</div></body>
+</html>

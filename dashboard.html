@@ -13,39 +13,140 @@
     />
 
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="connect.css" />
+    <style>
+      html, body { height: 100%; }
+
+      .dashboard {
+        min-height: 100vh;
+        background: var(--bg-0);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem 2rem;
+        gap: 3rem;
+      }
+
+      .dash-header {
+        text-align: center;
+      }
+
+      .dash-eyebrow {
+        font-family: var(--font-heading);
+        font-size: 0.62rem;
+        letter-spacing: 0.5em;
+        text-transform: uppercase;
+        color: var(--text-3);
+        margin-bottom: 0.75rem;
+      }
+
+      .dash-user {
+        font-family: var(--font-display);
+        font-size: clamp(1.5rem, 5vw, 2.5rem);
+        font-weight: 900;
+        color: var(--text-0);
+        text-shadow: 0 0 40px rgba(192,41,43,0.3);
+      }
+
+      .dash-rule {
+        width: 40px;
+        height: 2px;
+        background: var(--red-500);
+        margin: 1rem auto;
+      }
+
+      /* Navigation cards */
+      .dash-nav {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        width: 100%;
+        max-width: 700px;
+      }
+
+      .dash-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--bg-2);
+        border: 1px solid var(--border);
+        padding: 1.75rem 1.5rem;
+        text-decoration: none;
+        transition: border-color 0.2s, transform 0.2s;
+        text-align: center;
+      }
+
+      .dash-card:hover {
+        border-color: var(--border-red);
+        transform: translateY(-4px);
+      }
+
+      .dash-card-icon {
+        font-size: 1.5rem;
+        color: var(--red-500);
+      }
+
+      .dash-card-label {
+        font-family: var(--font-heading);
+        font-size: 0.72rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--text-0);
+      }
+
+      .dash-card-sub {
+        font-style: italic;
+        font-size: 0.85rem;
+        color: var(--text-2);
+      }
+
+      .dash-logout {
+        font-family: var(--font-heading);
+        font-size: 0.6rem;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: var(--text-3);
+        background: none;
+        border: none;
+        cursor: pointer;
+        transition: color 0.2s;
+      }
+
+      .dash-logout:hover {
+        color: var(--red-400);
+      }
+    </style>
   </head>
 
-  <body class="connect-page">
+  <body>
+    <div class="dashboard">
 
-    <main class="connect-main">
-      <div class="connect-bg" aria-hidden="true"></div>
-
-      <div class="connect-panel">
-        <div class="connect-header">
-          <p class="connect-eyebrow">Accès accordé</p>
-          <h1 class="connect-title">BIENVENUE<br/>DANS<br/>SPIRE</h1>
-          <div class="connect-rule" aria-hidden="true"></div>
-          <p class="connect-sub" id="welcomeMsg">
-            Vous êtes connecté.
-          </p>
-        </div>
-
-        <button class="connect-submit" id="logoutBtn" style="margin-top:1rem;">
-          <span>Se déconnecter</span>
-        </button>
+      <div class="dash-header">
+        <p class="dash-eyebrow">Réseau Vermissien</p>
+        <p class="dash-user" id="dashUser"></p>
+        <div class="dash-rule"></div>
       </div>
-    </main>
+
+      <nav class="dash-nav">
+        <a class="dash-card" href="journals.html">
+          <span class="dash-card-icon">📰</span>
+          <span class="dash-card-label">La Presse</span>
+          <span class="dash-card-sub">Journaux de la Flèche</span>
+        </a>
+        <!-- Future sections can be added here -->
+      </nav>
+
+      <button class="dash-logout" id="logoutBtn">Se déconnecter</button>
+
+    </div>
 
     <script>
-      const token    = localStorage.getItem('spire_token');
       const username = localStorage.getItem('spire_user');
-
-      if (!token) {
+      if (!localStorage.getItem('spire_token')) {
         window.location.href = 'connect.html';
       } else {
-        document.getElementById('welcomeMsg').textContent =
-          `Opérative ${username}. La résistance vous attend.`;
+        document.getElementById('dashUser').textContent = username;
       }
 
       document.getElementById('logoutBtn').addEventListener('click', () => {
@@ -54,6 +155,5 @@
         window.location.href = 'index.html';
       });
     </script>
-
   </body>
 </html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>The Torch — Édition 1</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Roboto+Condensed:ital,wght@0,400;0,700;1,400&display=swap');
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#b0a898; font-family:'Merriweather',Georgia,serif; color:#0f0f0f; }
+    .page { width:210mm; min-height:297mm; margin:20px auto; background:#f4f1ec; padding:12mm 14mm 16mm; box-shadow:0 3px 20px rgba(0,0,0,0.3); }
+
+    /* MASTHEAD */
+    .masthead { text-align:center; margin-bottom:0; }
+    .banner-top { background:#0f0f0f; color:#f4f1ec; font-family:'Oswald',sans-serif; font-size:8pt; letter-spacing:4px; text-transform:uppercase; padding:5px 0; margin-bottom:0; }
+    .name-row { display:flex; align-items:center; justify-content:center; gap:14px; padding:8px 0 6px; border-bottom:5px solid #0f0f0f; border-top:1px solid #0f0f0f; }
+    .torch-icon { font-size:28pt; line-height:1; }
+    .paper-name { font-family:'Oswald',sans-serif; font-size:44pt; font-weight:700; letter-spacing:4px; text-transform:uppercase; color:#0f0f0f; line-height:1; }
+    .tagline-row { display:flex; justify-content:space-between; align-items:center; padding:5px 0; border-bottom:3px solid #0f0f0f; margin-bottom:0; }
+    .tagline { font-family:'Roboto Condensed',sans-serif; font-size:8.5pt; font-style:italic; color:#333; letter-spacing:1px; }
+    .edition-label { font-family:'Roboto Condensed',sans-serif; font-size:8.5pt; text-transform:uppercase; letter-spacing:2px; color:#333; }
+
+    /* HEADLINE */
+    .headline-block { margin:10px 0 8px; }
+    .headline { font-family:'Oswald',sans-serif; font-size:28pt; font-weight:700; text-transform:uppercase; line-height:1.1; color:#0f0f0f; border-bottom:2px solid #0f0f0f; padding-bottom:6px; }
+    .deck { font-family:'Merriweather',serif; font-style:italic; font-weight:300; font-size:11pt; color:#333; margin-top:6px; line-height:1.5; padding-bottom:8px; border-bottom:1px solid #bbb; }
+
+    /* COLUMNS */
+    .columns { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:10px; }
+    .col { font-size:10pt; line-height:1.6; text-align:justify; hyphens:auto; }
+    .col p { margin-bottom:9px; }
+    .col p:first-child::first-letter { font-family:'Oswald',sans-serif; font-size:34pt; font-weight:700; float:left; line-height:0.85; margin-right:3px; margin-top:6px; color:#0f0f0f; }
+    .col2 { padding-left:14px; border-left:2px solid #ddd; }
+    .no-drop::first-letter { font-size:10pt !important; font-family:'Merriweather',serif !important; float:none !important; line-height:1.6 !important; margin:0 !important; font-weight:300 !important; }
+
+    /* SECTION BREAK */
+    .section-head { font-family:'Oswald',sans-serif; font-size:14pt; font-weight:600; text-transform:uppercase; letter-spacing:2px; border-top:3px solid #0f0f0f; border-bottom:1px solid #0f0f0f; padding:4px 0; margin:14px 0 8px; color:#0f0f0f; }
+
+    /* CONCERN BOX */
+    .concern-box { background:#0f0f0f; color:#f4f1ec; padding:12px; margin:12px 0 0; }
+    .concern-head { font-family:'Oswald',sans-serif; font-size:12pt; font-weight:700; text-transform:uppercase; letter-spacing:2px; margin-bottom:8px; }
+    .concern-body { font-family:'Merriweather',serif; font-size:9.5pt; line-height:1.6; font-weight:300; }
+    .concern-body strong { color:#f4f1ec; font-weight:700; }
+
+    /* FOOTER */
+    .footer { margin-top:16px; border-top:5px solid #0f0f0f; padding-top:6px; display:flex; justify-content:space-between; align-items:center; }
+    .footer-left { font-family:'Merriweather',serif; font-size:8pt; font-style:italic; color:#444; max-width:70%; line-height:1.4; }
+    .footer-right { font-family:'Oswald',sans-serif; font-size:16pt; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:#0f0f0f; }
+
+    @media print { body{background:white;} .page{margin:0;box-shadow:none;width:100%;padding:10mm 12mm;} }
+  </style>
+</head>
+<body><div class="page">
+  <header class="masthead">
+    <div class="banner-top">Pour les travailleurs honnêtes de Spire — la vérité sans détour</div>
+    <div class="name-row">
+      <div class="torch-icon">🔥</div>
+      <div class="paper-name">The Torch</div>
+      <div class="torch-icon">🔥</div>
+    </div>
+    <div class="tagline-row">
+      <span class="tagline">Sécurité &amp; Ordre dans les hauteurs</span>
+      <span class="edition-label">Cette semaine</span>
+    </div>
+  </header>
+
+  <div class="headline-block">
+    <div class="headline">Les Sky Docks : la Guilde veille,<br>la cité respire</div>
+    <div class="deck">Des rumeurs circulent dans les niveaux inférieurs. Des rumeurs de sabotages, de chaînes sciées, de "tensions." <em>The Torch</em> a enquêté. Voici ce que nous pouvons vous confirmer : <strong>les Sky Docks fonctionnent. L'ordre est maintenu.</strong></div>
+  </div>
+
+  <div class="columns">
+    <div class="col">
+      <p>Oui, il y a eu des incidents. Des incidents mineurs, isolés, le fait d'individus mal intentionnés dont l'arrestation est, selon nos sources à la Guilde, <em>"imminente."</em> Ces incidents ne reflètent pas la réalité quotidienne de ce district où des milliers de travailleurs — dockers, amarreurs, techniciens — font leur travail honnêtement, chaque jour, dans des conditions certes difficiles mais encadrées.</p>
+      <p>Certaines voix — nous n'avons pas besoin de les nommer, nos lecteurs les reconnaissent — cherchent à exploiter le moindre incident pour déstabiliser un système qui, malgré ses défauts, <em>fonctionne.</em> Ces voix parlent de "privatisation" comme d'un scandale. Elles oublient que la sécurité a un prix, et que ce prix est payé par ceux qui organisent, qui gèrent, qui prennent les décisions difficiles.</p>
+    </div>
+    <div class="col col2">
+      <p class="no-drop">La <strong>Guilde des Amarreurs</strong> est imparfaite. Quelle institution ne l'est pas ? Mais elle assure que les baleines-ciel arrivent, que les cargaisons descendent, et que personne ne tombe du mauvais côté d'une rambarde sans que quelqu'un le remarque.</p>
+      <p><strong>Un mot sur les agitateurs.</strong> Ces voix parlent de "droits" et de "dignité" — des mots qui sonnent bien dans les rues. Mais derrière chaque slogan se cache une déstabilisation organisée. Nos lecteurs sont assez intelligents pour voir la différence entre une revendication légitime et une manipulation.</p>
+    </div>
+  </div>
+
+  <div class="concern-box">
+    <div class="concern-head">Ce qui nous inquiète vraiment</div>
+    <div class="concern-body">
+      <em>The Torch</em> ne cache pas ses préoccupations. Cette semaine, c'est l'hospice qui a ouvert ses portes entre les Basses Cales et les plates-formes médianes — <strong>l'Hospice du Fil Tendu</strong>, dirigé par ce groupe connu sous le nom de <strong>Midwives</strong>. Soigner les blessés, très bien. Mais un établissement médical sous la protection de fanatiques religieux connus — les Crowsmen de la Maison Aliquam — qui refuse catégoriquement toute inspection de la Guilde, cela mérite des questions. Qui entre là-dedans ? Qui en ressort ? Les travailleurs honnêtes méritent des soins dans des établissements transparents, pas dans des sanctuaires où des femmes masquées murmurent des prières sur vos blessures.
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-left">Nous restons vigilants. Nous vous demandons de l'être aussi. <em>The Torch. Parce que quelqu'un doit dire les choses clairement.</em></div>
+    <div class="footer-right">The Torch</div>
+  </footer>
+</div></body>
+</html>

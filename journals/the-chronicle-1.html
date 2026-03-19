@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>The Chronicle — Édition 1</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#c8c8c8; font-family:'Crimson Pro',Georgia,serif; color:#0d0d0d; }
+    .page { width:210mm; min-height:297mm; margin:20px auto; background:#f9f8f5; padding:12mm 14mm 16mm; box-shadow:0 2px 20px rgba(0,0,0,0.2); }
+
+    /* MASTHEAD */
+    .masthead { border-bottom:3px solid #0d0d0d; padding-bottom:5px; margin-bottom:5px; }
+    .masthead-row1 { display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; }
+    .paper-name { font-family:'Source Serif 4',serif; font-size:34pt; font-weight:700; letter-spacing:2px; color:#0d0d0d; line-height:1; }
+    .meta-block { text-align:right; font-family:'Space Mono',monospace; font-size:7pt; color:#444; line-height:1.6; }
+    .subtitle { font-family:'Source Serif 4',serif; font-size:9pt; font-style:italic; color:#333; letter-spacing:1px; }
+    .rule-thin { border-top:1px solid #0d0d0d; margin:4px 0; }
+    .edition-row { display:flex; justify-content:space-between; font-family:'Space Mono',monospace; font-size:7.5pt; color:#333; padding-top:4px; }
+
+    /* HEADLINE */
+    .headline-block { margin:10px 0 8px; padding-bottom:8px; border-bottom:2px solid #0d0d0d; }
+    .rubric { font-family:'Space Mono',monospace; font-size:7.5pt; letter-spacing:2px; text-transform:uppercase; color:#555; margin-bottom:5px; }
+    .headline { font-family:'Source Serif 4',serif; font-size:19pt; font-weight:700; line-height:1.2; color:#0d0d0d; }
+    .deck { font-family:'Crimson Pro',serif; font-style:italic; font-size:11pt; color:#333; margin-top:5px; line-height:1.45; }
+
+    /* DATA TABLE */
+    .data-table { width:100%; border-collapse:collapse; margin:10px 0; font-family:'Space Mono',monospace; font-size:8pt; }
+    .data-table th { background:#0d0d0d; color:#f9f8f5; padding:4px 6px; text-align:left; font-weight:normal; letter-spacing:1px; }
+    .data-table td { padding:3px 6px; border-bottom:1px solid #ddd; }
+    .data-table tr:nth-child(even) td { background:#f0ede6; }
+    .vote-yes { color:#1a6a1a; font-weight:bold; }
+    .vote-abs { color:#666; }
+    .vote-no { color:#8a1a1a; font-weight:bold; }
+
+    /* COLUMNS */
+    .columns { display:grid; grid-template-columns:2fr 1fr; gap:14px; margin-top:10px; }
+    .columns-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-top:10px; }
+    .col { font-size:9.5pt; line-height:1.6; text-align:justify; hyphens:auto; }
+    .col p { margin-bottom:8px; }
+    .col p:first-child::first-letter { font-family:'Source Serif 4',serif; font-size:30pt; font-weight:700; float:left; line-height:0.85; margin-right:3px; margin-top:5px; color:#0d0d0d; }
+    .col2 { padding-left:12px; border-left:1px solid #ccc; }
+    .no-drop::first-letter { font-size:9.5pt !important; font-weight:normal !important; float:none !important; line-height:1.6 !important; margin:0 !important; }
+
+    /* SECTION HEADS */
+    .section-head { font-family:'Source Serif 4',serif; font-size:11pt; font-weight:700; text-transform:uppercase; letter-spacing:1px; border-top:2px solid #0d0d0d; border-bottom:1px solid #0d0d0d; padding:3px 0; margin:12px 0 8px; }
+    .sub-section-head { font-family:'Crimson Pro',serif; font-size:11pt; font-weight:700; font-style:italic; color:#222; margin:8px 0 4px; }
+
+    /* SIDEBAR */
+    .sidebar { background:#f0ede6; border:1px solid #bbb; padding:8px; font-size:8.5pt; line-height:1.5; }
+    .sidebar-head { font-family:'Space Mono',monospace; font-size:7.5pt; font-weight:bold; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; border-bottom:1px solid #bbb; padding-bottom:4px; }
+    .sidebar p { margin-bottom:5px; }
+
+    /* FOOTER */
+    .footer { margin-top:14px; border-top:2px solid #0d0d0d; padding-top:5px; display:flex; justify-content:space-between; align-items:center; }
+    .footer-left { font-family:'Space Mono',monospace; font-size:7pt; color:#555; }
+    .footer-right { font-family:'Space Mono',monospace; font-size:7pt; color:#555; font-style:italic; }
+
+    @media print { body{background:white;} .page{margin:0;box-shadow:none;width:100%;padding:10mm 12mm;} }
+  </style>
+</head>
+<body><div class="page">
+  <header class="masthead">
+    <div class="masthead-row1">
+      <div>
+        <div class="paper-name">The Chronicle</div>
+        <div class="subtitle">Finances, Commerce &amp; Gouvernance de Spire</div>
+      </div>
+      <div class="meta-block">
+        ÉDITION HEBDOMADAIRE<br>
+        MARCHÉS &amp; INSTITUTIONS<br>
+        Rubrique : Gouvernance
+      </div>
+    </div>
+    <div class="rule-thin"></div>
+    <div class="edition-row">
+      <span>Cours des matières premières — p.3</span>
+      <span>Marché immobilier Ivory Row — p.5</span>
+      <span>Nécrologie des comptes — p.7</span>
+    </div>
+  </header>
+
+  <div class="headline-block">
+    <div class="rubric">Scrutin de la Maison // Résultats officiels</div>
+    <div class="headline">Résultats du scrutin de la Maison : stabilité confirmée, fragilités persistantes</div>
+    <div class="deck">Le vote tenu vendredi soir dans le cadre du bal annuel du Silver Quarter a reconduit Mesyé Só à la direction opérationnelle — résultat suffisant sur le plan réglementaire, en deçà du seuil de confort analytique.</div>
+  </div>
+
+  <table class="data-table">
+    <tr><th>Catégorie de vote</th><th>Décompte</th><th>Statut</th><th>Analyse</th></tr>
+    <tr><td>Voix favorables</td><td class="vote-yes">4</td><td class="vote-yes">✓ Suffisant</td><td>Base de reconduction acquise</td></tr>
+    <tr><td>Abstentions</td><td class="vote-abs">4</td><td class="vote-abs">— À surveiller</td><td>Investissement différé — segment décisif</td></tr>
+    <tr><td>Voix d'opposition</td><td class="vote-no">2</td><td class="vote-no">✗ Dissidence</td><td>Dont Veil-Drawn-Over-a-Scream (probable)</td></tr>
+    <tr><td><strong>Seuil de confort</strong></td><td>7</td><td>Non atteint</td><td>Autorité partiellement consolidée</td></tr>
+  </table>
+
+  <div class="columns">
+    <div class="col">
+      <div class="section-head">Lecture du scrutin</div>
+      <p>Les deux votes d'opposition méritent attention. Sans confirmation officielle des sources, l'analyse des positions publiques au cours des derniers mois laisse supposer que <strong>Veil-Drawn-Over-a-Scream</strong> figure parmi les voix dissidentes — sa proximité avec les cercles aelfir favorables à une reprise de contrôle du Silver Quarter est documentée. L'identité du second opposant reste moins certaine.</p>
+      <p>Les quatre abstentions constituent, selon notre lecture, le segment politiquement le plus intéressant. Une abstention dans ce contexte n'est pas une neutralité — c'est un investissement différé. Ces quatre voix seront décisives lors du prochain scrutin ordinaire ou, plus vraisemblablement, lors d'un vote de confiance provoqué par événement.</p>
+      <div class="section-head">Implications pour le commerce</div>
+      <p>La confirmation de <strong>Mesyé Só</strong> à la tête de la Maison signale une continuité des accords commerciaux en vigueur, notamment les arrangements de transit avec les opérateurs des Sky Docks. Cependant, la tension persistante avec la <strong>Guilde des Amarreurs</strong> — qui maintient ses prétentions sur les droits d'accès aux plates-formes médianes — constitue un facteur d'incertitude pour les flux de cargaison du trimestre.</p>
+    </div>
+    <div class="col col2">
+      <div class="sidebar">
+        <div class="sidebar-head">Notes de marché</div>
+        <p><strong>Korrik Vale</strong>, Ministre des Casinos, n'a pas communiqué sur les résultats. Son silence sur les questions politiques est, comme à l'accoutumée, absolu.</p>
+        <p><strong>Elise Marcombe</strong>, Ministre des Drogues et Alcools, a signalé en marge du scrutin une demande <em>"urgente et récurrente"</em> en provenance de certains cercles du Conseil Aelfir pour des produits dont elle refuse de préciser la nature.</p>
+        <p><em>The Chronicle</em> a soumis une demande de clarification restée sans réponse au moment de mettre sous presse.</p>
+      </div>
+      <div class="sub-section-head">Perspectives</div>
+      <p class="no-drop" style="font-size:9pt;line-height:1.55;">La configuration politique actuelle confère à <strong>Mesyé Só</strong> une latitude d'action suffisante pour les semaines à venir. Le test réel de sa position sera la gestion du dossier des routes aériennes du nord et la réponse qu'il apportera aux demandes de <strong>Maera Flintrow</strong> — dont les exigences logistiques constituent une ligne de tension interne à la Maison.</p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-left">The Chronicle ne prend pas de position politique. The Chronicle comptabilise.</div>
+    <div class="footer-right">Édition hebdomadaire — Marchés &amp; Institutions</div>
+  </footer>
+</div></body>
+</html>
