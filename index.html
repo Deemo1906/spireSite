@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="An unofficial fan site for Spire: The City Must Fall — the dark fantasy-punk tabletop RPG by Rowan, Rook and Decard." />
+    <meta name="description" content="Site non-officiel de Spire: The City Must Fall — le jeu de rôle dark fantasy de Rowan, Rook and Decard." />
     <title>Spire: The City Must Fall</title>
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,31 +14,21 @@
     />
 
     <link rel="stylesheet" href="style.css" />
+    <style>
+      html, body {
+        height: 100%;
+        overflow: hidden;
+      }
+    </style>
   </head>
 
   <body>
 
-    <!-- ── NAVIGATION ─────────────────────── -->
-    <nav class="nav" aria-label="Main navigation">
-      <div class="nav-inner">
-        <span class="nav-logo">Spire</span>
-        <ul class="nav-links">
-          <li><a href="#about">The City</a></li>
-          <li><a href="#lore">Lore</a></li>
-          <li><a href="#ministries">Ministries</a></li>
-          <li><a href="#resources">Resources</a></li>
-        </ul>
-      </div>
-    </nav>
+    <div class="hero-bg" aria-hidden="true"></div>
 
-    <!-- ── HERO ───────────────────────────── -->
-    <section class="hero" id="top" aria-labelledby="hero-title">
-      <div class="hero-bg" aria-hidden="true"></div>
-
+    <main class="hero" style="min-height: 100vh;">
       <div class="hero-content">
-        <p class="hero-eyebrow">A Tabletop Roleplaying Game</p>
-
-        <h1 class="hero-title" id="hero-title">SPIRE</h1>
+        <h1 class="hero-title">SPIRE</h1>
 
         <div class="hero-rule" aria-hidden="true">
           <span class="hero-rule-line"></span>
@@ -47,264 +36,9 @@
           <span class="hero-rule-line"></span>
         </div>
 
-        <p class="hero-tagline">
-          You are drow. Second-class citizens in a city your ancestors built.
-          Secret rebels in a war the city doesn't know is happening yet.
-        </p>
-
-        <a href="connect.html" class="hero-cta">Enter the Spire</a>
+        <a href="connect.html" class="hero-cta" style="margin-top: 3rem;">Entrer dans la Flèche</a>
       </div>
-
-      <div class="hero-scroll" aria-hidden="true">
-        <span class="hero-scroll-line"></span>
-      </div>
-    </section>
-
-    <!-- ── ABOUT: THE CITY ────────────────── -->
-    <section class="section about" id="about" aria-labelledby="about-title">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title" id="about-title">The City</h2>
-          <div class="title-rule"></div>
-        </div>
-
-        <div class="about-grid">
-          <div class="about-text">
-            <p class="lead">
-              High above the ground, in a city of iron and shadow and spite,
-              the Aelfir rule. They came three hundred years ago. They never left.
-            </p>
-            <p>
-              The Spire is a mile-high tower-city — a monument to power, excess, and
-              the slow violence of occupation. At the highest levels, the Aelfir,
-              the high elves, live in gilded brutality. Below them, deeper in the dark,
-              the drow endure.
-            </p>
-            <p>
-              You are one of the drow. Member of a secret Ministry with its own
-              agenda, methods, and price. You will work toward the fall of your
-              occupiers through espionage, violence, political subversion, or
-              stranger means. You will pay for it. The question is how much you're
-              willing to lose.
-            </p>
-          </div>
-
-          <aside>
-            <blockquote class="pull-quote">
-              <p>
-                "You're not heroes. You're desperate people in an impossible situation,
-                making terrible choices for reasons that feel good enough."
-              </p>
-            </blockquote>
-          </aside>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── WORLD LORE ─────────────────────── -->
-    <section class="section world" id="lore" aria-labelledby="lore-title">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title" id="lore-title">The World</h2>
-          <div class="title-rule title-rule--blue"></div>
-          <p class="section-sub">A city of impossible height. A war fought in whispers and shadows.</p>
-        </div>
-
-        <div class="world-grid">
-          <div class="world-card">
-            <p class="world-card-tag">Occupiers</p>
-            <h3 class="world-card-title">The Aelfir</h3>
-            <p>
-              The high elves who conquered the Spire three centuries ago and built
-              an entire culture atop drow labour. They rule from the upper levels,
-              conducting their art, politics, and casual cruelty in equal measure.
-            </p>
-          </div>
-
-          <div class="world-card">
-            <p class="world-card-tag">The Resistance</p>
-            <h3 class="world-card-title">The Drow</h3>
-            <p>
-              The original builders and inhabitants of the Spire. Now second-class
-              citizens, confined to the lower levels and the forgotten quarters.
-              Most endure. Some remember. A few fight back.
-            </p>
-          </div>
-
-          <div class="world-card">
-            <p class="world-card-tag">Beneath the City</p>
-            <h3 class="world-card-title">The Vermissian</h3>
-            <p>
-              A broken rail network beneath the Spire that defies physics and
-              geography alike. Tunnels lead to places that shouldn't exist.
-              The perfect place to run, to hide, or to quietly lose your mind.
-            </p>
-          </div>
-
-          <div class="world-card">
-            <p class="world-card-tag">The Unseen</p>
-            <h3 class="world-card-title">The Occult</h3>
-            <p>
-              Magic is real, unstable, and hungry. The Spire is riddled with
-              dark gods, forgotten rituals, and things that should not exist
-              that do anyway — because the city demands them.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── MINISTRIES ─────────────────────── -->
-    <section class="section ministries" id="ministries" aria-labelledby="ministries-title">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title" id="ministries-title">The Ministries</h2>
-          <div class="title-rule"></div>
-          <p class="section-sub">
-            Every character belongs to a secret organisation with its own agenda,
-            methods, and price. Choose your allegiance. Live with the consequences.
-          </p>
-        </div>
-
-        <div class="ministry-grid">
-
-          <article class="ministry-card">
-            <div class="ministry-icon" aria-hidden="true">✦</div>
-            <h3 class="ministry-name">Our Lady of the Darkness</h3>
-            <p class="ministry-desc">
-              Religious assassins who serve a forgotten drow goddess. They believe
-              the city must bleed before it can be healed. Faith is their sharpest weapon.
-            </p>
-          </article>
-
-          <article class="ministry-card">
-            <div class="ministry-icon" aria-hidden="true">⊕</div>
-            <h3 class="ministry-name">The Vermissian Scholia</h3>
-            <p class="ministry-desc">
-              Reality hackers and scholars who exploit the broken geometry of the
-              underground rail. They go places that should not exist — and come back changed.
-            </p>
-          </article>
-
-          <article class="ministry-card">
-            <div class="ministry-icon" aria-hidden="true">⚙</div>
-            <h3 class="ministry-name">The Stranglers</h3>
-            <p class="ministry-desc">
-              A violent labour union with legitimate grievances and extremely illegitimate
-              methods. Class consciousness, enforced at knifepoint. Solidarity or nothing.
-            </p>
-          </article>
-
-          <article class="ministry-card">
-            <div class="ministry-icon" aria-hidden="true">◈</div>
-            <h3 class="ministry-name">The Forgotten Children</h3>
-            <p class="ministry-desc">
-              Community organisers, spies, and social workers who protect drow life from
-              the inside. They believe the resistance must be worth living in, not just dying for.
-            </p>
-          </article>
-
-          <article class="ministry-card">
-            <div class="ministry-icon" aria-hidden="true">⚖</div>
-            <h3 class="ministry-name">The Silver Conventicle</h3>
-            <p class="ministry-desc">
-              Political moderates and lawyers working within the system — for now.
-              They play the long game, leveraging Aelfir law against the Aelfir themselves.
-            </p>
-          </article>
-
-          <article class="ministry-card">
-            <div class="ministry-icon" aria-hidden="true">☽</div>
-            <h3 class="ministry-name">The Bound</h3>
-            <p class="ministry-desc">
-              Warriors who have made deals with dark powers, binding terrible forces
-              to their will at great personal cost. Every use leaves a mark.
-            </p>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ── ATMOSPHERIC QUOTE BREAK ─────────── -->
-    <div class="quote-break" role="presentation">
-      <div class="container">
-        <blockquote>
-          "The Spire has stood for centuries. It will stand for centuries more,
-          unless someone decides it shouldn't — and is willing to pay what that costs."
-          <cite>— Spire: The City Must Fall</cite>
-        </blockquote>
-      </div>
-    </div>
-
-    <!-- ── RESOURCES ──────────────────────── -->
-    <section class="section resources" id="resources" aria-labelledby="resources-title">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title" id="resources-title">Resources</h2>
-          <div class="title-rule title-rule--blue"></div>
-        </div>
-
-        <div class="resource-grid">
-
-          <a
-            class="resource-card"
-            href="https://rowanrookanddecard.com/product/spire-rpg/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h3>Official Game</h3>
-            <p>
-              Buy Spire: The City Must Fall directly from the publisher,
-              Rowan, Rook and Decard. Includes the core book and supplements.
-            </p>
-            <span class="resource-link" aria-hidden="true">Visit →</span>
-          </a>
-
-          <a
-            class="resource-card"
-            href="https://rowanrookanddecard.itch.io/spire-rpg"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h3>Itch.io</h3>
-            <p>
-              Find Spire and its supplements on Itch.io, including
-              pay-what-you-want options and digital editions.
-            </p>
-            <span class="resource-link" aria-hidden="true">Visit →</span>
-          </a>
-
-          <a
-            class="resource-card"
-            href="https://www.reddit.com/r/SpireRPG/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h3>Community</h3>
-            <p>
-              Join the Spire community on Reddit for discussion, actual play
-              reports, homebrew content, and rule questions.
-            </p>
-            <span class="resource-link" aria-hidden="true">Visit →</span>
-          </a>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ── FOOTER ─────────────────────────── -->
-    <footer class="footer">
-      <div class="container">
-        <p class="footer-logo">Spire</p>
-        <div class="footer-divider" aria-hidden="true"></div>
-        <p class="footer-sub">
-          This is an unofficial fan site made with care.
-          Spire: The City Must Fall is a game by Grant Howitt &amp; Christopher Taylor,
-          published by Rowan, Rook and Decard. All rights reserved.
-        </p>
-      </div>
-    </footer>
+    </main>
 
   </body>
 </html>
