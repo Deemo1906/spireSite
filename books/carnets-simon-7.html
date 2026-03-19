@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Les North Docks de Spire — Spire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg-0); overflow-x: hidden; }
+
+    .back-link {
+      position: fixed; top: 1.5rem; left: 2rem;
+      font-family: var(--font-heading); font-size: 0.65rem;
+      letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--text-3); transition: color 0.2s; z-index: 10;
+      text-decoration: none;
+    }
+    .back-link:hover { color: var(--text-1); }
+
+    .book-page { min-height: 100vh; background: var(--bg-0); }
+
+    .cover-carnets-7 {
+      background: #060f0d;
+      background-image: repeating-linear-gradient(180deg, transparent, transparent 18px, rgba(40,100,70,0.05) 18px, rgba(40,100,70,0.05) 19px);
+      width: 100%; min-height: 420px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 4rem 2rem 3rem; position: relative; overflow: hidden;
+    }
+    .cover-carnets-7::before {
+      content: ''; position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px;
+      border: 1px solid rgba(40,100,70,0.2); pointer-events: none;
+    }
+    .cv7-series { font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 4px; text-transform: uppercase; color: #1a4a30; margin-bottom: 1rem; }
+    .cv7-num { font-family: 'Cinzel Decorative', serif; font-size: clamp(4rem, 12vw, 7rem); color: #2a7a50; text-shadow: 0 0 60px rgba(30,100,60,0.3); line-height: 1; }
+    .cv7-rule { width: 50px; height: 1px; background: #1a4030; margin: 0.75rem auto; }
+    .cv7-title { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 4px; text-transform: uppercase; color: #2a6a45; text-align: center; }
+    .cv7-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.75rem; color: #1a3a25; margin-top: 0.5rem; text-align: center; }
+    .cv7-author { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 4px; text-transform: uppercase; color: #153020; margin-top: 1.5rem; }
+
+    .book-content {
+      max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem;
+      color: var(--text-1); font-family: var(--font-body); font-size: 1.05rem; line-height: 1.85;
+    }
+    .book-content h2 {
+      font-family: var(--font-heading); font-size: 0.75rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--text-2); margin: 3rem 0 1.25rem; padding-top: 2rem; border-top: 1px solid var(--border);
+    }
+    .book-content h2:first-of-type { border-top: none; padding-top: 0; }
+    .book-content p { margin-bottom: 1.25rem; }
+    .book-content em { color: var(--text-1); font-style: italic; }
+    .book-content strong { color: var(--text-0); font-weight: 600; }
+
+    .reco-box { border-left: 2px solid var(--red-700); padding: 0.75rem 1.25rem; margin: 1.5rem 0; background: rgba(30,20,30,0.6); }
+    .reco-box .reco-label { font-family: var(--font-heading); font-size: 0.55rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--red-500); margin-bottom: 0.5rem; display: block; }
+    .reco-box p { font-style: italic; color: var(--text-2); font-size: 0.95rem; margin-bottom: 0; }
+
+    .author-note { border: 1px solid var(--border); padding: 0.75rem 1.25rem; margin: 1.5rem 0; background: rgba(20,15,25,0.8); font-style: italic; color: var(--text-3); font-size: 0.9rem; }
+    .author-note .note-label { font-family: var(--font-heading); font-size: 0.5rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-3); margin-bottom: 0.4rem; display: block; font-style: normal; }
+
+    .tasting-note { font-style: italic; color: var(--text-2); font-size: 0.95rem; border-left: 1px solid var(--border); padding-left: 1rem; margin: 1rem 0; }
+
+    .book-signature { font-style: italic; color: var(--text-3); font-size: 0.9rem; text-align: right; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .book-signature p { margin-bottom: 0.4rem; }
+  </style>
+</head>
+<body style="overflow:auto;">
+
+  <a href="../library.html" class="back-link">← Bibliothèque</a>
+
+  <div class="book-page">
+
+    <div class="cover-carnets-7">
+      <div class="cv7-series">Les Carnets de Simon</div>
+      <div class="cv7-num">VII</div>
+      <div class="cv7-rule"></div>
+      <div class="cv7-title">Les North Docks de Spire</div>
+      <div class="cv7-sub">Guide Gastronomique, Hédoniste et Culturel</div>
+      <div class="cv7-author">Simon Verlat</div>
+    </div>
+
+    <div class="book-content">
+
+      <p style="text-align:center; font-family:var(--font-heading); font-size:0.55rem; letter-spacing:0.45em; text-transform:uppercase; color:var(--text-3); margin-bottom:0.5rem;">Les Carnets de Simon — Numéro VII</p>
+      <h1 style="font-family:'Cinzel Decorative',serif; font-size:clamp(1.1rem,3vw,1.6rem); color:var(--text-0); text-align:center; margin-bottom:0.5rem; line-height:1.3;">Les North Docks de Spire</h1>
+      <p style="text-align:center; font-style:italic; color:var(--text-3); font-size:0.85rem; margin-bottom:0.25rem;">Guide Gastronomique, Hédoniste et Culturel à l'Usage du Voyageur Éclairé</p>
+      <p style="text-align:center; font-style:italic; color:var(--text-3); font-size:0.8rem; margin-bottom:3rem;"><em>Simon Verlat, journaliste indépendant, explorateur culinaire, auteur de "La Table du Monde"</em></p>
+      <div style="width:40px;height:1px;background:var(--red-700);margin:0 auto 3rem;"></div>
+
+      <h2>Avant-Propos</h2>
+
+      <p>Je m'appelle Simon. Je suis journaliste.</p>
+      <p>Ces deux phrases ont suffi, jusqu'ici, à me faire entrer dans la plupart des endroits où je n'aurais pas dû entrer. Elles constituent l'intégralité de ma formation professionnelle et la totalité de mes accréditations, lesquelles existent sous la forme d'un parchemin que j'ai rédigé moi-même un soir de septembre après trois coupes de Rouge d'Amaranth. Personne ne l'a jamais lu assez attentivement pour le contester.</p>
+      <p><em>La Table du Monde</em> est le guide de référence pour le voyageur qui souhaite explorer les districts de Spire avec un regard curieux, un estomac solide et un budget raisonnable. Les six précédents numéros ont rencontré un succès que je qualifie, par honnêteté intellectuelle, de "confidentiel mais réel." Je n'ai pas de chiffres de vente précis. Cela s'explique par plusieurs raisons dont je préfère ne pas parler ici.</p>
+      <p>Les North Docks sont mon septième terrain d'enquête. On me les a recommandés comme un quartier "vivant, authentique, et décidément particulier." Ce sont exactement les termes que j'emploie dans mes propres recommandations pour ne pas dire "dangereux et franchement déconcertant," ce qui m'a paru de bon augure.</p>
+      <p>J'ai passé quatre jours aux North Docks. Je suis rentré en un seul morceau. Je considère cela comme un succès rédactionnel.</p>
+
+      <div class="author-note">
+        <span class="note-label">Note éditoriale</span>
+        Ce numéro a été en partie dicté depuis un lit de Solace. Je remercie le soignant Delas pour sa patience et pour avoir arrêté de me demander comment j'avais obtenu ces bleus.
+      </div>
+
+      <h2>I. Les Tavernes Flottantes, ou : Ce que le rhum fait à la tête</h2>
+
+      <p>Il faut comprendre, avant toute chose, que les North Docks ne sont pas un quartier que l'on visite. Ce sont un quartier qui vous visite. Le voyageur qui descend des passerelles de la High Street vers les quais inférieurs ressent immédiatement une impression de sel, de bois pourri et d'humanité concentrée qui lui indique sans ambiguïté qu'il a quitté le registre touristique ordinaire.</p>
+      <p>J'ai noté cela dans mon carnet. J'ai continué vers les Tavernes Flottantes.</p>
+      <p>L'archipel de bois et de coque renversée qui constitue ce complexe de restauration est, à bien des égards, le cœur gastronomique et social des Docks. Plusieurs établissements méritent l'attention du visiteur sérieux.</p>
+      <p><strong>La Gueule de Bois</strong> est la plus ancienne et la plus connue. Construite sur trois coques soudées, elle possède un comptoir de dix mètres fait d'une quille renversée (je précise : une vraie quille de navire, pas une métaphore) et un propriétaire nommé <strong>Verrin "Trois-Jours"</strong> qui prétend avoir servi le premier Duc des Docks. Je lui ai demandé son âge. Il a ri pendant assez longtemps pour que je comprenne que la question était soit impertinente, soit idiote. J'ai commandé quelque chose à boire.</p>
+      <p>On m'a apporté un bol en terre cuite.</p>
+      <p>J'ai reconnu l'odeur avant même de regarder le contenu. Ceux qui ont lu mon numéro III sur les Sky Docks se souviendront de ma description du Chum, la boisson de base des districts bas de Spire. Pour les nouveaux lecteurs, je résume : c'est un alcool distillé à partir de tripes de poisson fermentées et d'eau de canalisation. Il sent la cale mouillée. Il brûle comme un reproche. Il est servi dans des bols non rincés.</p>
+      <p>Dans un esprit de rigueur professionnelle, j'ai pris une gorgée.</p>
+      <p>Ma note de dégustation officielle, reconstituée depuis le brouillon de mon carnet :</p>
+      <div class="tasting-note">"Nez ouvert, marin, avec une note de fond industrielle que je qualifierais de protestataire. Bouche brève et décidée. Finale très longue, dans le mauvais sens du terme. Accord mets-boisson difficile à envisager avec quoi que ce soit de comestible. Rapport qualité-prix excellent si l'on n'accorde aucune valeur à la qualité."</div>
+      <p>Verrin m'a regardé prendre ces notes. Il a dit quelque chose en drow que je n'ai pas compris mais qui a fait rire les trois dockers assis à ma gauche. J'ai souri poliment.</p>
+      <p>L'établissement voisin, <strong>Le Calmar Pendu</strong>, est la taverne des Chevaliers de la Main Rouge, un ordre dont je n'avais pas entendu parler avant ce voyage et dont je ne suis toujours pas certain d'avoir compris exactement la raison d'être. Leurs tables sont clouées au sol. L'affiche explicative sur ce choix d'ameublement mentionne "un accident impliquant six ivrognes et un duel à l'aveugle." Je n'ai pas demandé de détails.</p>
+      <p>Leur rhum est épais, poivré et d'une ambition indéniable. La serveuse me l'a présenté avec cette formule, que j'ai notée mot pour mot : <em>"Met des tentacules dans la tête."</em></p>
+      <p>J'ai commis l'erreur de prendre ça pour de la poésie.</p>
+      <p>Ce rhum est réel. Son effet sur le cerveau est réel. J'ai commandé une deuxième tournée en croyant que la première était une mise en bouche. La deuxième m'a appris que ce n'était pas le cas. J'ai passé les quarante minutes suivantes assis à ma table à contempler le plafond en bois et à prendre des notes qui, relues le lendemain, s'avèrent être le mot "tentacules" répété vingt-deux fois avec une calligraphie progressivement décroissante.</p>
+
+      <div class="reco-box">
+        <span class="reco-label">Recommandation</span>
+        <p>La Gueule de Bois, pour l'atmosphère et pour voir Verrin Trois-Jours. Le Calmar Pendu, pour le rhum, mais pas plus d'une dose si vous avez prévu de vous souvenir de votre soirée.</p>
+      </div>
+
+      <div class="reco-box">
+        <span class="reco-label">Note Culturelle</span>
+        <p>Chaque taverne possède une petite cloche rouillée appelée "cloche de sel," que l'on sonne avant de trinquer "pour conjurer la mer." Je me suis renseigné sur l'origine de cette pratique. Quatre personnes différentes m'ont donné quatre explications différentes. Elles avaient toutes l'air sincères. J'ai sonné la cloche. Il ne s'est rien passé de notable, ce qui semble être le résultat souhaité.</p>
+      </div>
+
+      <h2>II. La Gastronomie d'Altitude, ou : Ce que Lorens n'a pas dit</h2>
+
+      <p>Un guide gastronomique sérieux ne peut pas ignorer <strong>La Belette Flétrie</strong>, l'établissement le plus haut de gamme des North Docks. La réputation en est parvenue à mes oreilles par plusieurs canaux : table exceptionnelle, vins importés de la Cité Haute, un goshawk rôti aux abricots qui, m'avait-on dit, justifie à lui seul le voyage.</p>
+      <p>L'entrée de la Belette est gardée par un drow nommé <strong>Lorens</strong>. Lorens est petit, silencieux et possède un regard que je classerais, dans ma nomenclature personnelle, dans la catégorie "regards qui rendent les gens nerveux sans raison apparente." Il m'a regardé. Il a regardé mon carnet. Il a regardé mes chaussures de voyage, qui portaient à ce stade les traces de ma visite à La Gueule de Bois et de ce que j'avais marché dedans en sortant.</p>
+      <p>Il a fermé la porte.</p>
+      <p>Je n'ai, à proprement parler, pas été expulsé. On m'a simplement informé, par le biais d'une porte fermée, que ma présence n'était pas souhaitée ce soir. Je note, en tant que journaliste honnête, que cela révèle une sélection rigoureuse qui parle en faveur de l'établissement. Un lieu qui se soucie autant de sa clientèle mérite le respect. Je reviendrai correctement chaussé.</p>
+      <p>Le goshawk rôti aux abricots, je l'ai finalement goûté dans sa version de taverne flottante, préparé par le cuisinier de La Gueule de Bois qui, selon Verrin, "a appris à l'oiseau de la Belette par des voies indirectes." Le résultat est vigoureux et direct : une viande dense, légèrement amère, avec une garniture d'abricots fermentés qui font un contrepoint acide bienvenu. J'ai noté "complexité certaine, manque de dressage, fonctionne bien." Je me suis servi deux fois.</p>
+
+      <h2>III. Les Marchés de Nuit, ou : Ce que j'ai cru acheter</h2>
+
+      <p>High Street, la rue suspendue construite dans les poutres du plafond du port, est un commerce permanent de jour. La nuit, elle devient autre chose.</p>
+      <p>Je suis monté à High Street après dix heures du soir, carnet en main, dans un esprit d'enquête ethnographique. Les marchés de nuit s'étaient ouverts. Selon les informations que j'avais pu recueillir, on y vendait des "drogues, des informations et des souvenirs humains." J'ai concentré mes recherches sur la première catégorie, dans un but strictement documentaire et sans aucune intention personnelle.</p>
+      <p>Un vendeur m'a proposé ce qu'il a décrit, en drow avec un accent que je ne maîtrise pas, comme une "herbe séchée, douce, qui aide à penser." J'ai cru comprendre qu'il s'agissait d'un tabac local de qualité. J'ai acheté une pipe courte et la préparation correspondante pour un vingtième de silver, ce qui m'a paru raisonnable.</p>
+      <p>Il s'agissait de <strong>Godsmoke</strong>. Pour les lecteurs non familiers avec cette substance : c'est une poussière fongique issue de champignons souterrains du Works, dont les effets incluent une euphorie chaude, une réduction de la douleur physique et "un sentiment de bienveillance générale envers le monde." Ce sont les informations que j'ai pu recueillir le lendemain matin. Sur le moment, je ne savais pas ce que c'était.</p>
+
+      <div class="author-note">
+        <span class="note-label">Note de l'auteur, ajoutée en relecture</span>
+        Les trois paragraphes suivants ont été rédigés pendant les effets du Godsmoke. Je les reproduis pour leur valeur documentaire.
+      </div>
+
+      <div class="tasting-note">"High Street est vraiment très belle la nuit. Les lanternes font des reflets sur les planches et j'ai compté les grains de bois dans celle devant moi pendant un moment assez long et il y en a beaucoup. Le vendeur de chaussures suspendu au-dessus de moi est très gentil. Il vend des chaussures. Je pense que les chaussures sont importantes. Lorens aurait dû me laisser entrer. Je vais lui apporter des chaussures. J'ai demandé à un enfant de me dire son nom et il m'a dit Fil-du-Vide et j'ai noté ça. Demain je verrai si c'est vrai. La mer est quelque part sous moi. Je pense que la mer est aussi très gentille en ce moment."</div>
+
+      <p>Le lendemain matin, j'avais des notes incomplètes, un dessin de chaussure dans mon carnet et l'adresse d'un cordonnier que je n'avais pas besoin de trouver. La bienveillance générale envers le monde s'était dissipée. Je suis descendu de High Street sans difficulté particulière, à condition de ne pas compter les deux fois où j'ai raté une marche.</p>
+
+      <div class="reco-box">
+        <span class="reco-label">Recommandation</span>
+        <p>High Street de nuit est visuellement impressionnant et commercialement très actif. Je conseille au voyageur de s'informer précisément de ce qu'il achète avant de l'acheter.</p>
+      </div>
+
+      <h2>IV. Le Sceptre Carmin, ou : Une expérience d'hébergement brutalement honnête</h2>
+
+      <p>Je cherchais un endroit pour passer la deuxième nuit. Un docker à qui j'avais demandé son avis m'avait indiqué "le Sceptre Carmin, dans la rue rouge", en ajoutant quelque chose que je n'ai pas tout à fait compris mais qui sonnait comme un conseil. J'ai noté l'adresse.</p>
+      <p>La façade est un ancien entrepôt reconverti. Le sol, je l'ai appris dans les secondes qui ont suivi mon entrée, est légèrement collant à cause de la proximité de deux canaux d'abattoir. L'eau environnante est effectivement rouge. J'ai noté "atmosphère couleur locale, olfactivement vive."</p>
+      <p>À l'intérieur, j'ai été accueilli avec une attente que je qualifierais de "professionnelle et légèrement armée." La femme derrière le comptoir, une drow borgne de la corpulence d'un pilier de port, m'a regardé de la tête aux pieds avec la méthode systématique d'une personne qui évalue les dommages potentiels. Elle m'a demandé si j'étais armé.</p>
+      <p>J'ai dit non.</p>
+      <p>Elle a dit que c'était bien.</p>
+      <p>J'ai dit que je cherchais une chambre pour la nuit.</p>
+      <p>Elle a dit que cet établissement n'hébergeait pas les hommes.</p>
+      <p>J'ai dit que je comprenais et que j'allais partir dans ce cas.</p>
+      <p>Elle a dit que c'était aussi bien.</p>
+      <p>Je suis parti. La femme s'appelait, ai-je appris par la suite, <strong>Mogs</strong>, et elle est considérée comme l'une des personnes les plus redoutables des North Docks. J'ai eu la conversation la plus polie de mon séjour avec elle. Je retiens cela comme une note positive sur le quartier.</p>
+
+      <div class="reco-box">
+        <span class="reco-label">Recommandation</span>
+        <p>Le Sceptre Carmin n'est pas un hébergement pour voyageurs masculins. C'est en revanche un établissement au cadre authentique et à la politique d'accueil parfaitement claire. Je salue la cohérence.</p>
+      </div>
+
+      <h2>V. The Heap, ou : Une attraction touristique que je ne reverrai pas</h2>
+
+      <p>Mon guide de préparation mentionnait <strong>The Heap</strong> comme "un amas de barges flottant à la frontière de Spire, lieu animé et habité par une population diverse." J'avais entouré "lieu animé" au crayon rouge et noté "à visiter."</p>
+      <p>The Heap est en effet animé. Il est animé comme une plaie est animée. Il flotte sur des eaux que je préfère ne pas décrire en termes de composition chimique, parce que j'ai passé vingt minutes sur les pontons extérieurs et que j'ai encore des questions sur ce que j'ai respiré. L'air y est chaud et chargé d'odeurs qui se superposent en couches successives que je ne vais pas analyser dans le détail dans un guide à vocation familiale.</p>
+      <p>La population diverse incluait des gnolls de taille considérable, des créatures que je n'avais jamais vues auparavant et dont je n'arrive pas à décider si elles étaient des personnes ou des animaux ou les deux, et un nombre de regards dirigés vers moi qui m'ont rapidement informé que j'étais, comme on dit dans les milieux marins, hors de mes eaux.</p>
+      <p>J'ai demandé à un gnoll si l'établissement servait de la nourriture.</p>
+      <p>Le gnoll m'a regardé d'une façon qui suggérait que la question avait un double sens que je ne souhaitais pas approfondir.</p>
+      <p>Je suis reparti au trot soutenu.</p>
+
+      <div class="reco-box">
+        <span class="reco-label">Note Officielle</span>
+        <p><em>"Lieu d'une authenticité radicale. Vue sur la mer. Architecture inventive. Population diversifiée et directe. Je le recommande aux voyageurs qui ont une excellente raison d'y aller, sachant que je ne peux en imaginer aucune."</em></p>
+      </div>
+
+      <h2>VI. Solace, ou : L'hôtel le plus propre de Spire</h2>
+
+      <p>Le quatrième jour, après la visite à The Heap et suite à un incident mineur sur les passerelles de High Street que je n'inclus pas dans ce guide pour des raisons de longueur et de dignité personnelle, j'ai découvert <strong>Solace</strong>.</p>
+      <p>Solace est, objectivement, l'hébergement le plus propre que j'aie jamais fréquenté dans les districts bas de Spire. Les murs sont blanchis à la chaux. Les draps sont propres. Il y a des fleurs séchées sur les oreillers, ce qui est un détail que j'aurais noté cinq étoiles dans n'importe quel guide. Les soignants sont discrets, compétents et posent des questions auxquelles je réponds de façon générale et évasive.</p>
+      <p>Le tarif est nul : Solace ne fait pas payer ses séjours. Je note cela comme un avantage commercial significatif. La contrepartie semble être de ne pas poser de questions sur le financement de l'établissement, ce que j'ai respecté dans un esprit de réciprocité.</p>
+      <p>J'ai dicté les dernières sections de ce numéro depuis mon lit de Solace, à un soignant nommé <strong>Delas</strong> qui a écrit sous ma dictée avec une patience méritant une mention spéciale. Delas m'a demandé à deux reprises si j'avais besoin d'un médecin. J'ai dit que j'étais journaliste et que c'était la même chose, à peu près. Il n'a pas semblé convaincu mais a arrêté de poser la question.</p>
+
+      <h2>Conclusions et Recommandations Générales</h2>
+
+      <p>Les North Docks de Spire constituent une destination de voyage d'une richesse indéniable pour le voyageur qui cherche une expérience culturelle authentique, non filtrée et, il faut le dire honnêtement, légèrement traumatisante dans le bon sens du terme.</p>
+      <p><strong>Ce que j'ai aimé :</strong> Le rhum du Calmar Pendu (en dose raisonnable). Le goshawk rôti de La Gueule de Bois. Verrin Trois-Jours, qui m'a semblé sincèrement amusé par ma présence. La coutume des cloches de sel, que je trouve touchante. La discipline admirable de Mogs. La propreté de Solace. High Street le jour, avant la tombée de la nuit.</p>
+      <p><strong>Ce que je recommande d'éviter :</strong> Le Chum (sauf si vous avez une raison médicale de punir votre œsophage). Acheter quoi que ce soit à High Street après vingt-deux heures sans avoir demandé précisément de quoi il s'agit. The Heap. Se présenter à La Belette Flétrie sans chaussures appropriées.</p>
+      <p><strong>Ce que je recommande absolument :</strong> Visiter les Tavernes Flottantes un soir de semaine quand les Chevaliers des Docks célèbrent quelque chose. Je ne sais pas ce qu'ils célébraient le soir de ma visite mais les chansons étaient très belles et très fortes et très longues et quelqu'un m'a offert une coupe que j'aurais peut-être dû examiner plus attentivement avant de la boire. Je m'en souviens comme d'une excellente soirée. Delas, qui m'a demandé ce que j'avais bu ce soir-là, ne partage pas mon enthousiasme.</p>
+      <p>Les North Docks sont vivants d'une façon que les districts aelfir ne sont pas vivants. Ils puent, ils grincent, ils débordent et ils chantent. Le Duc des Docks y règne sur quelque chose d'âpre et de réel, et les gens qui y habitent portent leur quartier comme une chose qui leur appartient, ce qui dans Spire n'est pas si courant.</p>
+      <p>Je reviendrai.</p>
+      <p>Peut-être pas tout de suite.</p>
+      <p>Mais je reviendrai.</p>
+
+      <div class="book-signature">
+        <p><em>Simon Verlat, depuis son lit à Solace, North Docks de Spire.</em></p>
+        <p><em>Numéro VIII sera consacré à Red Row, si mes jambes coopèrent.</em></p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    if (!localStorage.getItem('spire_token')) {
+      window.location.href = '../connect.html';
+    }
+  </script>
+</body>
+</html>

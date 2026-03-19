@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Les Sky Docks de Spire — Spire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg-0); overflow-x: hidden; }
+
+    .back-link {
+      position: fixed; top: 1.5rem; left: 2rem;
+      font-family: var(--font-heading); font-size: 0.65rem;
+      letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--text-3); transition: color 0.2s; z-index: 10;
+      text-decoration: none;
+    }
+    .back-link:hover { color: var(--text-1); }
+
+    .book-page { min-height: 100vh; background: var(--bg-0); }
+
+    .cover-carnets-3 {
+      background: #0e1520;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(80,100,140,0.04) 28px, rgba(80,100,140,0.04) 29px),
+        repeating-linear-gradient(90deg, transparent, transparent 28px, rgba(80,100,140,0.02) 28px, rgba(80,100,140,0.02) 29px);
+      width: 100%; min-height: 420px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 4rem 2rem 3rem; position: relative; overflow: hidden;
+    }
+    .cover-carnets-3::before {
+      content: ''; position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px;
+      border: 1px solid rgba(100,140,190,0.2); pointer-events: none;
+    }
+    .cv3-series { font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 4px; text-transform: uppercase; color: #3a5070; margin-bottom: 1rem; }
+    .cv3-num { font-family: 'Cinzel Decorative', serif; font-size: clamp(4rem, 12vw, 7rem); color: #5a8ab0; text-shadow: 0 0 60px rgba(80,130,180,0.3); line-height: 1; }
+    .cv3-rule { width: 50px; height: 1px; background: #2a4060; margin: 0.75rem auto; }
+    .cv3-title { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 4px; text-transform: uppercase; color: #4a7a9a; text-align: center; }
+    .cv3-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.75rem; color: #2a4060; margin-top: 0.5rem; text-align: center; }
+    .cv3-author { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 4px; text-transform: uppercase; color: #2a3a50; margin-top: 1.5rem; }
+
+    .book-content {
+      max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem;
+      color: var(--text-1); font-family: var(--font-body); font-size: 1.05rem; line-height: 1.85;
+    }
+    .book-content h2 {
+      font-family: var(--font-heading); font-size: 0.75rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--text-2); margin: 3rem 0 1.25rem; padding-top: 2rem; border-top: 1px solid var(--border);
+    }
+    .book-content h2:first-of-type { border-top: none; padding-top: 0; }
+    .book-content p { margin-bottom: 1.25rem; }
+    .book-content em { color: var(--text-1); font-style: italic; }
+    .book-content strong { color: var(--text-0); font-weight: 600; }
+
+    .reco-box { border-left: 2px solid var(--red-700); padding: 0.75rem 1.25rem; margin: 1.5rem 0; background: rgba(30,20,30,0.6); }
+    .reco-box .reco-label { font-family: var(--font-heading); font-size: 0.55rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--red-500); margin-bottom: 0.5rem; display: block; }
+    .reco-box p { font-style: italic; color: var(--text-2); font-size: 0.95rem; margin-bottom: 0; }
+
+    .author-note { border: 1px solid var(--border); padding: 0.75rem 1.25rem; margin: 1.5rem 0; background: rgba(20,15,25,0.8); font-style: italic; color: var(--text-3); font-size: 0.9rem; }
+    .author-note .note-label { font-family: var(--font-heading); font-size: 0.5rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-3); margin-bottom: 0.4rem; display: block; font-style: normal; }
+
+    .tasting-note { font-style: italic; color: var(--text-2); font-size: 0.95rem; border-left: 1px solid var(--border); padding-left: 1rem; margin: 1rem 0; }
+
+    .book-signature { font-style: italic; color: var(--text-3); font-size: 0.9rem; text-align: right; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .book-signature p { margin-bottom: 0.4rem; }
+  </style>
+</head>
+<body style="overflow:auto;">
+
+  <a href="../library.html" class="back-link">← Bibliothèque</a>
+
+  <div class="book-page">
+
+    <div class="cover-carnets-3">
+      <div class="cv3-series">Les Carnets de Simon</div>
+      <div class="cv3-num">III</div>
+      <div class="cv3-rule"></div>
+      <div class="cv3-title">Les Sky Docks de Spire</div>
+      <div class="cv3-sub">Guide Gastronomique, Hédoniste et Culturel</div>
+      <div class="cv3-author">Simon Verlat</div>
+    </div>
+
+    <div class="book-content">
+
+      <p style="text-align:center; font-family:var(--font-heading); font-size:0.55rem; letter-spacing:0.45em; text-transform:uppercase; color:var(--text-3); margin-bottom:0.5rem;">Les Carnets de Simon — Numéro III</p>
+      <h1 style="font-family:'Cinzel Decorative',serif; font-size:clamp(1.1rem,3vw,1.6rem); color:var(--text-0); text-align:center; margin-bottom:0.5rem; line-height:1.3;">Les Sky Docks de Spire</h1>
+      <p style="text-align:center; font-style:italic; color:var(--text-3); font-size:0.85rem; margin-bottom:0.25rem;">Guide Gastronomique, Hédoniste et Culturel à l'Usage du Voyageur Éclairé</p>
+      <p style="text-align:center; font-style:italic; color:var(--text-3); font-size:0.8rem; margin-bottom:3rem;"><em>Simon Verlat, journaliste indépendant, explorateur culinaire, auteur de "La Table du Monde"</em></p>
+      <div style="width:40px;height:1px;background:var(--red-700);margin:0 auto 3rem;"></div>
+
+      <h2>Avant-Propos</h2>
+
+      <p>Ce numéro est le troisième de la série. Je suis, à ce stade, un voyageur expérimenté.</p>
+      <p>Je tiens à ce que cette affirmation figure en tête de chapitre, parce que ce qui va suivre pourrait laisser penser le contraire, et je veux établir dès maintenant que l'expérience ne supprime pas les surprises : elle vous permet simplement de les noter avec plus de précision au moment où elles se produisent.</p>
+      <p>Les Sky Docks m'ont été recommandés comme "incontournables" par deux personnes différentes, ce qui dans le contexte de ce guide constitue une validation sérieuse. Les deux m'ont ajouté, avec ce ton particulier qu'ont les gens qui vous recommandent un endroit où ils ne vous accompagneront pas, que je devrais "faire attention à la hauteur." J'ai interprété cela comme une mise en garde contre le vertige touristique. Ce n'est pas tout à fait ce que cela voulait dire.</p>
+      <p>Les Sky Docks sont situés dans les hauteurs de la Spire, là où les baleines-ciel viennent s'amarrer. Je précise : les baleines-ciel sont des créatures vivantes de la taille d'une maison de ville, gonflées de gaz, qui flottent dans l'air et transportent des cargaisons. J'avais lu cela dans ma documentation préparatoire. Lire qu'une baleine flotte dans l'air et se retrouver sous le ventre d'une baleine flottant dans l'air sont deux expériences cognitives distinctes, et ma documentation préparatoire n'avait pas pris la peine de préciser laquelle des deux constituait le vrai choc.</p>
+      <p>J'ai passé quatre jours aux Sky Docks. Je suis rentré en un seul morceau, ce qui compte tenu de l'architecture locale représente une performance objective.</p>
+
+      <div class="author-note">
+        <span class="note-label">Note éditoriale</span>
+        La section V de ce numéro a été rédigée depuis les Filets du Jugement, allongé sur le dos, en attente d'un sauvetage. La qualité des notes s'en ressent légèrement.
+      </div>
+
+      <h2>I. Le Chant des Voiles, ou : Ce que l'alcool fait à la conscience de la hauteur</h2>
+
+      <p>La première taverne recommandée aux Sky Docks est <strong>Le Chant des Voiles</strong>, suspendue à un mât brisé entre deux tours métalliques, accessible par une passerelle que je qualifierai de "volontairement étroite." La structure tangue. Ce n'est pas une métaphore et ce n'est pas l'alcool : elle tangue réellement, dans le vent, de façon constante et mesurable. Les tabourets sont vissés au plancher. J'ai demandé pourquoi. La réponse était : "expérience."</p>
+      <p>La patronne s'appelle <strong>Ossra Trois-Doigts</strong>. Elle est drow, taille moyenne, épaules de docker, et tient son établissement avec la même énergie pragmatique qu'elle aurait appliquée au déchargement de cargaisons, ce qui selon mes informations est exactement ce qu'elle faisait avant. Sa façon de poser un verre sur un comptoir contient quelque chose qui ressemble à une déclaration : <em>voilà votre verre, voilà le prix, discutez si vous voulez mais ce sera la même chose à la fin.</em> Je n'ai pas discuté.</p>
+      <p>Ossra m'a suggéré de commencer par le Chum.</p>
+      <p>Pour les lecteurs qui ne connaissent pas encore le Chum : il s'agit de l'alcool de base de l'undercity de Spire, distillé à partir de tripes de poisson fermentées et d'eau de canalisation. On le sert dans des bols en terre cuite non rincés. Son odeur est celle d'une cale de bateau que quelqu'un a tenté de nettoyer avec une autre cale de bateau. Son goût est ce qui se produit lorsqu'une décision de distillation très mauvaise rencontre, dans votre gorge, une décision de la boire que vous regrettez immédiatement et simultanément.</p>
+      <p>Ma note de dégustation officielle, rédigée sur place dans un état d'honnêteté totale :</p>
+      <div class="tasting-note">"Structure boisée agressive, nez d'entrepôt maritime en fin de saison, bouche d'une franchise totalement désagréable. Finale durable dans tous les mauvais sens du terme. Texture proche d'un liquide qui a décidé contre l'idée de fluidité. Accord difficile à envisager avec quoi que ce soit d'autre, y compris l'air. Troisième bol commandé, dans un esprit de documentation."</div>
+      <p>J'ai commandé trois bols. Cela constitue une erreur que les lecteurs des prochains numéros me verront répéter avec des substances différentes et des résultats cohérents.</p>
+      <p>Ce que les trois bols de Chum font à la conscience de la hauteur est simple : ils suppriment le reflex de peur adaptatif qui vous fait attraper un câble quand la passerelle tangue. Ce reflex est, rétrospectivement, utile. À l'époque, je le trouvais superflu et le disais à Ossra, qui m'écoutait avec l'expression d'une personne qui a vu cette démonstration plusieurs fois et sait comment elle se termine.</p>
+      <p>La nourriture au Chant des Voiles mérite une mention séparée. On y sert du pain de cale, une denrée compacte et sérieuse fabriquée pour durer plusieurs semaines dans un ventre de baleine, et dont le goût est exactement ce qu'on attend d'un aliment conçu pour la survie et non pour la conversation. On y sert également un ragoût de viande séchée et de racines dont Ossra n'a pas précisé l'origine en termes d'espèce animale, et que j'ai mangé sans poser la question, ce qui est une méthode d'investigation gastronomique qui présente des avantages certains quand on a bu trois bols de Chum.</p>
+      <p>La jeune serveuse, connue dans l'établissement sous le seul nom de <strong>La Ficelle</strong>, m'a apporté mes bols en enregistrant visiblement chaque phrase que j'ai prononcée. Je l'ai remarqué à la façon dont ses yeux ne bougeaient pas pendant que ses mains s'activaient. Je n'ai rien dit de compromettant, je crois. Je n'en suis plus certain.</p>
+
+      <div class="reco-box">
+        <span class="reco-label">Recommandation</span>
+        <p>Le Chant des Voiles est une taverne authentique avec un caractère architectural unique et une patronne d'une droiture commerciale irréprochable. Le Chum y est servi à la bonne température, ce qui ne constitue pas un compliment dans le sens ordinaire du terme mais en est un dans ce contexte. Un bol. Deux maximum si vous avez une raison professionnelle.</p>
+      </div>
+
+      <h2>II. Les Corvides Géants, ou : Ce que j'ai crus être un banc de brume</h2>
+
+      <p>Une partie de mes recherches préparatoires mentionnait les <strong>Megacorvidae</strong>, des corbeaux de la taille d'un poney que les Crowsmen de la Maison Aliquam utilisent comme messagers et transporteurs de cargaison légère. Ma documentation décrivait cela comme un "mode de transport caractéristique et pittoresque des Sky Docks."</p>
+      <p>Je souhaitais observer et, dans un esprit de journalisme immersif, tenter une interaction directe.</p>
+      <p>Le premier obstacle à cette intention est que les Megacorvidae ne sont pas pittoresques de la façon dont ma documentation le suggérait. Ils sont grands. Non pas poney-grand de façon mignonne : grands d'une façon qui vous recalibre immédiatement votre sens des proportions relatives des êtres vivants. Un Megacorvidae en vol de courte distance au-dessus des plates-formes des Docks déplace suffisamment d'air pour faire tanguer le Chant des Voiles de façon perceptible. J'ai noté cela en le subissant.</p>
+      <p>Le deuxième obstacle est que les Megacorvidae appartiennent à la Cour Corvidéenne, un ordre féerique des vents et des morts, et que les Crowsmen qui les élèvent accordent peu de valeur aux intentions journalistiques d'un humain sans recommandation. J'ai abordé l'un d'eux en présentant mes accréditations, qui comme indiqué en avant-propos sont un document que j'ai rédigé moi-même. Il les a regardées. Il a regardé la bête à côté de lui. Il a dit quelque chose en Haut-Corvidéen que je n'ai pas compris. La bête a émis un son grave et continu qui ressemblait à ce que ferait un tonnerre s'il décidait de devenir plus personnel.</p>
+      <p>J'ai reculé.</p>
+      <p>Le troisième obstacle, qui s'est présenté quelques heures plus tard lors de mon exploration des passerelles supérieures, est que les Megacorvidae en transit libre ne sont pas toujours visibles jusqu'au dernier moment, particulièrement par temps de brume. Ce que j'avais pris pour un banc de brume épaisse à ma gauche était, à quatre mètres de distance, un Megacorvidae en position d'attente sur une poutre transversale. Nous nous sommes regardés pendant un moment. Sa tête tournait légèrement, comme les corbeaux ordinaires, mais sur un axe que son échelle rendait plus inquiétant.</p>
+      <p>Il n'a rien fait. Je me suis éloigné calmement et avec dignité, si on exclut les cinq premières secondes.</p>
+
+      <div class="reco-box">
+        <span class="reco-label">Recommandation</span>
+        <p>Les Megacorvidae sont une attraction visuelle de premier ordre et un témoignage vivant de l'ingéniosité des Crowsmen. Je recommande de les observer depuis une distance respectueuse, depuis un niveau inférieur si possible, et de ne pas confondre la brume avec des oiseaux.</p>
+      </div>
+
+      <h2>III. Le Sixième Amarrage, ou : Ce qu'on trouve quand on descend assez bas</h2>
+
+      <p>Ossra Trois-Doigts m'avait dit, entre le deuxième et le troisième bol de Chum, qu'il y avait "quelque chose d'intéressant dans les Basses Cales pour les voyageurs curieux." Elle avait prononcé cette phrase avec une économie de détails que, le lendemain matin, j'ai interprétée correctement. Ce soir-là, je l'avais interprétée comme une recommandation gastronomique.</p>
+      <p>Le <strong>Sixième Amarrage</strong> n'est pas une recommandation gastronomique.</p>
+      <p>La patronne, une Thurakienne nommée <strong>Sel-Trois-Marées</strong>, m'a accueilli avec la précision d'une capitaine de port : une évaluation rapide, un tarif annoncé, une liste de règles affichées sur du cuivre en cinq langues. La première règle, en cinq langues, disait <em>tout le monde choisit. Toujours.</em> J'ai noté cela dans mon carnet comme un principe de gouvernance applicable bien au-delà de cet établissement spécifique.</p>
+      <p>Ce qui distingue le Sixième Amarrage de tout autre établissement de ce type que j'aie documenté dans ces carnets est la diversité de son personnel. Dans un intérêt de rigueur documentaire et pour l'information du lecteur voyageur, je présente un aperçu des espèces représentées.</p>
+      <p><strong>Les Drows</strong> sont des praticiens reconnus dans ce domaine, selon plusieurs sources que je ne nommerai pas. Naëss, la drow du Sixième Amarrage, confirme cette réputation par une précision de toucher que j'ai notée comme "chirurgicale, dans un sens positif." Elle lit entre les clients. Ce détail m'a paru significatif sans que je puisse expliquer pourquoi.</p>
+      <p><strong>Les Gnolls</strong> dégagent des phéromones en situation d'engagement, ce que ma documentation préparatoire mentionnait comme un fait biologique. Ma documentation préparatoire avait raison mais avait sous-estimé l'effet pratique de cette information. Harak-Aux-Mains-Lentes s'appelle ainsi pour des raisons que j'ai pu vérifier personnellement et qui constituent la description la plus précise d'un tempérament professionnel que j'aie rencontrée dans cinq districts.</p>
+      <p><strong>Les Thurakiens</strong>, peuple de la mer noire orientale, pratiquent ce qu'ils nomment le <em>sel-partage</em>, un rituel d'intimité commençant par un silence de cinq respirations et la phrase <em>je te vois dans l'eau</em>. Cors-de-Sel m'a expliqué, avant de commencer quoi que ce soit, que pour les Thurakiens la mer demande un accord avant qu'on entre dedans. J'ai trouvé ce préambule si raisonnable que j'ai demandé si je pouvais le noter. Il a dit oui. Je l'ai noté. Puis nous avons procédé. Sa peau nacrée et légèrement irisée dans la lumière ambrée des lanternes thurakiennes est une chose difficile à décrire dans un guide à vocation principalement culinaire.</p>
+      <p><strong>Les Ventarins</strong> viennent de l'archipel de Yeress, îles flottantes du continent occidental. Ayr et Ayr-de-Dessous sont frère et sœur, très grands, au cou long, à la peau qui change de couleur selon les états internes d'une façon que je n'aurais pas cru possible sans en être témoin. Leur particularité la plus mémorable est musicale : ils produisent au moment culminant un accord à deux voix dans le grave qui m'a fait regarder autour de moi pour trouver l'instrument. Il n'y avait pas d'instrument.</p>
+      <p>J'ai noté cela dans mon carnet avec un astérisque et la mention "vérifier si c'est intentionnel." Ayr m'a dit, après, que non. Ce n'est pas intentionnel. Ça se produit simplement. J'ai considéré que le monde était plein de choses qui se produisent simplement et qu'on ne s'y habitue jamais tout à fait, et j'ai commandé un verre de quelque chose aux Thurakiens que Sel m'avait proposé à mon arrivée et que j'aurais dû commander avant.</p>
+      <p><strong>Les Mordins</strong> viennent des massifs de pierre du continent central. Bruc ne parle presque pas. Il n'a pas besoin. Sa chaleur corporelle est mesurable : elle traverse les couvertures. Ses mains sont larges comme des raquettes et aussi précises que les mains de Naëss, mais dans un registre différent, comme si deux personnes jouaient le même morceau avec des instruments différents et que les deux versions étaient également exactes.</p>
+      <p><strong>Les Trois Doigts</strong> sont trois Gutterkin qui travaillent collectivement et ont une ardoise de tarifs rédigée en langue gutterkin. Je n'ai pas demandé de traduction. Sel-Trois-Marées m'avait dit, à mon arrivée, que les Trois Doigts "font des choses qu'elle ne sait pas comment nommer dans six langues." J'ai décidé d'évaluer cela empiriquement. Ma conclusion empirique est que Sel-Trois-Marées parle six langues couramment et que l'absence de terminologie adéquate dans ces six langues est une information en soi.</p>
+      <p>Je suis resté au Sixième Amarrage plus longtemps que prévu pour un travail de documentation. Ceci s'explique moins par un manque de rigueur professionnelle que par une série de décisions successives dont chacune me semblait raisonnable au moment où je la prenais. Je suis remonté des Basses Cales au coucher du second jour, avec des notes complètes, des connaissances nouvelles sur cinq espèces et une philosophie légèrement élargie sur ce que signifie voyager avec curiosité.</p>
+
+      <div class="reco-box">
+        <span class="reco-label">Recommandation</span>
+        <p>Le Sixième Amarrage est un établissement d'une honnêteté rare dans sa gestion et d'une diversité ethnographique qui constitue à elle seule un motif de visite pour le voyageur curieux. Renseignez-vous sur les espèces avant de choisir, dans un esprit de respect mutuel. Respectez les règles de la maison. Saluez Sel-Trois-Marées à votre arrivée et à votre départ, ce qui est la coutume locale et la politesse minimale.</p>
+      </div>
+
+      <h2>IV. La Guilde des Amarreurs, ou : Les sept formulaires du vent</h2>
+
+      <p>Il existe, dans les Sky Docks, une institution nommée la <strong>Guilde des Amarreurs</strong> qui contrôle les droits d'amarrage, les taxes aériennes, les permis de vol et un nombre significatif d'autres choses dont j'aurais pu me passer de connaître l'existence.</p>
+      <p>Dans un esprit de journalisme rigoureux, j'ai tenté d'obtenir un accès officiel à la <strong>Tour des Vents</strong>, le centre administratif des Docks, dans le but de documenter les conditions de travail et la structure de gouvernance de cet organe.</p>
+      <p>Pour obtenir un accès officiel à la Tour des Vents, il faut un permis de journalisme, un permis de visite commerciale ou un permis de visite diplomatique. Les permis de journalisme sont délivrés par le Bureau des Permis de Journalisme, qui se trouve au quatrième étage de la Tour des Vents. L'accès au quatrième étage de la Tour des Vents requiert un permis d'accès aux étages supérieurs. Le permis d'accès aux étages supérieurs est délivré au rez-de-chaussée à condition de présenter un permis de visite en règle. Le permis de visite est un document distinct du permis de journalisme, délivré par le Bureau des Visiteurs, situé au troisième étage.</p>
+      <p>J'ai demandé comment accéder au troisième étage.</p>
+      <p>Le garde m'a regardé. J'ai regardé le garde. L'un des Megacorvidae a croassé quelque chose depuis une poutre extérieure.</p>
+      <p>J'ai renoncé à l'accès officiel et suis rentré au Chant des Voiles, où Ossra m'a servi un Chum avec l'expression d'une personne qui savait à l'avance comment cette journée se terminerait.</p>
+      <p>J'ai noté dans mon carnet :</p>
+      <div class="tasting-note">"La Guilde des Amarreurs est un exemple parfait de ce que devient une institution quand elle se définit uniquement par rapport à elle-même. Recommandée aux chercheurs en sciences administratives et à personne d'autre."</div>
+
+      <div class="reco-box">
+        <span class="reco-label">Recommandation</span>
+        <p>La Tour des Vents est impressionnante vue de l'extérieur. Je vous recommande de la regarder de l'extérieur.</p>
+      </div>
+
+      <h2>V. Les Baleines-Ciel, ou : Ce que le sol n'est pas</h2>
+
+      <p>La dernière section documentaire de mon séjour aux Sky Docks concernait les baleines-ciel elles-mêmes, et plus spécifiquement leur zone de proximité pendant les manœuvres d'amarrage.</p>
+      <p>Je n'aurais pas dû être dans cette zone.</p>
+      <p>Ce n'est pas une information que j'avais en ma possession au moment d'y entrer. Les panneaux indiquant cette restriction sont rédigés dans un vocabulaire de la Guilde des Amarreurs que je ne maîtrisais pas encore. J'avais cru que "zone de défluviation active" signifiait quelque chose de purement bureaucratique.</p>
+      <p>Ce que cela signifie en réalité : une baleine-ciel, lors de ses manœuvres d'approche, génère des courants descendants par ses vingt bras-troncs qui déplacent suffisamment d'air pour soulever un être humain debout d'environ un mètre verticalement. Ce phénomène s'appelle la défluviation. Il se produit sans avertissement préalable et sans considération pour les projets éditoriaux des personnes présentes dans le périmètre.</p>
+      <p>J'ai quitté la passerelle d'observation à la verticale. Ceci n'était pas dans mon intention.</p>
+      <p>Les <strong>Filets du Jugement</strong>, le réseau de cordages sous les plates-formes censés rattraper les chutes, ont rempli leur fonction avec un succès partiel. Je suis tombé dans un filet. Le filet a tenu. Je suis resté allongé dans ce filet pendant environ quarante minutes en attendant qu'un Airlark sur son jeune corvidé vienne m'en extraire.</p>
+      <p>L'Airlark qui m'a récupéré s'appelait, selon son sourire, quelqu'un qui avait déjà vu ça. Elle n'a pas demandé d'explication. Elle a tendu la main. J'ai pris la main.</p>
+      <p>Le trajet de retour sur le dos d'un corvidé aux filets de sécurité est une expérience que je recommande dans d'autres circonstances.</p>
+      <p>La vue des Sky Docks depuis les filets, allongé sur le dos, est la plus belle chose que j'aie vue depuis le début de cette série. Les baleines au-dessus, les Docks tout autour, le vent qui fait chanter les câbles comme un instrument dont personne n'a encore écrit la partition. Solfège Ven-la-Tordue essaie, j'ai appris plus tard, de noter le chant des baleines depuis un laboratoire sous la troisième plate-forme. Je regrette de ne pas l'avoir rencontrée avant ma chute. Cela aurait fait une meilleure note préparatoire.</p>
+
+      <div class="reco-box">
+        <span class="reco-label">Note Officielle — Filets du Jugement</span>
+        <p>Ils fonctionnent, en partie, dans des conditions favorables. Leur nom contient un avertissement que j'aurais dû prendre plus au sérieux. Le filet juge qui méritait de tomber. Je ne suis pas certain d'avoir mérité de tomber mais j'ai pris les décisions qui ont conduit à tomber, ce qui dans la philosophie locale semble équivalent.</p>
+      </div>
+
+      <h2>Conclusions et Recommandations Générales</h2>
+
+      <p>Les Sky Docks sont un lieu où la verticalité est permanente : tout est en hauteur, tout peut tomber, tout tient par des câbles qu'on espère plus solides qu'ils n'ont l'air. Dans une Spire où le poids de la hiérarchie sociale s'exprime littéralement en termes d'étages, les Sky Docks ont quelque chose de particulier : ils sont en haut, mais ce sont des travailleurs qui les habitent, des dockers et des contrebandiers et des baleiniers qui gagnent leur vie sur des plates-formes qui tangent. L'altitude n'appartient pas aux mêmes personnes que d'habitude.</p>
+      <p><strong>Ce que j'ai aimé :</strong> La vue depuis les filets (recommandée sans la chute préalable si possible). Le Chum d'Ossra, en dose raisonnable. La rigueur commerciale de Sel-Trois-Marées et la diversité de son établissement, qui constitue un vrai résumé du monde extérieur dans l'undercity de Spire. Le préambule de Cors-de-Sel sur la mer et les accords. Les Ventarins, dont la biologie dépasse les catégories ordinaires de documentation.</p>
+      <p><strong>Ce que je recommande d'éviter :</strong> Les zones de défluviation active. Approcher un Megacorvidae seul et sans recommandation. Tenter d'obtenir un permis officiel à la Guilde des Amarreurs. Boire trois bols de Chum avant de traverser une passerelle haute.</p>
+      <p><strong>Ce que je recommande absolument :</strong> Aller aux Sky Docks un soir où les baleines-ciel chantent. Elles chantent parfois, selon Grum le Sourd, un docker druidiste que j'ai croisé sur une passerelle et qui m'a expliqué qu'il entend leur chant à travers ses pieds parce qu'il est sourd depuis un accident. Il n'avait pas l'air d'en être triste. Il avait l'air d'avoir reçu quelque chose en échange. Je ne sais pas si c'est vrai mais c'est une façon de voir une perte que j'aurais voulu noter plus tôt.</p>
+      <p>Les Sky Docks sont un district qui tient à des câbles. Tout dans ce quartier tient à des câbles : les bâtiments, les filets, les convictions, les vies. Ce n'est pas une métaphore, c'est une observation architecturale qui devient une métaphore avec le temps. Les gens qui vivent là savent que rien ne tient pour toujours et ont décidé que ça n'avait pas d'importance.</p>
+      <p>J'ai appris quelque chose là-haut. Je n'arrive pas à le noter précisément. C'est quelque chose sur les câbles et ce qu'on y accroche.</p>
+
+      <div class="book-signature">
+        <p><em>Simon Verlat, depuis le Chant des Voiles, Sky Docks de Spire.</em></p>
+        <p><em>Numéro IV sera consacré au Works, si mes poumons résistent aux fumées.</em></p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    if (!localStorage.getItem('spire_token')) {
+      window.location.href = '../connect.html';
+    }
+  </script>
+</body>
+</html>

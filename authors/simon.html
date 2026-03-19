@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simon Verlat — Bibliothèque</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../style.css" />
+    <style>
+      .author-page {
+        min-height: 100vh;
+        background: var(--bg-0);
+        padding: 5rem 2rem 6rem;
+      }
+
+      .back-link {
+        position: fixed; top: 1.5rem; left: 2rem;
+        font-family: var(--font-heading); font-size: 0.65rem;
+        letter-spacing: 0.35em; text-transform: uppercase;
+        color: var(--text-3); transition: color 0.2s; z-index: 10;
+        text-decoration: none;
+      }
+      .back-link:hover { color: var(--text-1); }
+
+      .author-header {
+        max-width: 780px; margin: 0 auto 5rem;
+        display: grid; grid-template-columns: 100px 1fr;
+        gap: 2.5rem; align-items: start;
+      }
+
+      .author-sigil {
+        width: 100px; height: 100px;
+        background: var(--bg-2); border: 1px solid var(--border);
+        display: flex; align-items: center; justify-content: center;
+        font-family: 'Cinzel Decorative', serif;
+        font-size: 2.5rem; color: var(--red-700);
+        position: relative; flex-shrink: 0;
+      }
+      .author-sigil::before {
+        content: ''; position: absolute; inset: 7px;
+        border: 1px solid var(--border); pointer-events: none;
+      }
+
+      .author-label {
+        font-family: var(--font-heading); font-size: 0.55rem;
+        letter-spacing: 0.5em; text-transform: uppercase;
+        color: var(--text-3); margin-bottom: 0.4rem;
+      }
+      .author-name {
+        font-family: 'Cinzel Decorative', serif;
+        font-size: clamp(1rem, 3vw, 1.5rem);
+        color: var(--text-0); margin-bottom: 1.1rem; line-height: 1.3;
+      }
+      .author-bio {
+        font-style: italic; color: var(--text-1);
+        font-size: 1rem; line-height: 1.8;
+      }
+      .author-divider {
+        width: 30px; height: 1px;
+        background: var(--red-700); margin: 1.1rem 0;
+      }
+      .author-works {
+        font-family: var(--font-heading); font-size: 0.58rem;
+        letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-3);
+      }
+
+      .bookshelf {
+        max-width: 780px; margin: 0 auto;
+        display: grid; grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+      }
+
+      .book-entry {
+        display: flex; flex-direction: column; gap: 0.75rem;
+        position: relative;
+      }
+
+      .book-cover {
+        aspect-ratio: 5 / 8;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        text-align: center;
+        text-decoration: none;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        position: relative; overflow: hidden;
+        cursor: pointer;
+      }
+      .book-cover:hover {
+        transform: translateY(-10px) rotate(-0.5deg);
+        box-shadow: 14px 24px 60px rgba(0,0,0,0.75);
+      }
+
+      /* ── Carnet III — Sky Docks (night blue) ── */
+      .cover-simon-3 {
+        background: #0e1520;
+        border: 1px solid #1a2a40;
+        padding: 1.5rem;
+        background-image:
+          repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(80,100,140,0.04) 28px, rgba(80,100,140,0.04) 29px),
+          repeating-linear-gradient(90deg, transparent, transparent 28px, rgba(80,100,140,0.02) 28px, rgba(80,100,140,0.02) 29px);
+      }
+      .cover-simon-3::before {
+        content: ''; position: absolute; inset: 8px;
+        border: 1px solid rgba(80,120,170,0.15); pointer-events: none;
+      }
+      .s3-series { font-family: 'Cinzel', serif; font-size: 0.42rem; letter-spacing: 3px; text-transform: uppercase; color: #2a3a50; margin-bottom: 0.5rem; position: relative; z-index: 1; }
+      .s3-num { font-family: 'Cinzel Decorative', serif; font-size: 2.2rem; color: #4a7aaa; text-shadow: 0 0 30px rgba(60,100,160,0.4); line-height: 1; position: relative; z-index: 1; }
+      .s3-rule { width: 30px; height: 1px; background: #2a4060; margin: 0.5rem auto; position: relative; z-index: 1; }
+      .s3-title { font-family: 'Cinzel', serif; font-size: 0.52rem; letter-spacing: 2px; text-transform: uppercase; color: #3a6a8a; line-height: 1.4; position: relative; z-index: 1; }
+      .s3-author { font-family: 'Cinzel', serif; font-size: 0.38rem; letter-spacing: 2px; text-transform: uppercase; color: #1a2a3a; margin-top: 0.75rem; position: relative; z-index: 1; }
+
+      /* ── Carnet VII — North Docks (maritime teal) ── */
+      .cover-simon-7 {
+        background: #060f0d;
+        border: 1px solid #1a3a25;
+        padding: 1.5rem;
+        background-image: repeating-linear-gradient(180deg, transparent, transparent 18px, rgba(40,100,70,0.05) 18px, rgba(40,100,70,0.05) 19px);
+      }
+      .cover-simon-7::before {
+        content: ''; position: absolute; inset: 8px;
+        border: 1px solid rgba(30,80,50,0.2); pointer-events: none;
+      }
+      .s7-series { font-family: 'Cinzel', serif; font-size: 0.42rem; letter-spacing: 3px; text-transform: uppercase; color: #1a3a25; margin-bottom: 0.5rem; position: relative; z-index: 1; }
+      .s7-num { font-family: 'Cinzel Decorative', serif; font-size: 2.2rem; color: #2a7a50; text-shadow: 0 0 30px rgba(30,100,60,0.4); line-height: 1; position: relative; z-index: 1; }
+      .s7-rule { width: 30px; height: 1px; background: #1a4030; margin: 0.5rem auto; position: relative; z-index: 1; }
+      .s7-title { font-family: 'Cinzel', serif; font-size: 0.52rem; letter-spacing: 2px; text-transform: uppercase; color: #2a6045; line-height: 1.4; position: relative; z-index: 1; }
+      .s7-author { font-family: 'Cinzel', serif; font-size: 0.38rem; letter-spacing: 2px; text-transform: uppercase; color: #102a18; margin-top: 0.75rem; position: relative; z-index: 1; }
+
+      /* ── Carnet VIII — Red Row (coal red) ── */
+      .cover-simon-8 {
+        background: #0f0808;
+        border: 1px solid #2a1010;
+        padding: 1.5rem;
+        background-image:
+          repeating-linear-gradient(45deg, transparent, transparent 15px, rgba(100,30,20,0.04) 15px, rgba(100,30,20,0.04) 16px),
+          repeating-linear-gradient(-45deg, transparent, transparent 15px, rgba(100,30,20,0.02) 15px, rgba(100,30,20,0.02) 16px);
+      }
+      .cover-simon-8::before {
+        content: ''; position: absolute; inset: 8px;
+        border: 1px solid rgba(80,20,15,0.2); pointer-events: none;
+      }
+      .s8-series { font-family: 'Cinzel', serif; font-size: 0.42rem; letter-spacing: 3px; text-transform: uppercase; color: #2a1008; margin-bottom: 0.5rem; position: relative; z-index: 1; }
+      .s8-num { font-family: 'Cinzel Decorative', serif; font-size: 2.2rem; color: #7a2018; text-shadow: 0 0 30px rgba(100,20,15,0.5); line-height: 1; position: relative; z-index: 1; }
+      .s8-rule { width: 30px; height: 1px; background: #3a1510; margin: 0.5rem auto; position: relative; z-index: 1; }
+      .s8-title { font-family: 'Cinzel', serif; font-size: 0.52rem; letter-spacing: 2px; text-transform: uppercase; color: #5a1a10; line-height: 1.4; position: relative; z-index: 1; }
+      .s8-author { font-family: 'Cinzel', serif; font-size: 0.38rem; letter-spacing: 2px; text-transform: uppercase; color: #1a0808; margin-top: 0.75rem; position: relative; z-index: 1; }
+
+      .book-title-label {
+        font-family: var(--font-heading); font-size: 0.65rem;
+        letter-spacing: 0.12em; color: var(--text-2);
+        text-align: center; line-height: 1.4;
+      }
+      .book-type-label {
+        font-style: italic; font-size: 0.8rem;
+        color: var(--text-3); text-align: center;
+      }
+
+      .badge-new {
+        position: absolute; top: -9px; right: 10px;
+        background: var(--red-500); color: var(--text-0);
+        font-family: var(--font-heading); font-size: 0.48rem;
+        letter-spacing: 0.3em; text-transform: uppercase;
+        padding: 2px 8px; z-index: 3;
+      }
+
+      @media (max-width: 700px) {
+        .author-header { grid-template-columns: 1fr; }
+        .bookshelf { grid-template-columns: repeat(2, 1fr); }
+      }
+      @media (max-width: 480px) {
+        .bookshelf { grid-template-columns: 1fr; max-width: 260px; margin: 0 auto; }
+      }
+    </style>
+  </head>
+
+  <body style="overflow: auto;">
+    <a href="../library.html" class="back-link">← Bibliothèque</a>
+
+    <div class="author-page">
+
+      <div class="author-header">
+        <div class="author-sigil">S</div>
+        <div>
+          <p class="author-label">Auteur</p>
+          <h1 class="author-name">Simon Verlat</h1>
+          <p class="author-bio">Journaliste indépendant, explorateur culinaire, auteur autoproclamé de <em>La Table du Monde</em>. Ses accréditations sont un parchemin qu'il a rédigé lui-même. Personne ne l'a jamais lu assez attentivement pour le contester. Spécialiste des districts bas de Spire — survit à chaque visite, parfois de justesse. Prend des notes dans toutes les circonstances, y compris allongé dans un filet de sécurité.</p>
+          <div class="author-divider"></div>
+          <p class="author-works">3 carnets disponibles</p>
+        </div>
+      </div>
+
+      <div class="bookshelf">
+
+        <div class="book-entry">
+          <a class="book-cover cover-simon-3" href="../books/carnets-simon-3.html" data-book="carnets-simon-3">
+            <p class="s3-series">Les Carnets de Simon</p>
+            <p class="s3-num">III</p>
+            <div class="s3-rule"></div>
+            <p class="s3-title">Les Sky Docks de Spire</p>
+            <p class="s3-author">Simon Verlat</p>
+          </a>
+          <p class="book-title-label">Les Sky Docks de Spire</p>
+          <p class="book-type-label">Carnet N° III</p>
+        </div>
+
+        <div class="book-entry">
+          <a class="book-cover cover-simon-7" href="../books/carnets-simon-7.html" data-book="carnets-simon-7">
+            <p class="s7-series">Les Carnets de Simon</p>
+            <p class="s7-num">VII</p>
+            <div class="s7-rule"></div>
+            <p class="s7-title">Les North Docks de Spire</p>
+            <p class="s7-author">Simon Verlat</p>
+          </a>
+          <p class="book-title-label">Les North Docks de Spire</p>
+          <p class="book-type-label">Carnet N° VII</p>
+        </div>
+
+        <div class="book-entry">
+          <a class="book-cover cover-simon-8" href="../books/carnets-simon-8.html" data-book="carnets-simon-8">
+            <p class="s8-series">Les Carnets de Simon</p>
+            <p class="s8-num">VIII</p>
+            <div class="s8-rule"></div>
+            <p class="s8-title">Red Row de Spire</p>
+            <p class="s8-author">Simon Verlat</p>
+          </a>
+          <p class="book-title-label">Red Row de Spire</p>
+          <p class="book-type-label">Carnet N° VIII</p>
+        </div>
+
+      </div>
+    </div>
+
+    <script>
+      if (!localStorage.getItem('spire_token')) {
+        window.location.href = '../connect.html';
+      }
+
+      function isNew(dateStr) {
+        return (new Date() - new Date(dateStr)) < 7 * 24 * 60 * 60 * 1000;
+      }
+
+      fetch('../library/index.json')
+        .then(r => r.json())
+        .then(data => {
+          const newSlugs = new Set(data.books.filter(b => isNew(b.added)).map(b => b.slug));
+          document.querySelectorAll('[data-book]').forEach(cover => {
+            if (newSlugs.has(cover.dataset.book)) {
+              const badge = document.createElement('span');
+              badge.className = 'badge-new';
+              badge.textContent = 'Nouveau';
+              cover.parentElement.appendChild(badge);
+            }
+          });
+        })
+        .catch(() => {});
+    </script>
+  </body>
+</html>

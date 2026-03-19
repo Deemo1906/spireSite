@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Red Row de Spire — Spire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg-0); overflow-x: hidden; }
+
+    .back-link {
+      position: fixed; top: 1.5rem; left: 2rem;
+      font-family: var(--font-heading); font-size: 0.65rem;
+      letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--text-3); transition: color 0.2s; z-index: 10;
+      text-decoration: none;
+    }
+    .back-link:hover { color: var(--text-1); }
+
+    .book-page { min-height: 100vh; background: var(--bg-0); }
+
+    .cover-carnets-8 {
+      background: #0f0808;
+      background-image:
+        repeating-linear-gradient(45deg, transparent, transparent 15px, rgba(100,30,20,0.04) 15px, rgba(100,30,20,0.04) 16px),
+        repeating-linear-gradient(-45deg, transparent, transparent 15px, rgba(100,30,20,0.02) 15px, rgba(100,30,20,0.02) 16px);
+      width: 100%; min-height: 420px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 4rem 2rem 3rem; position: relative; overflow: hidden;
+    }
+    .cover-carnets-8::before {
+      content: ''; position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px;
+      border: 1px solid rgba(100,30,20,0.2); pointer-events: none;
+    }
+    .cv8-series { font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 4px; text-transform: uppercase; color: #3a1510; margin-bottom: 1rem; }
+    .cv8-num { font-family: 'Cinzel Decorative', serif; font-size: clamp(4rem, 12vw, 7rem); color: #7a2018; text-shadow: 0 0 60px rgba(120,30,20,0.4); line-height: 1; }
+    .cv8-rule { width: 50px; height: 1px; background: #3a1510; margin: 0.75rem auto; }
+    .cv8-title { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 4px; text-transform: uppercase; color: #6a2015; text-align: center; }
+    .cv8-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.75rem; color: #2a1008; margin-top: 0.5rem; text-align: center; }
+    .cv8-author { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 4px; text-transform: uppercase; color: #200c08; margin-top: 1.5rem; }
+
+    .book-content {
+      max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem;
+      color: var(--text-1); font-family: var(--font-body); font-size: 1.05rem; line-height: 1.85;
+    }
+    .book-content h2 {
+      font-family: var(--font-heading); font-size: 0.75rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--text-2); margin: 3rem 0 1.25rem; padding-top: 2rem; border-top: 1px solid var(--border);
+    }
+    .book-content h2:first-of-type { border-top: none; padding-top: 0; }
+    .book-content p { margin-bottom: 1.25rem; }
+    .book-content em { color: var(--text-1); font-style: italic; }
+    .book-content strong { color: var(--text-0); font-weight: 600; }
+
+    .reco-box { border-left: 2px solid var(--red-700); padding: 0.75rem 1.25rem; margin: 1.5rem 0; background: rgba(30,20,30,0.6); }
+    .reco-box .reco-label { font-family: var(--font-heading); font-size: 0.55rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--red-500); margin-bottom: 0.5rem; display: block; }
+    .reco-box p { font-style: italic; color: var(--text-2); font-size: 0.95rem; margin-bottom: 0; }
+
+    .author-note { border: 1px solid var(--border); padding: 0.75rem 1.25rem; margin: 1.5rem 0; background: rgba(20,15,25,0.8); font-style: italic; color: var(--text-3); font-size: 0.9rem; }
+    .author-note .note-label { font-family: var(--font-heading); font-size: 0.5rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-3); margin-bottom: 0.4rem; display: block; font-style: normal; }
+
+    .tasting-note { font-style: italic; color: var(--text-2); font-size: 0.95rem; border-left: 1px solid var(--border); padding-left: 1rem; margin: 1rem 0; }
+
+    .book-signature { font-style: italic; color: var(--text-3); font-size: 0.9rem; text-align: right; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .book-signature p { margin-bottom: 0.4rem; }
+  </style>
+</head>
+<body style="overflow:auto;">
+
+  <a href="../library.html" class="back-link">← Bibliothèque</a>
+
+  <div class="book-page">
+
+    <div class="cover-carnets-8">
+      <div class="cv8-series">Les Carnets de Simon</div>
+      <div class="cv8-num">VIII</div>
+      <div class="cv8-rule"></div>
+      <div class="cv8-title">Red Row de Spire</div>
+      <div class="cv8-sub">Guide Gastronomique, Hédoniste et Culturel</div>
+      <div class="cv8-author">Simon Verlat</div>
+    </div>
+
+    <div class="book-content">
+
+      <p style="text-align:center; font-family:var(--font-heading); font-size:0.55rem; letter-spacing:0.45em; text-transform:uppercase; color:var(--text-3); margin-bottom:0.5rem;">Les Carnets de Simon — Numéro VIII</p>
+      <h1 style="font-family:'Cinzel Decorative',serif; font-size:clamp(1.1rem,3vw,1.6rem); color:var(--text-0); text-align:center; margin-bottom:0.5rem; line-height:1.3;">Red Row de Spire</h1>
+      <p style="text-align:center; font-style:italic; color:var(--text-3); font-size:0.85rem; margin-bottom:0.25rem;">Guide Gastronomique, Hédoniste et Culturel à l'Usage du Voyageur Éclairé</p>
+      <p style="text-align:center; font-style:italic; color:var(--text-3); font-size:0.8rem; margin-bottom:3rem;"><em>Simon Verlat, journaliste indépendant, explorateur culinaire, auteur de "La Table du Monde"</em></p>
+      <div style="width:40px;height:1px;background:var(--red-700);margin:0 auto 3rem;"></div>
+
+      <h2>Avant-Propos</h2>
+
+      <p>Je l'avais promis à la fin du numéro précédent : Red Row, si mes jambes coopéraient.</p>
+      <p>Mes jambes ont coopéré. Je note cela comme un progrès personnel significatif, surtout compte tenu de ce qu'il est advenu de mes chaussures lors de ma visite aux North Docks (cf. numéro VII, section II, sous-section "Lorens"). J'ai investi dans une nouvelle paire, à semelles épaisses, que le vendeur a décrites comme "adaptées aux terrains difficiles." Il n'avait visiblement aucune idée de ce que signifie cette formule dans le contexte de l'undercity de Spire.</p>
+      <p>Red Row m'a été recommandé par plusieurs sources comme "le quartier le plus vivant de l'undercity." Je commence à me demander si les gens qui me font ces recommandations ont une définition particulière du mot "vivant" que je n'ai pas encore pleinement assimilée. Dans les numéros précédents, "vivant" signifiait : bruyant, odorant et raisonnablement susceptible de vous blesser par inadvertance. À Red Row, je suis heureux d'annoncer que la définition reste cohérente, avec quelques nuances supplémentaires dans la catégorie "blesser par inadvertance" que je développerai dans les sections suivantes.</p>
+      <p>J'ai passé cinq jours à Red Row. J'en suis reparti avec : un carnet plein de notes, une paire de chaussures qui ne l'est plus, une certaine philosophie nouvelle sur les limites de la connaissance de soi, et un souvenir que je n'arrive pas à classer dans aucune des catégories habituelles de ce guide.</p>
+      <p>Je considère cela comme un succès rédactionnel.</p>
+
+      <div class="author-note">
+        <span class="note-label">Note éditoriale</span>
+        Ce numéro a été rédigé dans l'ordre chronologique des événements, ce qui représente un défi pour les sections III et IV, que j'ai dû reconstruire partiellement depuis des notes de qualité variable.
+      </div>
+
+      <h2>I. L'Arène, ou : Ce que les gradins font aux chaussures</h2>
+
+      <p>La première recommandation de tout voyageur sérieux à Red Row est d'aller à l'Arène.</p>
+      <p>Ce conseil est excellent et je le valide entièrement, à condition de préciser ce que le terme "aller à l'Arène" implique concrètement, ce que mes sources avaient omis de faire. L'Arène est un ancien puits à degrés de dimensions considérables, transformé en fosse de combat, dont les gradins descendent en cercles concentriques vers un fond illuminé par des braseros dont la fumée monte lentement vers le plafond invisible. Deux gangs de Gutterkin vivent dans les charpentes supérieures et entretiennent ces braseros avec une compétition acharnée que je qualifierai, dans un esprit de rigueur, de "institutionnalisée." Personne ne m'a expliqué ce qui se passerait si un brasero s'éteignait. L'atmosphère générale suggérait que la question était sans objet.</p>
+      <p>J'ai pris place dans les gradins avec l'intention de conduire une évaluation gastronomique complète de l'offre de restauration. Cette intention s'est heurtée à plusieurs obstacles.</p>
+      <p>Le premier obstacle est que la restauration à l'Arène consiste en : du Chum (cf. numéro VII pour une analyse détaillée), des brochettes de viande d'une origine que j'ai cessé d'investiguer après la troisième réponse évasive, et une boisson locale orange vif que le vendeur m'a présentée comme "du jus de combat" sans que je sois en mesure de déterminer si c'était un nom commercial ou une description des ingrédients. J'en ai pris une gorgée.</p>
+      <div class="tasting-note">"Énergisant. Chaud. Conseillé aux personnes qui n'ont pas peur de saigner des gencives."</div>
+      <p>Le deuxième obstacle est que je m'étais assis au premier rang.</p>
+      <p>Pour les lecteurs qui n'ont pas fréquenté d'arènes de combat, je précise que le premier rang d'une fosse de gladiateurs n'est pas l'équivalent de la première rangée d'un théâtre. C'est davantage l'équivalent de se tenir à l'intérieur du théâtre. Les distances de projection de fluides biologiques dans ce type d'établissement sont significativement plus grandes que ce que l'instinct humain ordinaire anticipe.</p>
+      <p>Je prenais des notes. Je ne regardais pas.</p>
+      <p>J'ai continué à prendre des notes. Les notes étaient précises et documentées. Mes chaussures neuves ont absorbé ce que je n'essaierai pas de décrire ici.</p>
+      <p>La directrice de l'Arène, une gnolle de dimensions imposantes répondant au nom de <strong>Mother Moon</strong>, dirigeait les opérations depuis une plateforme surélevée avec le calme concentré d'une générale d'armée et les yeux d'une personne qui a vu suffisamment de choses pour que plus rien ne la surprenne. Elle a croisé mon regard à un moment. Je me suis senti, de façon tout à fait inexplicable, comme si j'avais été évalué et catalogué dans une catégorie qui ne m'était pas entièrement favorable. J'ai repris mes notes.</p>
+
+      <div class="reco-box">
+        <span class="reco-label">Recommandation</span>
+        <p>L'Arène est une expérience culturelle de premier ordre et un spectacle d'une intensité indiscutable. Je conseille les gradins médians. Pas le premier rang. En aucun cas le premier rang.</p>
+      </div>
+
+      <h2>II. Le Kowz-Udder, ou : Ce qu'un puits ne devrait pas faire à un espace de restauration</h2>
+
+      <p>Une règle générale du journalisme de voyage est la suivante : si un établissement porte un nom que vous ne comprenez pas entièrement, renseignez-vous sur ce nom avant d'entrer.</p>
+      <p>Je n'applique pas toujours cette règle.</p>
+      <p>Le <strong>Kowz-Udder</strong> est un bar établi dans les ruines d'une ancienne station du réseau Vermissian, dont l'effondrement partiel a créé ce que le bâtiment appelle pudiquement "une faille caractéristique" dans le mur du fond. Cette faille donne sur quelque chose que je ne suis pas qualifié pour décrire avec précision : un espace qui n'est pas tout à fait noir, qui émet des sons qui ne sont pas tout à fait des sons, et qui donne l'impression, si on le regarde trop longtemps, que le sol ne se trouve pas exactement là où il était avant qu'on commence à regarder.</p>
+      <p>Le propriétaire de l'établissement s'appelle <strong>Kowz</strong>. C'est un aelfir d'une stature considérable qui, lors de ma visite, portait un minimum de vêtements que la décence m'empêche de quantifier précisément. Il méditait, dos à la faille, avec l'expression de quelqu'un qui affronte régulièrement des choses que la plupart des gens préféreraient ne jamais rencontrer et qui a décidé, quelque part dans ce processus, que les vêtements représentaient un effort inutile. Son rapport au Vermissian relève, selon mes sources, d'une pratique spirituelle semi-druidique dont je respecte la cohérence interne même si elle dépasse mes cadres d'analyse habituels.</p>
+      <p>Les boissons sont bon marché. L'atmosphère tremble légèrement toutes les vingt minutes environ, comme si la structure se rappelait à elle-même qu'elle repose sur quelque chose d'instable. Le personnel est diversifié et pragmatique.</p>
+      <p>Ce que j'avais manqué, en entrant, c'est qu'une porte au fond du bar, à gauche de la faille Vermissian, mène à une section différente de l'établissement, gérée par une gnolle nommée <strong>Lizbeth</strong>. Lizbeth est une professionnelle d'une compétence évidente, avec des perles violettes dans ses tresses grises et un bâton sculpté qu'elle manie avec l'économie d'une personne qui n'a plus besoin de l'agiter pour se faire respecter. Elle m'a regardé entrer par cette porte avec l'expression de quelqu'un qui en a vu des plus surprenants, ce qui, dans ce quartier, représente une déclaration considérable.</p>
+      <p>Je me suis renseigné sur les tarifs dans un esprit de documentation professionnelle.</p>
+      <p>Lizbeth m'a posé deux questions. La première était d'ordre logistique. La seconde concernait mes préférences. J'ai répondu honnêtement aux deux, ce qui a produit une réaction chez elle que je classerais, dans ma nomenclature personnelle, sous "amusement bienveillant et légèrement fatigué."</p>
+      <p>J'ai passé un moment dans l'établissement de Lizbeth. Je n'inclus pas les détails dans ce guide pour des raisons que les lecteurs réguliers de cette série comprendront comme relevant d'une retenue éditoriale délibérée et non d'un manque de notes. Les notes existent. Je les ai relues le lendemain. Elles sont complètes et précises. Je les conserverai dans mes archives personnelles.</p>
+      <p>Ce que je peux dire : les murs de l'établissement de Lizbeth communiquent une légère vibration Vermissian qui crée une atmosphère que je décrirais comme "psychédélique par procuration sans ingestion de substance." C'est un détail qui mérite d'être mentionné, car il contribue à une expérience sensorielle distincte de tout ce que j'avais documenté jusqu'ici. La faille dans le mur du bar voisin émet parfois un son grave et long pendant certains moments particuliers. J'ai noté cela comme un phénomène architectural intéressant.</p>
+      <p>Le nom du Kowz-Udder, je l'ai appris le lendemain matin, signifie "pis de vache." Personne n'a apparemment informé Kowz de cette traduction. Je me suis demandé si j'avais une quelconque obligation journalistique à lui en parler. J'ai conclu que non.</p>
+
+      <div class="reco-box">
+        <span class="reco-label">Recommandation</span>
+        <p>Le Kowz-Udder est un bar de qualité correcte avec une atmosphère unique. Demandez les boissons de la maison. Ne regardez pas la faille trop longtemps. Si vous passez la porte de gauche, renseignez-vous sur le nom de l'établissement avant d'y entrer.</p>
+      </div>
+
+      <h2>III. L'Enfer Noir, ou : Une éducation linguistique avancée</h2>
+
+      <p>Certains établissements exigent une introduction contextuelle. L'Enfer Noir est de ceux-là.</p>
+      <p>Il est dirigé par les <strong>Gentlemen</strong>, figures venues d'Ailleurs dont je préfère ne pas spéculer sur l'anatomie précise. Leur voix est ponctuée de tics mécaniques, comme si une boîte à musique très raffinée était intégrée quelque part dans leur cage thoracique. Leur courtoisie est impeccable et légèrement terrifiante, dans le sens où elle ne cède jamais, même dans des circonstances où la courtoisie ordinaire aurait depuis longtemps abandonné le terrain. Ils m'ont accueilli avec des mots que j'aurais qualifiés, dans un autre contexte, de chaleureux.</p>
+      <p>L'Enfer Noir est un bâtiment à plusieurs niveaux dont je n'ai pu documenter qu'une partie, non par manque d'enthousiasme professionnel mais parce que certaines sections nécessitent apparemment une recommandation préalable, un budget que je n'avais pas anticipé, ou une biologie que je ne possède pas. Les niveaux accessibles comprenaient deux bars, plusieurs pistes de danse avec musique jouée en direct par des musiciens dont les instruments semblaient partiellement vivants, et ce que le Gentlemen qui m'a accueilli a décrit comme "une gamme complète de services personnalisés pour des goûts variés."</p>
+      <p>J'ai demandé des précisions. Il me les a fournies, calmement, dans l'ordre, avec des cliquetis réguliers entre chaque point.</p>
+      <p>La gamme inclut : gnolls aux fourrures saturées de phéromones et de transpiration ; stenboys à l'humeur accommodante ; un jeune homme dont les yeux s'enflamment littéralement au moment culminant (j'ai noté cela avec un astérisque et la mention "vérifier si c'est une métaphore" — ce n'est pas une métaphore) ; et, dans une salle du troisième niveau, les filles-crapauds.</p>
+      <p>Je me permets ici une note documentaire sur les filles-crapauds de l'Enfer Noir, dans le seul intérêt du lecteur qui n'a pas eu la chance d'en rencontrer.</p>
+      <p>Ce sont des personnes d'une grâce surprenante, à la peau d'un vert profond tirant sur le doré sous les lumières de l'établissement, aux yeux ronds et fixes d'une expressivité considérable. Leurs mouvements ont quelque chose de l'eau, de la façon dont elles s'installent dans un espace et en remplissent naturellement les contours. Mais leur caractéristique la plus remarquable, et celle que le guide de l'Enfer Noir décrit avec une concision que j'aurais voulu avoir dans mes propres écrits, est la suivante : des langues exploratrices.</p>
+      <p>Cette formule est, je dois l'admettre, d'une précision que j'ai sous-estimée avant d'en faire l'expérience directe.</p>
+      <p>La langue d'une fille-crapaud est longue. Je n'avais pas envisagé, avant ce voyage, de me constituer une opinion sur la longueur des langues, mais l'Enfer Noir a comblé cette lacune dans ma formation professionnelle. Elle est également rapide, précise, et dotée d'une flexibilité articulaire que la biologie humaine n'a pas jugé utile de développer chez ses propres représentants.</p>
+      <p>Exploratrices, donc. Dans tous les sens de ce terme.</p>
+      <p>La demoiselle qui a bien voulu consacrer son attention professionnelle à ma personne ce soir-là répondait au nom de <strong>Vess</strong>. Elle avait la patience d'une naturaliste et l'initiative d'une cartographe. Je lui avais indiqué, dans mon registre habituel de voyageur curieux et ouvert aux expériences culturelles, que j'étais "disponible pour une exploration complète." C'est exactement ce qu'elle a entrepris.</p>
+      <p>Je ne disposais pas, à ce moment-là, d'un cadre de référence pour certaines parties de l'exploration.</p>
+      <p>Il serait inexact de dire que j'avais réfléchi à toutes les directions dans lesquelles une langue suffisamment longue et suffisamment motivée pouvait se déployer dans le cadre d'une rencontre professionnelle. Vess avait, elle, manifestement réfléchi à cette question de façon approfondie et exhaustive. Elle a abordé chaque étape avec la méthodologie d'une experte : progressive, informée, et visiblement consciente que son client travaillait avec un cadre de référence insuffisant.</p>
+      <p>Je pris des notes mentales. Les notes étaient incohérentes. Je les ai reconstituées le lendemain.</p>
+      <p>Ma note de dégustation officielle pour l'expérience Vess à l'Enfer Noir, rédigée après réflexion et dans un esprit de rigueur documentaire :</p>
+      <div class="tasting-note">"Inattendu. Éclairant. Techniquement ambitieux. Je recommande au lecteur de laisser ses hypothèses géographiques à la porte, car elles seront d'une utilité réduite dans ce contexte. Deuxième visite envisagée, sous réserve de préparation mentale préalable."</div>
+      <p>J'ai remercié Vess. Elle a semblé sincèrement amusée par cette politesse. Je l'ai notée comme une professionnelle d'exception.</p>
+
+      <div class="reco-box">
+        <span class="reco-label">Recommandation</span>
+        <p>L'Enfer Noir est un établissement de divertissement de haute tenue, qui récompense l'ouverture d'esprit et pénalise sévèrement les préjugés. Adressez-vous aux Gentlemen avec politesse. Ils cliquètent davantage quand on les ignore. Pour les filles-crapauds du troisième niveau : renseignez-vous auprès de l'accueil. Soyez clairs sur vos disponibilités géographiques.</p>
+      </div>
+
+      <h2>IV. Kiln Street et le Dagger, ou : Ce que le Prophète a mis dans ma poche</h2>
+
+      <p>Kiln Street est une rue. Je note cela en premier car c'est la seule information sur laquelle j'étais certain, en la quittant, que mes notes étaient fiables.</p>
+      <p><strong>Brother Hellion</strong> est le prédicateur de la Church of the Gun, établie dans un bâtiment de briques noires saturé de la fumée d'une substance appelée spireblack, dont l'odeur mélange le soufre, l'encens et quelque chose d'animal que je n'ai pas réussi à identifier. Il prêche en armure ou en soutane selon les jours, deux revolvers bénis en bandoulière, entouré de trois filles en cuirasse lourde dont les fusils de chasse constituent un argument théologique difficile à contester. Le sermon auquel j'ai assisté portait sur la rédemption par la poudre et la libération par la balistique, et durait depuis, selon un fidèle assis à ma gauche, "environ quatre heures déjà, mais il va accélérer bientôt."</p>
+      <p>Il a accéléré. Les claquements dans la salle résonnaient comme une rhétorique incarnée.</p>
+      <p>La foule de Kiln Street est composée principalement de drows pauvres et d'humains démunis auxquels l'église distribue de la nourriture et des balles, ce que j'ai noté comme un modèle économique original combinant l'aide alimentaire avec l'armement de la congrégation. L'un des fidèles m'a mis quelque chose dans la poche de ma veste en me disant que c'était "un cadeau du Prophète pour les frères qui témoignent." J'ai noté cela comme un geste de bienvenue.</p>
+      <p>À la sortie du sermon, j'ai examiné le cadeau.</p>
+      <p>Il s'agissait d'un sachet de poudre brunâtre cristalline.</p>
+
+      <div class="author-note">
+        <span class="note-label">Note de l'auteur, ajoutée en relecture</span>
+        Les trois paragraphes suivants ont été rédigés pendant les effets du Dagger. Je les reproduis pour leur valeur documentaire.
+      </div>
+
+      <div class="tasting-note">"Kiln Street est vraiment très longue la nuit. Les briques sont très noires et très nombreuses et je les ai comptées et il y en a beaucoup mais j'ai perdu le compte au numéro quatre-vingt-sept parce qu'une brique était plus grosse que les autres ce qui m'a semblé injuste de façon significative. Je peux courir très vite en ce moment. Je l'ai testé. Mes jambes sont extraordinaires. Je suis peut-être le journaliste le plus rapide de Spire. Je devrais écrire un article sur mes jambes. Je pense que Brother Hellion a complètement raison sur tous les sujets. Je veux deux revolvers. Je vais aller lui demander. Non je ne vais pas faire ça. Oui je vais faire ça. La brique numéro quatre-vingt-sept est vraiment trop grosse. Je pense que quelqu'un devrait en informer les autorités. Mes jambes sont fantastiques. Je veux me battre avec quelqu'un mais en amis. Y a-t-il quelqu'un à Red Row avec qui on peut se battre en amis ? Le gnoll là-bas a l'air très sympathique. Je vais lui demander. Je ne vais pas lui demander. J'ai une idée pour un article sur les briques."</div>
+
+      <p>Le lendemain matin, j'avais : une contusion à l'épaule gauche d'origine indéterminée, un dessin de brique dans mon carnet, une conviction fugitive que j'avais eu une conversation importante avec une personne dont je ne me rappelle pas le nom, et une liste de quarante-deux "idées d'articles" dont trente-neuf étaient illisibles et deux étaient "sur les briques." La quarante-deuxième, lisible, disait simplement "remercier le gnoll." Je ne sais pas quel gnoll.</p>
+      <p>Le Dagger, pour les lecteurs qui ne connaissent pas la substance, est un stimulant composite vendu en poudre brunâtre dont chaque sachet peut contenir jusqu'à quarante ingrédients différents selon le nombre de revendeurs par lesquels il est passé. Ses effets incluent un sentiment de puissance, une vitesse de réaction accrue et, selon mes notes personnelles, une conviction temporaire mais totale que l'on est le meilleur journaliste du monde et que les briques méritent un traitement rédactionnel approfondi.</p>
+
+      <div class="reco-box">
+        <span class="reco-label">Recommandation</span>
+        <p>Kiln Street mérite une visite pour l'atmosphère théâtrale du sermon de Brother Hellion et pour observer une congrégation d'une cohérence idéologique remarquable. Je conseille de vérifier le contenu de vos poches avant de les utiliser.</p>
+      </div>
+
+      <h2>V. Threadneedle Square, ou : Ce que les Sisters n'ont pas dit</h2>
+
+      <p>Je dois être honnête avec mes lecteurs : la section Threadneedle Square de ce guide est plus courte que prévu.</p>
+      <p>Non pas par manque d'enthousiasme. Par manque de temps sur place.</p>
+      <p>Threadneedle Square est le territoire des <strong>Sisters</strong>, trois femmes qui s'appellent Harriet, Victoria et Elizabeth et qui dirigent un empire commercial dont la drogue constitue l'essentiel de l'inventaire. Victoria m'a regardé entrer dans la place avec le regard de quelqu'un qui tient les comptes et vient de repérer une anomalie dans la colonne des recettes. Harriet ne regardait rien, dans la mesure où ses yeux se déplaçaient trop vite pour regarder quoi que ce soit en particulier : elle semblait avoir ingéré sa propre production, ce qui constitue soit une politique commerciale soit un contrôle qualité, je n'ai pas pu déterminer lequel.</p>
+      <p>Elizabeth m'a souri.</p>
+      <p>J'ai noté, dans un réflexe professionnel, que le sourire d'Elizabeth est l'un des sourires les plus complets que j'aie jamais rencontrés dans mes voyages. Il incluait les dents, les yeux, les épaules et une qualité d'attention qui donnait l'impression d'être la seule personne dans la pièce à avoir jamais eu une idée intéressante. Elle m'a demandé qui j'étais. J'ai dit journaliste. Elle a dit que c'était charmant. Elle a dit autres choses que j'ai notées en abrégé.</p>
+      <p>Deux hommes de main masqués se sont approchés avec une délicatesse professionnelle et m'ont guidé vers la sortie en me tenant chacun par un coude, ce qui est, objectivement, la façon la plus courtoise dont on m'ait jamais demandé de partir d'un endroit à Red Row.</p>
+
+      <div class="reco-box">
+        <span class="reco-label">Note Officielle</span>
+        <p>Place animée, contrôlée par des professionnelles efficaces, accessible au touriste de passage dans des limites temporelles étroites. Victoria est intimidante. Harriet est fascinante et probablement dangereuse. Elizabeth est à déconseiller formellement aux personnes sensibles au charme.</p>
+      </div>
+
+      <h2>Conclusions et Recommandations Générales</h2>
+
+      <p>Red Row est, pour être direct, le quartier le plus honnête que j'aie visité dans Spire.</p>
+      <p>Il ne prétend pas être autre chose que ce qu'il est. Les braseros d'Arena ne prétendent pas être des luminaires décoratifs. Le Dagger ne prétend pas être une épice locale. Vess ne prétend pas exercer une profession ordinaire et n'en a aucune raison de le faire. Cette honnêteté foncière, si elle est parfois brutale dans ses manifestations, constitue une qualité rare dans une ville où les apparences sont une monnaie d'échange.</p>
+      <p><strong>Ce que j'ai aimé :</strong> La spectacularité d'Arena depuis les gradins médians. Les boissons bon marché du Kowz-Udder pendant que Kowz médite torse nu à côté d'une fissure dans la réalité. La gamme étendue et audacieuse de l'Enfer Noir, et Vess en particulier, à qui j'adresse une reconnaissance professionnelle et personnelle sincère. La conviction absolue de Brother Hellion, qui est soit un saint soit un escroc de premier ordre et dans les deux cas un prédicateur d'exception. Le sourire d'Elizabeth, de loin et brièvement.</p>
+      <p><strong>Ce que je recommande d'éviter :</strong> Le premier rang d'Arena. Accepter des cadeaux de congrégants sur Kiln Street sans examiner le contenu. Threadneedle Square si vous n'avez pas de recommandation préalable. Le regard de Mother Moon si vous y avez quelque chose à cacher, ce qui à Red Row inclut probablement tout le monde.</p>
+      <p><strong>Ce que je recommande absolument :</strong> Entrer à Red Row avec des chaussures dont vous n'avez pas l'intention de vous souvenir. Parler à Lizbeth au Kowz-Udder, qui m'a dit quelque chose de juste à ma sortie : "La prochaine fois, demande ce que signifie le nom avant d'entrer." Je note que ce conseil s'applique à Red Row dans son ensemble.</p>
+      <p>Red Row sent le charbon, le sang, la poudre et quelque chose de chaud et de vivant que je ne saurais nommer précisément mais qui ressemble à de la conviction. Les gens qui y vivent ne survivent pas par indifférence : ils survivent par choix, répété chaque jour, dans un quartier qui ne fait de concession à personne. C'est épuisant à observer et probablement plus épuisant encore à habiter, et pourtant les rues sont pleines.</p>
+      <p>J'y retournerai.</p>
+      <p>Je m'entraînerai d'abord à courir.</p>
+
+      <div class="book-signature">
+        <p><em>Simon Verlat, depuis une chambre d'emprunt dans les étages du Kowz-Udder, Red Row de Spire.</em></p>
+        <p><em>Numéro IX sera consacré à Ivory Row, si j'arrive à me rappeler où c'est.</em></p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    if (!localStorage.getItem('spire_token')) {
+      window.location.href = '../connect.html';
+    }
+  </script>
+</body>
+</html>

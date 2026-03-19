@@ -2,6 +2,9 @@
   "books": [
     { "slug": "veth-ossivael", "title": "Veth-Ossivael", "author": "nereth", "added": "2026-03-19" },
     { "slug": "positions-pour-survivre", "title": "Positions pour Survivre à un Noble", "author": "nereth", "added": "2026-03-19" },
-    { "slug": "premier-corsivael", "title": "Le Premier Corsivael", "author": "nereth", "added": "2026-03-19" }
+    { "slug": "premier-corsivael", "title": "Le Premier Corsivael", "author": "nereth", "added": "2026-03-19" },
+    { "slug": "carnets-simon-3", "title": "Les Sky Docks de Spire", "author": "simon", "added": "2026-03-19" },
+    { "slug": "carnets-simon-7", "title": "Les North Docks de Spire", "author": "simon", "added": "2026-03-19" },
+    { "slug": "carnets-simon-8", "title": "Red Row de Spire", "author": "simon", "added": "2026-03-19" }
   ]
 }
