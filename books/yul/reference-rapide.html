@@ -709,7 +709,7 @@
 
 <script>
   const user = localStorage.getItem('spire_user');
-  const allowed = ['Yul', 'admin'];
+  const allowed = ['Yul', 'admin', 'mady'];
   if (!localStorage.getItem('spire_token') || !allowed.includes(user)) {
     window.location.href = '../../dashboard.html';
   }
