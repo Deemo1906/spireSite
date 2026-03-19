@@ -1,0 +1,58 @@
+{
+  "papers": [
+    {
+      "id": "ambrosia",
+      "name": "Ambrosia",
+      "tagline": "Gazette de la Haute Société de la Flèche",
+      "style": "ambrosia",
+      "editions": [
+        { "number": 1, "file": "ambrosia-1.html", "date": "2026-03-19" }
+      ]
+    },
+    {
+      "id": "liberate",
+      "name": "Liberate!",
+      "tagline": "Journal clandestin de résistance",
+      "style": "liberate",
+      "editions": [
+        { "number": 1, "file": "liberate-1.html", "date": "2026-03-19" }
+      ]
+    },
+    {
+      "id": "the-chronicle",
+      "name": "The Chronicle",
+      "tagline": "Journal d'Information et d'Analyse",
+      "style": "chronicle",
+      "editions": [
+        { "number": 1, "file": "the-chronicle-1.html", "date": "2026-03-19" }
+      ]
+    },
+    {
+      "id": "the-furnace",
+      "name": "The Furnace",
+      "tagline": "Voix des Profondeurs",
+      "style": "furnace",
+      "editions": [
+        { "number": 1, "file": "the-furnace-1.html", "date": "2026-03-19" }
+      ]
+    },
+    {
+      "id": "the-silhouette",
+      "name": "The Silhouette",
+      "tagline": "L'élégance dans l'ombre",
+      "style": "silhouette",
+      "editions": [
+        { "number": 1, "file": "the-silhouette-1.html", "date": "2026-03-19" }
+      ]
+    },
+    {
+      "id": "the-torch",
+      "name": "The Torch",
+      "tagline": "La lumière que l'on ne peut pas éteindre.",
+      "style": "torch",
+      "editions": [
+        { "number": 1, "file": "the-torch-1.html", "date": "2026-03-19" }
+      ]
+    }
+  ]
+}
