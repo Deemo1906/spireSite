@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spire</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      html, body {
+        height: 100%;
+        overflow: hidden;
+        background: #000;
+      }
+
+      .welcome-screen {
+        position: fixed;
+        inset: 0;
+        background: #000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        text-align: center;
+        padding: 2rem;
+      }
+
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(14px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes fadeOut {
+        from { opacity: 1; }
+        to   { opacity: 0; }
+      }
+
+      .w-eyebrow {
+        font-family: var(--font-heading);
+        font-size: 0.65rem;
+        letter-spacing: 0.55em;
+        text-transform: uppercase;
+        color: var(--text-3);
+        opacity: 0;
+        animation: fadeUp 1s ease forwards;
+        animation-delay: 0.3s;
+      }
+
+      .w-name {
+        font-family: var(--font-display);
+        font-size: clamp(2rem, 8vw, 4.5rem);
+        font-weight: 900;
+        color: var(--text-0);
+        text-shadow:
+          0 0 40px rgba(192, 41, 43, 0.55),
+          0 0 100px rgba(192, 41, 43, 0.2);
+        letter-spacing: 0.06em;
+        opacity: 0;
+        animation: fadeUp 1.2s ease forwards;
+        animation-delay: 0.8s;
+      }
+
+      .w-sub {
+        font-family: var(--font-heading);
+        font-size: 0.8rem;
+        letter-spacing: 0.5em;
+        text-transform: uppercase;
+        color: var(--red-400);
+        opacity: 0;
+        animation: fadeUp 1s ease forwards;
+        animation-delay: 1.3s;
+      }
+
+      .welcome-screen.leaving {
+        animation: fadeOut 0.9s ease forwards;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="welcome-screen" id="screen">
+      <p class="w-eyebrow">Accès accordé</p>
+      <h1 class="w-name" id="wName"></h1>
+      <p class="w-sub">dans Spire</p>
+    </div>
+
+    <script>
+      const username = localStorage.getItem('spire_user');
+
+      if (!username) {
+        window.location.href = 'connect.html';
+      } else {
+        document.getElementById('wName').textContent = `Bienvenue, ${username}`;
+
+        setTimeout(() => {
+          document.getElementById('screen').classList.add('leaving');
+          setTimeout(() => { window.location.href = 'dashboard.html'; }, 900);
+        }, 3200);
+      }
+    </script>
+  </body>
+</html>
