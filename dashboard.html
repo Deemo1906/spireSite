@@ -75,6 +75,20 @@
         text-decoration: none;
         transition: border-color 0.2s, transform 0.2s;
         text-align: center;
+        position: relative;
+      }
+
+      .dash-badge {
+        position: absolute;
+        top: -9px;
+        right: 12px;
+        background: var(--red-500);
+        color: var(--text-0);
+        font-family: var(--font-heading);
+        font-size: 0.48rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        padding: 2px 8px;
       }
 
       .dash-card:hover {
@@ -129,12 +143,12 @@
       </div>
 
       <nav class="dash-nav">
-        <a class="dash-card" href="journals.html">
+        <a class="dash-card" href="journals.html" id="pressCard">
           <span class="dash-card-icon">📰</span>
           <span class="dash-card-label">La Presse</span>
           <span class="dash-card-sub">Journaux de Spire</span>
         </a>
-        <a class="dash-card" href="library.html">
+        <a class="dash-card" href="library.html" id="libCard">
           <span class="dash-card-icon">📚</span>
           <span class="dash-card-label">Bibliothèque</span>
           <span class="dash-card-sub">Œuvres & Archives</span>
@@ -166,6 +180,33 @@
         localStorage.removeItem('spire_user');
         window.location.href = 'index.html';
       });
+
+      function isNew(dateStr) {
+        return (new Date() - new Date(dateStr)) < 7 * 24 * 60 * 60 * 1000;
+      }
+
+      function addBadge(cardId) {
+        const el = document.getElementById(cardId);
+        if (!el) return;
+        const badge = document.createElement('span');
+        badge.className = 'dash-badge';
+        badge.textContent = 'Nouveau';
+        el.appendChild(badge);
+      }
+
+      fetch('journals/index.json')
+        .then(r => r.json())
+        .then(data => {
+          if (data.papers.some(p => isNew(p.editions.at(-1).date))) addBadge('pressCard');
+        })
+        .catch(() => {});
+
+      fetch('library/index.json')
+        .then(r => r.json())
+        .then(data => {
+          if (data.books.some(b => isNew(b.added))) addBadge('libCard');
+        })
+        .catch(() => {});
     </script>
   </body>
 </html>
