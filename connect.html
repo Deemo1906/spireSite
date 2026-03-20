@@ -122,6 +122,7 @@
 
           localStorage.setItem('spire_token', data.token);
           localStorage.setItem('spire_user', data.username);
+          localStorage.setItem('spire_session', data.session_id);
           window.location.href = 'welcome.html';
 
         } catch (err) {

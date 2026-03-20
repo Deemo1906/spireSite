@@ -60,7 +60,11 @@ app.post('/api/login', async (req, res) => {
       return res.status(401).json({ error: "Nom d'utilisateur ou mot de passe incorrect." });
     }
 
-    res.json({ token: signToken(user), username: user.username });
+    const { rows: sessionRows } = await pool.query(
+      'INSERT INTO sessions (user_id) VALUES ($1) RETURNING id',
+      [user.id]
+    );
+    res.json({ token: signToken(user), username: user.username, session_id: sessionRows[0].id });
   } catch (err) {
     console.error('[login]', { username, error: err.message });
     res.status(500).json({ error: 'Erreur serveur.' });
@@ -157,6 +161,59 @@ app.post('/api/reviews', requireAuth, async (req, res) => {
     res.status(201).json({ message: 'Avis enregistré.' });
   } catch (err) {
     console.error('[reviews:post]', { user_id: req.user.id, book_slug, error: err.message });
+    res.status(500).json({ error: 'Erreur serveur.' });
+  }
+});
+
+// ── POST /api/sessions/ping  (update last_seen) ──────────────────────────────
+app.post('/api/sessions/ping', requireAuth, async (req, res) => {
+  const { session_id } = req.body ?? {};
+  if (!session_id) return res.status(400).json({ error: 'session_id manquant.' });
+  try {
+    await pool.query(
+      'UPDATE sessions SET last_seen_at = NOW() WHERE id = $1 AND user_id = $2',
+      [session_id, req.user.id]
+    );
+    res.json({ ok: true });
+  } catch (err) {
+    console.error('[sessions:ping]', { session_id, error: err.message });
+    res.status(500).json({ error: 'Erreur serveur.' });
+  }
+});
+
+// ── POST /api/sessions/end  (explicit logout) ─────────────────────────────────
+app.post('/api/sessions/end', requireAuth, async (req, res) => {
+  const { session_id } = req.body ?? {};
+  if (!session_id) return res.status(400).json({ error: 'session_id manquant.' });
+  try {
+    await pool.query(
+      `UPDATE sessions SET logged_out_at = NOW(), last_seen_at = NOW()
+       WHERE id = $1 AND user_id = $2 AND logged_out_at IS NULL`,
+      [session_id, req.user.id]
+    );
+    res.json({ ok: true });
+  } catch (err) {
+    console.error('[sessions:end]', { session_id, error: err.message });
+    res.status(500).json({ error: 'Erreur serveur.' });
+  }
+});
+
+// ── GET /api/admin/sessions  (admin only) ─────────────────────────────────────
+app.get('/api/admin/sessions', requireAuth, async (req, res) => {
+  if (req.user.username !== 'admin') {
+    return res.status(403).json({ error: 'Accès refusé.' });
+  }
+  try {
+    const { rows } = await pool.query(`
+      SELECT s.id, u.username, s.logged_in_at, s.last_seen_at, s.logged_out_at
+      FROM sessions s
+      JOIN users u ON u.id = s.user_id
+      ORDER BY s.logged_in_at DESC
+      LIMIT 500
+    `);
+    res.json({ sessions: rows });
+  } catch (err) {
+    console.error('[admin:sessions]', { error: err.message });
     res.status(500).json({ error: 'Erreur serveur.' });
   }
 });

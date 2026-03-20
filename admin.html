@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administration — Spire</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .admin-page {
+        min-height: 100vh;
+        background: var(--bg-0);
+        padding: 5rem 2rem 6rem;
+      }
+
+      .back-link {
+        position: fixed; top: 1.5rem; left: 2rem;
+        font-family: var(--font-heading); font-size: 0.65rem;
+        letter-spacing: 0.35em; text-transform: uppercase;
+        color: var(--text-3); transition: color 0.2s; z-index: 10;
+        text-decoration: none;
+      }
+      .back-link:hover { color: var(--text-1); }
+
+      .admin-header {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+      .admin-eyebrow {
+        font-family: var(--font-heading); font-size: 0.62rem;
+        letter-spacing: 0.5em; text-transform: uppercase;
+        color: var(--text-3); margin-bottom: 1rem;
+      }
+      .admin-title {
+        font-family: var(--font-heading); font-size: clamp(1.2rem, 3vw, 1.8rem);
+        font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase;
+        color: var(--text-0); margin-bottom: 1rem;
+      }
+      .admin-rule {
+        width: 48px; height: 2px;
+        background: var(--red-500); margin: 0 auto 2rem;
+      }
+
+      /* Controls */
+      .admin-controls {
+        max-width: 1000px; margin: 0 auto 2rem;
+        display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+      }
+      .admin-filter {
+        background: var(--bg-2); border: 1px solid var(--bg-3);
+        color: var(--text-1); font-family: var(--font-heading);
+        font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase;
+        padding: 6px 12px; cursor: pointer;
+      }
+      .admin-filter option { background: var(--bg-2); }
+      .admin-refresh {
+        background: none; border: 1px solid var(--bg-3);
+        color: var(--text-3); font-family: var(--font-heading);
+        font-size: 0.52rem; letter-spacing: 0.25em; text-transform: uppercase;
+        padding: 6px 14px; cursor: pointer;
+        transition: border-color 0.2s, color 0.2s;
+      }
+      .admin-refresh:hover { border-color: var(--red-700); color: var(--text-1); }
+      .admin-count {
+        font-family: var(--font-heading); font-size: 0.5rem;
+        letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-3);
+        margin-left: auto;
+      }
+
+      /* Table */
+      .admin-table-wrap {
+        max-width: 1000px; margin: 0 auto;
+        overflow-x: auto;
+      }
+      table {
+        width: 100%; border-collapse: collapse;
+      }
+      thead tr {
+        border-bottom: 1px solid var(--red-700);
+      }
+      th {
+        font-family: var(--font-heading); font-size: 0.5rem;
+        letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-3);
+        padding: 0.6rem 1rem; text-align: left; white-space: nowrap;
+      }
+      tbody tr {
+        border-bottom: 1px solid var(--bg-2);
+        transition: background 0.15s;
+      }
+      tbody tr:hover { background: var(--bg-1); }
+      td {
+        font-family: var(--font-body); font-size: 0.9rem;
+        color: var(--text-1); padding: 0.7rem 1rem; white-space: nowrap;
+      }
+      td.col-user {
+        font-family: var(--font-heading); font-size: 0.58rem;
+        letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-0);
+      }
+      td.col-duration { color: var(--text-2); font-style: italic; }
+
+      /* Status badges */
+      .status {
+        display: inline-block;
+        font-family: var(--font-heading); font-size: 0.44rem;
+        letter-spacing: 0.25em; text-transform: uppercase;
+        padding: 2px 8px;
+      }
+      .status-online  { background: rgba(30,80,40,0.6); color: #6ecf7a; }
+      .status-offline { background: var(--bg-2); color: var(--text-3); }
+      .status-idle    { background: rgba(60,40,10,0.6); color: var(--gold-500); }
+
+      .admin-empty {
+        text-align: center; padding: 4rem;
+        font-family: var(--font-heading); font-size: 0.6rem;
+        letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-3);
+      }
+    </style>
+  </head>
+
+  <body style="overflow: auto;">
+    <a href="dashboard.html" class="back-link">← Tableau de bord</a>
+
+    <div class="admin-page">
+      <div class="admin-header">
+        <p class="admin-eyebrow">Réseau Vermissien</p>
+        <h1 class="admin-title">Administration</h1>
+        <div class="admin-rule"></div>
+      </div>
+
+      <div class="admin-controls">
+        <select class="admin-filter" id="userFilter">
+          <option value="">Tous les utilisateurs</option>
+        </select>
+        <button class="admin-refresh" id="refreshBtn">↺ Actualiser</button>
+        <span class="admin-count" id="sessionCount"></span>
+      </div>
+
+      <div class="admin-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Utilisateur</th>
+              <th>Connexion</th>
+              <th>Dernière activité</th>
+              <th>Déconnexion</th>
+              <th>Durée</th>
+              <th>Statut</th>
+            </tr>
+          </thead>
+          <tbody id="sessionsTbody">
+            <tr><td colspan="6" class="admin-empty">Chargement…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      const API = 'https://spiresite.onrender.com';
+
+      const token    = localStorage.getItem('spire_token');
+      const username = localStorage.getItem('spire_user');
+
+      if (!token || username !== 'admin') {
+        window.location.href = 'dashboard.html';
+      }
+
+      function fmt(iso) {
+        if (!iso) return '—';
+        return new Date(iso).toLocaleString('fr-FR', {
+          day: '2-digit', month: '2-digit', year: 'numeric',
+          hour: '2-digit', minute: '2-digit',
+        });
+      }
+
+      function duration(start, end) {
+        if (!start || !end) return '—';
+        const ms  = new Date(end) - new Date(start);
+        if (ms < 0) return '—';
+        const min = Math.floor(ms / 60000);
+        if (min < 1)  return '< 1 min';
+        if (min < 60) return `${min} min`;
+        const h = Math.floor(min / 60);
+        const m = min % 60;
+        return m > 0 ? `${h} h ${m} min` : `${h} h`;
+      }
+
+      function status(session) {
+        const now      = Date.now();
+        const lastSeen = new Date(session.last_seen_at).getTime();
+        const idleMs   = now - lastSeen;
+
+        if (session.logged_out_at) {
+          return { label: 'Déconnecté', cls: 'status-offline' };
+        }
+        if (idleMs < 10 * 60 * 1000) {
+          return { label: 'En ligne', cls: 'status-online' };
+        }
+        return { label: 'Inactif', cls: 'status-idle' };
+      }
+
+      let allSessions = [];
+
+      function renderTable(sessions) {
+        const tbody = document.getElementById('sessionsTbody');
+        if (sessions.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" class="admin-empty">Aucune session enregistrée.</td></tr>`;
+          return;
+        }
+        tbody.innerHTML = sessions.map(s => {
+          const st      = status(s);
+          const endTime = s.logged_out_at || s.last_seen_at;
+          return `
+            <tr>
+              <td class="col-user">${s.username}</td>
+              <td>${fmt(s.logged_in_at)}</td>
+              <td>${fmt(s.last_seen_at)}</td>
+              <td>${fmt(s.logged_out_at)}</td>
+              <td class="col-duration">${duration(s.logged_in_at, endTime)}</td>
+              <td><span class="status ${st.cls}">${st.label}</span></td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      function applyFilter() {
+        const val = document.getElementById('userFilter').value;
+        renderTable(val ? allSessions.filter(s => s.username === val) : allSessions);
+        const count = val
+          ? allSessions.filter(s => s.username === val).length
+          : allSessions.length;
+        document.getElementById('sessionCount').textContent = `${count} session${count !== 1 ? 's' : ''}`;
+      }
+
+      async function load() {
+        try {
+          const res = await fetch(`${API}/api/admin/sessions`, {
+            headers: { 'Authorization': `Bearer ${token}` },
+          });
+          if (res.status === 403) {
+            window.location.href = 'dashboard.html';
+            return;
+          }
+          const data = await res.json();
+          allSessions = data.sessions ?? [];
+
+          // Populate user filter
+          const users = [...new Set(allSessions.map(s => s.username))].sort();
+          const filter = document.getElementById('userFilter');
+          filter.innerHTML = `<option value="">Tous les utilisateurs</option>` +
+            users.map(u => `<option value="${u}">${u}</option>`).join('');
+
+          applyFilter();
+        } catch (err) {
+          console.error('[admin:load]', err.message);
+          document.getElementById('sessionsTbody').innerHTML =
+            `<tr><td colspan="6" class="admin-empty">Erreur de chargement.</td></tr>`;
+        }
+      }
+
+      document.getElementById('userFilter').addEventListener('change', applyFilter);
+      document.getElementById('refreshBtn').addEventListener('click', load);
+
+      load();
+    </script>
+  </body>
+</html>

@@ -20,6 +20,15 @@ async function init() {
     )
   `);
   await pool.query(`
+    CREATE TABLE IF NOT EXISTS sessions (
+      id            SERIAL PRIMARY KEY,
+      user_id       INTEGER NOT NULL REFERENCES users(id),
+      logged_in_at  TIMESTAMPTZ DEFAULT NOW(),
+      last_seen_at  TIMESTAMPTZ DEFAULT NOW(),
+      logged_out_at TIMESTAMPTZ
+    )
+  `);
+  await pool.query(`
     CREATE TABLE IF NOT EXISTS reviews (
       id         SERIAL PRIMARY KEY,
       user_id    INTEGER NOT NULL REFERENCES users(id),
