@@ -19,6 +19,17 @@ async function init() {
       created_at TIMESTAMPTZ DEFAULT NOW()
     )
   `);
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS reviews (
+      id         SERIAL PRIMARY KEY,
+      user_id    INTEGER NOT NULL REFERENCES users(id),
+      book_slug  TEXT NOT NULL,
+      rating     INTEGER NOT NULL CHECK (rating BETWEEN 1 AND 5),
+      comment    TEXT,
+      created_at TIMESTAMPTZ DEFAULT NOW(),
+      UNIQUE (user_id, book_slug)
+    )
+  `);
   console.log('[db] Ready');
 }
 

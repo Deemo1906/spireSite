@@ -677,3 +677,181 @@ img { max-width: 100%; display: block; }
     font-size: clamp(4rem, 22vw, 7rem);
   }
 }
+
+/* ── Book Reviews ──────────────────────────────────────────────────────────── */
+.book-reviews {
+  margin-top: 0.25rem;
+  border-top: 1px solid var(--bg-3);
+  padding-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.review-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.review-stars {
+  color: var(--gold-300);
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+}
+
+.review-count,
+.review-none {
+  font-family: var(--font-heading);
+  font-size: 0.48rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.review-toggle {
+  background: none;
+  border: 1px solid var(--bg-3);
+  color: var(--text-3);
+  font-family: var(--font-heading);
+  font-size: 0.48rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  align-self: center;
+}
+
+.review-toggle:hover {
+  border-color: var(--red-700);
+  color: var(--text-1);
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: var(--bg-1);
+  border: 1px solid var(--bg-3);
+  padding: 0.75rem;
+}
+
+.star-picker {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.star-picker span {
+  font-size: 1.3rem;
+  color: var(--bg-4);
+  transition: color 0.1s;
+  user-select: none;
+}
+
+.star-picker span.active {
+  color: var(--gold-300);
+}
+
+.review-textarea {
+  background: var(--bg-0);
+  border: 1px solid var(--bg-3);
+  color: var(--text-1);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  padding: 0.5rem;
+  resize: vertical;
+  min-height: 60px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.review-textarea::placeholder {
+  color: var(--text-3);
+}
+
+.review-submit {
+  background: var(--red-900);
+  border: 1px solid var(--red-700);
+  color: var(--text-1);
+  font-family: var(--font-heading);
+  font-size: 0.48rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  align-self: flex-end;
+}
+
+.review-submit:hover {
+  background: var(--red-700);
+  border-color: var(--red-500);
+}
+
+.review-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.review-error {
+  font-family: var(--font-heading);
+  font-size: 0.48rem;
+  color: var(--red-400);
+  letter-spacing: 0.1em;
+  text-align: center;
+  min-height: 1em;
+}
+
+.review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 0.25rem;
+}
+
+.review-item {
+  border-left: 1px solid var(--bg-3);
+  padding-left: 0.65rem;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.review-author {
+  font-family: var(--font-heading);
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.review-rating {
+  color: var(--gold-300);
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+}
+
+.review-date {
+  font-family: var(--font-heading);
+  font-size: 0.44rem;
+  letter-spacing: 0.1em;
+  color: var(--text-3);
+  margin-left: auto;
+}
+
+.review-comment {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--text-2);
+  margin-top: 0.25rem;
+  line-height: 1.5;
+}
