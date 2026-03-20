@@ -18,11 +18,16 @@ Fan site for *Spire: The City Must Fall*, hosted on GitHub Pages with a Node.js/
 7. [Library System](#7-library-system)
 8. [Yul Private Library](#8-yul-private-library)
 9. [The "Nouveau" Badge System](#9-the-nouveau-badge-system)
-10. [Backend Server](#10-backend-server)
-11. [How to Add Content](#11-how-to-add-content)
-12. [How to Add a User](#12-how-to-add-a-user)
-13. [Access Control](#13-access-control)
-14. [Deployment](#14-deployment)
+10. [Reviews System](#10-reviews-system)
+11. [Read Tracking](#11-read-tracking)
+12. [Backend Server](#12-backend-server)
+13. [➜ How to Add a New Book](#13-how-to-add-a-new-book)
+14. [➜ How to Add a New Author](#14-how-to-add-a-new-author)
+15. [➜ How to Add a New Journal Edition](#15-how-to-add-a-new-journal-edition)
+16. [➜ How to Add a New Journal Paper](#16-how-to-add-a-new-journal-paper)
+17. [➜ How to Add a User](#17-how-to-add-a-user)
+18. [Access Control](#18-access-control)
+19. [Deployment](#19-deployment)
 
 ---
 
@@ -43,6 +48,10 @@ spireSite/
 ├── style.css                   # Global design system
 ├── connect.css                 # Login page styles
 │
+├── js/
+│   ├── reviews.js              # Book review UI — loaded by author pages
+│   └── read-tracker.js         # Read state tracking — loaded by library pages
+│
 ├── journals/
 │   ├── index.json              # Journal metadata, editions, dates
 │   ├── ambrosia-1.html
@@ -56,12 +65,16 @@ spireSite/
 │   └── index.json              # Book metadata, slugs, added dates
 │
 ├── authors/
-│   └── nereth.html             # Nereth author page (book covers)
+│   ├── nereth.html             # Nereth author page
+│   └── simon.html              # Simon Verlat author page
 │
 ├── books/
 │   ├── veth-ossivael.html
 │   ├── positions-pour-survivre.html
 │   ├── premier-corsivael.html
+│   ├── carnets-simon-3.html
+│   ├── carnets-simon-7.html
+│   ├── carnets-simon-8.html
 │   └── yul/
 │       ├── bestiaire.html
 │       ├── catalogue-substances.html
@@ -72,7 +85,7 @@ spireSite/
 │
 └── server/
     ├── index.js                # Express API
-    ├── db.js                   # PostgreSQL init
+    ├── db.js                   # PostgreSQL init & schema
     └── package.json
 ```
 
@@ -81,68 +94,54 @@ spireSite/
 ## 2. Architecture Overview
 
 ```
-[Browser / GitHub Pages]
+[Browser / GitHub Pages — static HTML/CSS/JS]
         │
-        │  Static HTML/CSS/JS
+        ├── Static data: journals/index.json, library/index.json
         │
-   ┌────▼─────────────────┐
-   │  index.html          │  ← Public landing
-   │  connect.html        │  ← Login form
-   │  dashboard.html      │  ← Hub (auth-gated)
-   │  journals.html       │  ← Journals (auth-gated)
-   │  library.html        │  ← Library (auth-gated)
-   │  yul-library.html    │  ← Restricted (role-gated)
-   └────┬─────────────────┘
-        │
-        │  HTTPS POST /api/login
-        │  JWT stored in localStorage
-        │
-   ┌────▼────────────────────────┐
-   │  Express API (Render)       │
-   │  https://spiresite.onrender │
-   │  .com                       │
-   └────┬────────────────────────┘
-        │
-        │  PostgreSQL (Render managed)
-        │
-   ┌────▼──────────────────┐
-   │  users table          │
-   │  id, username,        │
-   │  password_hash,       │
-   │  created_at           │
-   └───────────────────────┘
+        └── HTTPS calls to Render API:
+              POST /api/login          — authenticate
+              GET  /api/me             — verify token
+              GET  /api/reviews/:slug  — fetch book reviews
+              POST /api/reviews        — submit a review
+                          │
+                    [Express API — Render]
+                    https://spiresite.onrender.com
+                          │
+                    [PostgreSQL — Render managed]
+                          │
+                    ┌─────┴──────────┐
+                    │ users          │  id, username, password_hash
+                    │ reviews        │  user_id, book_slug, rating, comment
+                    └────────────────┘
 ```
 
 **Key constraints:**
-- GitHub Pages serves only static files — no server-side logic on the frontend.
-- All auth is JWT-based. The token is stored in `localStorage` and sent to the backend only at login.
-- Subsequent pages do **not** re-validate the token with the server on every load. The check is client-side only (`localStorage.getItem('spire_token')`). This is intentional for a private fan site — security is by obscurity, not hardened auth.
-- Access control for restricted pages (Yul library) is enforced client-side via a username allowlist. This can be bypassed by someone with DevTools knowledge. This is acceptable for the use case.
+- GitHub Pages serves only static files — no server-side rendering.
+- Auth is JWT-based. The token lives in `localStorage` and is sent to the backend only on login and review calls. Other page loads check only that the token *exists* in localStorage — they do not re-validate it with the server. This is intentional for a private fan site.
+- Access control for the Yul library is client-side (username allowlist). This can be bypassed with DevTools. Acceptable for this use case.
 
 ---
 
 ## 3. Design System
 
-All global variables are in `style.css` under `:root`.
+All global variables live in `style.css` under `:root`.
 
 ### Color Palette
 
 | Variable | Value | Use |
 |---|---|---|
 | `--bg-0` | `#09080a` | Page background |
-| `--bg-1` | `#100e12` | Sections, about |
+| `--bg-1` | `#100e12` | Sections |
 | `--bg-2` | `#18151d` | Cards, form backgrounds |
-| `--bg-3` | `#221e28` | Lighter card accents |
+| `--bg-3` | `#221e28` | Lighter card accents, borders |
 | `--bg-4` | `#2c2733` | Reserved |
 | `--red-900` | `#3d0a0a` | Deepest red |
 | `--red-700` | `#6b1414` | Borders, decorative rules |
-| `--red-500` | `#9b1c1c` | Primary accent — badges, buttons, rules |
+| `--red-500` | `#9b1c1c` | Primary accent — badges, buttons |
 | `--red-400` | `#c0292b` | Hover states, glows |
-| `--red-300` | `#e05050` | Bright highlight red |
-| `--blue-900` | `#0a0f1a` | Deep navy backgrounds |
-| `--blue-300` | `#4a90d0` | World-building tags |
-| `--gold-500` | `#b8903a` | Luxury/rare accent |
-| `--gold-300` | `#d4a84b` | Brighter gold |
+| `--red-300` | `#e05050` | Bright highlight |
+| `--gold-500` | `#b8903a` | Luxury accent |
+| `--gold-300` | `#d4a84b` | Star ratings, bright gold |
 | `--text-0` | `#ede5d5` | Primary body text |
 | `--text-1` | `#c8bfaa` | Secondary text |
 | `--text-2` | `#8a806a` | Muted/tertiary text |
@@ -158,31 +157,15 @@ All global variables are in `style.css` under `:root`.
 | `--font-heading` | `Cinzel` | Section headings, labels, nav, badges |
 | `--font-body` | `Crimson Text` | All body text, paragraphs |
 
-**Additional fonts** (used in specific journal card styles only):
-- `Cormorant Garamond` — Ambrosia, Positions pour Survivre
-- `VT323` — Liberate! (retro monospace)
-- `Special Elite` — Liberate! (typewriter feel)
-- `Source Serif 4` — The Chronicle
-- `UnifrakturMaguntia` — The Furnace (gothic blackletter)
-- `Poiret One` — The Silhouette
-- `Oswald` — The Torch
-- `IM Fell English` — Yul library
-- `Playfair Display` — Premier Corsivael, Yul covers
+Additional fonts used in specific pages: `Cormorant Garamond`, `Playfair Display`, `VT323`, `Special Elite`, `Source Serif 4`, `UnifrakturMaguntia`, `Poiret One`, `Oswald`, `IM Fell English`.
 
 ### Layout Conventions
 
-- Max content width: `1080px` (`.container`)
+- Max content width: `1080px`
 - Default page padding: `5rem 2rem 6rem`
-- Card hover effect: `translateY(-3px)` to `translateY(-5px)` + border color change
+- Card hover: `translateY(-3px)` to `translateY(-5px)` + border color change
 - Border radius: `2px` (near-square, deliberately minimal)
 - Transitions: `0.22s ease`
-
-### Spacing Patterns
-
-- Section eyebrow: `0.62rem`, `letter-spacing: 0.5em`, `text-transform: uppercase`, `color: var(--text-3)`
-- Section title: `clamp(1.4rem, 4vw, 2.2rem)`, Cinzel, uppercase
-- Red rule under title: `48px × 2px`, `background: var(--red-500)`
-- Cards: `padding: 1.75rem`
 
 ---
 
@@ -192,25 +175,27 @@ All global variables are in `style.css` under `:root`.
 
 ```
 connect.html
-  └─ POST /api/login  {username, password}
-        └─ bcrypt.compare(password, hash)
-              └─ jwt.sign({id, username}, JWT_SECRET, {expiresIn: '7d'})
-                    └─ {token, username}  → localStorage
-                          └─ redirect → welcome.html → dashboard.html
+  └─ POST /api/login  { username, password }
+        └─ bcrypt.compare → jwt.sign({ id, username }, JWT_SECRET, 7d)
+              └─ { token, username } → localStorage
+                    └─ redirect → welcome.html → dashboard.html
 ```
 
-### Storage
+### localStorage Keys
 
 | Key | Value |
 |---|---|
-| `localStorage.spire_token` | JWT string |
-| `localStorage.spire_user` | Username string |
+| `spire_token` | JWT string (7-day expiry) |
+| `spire_user` | Username string |
+| `spire_read_{username}` | JSON array of book slugs the user has opened |
 
-### Auth Guard (every protected page)
+### Auth Guard
+
+Every protected page runs this on load:
 
 ```javascript
 if (!localStorage.getItem('spire_token')) {
-  window.location.href = 'connect.html'; // or '../connect.html' in subdirs
+  window.location.href = 'connect.html'; // adjust path for subdirectories
 }
 ```
 
@@ -222,65 +207,23 @@ localStorage.removeItem('spire_user');
 window.location.href = 'index.html';
 ```
 
-### Session Duration
-
-JWTs expire after **7 days**. After expiry, the token remains in localStorage but any server call using it (`/api/me`) will return 401. The frontend does not proactively check expiry — the user would need to try a server action, or log out and back in.
-
 ---
 
 ## 5. Pages Reference
 
-### `index.html` — Landing
-
-Public. No auth required. Single hero section with breathing circle animation. CTA links to `connect.html`.
-
-### `connect.html` — Login
-
-Public. Login form. Calls `POST /api/login`. On success, stores token + username and redirects to `welcome.html`.
-
-### `welcome.html` — Welcome Animation
-
-Auth-gated. Displays username with a 3.2s fade animation. Auto-redirects to `dashboard.html`.
-
-### `dashboard.html` — Hub
-
-Auth-gated. Navigation grid:
-
-| Card | ID | Destination | Badge Source |
-|---|---|---|---|
-| La Presse | `pressCard` | `journals.html` | `journals/index.json` |
-| Bibliothèque | `libCard` | `library.html` | `library/index.json` |
-| Collection Privée | `yulCard` | `yul-library.html` | None |
-
-The Yul card is hidden by default (`display:none`) and shown only if `localStorage.spire_user` is in `['Yul', 'admin', 'mady']`.
-
-### `journals.html` — Press Grid
-
-Auth-gated. Dynamically renders 6 journal cards from `journals/index.json`. Each card has:
-- Styled front cover (CSS-only, no images)
-- "Lire" action → opens latest edition in new tab
-- "Archives" action → `archive.html?paper={id}`
-- NEW badge if latest edition < 7 days old
-
-### `archive.html` — Edition Archive
-
-Auth-gated. Reads `?paper={id}` from URL. Fetches `journals/index.json`. Displays all editions for that paper, newest first. Latest edition has red left border.
-
-### `library.html` — Author Grid
-
-Auth-gated. Grid of author cards. Each links to `authors/{slug}.html`. Shows NEW badge if any book by that author was added within 7 days.
-
-### `authors/nereth.html` — Nereth Bookshelf
-
-Auth-gated. Shows Nereth's bio + 3 book covers. Clicking a cover opens the book. NEW badge on individual covers if added < 7 days ago.
-
-### `yul-library.html` — Private Collection
-
-Auth-gated + role-gated. Shows 6 CSS-art journal covers. Unauthorized users are redirected to `dashboard.html`.
-
-### `books/*.html` — Book Pages
-
-Auth-gated. Each book is a standalone HTML page with its own CSS cover art at the top followed by the book content. No shared template — each has a unique visual style.
+| Page | Auth | Notes |
+|---|---|---|
+| `index.html` | Public | Landing hero |
+| `connect.html` | Public | Login form |
+| `welcome.html` | Token | 3.2s animation, auto-redirects to dashboard |
+| `dashboard.html` | Token | Navigation hub with NEW badges |
+| `journals.html` | Token | Journal card grid, dynamically rendered |
+| `archive.html` | Token | Edition archive for one paper, reads `?paper={id}` |
+| `library.html` | Token | Author card grid |
+| `authors/*.html` | Token | Author bio + bookshelf with reviews |
+| `books/*.html` | Token | Individual book pages |
+| `yul-library.html` | Token + role | Private collection |
+| `books/yul/*.html` | Token + role | Private books |
 
 ---
 
@@ -288,7 +231,7 @@ Auth-gated. Each book is a standalone HTML page with its own CSS cover art at th
 
 ### Metadata File: `journals/index.json`
 
-This is the single source of truth for all journals.
+Single source of truth for all journals. Structure:
 
 ```json
 {
@@ -308,15 +251,15 @@ This is the single source of truth for all journals.
 
 | Field | Description |
 |---|---|
-| `id` | Unique identifier, used in `archive.html?paper={id}` |
-| `name` | Display name on the card |
-| `tagline` | Subtitle shown on the card |
-| `style` | Maps to a CSS card template in `journals.html` |
-| `editions[].number` | Edition number (displayed on card) |
-| `editions[].file` | Filename inside the `journals/` folder |
-| `editions[].date` | Publication date (ISO 8601: `YYYY-MM-DD`) — drives NEW badges |
+| `id` | Unique identifier — used in `archive.html?paper={id}` |
+| `name` | Display name |
+| `tagline` | Subtitle |
+| `style` | Maps to a CSS template in `journals.html` |
+| `editions[].number` | Edition number |
+| `editions[].file` | Filename inside `journals/` |
+| `editions[].date` | ISO 8601 date — drives NEW badges |
 
-The **latest edition** is always `editions.at(-1)` — the last item in the array.
+The **latest edition** is always the last item in the `editions` array.
 
 ### Current Papers
 
@@ -328,23 +271,6 @@ The **latest edition** is always `editions.at(-1)` — the last item in the arra
 | `the-furnace` | The Furnace | `furnace` | 1 |
 | `the-silhouette` | The Silhouette | `silhouette` | 1 |
 | `the-torch` | The Torch | `torch` | 1 |
-
-### Adding a New Edition
-
-1. Create the HTML file in `journals/` (e.g. `ambrosia-2.html`)
-2. Append a new object to the paper's `editions` array in `journals/index.json`:
-   ```json
-   { "number": 2, "file": "ambrosia-2.html", "date": "2026-03-25" }
-   ```
-3. The new edition becomes the latest automatically (last item in array)
-4. The NEW badge will appear on the card for 7 days from the date
-
-### Adding a New Paper
-
-1. Create the edition HTML file in `journals/`
-2. Add the paper object to `journals/index.json`
-3. Add a matching CSS card template to `journals.html` (inside the `templates` object in the script) with the corresponding style class
-4. Add the CSS for the card style in the `<style>` block of `journals.html`
 
 ---
 
@@ -369,42 +295,28 @@ Single source of truth for all public library books.
 
 | Field | Description |
 |---|---|
-| `slug` | Matches the `data-book` attribute on the book cover element |
-| `title` | Display title (not currently rendered from JSON — it's in the HTML) |
-| `author` | Matches the `data-author` attribute on the author card in `library.html` |
-| `added` | Date added (ISO 8601) — drives NEW badges |
+| `slug` | Must match the `data-book` attribute on the cover `<a>` element |
+| `title` | Display title (used for documentation; the HTML has its own styled title) |
+| `author` | Must match the `data-author` attribute on the author card in `library.html` |
+| `added` | ISO 8601 date — drives NEW badges and read-tracking |
 
-### Adding a New Book to the Public Library
+### Current Books
 
-1. Create the book HTML file in `books/` (e.g. `books/my-book.html`)
-2. Add the author page entry if not yet present (in `authors/`)
-3. Add an entry to `library/index.json`:
-   ```json
-   { "slug": "my-book", "title": "My Book", "author": "nereth", "added": "2026-03-25" }
-   ```
-4. Add the book cover to the author's page (`authors/nereth.html`) with `data-book="my-book"`:
-   ```html
-   <a class="book-cover cover-mybook" href="../books/my-book.html" data-book="my-book">
-     ...
-   </a>
-   ```
-5. Update the "X ouvrages disponibles" count in both `library.html` and `authors/nereth.html`
+| Slug | Title | Author | File |
+|---|---|---|---|
+| `veth-ossivael` | Veth-Ossivael | `nereth` | `books/veth-ossivael.html` |
+| `positions-pour-survivre` | Positions pour Survivre à un Noble | `nereth` | `books/positions-pour-survivre.html` |
+| `premier-corsivael` | Le Premier Corsivael | `nereth` | `books/premier-corsivael.html` |
+| `carnets-simon-3` | Les Sky Docks de Spire | `simon` | `books/carnets-simon-3.html` |
+| `carnets-simon-7` | Les North Docks de Spire | `simon` | `books/carnets-simon-7.html` |
+| `carnets-simon-8` | Red Row de Spire | `simon` | `books/carnets-simon-8.html` |
 
-### Adding a New Author
+### Current Authors
 
-1. Create `authors/{slug}.html` following the structure of `authors/nereth.html`
-2. Add the author card to `library.html` with `data-author="{slug}"`:
-   ```html
-   <a class="author-card" href="authors/{slug}.html" data-author="{slug}">
-     <div class="author-sigil">X</div>
-     <div class="author-info">
-       <p class="author-label">Auteur</p>
-       <p class="author-name">Author Name</p>
-       <p class="author-works">N ouvrages disponibles</p>
-     </div>
-   </a>
-   ```
-3. Add the author's books to `library/index.json` with `"author": "{slug}"`
+| Slug | Name | File | Books |
+|---|---|---|---|
+| `nereth` | Nereth-Qui-Écrit-Dans-le-Noir | `authors/nereth.html` | 3 |
+| `simon` | Simon Verlat | `authors/simon.html` | 3 |
 
 ---
 
@@ -412,7 +324,7 @@ Single source of truth for all public library books.
 
 ### Access Control
 
-Hardcoded allowlist checked on page load:
+The Yul collection is restricted to a hardcoded username allowlist:
 
 ```javascript
 const allowed = ['Yul', 'admin', 'mady'];
@@ -421,57 +333,37 @@ if (!localStorage.getItem('spire_token') || !allowed.includes(user)) {
 }
 ```
 
-This same allowlist must be maintained in **all** Yul book pages (`books/yul/*.html`) and in `dashboard.html` (to show/hide the Collection Privée card).
+**This allowlist is duplicated in 8 files.** All must be updated together when adding a user:
 
-**Files containing the allowlist:**
-- `dashboard.html`
-- `yul-library.html`
-- `books/yul/art-union.html`
-- `books/yul/bestiaire.html`
-- `books/yul/catalogue-mecanique.html`
-- `books/yul/catalogue-substances.html`
-- `books/yul/coutumes-charnelles.html`
-- `books/yul/reference-rapide.html`
-
-### Adding a User to the Yul Collection
-
-Search and replace `['Yul', 'admin', 'mady']` with the updated list across all 8 files above.
+| File |
+|---|
+| `dashboard.html` |
+| `yul-library.html` |
+| `books/yul/art-union.html` |
+| `books/yul/bestiaire.html` |
+| `books/yul/catalogue-mecanique.html` |
+| `books/yul/catalogue-substances.html` |
+| `books/yul/coutumes-charnelles.html` |
+| `books/yul/reference-rapide.html` |
 
 ### Current Books
 
-| File | Title | Cover Style |
-|---|---|---|
-| `books/yul/bestiaire.html` | Bestiaire Exotique | Hunter green leather |
-| `books/yul/catalogue-substances.html` | Catalogue des Substances Rares | Oxblood alchemical |
-| `books/yul/art-union.html` | L'Art de l'Union | Aged cream academic |
-| `books/yul/coutumes-charnelles.html` | Coutumes Charnelles du Monde Extérieur | Worn travel journal |
-| `books/yul/catalogue-mecanique.html` | Catalogue Mécanique | Dark navy technical |
-| `books/yul/reference-rapide.html` | Yul — Référence Rapide | Cream pamphlet |
-
-### Adding a Book to the Yul Library
-
-1. Create the book HTML file in `books/yul/`
-2. Include the access control script:
-   ```javascript
-   const user = localStorage.getItem('spire_user');
-   const allowed = ['Yul', 'admin', 'mady'];
-   if (!localStorage.getItem('spire_token') || !allowed.includes(user)) {
-     window.location.href = '../../dashboard.html';
-   }
-   ```
-3. Add the cover entry to `yul-library.html` following the existing pattern
+| File | Title |
+|---|---|
+| `books/yul/bestiaire.html` | Bestiaire Exotique |
+| `books/yul/catalogue-substances.html` | Catalogue des Substances Rares |
+| `books/yul/art-union.html` | L'Art de l'Union |
+| `books/yul/coutumes-charnelles.html` | Coutumes Charnelles du Monde Extérieur |
+| `books/yul/catalogue-mecanique.html` | Catalogue Mécanique |
+| `books/yul/reference-rapide.html` | Yul — Référence Rapide |
 
 ---
 
 ## 9. The "Nouveau" Badge System
 
-### Purpose
-
-Automatically surfaces new content on the dashboard, author pages, and journal pages. No manual configuration needed — badges appear and disappear based on dates.
-
 ### How It Works
 
-A small `isNew()` utility function is duplicated in each page that needs it:
+A badge appears automatically on recently added content. No manual intervention needed — it is driven by dates in the JSON files.
 
 ```javascript
 function isNew(dateStr) {
@@ -479,107 +371,147 @@ function isNew(dateStr) {
 }
 ```
 
-If a date is within 7 days of today, the content is considered new.
+A book also loses its badge as soon as the current user has opened it (see [Section 11 — Read Tracking](#11-read-tracking)).
 
-### Badge Styling
-
-```css
-.badge-new {
-  position: absolute;
-  top: -9px;
-  right: 12px;
-  background: var(--red-500);
-  color: var(--text-0);
-  font-family: var(--font-heading);
-  font-size: 0.48rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  padding: 2px 8px;
-  z-index: 2;
-}
-```
-
-The badge is injected via JavaScript, never hardcoded in HTML. The parent element must have `position: relative`.
-
-### Badge Locations
-
-| Page | Element | Data Source | Condition |
-|---|---|---|---|
-| `dashboard.html` | La Presse card (`#pressCard`) | `journals/index.json` | Any paper's latest edition < 7 days |
-| `dashboard.html` | Bibliothèque card (`#libCard`) | `library/index.json` | Any book < 7 days |
-| `journals.html` | Each journal card | `journals/index.json` | That paper's latest edition < 7 days |
-| `archive.html` | Each edition row | `journals/index.json` | That edition's date < 7 days |
-| `library.html` | Author card (`[data-author]`) | `library/index.json` | Any book by that author < 7 days |
-| `authors/nereth.html` | Book cover (`[data-book]`) | `../library/index.json` | That specific book's added date < 7 days |
-
-### Important: Overflow Clipping
-
-Book covers in `authors/nereth.html` have `overflow: hidden` (needed for the CSS art). The badge is therefore attached to the parent `.book-entry` wrapper (which has `position: relative`), not the cover itself. This avoids the badge being clipped.
+The combined condition used everywhere:
 
 ```javascript
-// Correct: append to parent, not the cover itself
-cover.parentElement.appendChild(badge);
+isNew(book.added) && !isRead(book.slug)
+```
+
+### Badge Hierarchy
+
+The badge bubbles up from book → author → dashboard:
+
+| Level | Element | Condition |
+|---|---|---|
+| Book cover | `.book-entry` on author page | Book is new **and** unread |
+| Author card | `.author-card` on `library.html` | Any book by that author is new and unread |
+| Library card | `#libCard` on `dashboard.html` | Any book anywhere is new and unread |
+| Journal card | Card on `journals.html` | Latest edition < 7 days |
+| Press card | `#pressCard` on `dashboard.html` | Any paper's latest edition < 7 days |
+
+### Implementation Note — Overflow Clipping
+
+Book covers have `overflow: hidden` (required for the CSS art). Badges are therefore appended to the `.book-entry` wrapper, not the `.book-cover` itself, to avoid being clipped:
+
+```javascript
+cover.parentElement.appendChild(badge); // correct — appends to .book-entry
 ```
 
 ---
 
-## 10. Backend Server
+## 10. Reviews System
+
+Users can leave a star rating (1–5) and an optional comment on each book. Reviews are displayed on the **author page**, below each book cover. There are no reviews on the book page itself.
+
+### Where It Appears
+
+On each author page (`authors/*.html`), below the book title and type label, a review section is injected automatically for every book:
+
+- Average star rating + number of reviews (or "Aucun avis")
+- "Laisser un avis" button → expands an inline form
+- Star picker (1–5, clickable)
+- Optional comment textarea
+- Submit button
+- List of all reviews (username, stars, comment, date)
+
+If the current user already has a review, the form pre-fills their existing values and the button reads "Modifier mon avis". Submitting again updates the existing review (one review per user per book, enforced by the database).
+
+### How It Works
+
+`js/reviews.js` is loaded by every author page. On `DOMContentLoaded`, it:
+1. Finds every `a[data-book]` element on the page
+2. For each, calls `GET /api/reviews/{slug}` with the user's JWT
+3. Renders the review section below the `.book-entry`
+
+No changes are needed to author pages when adding a new book — as long as the cover `<a>` has `data-book="{slug}"`, reviews are wired up automatically.
+
+### API Endpoints
+
+**`GET /api/reviews/:slug`** — requires auth token
+
+```
+Header:   Authorization: Bearer {token}
+Response: { reviews: [...], average: 4.2, count: 3 }
+
+Review object: { username, rating, comment, created_at }
+```
+
+**`POST /api/reviews`** — requires auth token, creates or updates
+
+```
+Header:   Authorization: Bearer {token}
+Body:     { book_slug, rating, comment }
+Response: { message: "Avis enregistré." }
+```
+
+### Database Table
+
+```sql
+CREATE TABLE IF NOT EXISTS reviews (
+  id         SERIAL PRIMARY KEY,
+  user_id    INTEGER NOT NULL REFERENCES users(id),
+  book_slug  TEXT NOT NULL,
+  rating     INTEGER NOT NULL CHECK (rating BETWEEN 1 AND 5),
+  comment    TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE (user_id, book_slug)
+);
+```
+
+---
+
+## 11. Read Tracking
+
+`js/read-tracker.js` tracks which books each user has opened. State is stored in localStorage, keyed per user so different users on the same device have independent read states.
+
+### localStorage Key
+
+```
+spire_read_{username}   →   JSON array of slugs, e.g. ["veth-ossivael", "carnets-simon-3"]
+```
+
+### API
+
+The script exposes two global functions used by the page scripts:
+
+```javascript
+isRead(slug)    // → true if this user has already opened that book
+markRead(slug)  // → adds the slug to the read list
+```
+
+### How It Works
+
+On every author page, the inline script adds a click listener to every book cover link:
+
+```javascript
+document.querySelectorAll('a[data-book]').forEach(link => {
+  link.addEventListener('click', () => markRead(link.dataset.book));
+});
+```
+
+When the user clicks a cover, `markRead` fires synchronously (before navigation), so when they return to the author page the badge is already gone.
+
+`library.html` and `dashboard.html` also load `read-tracker.js` and use `isRead()` to suppress badges for books the current user has already opened.
+
+---
+
+## 12. Backend Server
 
 **Location:** `server/` — deployed on [Render](https://render.com)
 **URL:** `https://spiresite.onrender.com`
 
-### Environment Variables (Required)
+### Environment Variables
 
 | Variable | Purpose |
 |---|---|
 | `JWT_SECRET` | Signs and verifies JWTs. Keep secret. |
-| `ADMIN_KEY` | Protects the `/api/register` endpoint. |
+| `ADMIN_KEY` | Protects `/api/register`. |
 | `DATABASE_URL` | PostgreSQL connection string (with SSL). |
-| `PORT` | Server port (Render sets this automatically). |
+| `PORT` | Set automatically by Render. |
 
-The server exits with code 1 on startup if any of these are missing.
-
-### Endpoints
-
-#### `POST /api/login`
-Authenticates a user and returns a JWT.
-
-```
-Body:     { "username": "...", "password": "..." }
-Success:  { "token": "jwt...", "username": "..." }
-Errors:   400 missing fields
-          401 wrong credentials
-          500 server error
-```
-
-#### `POST /api/register`
-Creates a new user. Protected by admin key.
-
-```
-Body:     { "username": "...", "password": "...", "adminKey": "..." }
-Success:  { "message": "Utilisateur \"x\" créé." }
-Errors:   400 missing fields
-          400 password too short (< 8 chars)
-          403 wrong adminKey
-          409 username already exists
-          500 server error
-```
-
-#### `GET /api/me`
-Verifies a token and returns the user info.
-
-```
-Header:   Authorization: Bearer {token}
-Success:  { "id": 1, "username": "..." }
-Errors:   401 no token / expired token
-```
-
-#### `GET /health`
-Health check.
-
-```
-Response: { "status": "ok" }
-```
+The server exits on startup if any of these are missing.
 
 ### Database Schema
 
@@ -590,62 +522,214 @@ CREATE TABLE IF NOT EXISTS users (
   password_hash TEXT NOT NULL,
   created_at    TIMESTAMPTZ DEFAULT NOW()
 );
+
+CREATE TABLE IF NOT EXISTS reviews (
+  id         SERIAL PRIMARY KEY,
+  user_id    INTEGER NOT NULL REFERENCES users(id),
+  book_slug  TEXT NOT NULL,
+  rating     INTEGER NOT NULL CHECK (rating BETWEEN 1 AND 5),
+  comment    TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE (user_id, book_slug)
+);
 ```
+
+Both tables are created automatically on first server start if they don't exist.
+
+### All Endpoints
+
+| Method | Path | Auth | Description |
+|---|---|---|---|
+| `POST` | `/api/login` | — | Authenticate, returns JWT |
+| `POST` | `/api/register` | Admin key | Create a new user |
+| `GET` | `/api/me` | Bearer token | Verify token, returns user info |
+| `GET` | `/api/reviews/:slug` | Bearer token | Get reviews for a book |
+| `POST` | `/api/reviews` | Bearer token | Create or update a review |
+| `GET` | `/health` | — | Health check |
 
 ### CORS
 
-Allowed origins:
-- `https://deemo1906.github.io` (production)
-- `http://localhost:5500` (local dev)
-- `http://127.0.0.1:5500` (local dev)
+Allowed origins: `https://deemo1906.github.io`, `http://localhost:5500`, `http://127.0.0.1:5500`
 
 ---
 
-## 11. How to Add Content
+## 13. ➜ How to Add a New Book
 
-### New Journal Edition
+> Adding a book to an **existing** author. For a new author, see [Section 14](#14-how-to-add-a-new-author).
 
-1. Write the edition HTML, save to `journals/ambrosia-2.html` (or matching paper)
-2. In `journals/index.json`, append to the paper's `editions` array:
+### Step 1 — Write the book page
+
+Create `books/{slug}.html`. Use an existing book file as a starting point. Every book page must include the auth guard at the top of its `<script>`:
+
+```javascript
+if (!localStorage.getItem('spire_token')) {
+  window.location.href = '../connect.html';
+}
+```
+
+The `slug` is a short kebab-case identifier with no spaces or accents (e.g. `mon-nouveau-livre`). It will be used everywhere to identify this book.
+
+### Step 2 — Register the book in `library/index.json`
+
+Append one entry to the `books` array. Set `added` to today's date — this is what drives the NEW badge.
+
+```json
+{ "slug": "mon-nouveau-livre", "title": "Mon Nouveau Livre", "author": "nereth", "added": "2026-03-20" }
+```
+
+The `author` value must exactly match the `data-author` attribute of the author's card in `library.html`.
+
+### Step 3 — Add the cover to the author page
+
+Open the author's file (`authors/nereth.html` or `authors/simon.html`) and add a new `.book-entry` block inside `.bookshelf`. Copy the structure of an existing entry and adapt the CSS classes and content. The critical part is the `data-book` attribute on the `<a>` — it must match the slug exactly:
+
+```html
+<div class="book-entry">
+  <a class="book-cover cover-monlivre" href="../books/mon-nouveau-livre.html" data-book="mon-nouveau-livre">
+    <!-- your CSS-art cover content here -->
+  </a>
+  <p class="book-title-label">Mon Nouveau Livre</p>
+  <p class="book-type-label">Type — description courte</p>
+</div>
+```
+
+Add the `.cover-monlivre` CSS in the page's `<style>` block to style the cover.
+
+### Step 4 — Update the work counts
+
+In two places, update the "X ouvrages disponibles" / "X carnets disponibles" string to reflect the new total:
+
+- `authors/{slug}.html` — in the `.author-works` paragraph inside `.author-header`
+- `library.html` — in the `.author-works` paragraph inside the author's `.author-card`
+
+### What is automatic
+
+You do **not** need to do anything else. These features wire themselves up via the `data-book` attribute:
+
+| Feature | How |
+|---|---|
+| NEW badge on the book cover | `library/index.json` date + `isNew()` check |
+| NEW badge on the author card | Same — bubbles up from the book |
+| NEW badge on the dashboard | Same — bubbles up further |
+| Badge disappears when read | `read-tracker.js` intercepts the cover click |
+| Reviews section | `reviews.js` finds `a[data-book]` and renders a review block below |
+
+---
+
+## 14. ➜ How to Add a New Author
+
+### Step 1 — Create the author page
+
+Create `authors/{slug}.html`. Use `authors/nereth.html` or `authors/simon.html` as a template. Replace:
+
+- The `<title>` tag
+- The `.author-sigil` letter
+- The `.author-name`, `.author-bio`, `.author-works` content
+- All `.book-entry` blocks in `.bookshelf` with the new author's books
+- The CSS cover classes (`.cover-*`) and their styles in the `<style>` block
+
+The two script tags at the **end of `<body>`** must be kept exactly as-is — they provide read tracking and reviews for free:
+
+```html
+<script src="../js/read-tracker.js"></script>
+<script>
+  if (!localStorage.getItem('spire_token')) {
+    window.location.href = '../connect.html';
+  }
+
+  document.querySelectorAll('a[data-book]').forEach(link => {
+    link.addEventListener('click', () => markRead(link.dataset.book));
+  });
+
+  function isNew(dateStr) {
+    return (new Date() - new Date(dateStr)) < 7 * 24 * 60 * 60 * 1000;
+  }
+
+  fetch('../library/index.json')
+    .then(r => r.json())
+    .then(data => {
+      const newSlugs = new Set(
+        data.books.filter(b => isNew(b.added) && !isRead(b.slug)).map(b => b.slug)
+      );
+      document.querySelectorAll('[data-book]').forEach(cover => {
+        if (newSlugs.has(cover.dataset.book)) {
+          const badge = document.createElement('span');
+          badge.className = 'badge-new';
+          badge.textContent = 'Nouveau';
+          cover.parentElement.appendChild(badge);
+        }
+      });
+    })
+    .catch(() => {});
+</script>
+<script src="../js/reviews.js"></script>
+```
+
+### Step 2 — Add the author card to `library.html`
+
+Inside `.authors-grid`, add a new card. The `data-author` value must match the slug you chose for the author:
+
+```html
+<a class="author-card" href="authors/{slug}.html" data-author="{slug}">
+  <div class="author-sigil">X</div>
+  <div class="author-info">
+    <p class="author-label">Auteur</p>
+    <p class="author-name">Nom de l'Auteur</p>
+    <p class="author-works">N ouvrages disponibles</p>
+  </div>
+</a>
+```
+
+### Step 3 — Register the books in `library/index.json`
+
+For each book by this new author, add an entry with `"author": "{slug}"`:
+
+```json
+{ "slug": "premier-livre", "title": "Premier Livre", "author": "{slug}", "added": "2026-03-20" }
+```
+
+### Step 4 — Write each book page
+
+Follow [Section 13 — Steps 1 and 3](#13-how-to-add-a-new-book) for each book. The `library/index.json` entries were already done in Step 3.
+
+### What is automatic
+
+| Feature | How |
+|---|---|
+| NEW badge on the author card | Driven by `library/index.json` dates matching `data-author` |
+| NEW badge on the dashboard | Bubbles up from the author card |
+| Reviews on all books | `reviews.js` runs on any author page and finds `a[data-book]` |
+| Read tracking | `read-tracker.js` runs on any author page |
+
+---
+
+## 15. ➜ How to Add a New Journal Edition
+
+1. Write the edition HTML in `journals/` (e.g. `journals/ambrosia-2.html`)
+2. In `journals/index.json`, append to the correct paper's `editions` array — the new entry must be **last**:
    ```json
    { "number": 2, "file": "ambrosia-2.html", "date": "2026-03-25" }
    ```
-3. Commit and push. Done — the NEW badge appears automatically for 7 days.
-
-### New Journal Paper (new newspaper)
-
-1. Write the first edition HTML in `journals/`
-2. Add the paper object to `journals/index.json`
-3. In `journals.html`, add the card template to the `templates` object in the script:
-   ```javascript
-   mynewpaper: `<div class="card-mynewpaper">...</div>`
-   ```
-4. Add the CSS for `.card-mynewpaper` to the `<style>` block
-5. Commit and push.
-
-### New Public Book
-
-1. Write the book HTML in `books/`
-2. Add entry to `library/index.json` with today's date
-3. Add the cover to the author's page with `data-book="{slug}"`
-4. Update work count strings in `library.html` and the author page
-
-### New Yul Book
-
-1. Write the book HTML in `books/yul/` with the access control script
-2. Add the cover to `yul-library.html`
-
-### New Author
-
-1. Create `authors/{slug}.html`
-2. Add the author card to `library.html` with `data-author="{slug}"`
-3. Add the author's books to `library/index.json`
+3. Commit and push. The NEW badge appears for 7 days automatically.
 
 ---
 
-## 12. How to Add a User
+## 16. ➜ How to Add a New Journal Paper
 
-Users are created via the `/api/register` endpoint (never directly in the database).
+1. Write the first edition HTML in `journals/`
+2. Add the paper object to `journals/index.json`
+3. In `journals.html`, add the card template to the `templates` object in the `<script>`:
+   ```javascript
+   mynewpaper: `<div class="card-mynewpaper">...</div>`
+   ```
+4. Add the `.card-mynewpaper` CSS to the `<style>` block in `journals.html`
+5. Commit and push.
+
+---
+
+## 17. ➜ How to Add a User
+
+Users are created via the API — never directly in the database.
 
 ```bash
 curl -X POST https://spiresite.onrender.com/api/register \
@@ -653,27 +737,21 @@ curl -X POST https://spiresite.onrender.com/api/register \
   -d '{"username":"newuser","password":"password123","adminKey":"YOUR_ADMIN_KEY"}'
 ```
 
-**If the user needs access to the Yul private library:**
-Add their username to the allowlist in all 8 files listed in [Section 8](#8-yul-private-library). Use find-and-replace across the project:
+- Password must be at least 8 characters.
+- Usernames are case-insensitive at login but stored as entered.
 
-```python
-import os, glob
+**If the user needs Yul collection access**, add their username to the allowlist in all 8 files listed in [Section 8](#8-yul-private-library). Find and replace `['Yul', 'admin', 'mady']` with the updated list across the project:
 
-files = glob.glob('*.html') + glob.glob('books/yul/*.html')
-old = "['Yul', 'admin', 'mady']"
-new = "['Yul', 'admin', 'mady', 'newuser']"
-
-for f in files:
-    content = open(f, encoding='utf-8').read()
-    if old in content:
-        open(f, 'w', encoding='utf-8').write(content.replace(old, new))
+```bash
+# In VS Code: Ctrl+Shift+H (Find & Replace in files)
+# Find:    ['Yul', 'admin', 'mady']
+# Replace: ['Yul', 'admin', 'mady', 'newuser']
+# Files to include: *.html
 ```
 
 ---
 
-## 13. Access Control
-
-### Summary Table
+## 18. Access Control
 
 | Page | Condition | Redirect if denied |
 |---|---|---|
@@ -686,46 +764,37 @@ for f in files:
 | `library.html` | `spire_token` present | `connect.html` |
 | `authors/*.html` | `spire_token` present | `../connect.html` |
 | `books/*.html` | `spire_token` present | `../connect.html` |
-| `yul-library.html` | `spire_token` + username in allowlist | `dashboard.html` |
-| `books/yul/*.html` | `spire_token` + username in allowlist | `../../dashboard.html` |
-
-### Role: Yul Collection Access
-
-Users with access: `Yul`, `admin`, `mady`
-Enforced in: dashboard card visibility + yul-library.html + all books/yul/ pages
+| `yul-library.html` | Token + username in allowlist | `dashboard.html` |
+| `books/yul/*.html` | Token + username in allowlist | `../../dashboard.html` |
 
 ---
 
-## 14. Deployment
+## 19. Deployment
 
 ### Frontend (GitHub Pages)
 
 - Repo: `https://github.com/Deemo1906/spireSite`
-- Branch: `main`
-- Pages served from root
-- No build step — push HTML/CSS/JS files directly
+- Branch: `main` — pages served from root, no build step
+- Changes are live ~30 seconds after push
 
 ```bash
 git add .
-git commit -m "feat(journals): add ambrosia edition 2"
+git commit -m "feat(library): add new book"
 git push origin main
 ```
 
-Changes are live in ~30 seconds.
-
 ### Backend (Render)
 
-- Auto-deploys from the `server/` directory on push to `main`
+- Auto-deploys from the `server/` directory on every push to `main`
 - Environment variables are set in the Render dashboard (not in code)
 - Cold start: first request after inactivity may take ~15–30 seconds (free tier)
 - Health check: `GET https://spiresite.onrender.com/health`
+- Database schema is applied automatically on server start (`db.js → init()`)
 
 ### Local Development
 
-Serve the frontend with any static server (e.g. VS Code Live Server on port 5500). The backend CORS config already allows `localhost:5500`.
-
-The API URL in `connect.html` is hardcoded to the production Render URL — local frontend talks to the live backend.
+Serve the frontend with any static server (e.g. VS Code Live Server on port 5500). The CORS config already allows `localhost:5500`. The API URL in `connect.html` is hardcoded to the production Render URL — local frontend talks to the live backend.
 
 ---
 
-*Documentation last updated: 2026-03-19*
+*Documentation last updated: 2026-03-20*
