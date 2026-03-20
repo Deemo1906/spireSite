@@ -28,27 +28,41 @@ function formatDate(iso) {
   });
 }
 
+async function fetchReviews(slug) {
+  const res = await fetch(`${API}/api/reviews/${encodeURIComponent(slug)}`, {
+    headers: authHeaders(),
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
 async function loadReviews(slug, entry) {
   try {
-    const res = await fetch(`${API}/api/reviews/${encodeURIComponent(slug)}`, {
-      headers: authHeaders(),
-    });
-    if (!res.ok) return;
-    const data = await res.json();
+    const data = await fetchReviews(slug);
     renderReviewSection(slug, entry, data);
   } catch (err) {
     console.error('[reviews:load]', { slug, error: err.message });
   }
 }
 
+async function refreshSection(slug, entry) {
+  const data = await fetchReviews(slug);
+  // Remove existing review section if present
+  entry.querySelector('.book-reviews')?.remove();
+  renderReviewSection(slug, entry, data);
+}
+
 function renderReviewSection(slug, entry, data) {
   const username = localStorage.getItem('spire_user');
-  const myReview = data.reviews.find(r => r.username === username);
+  // Case-insensitive match in case of any stored-vs-displayed discrepancy
+  const myReview = data.reviews.find(
+    r => r.username.toLowerCase() === (username ?? '').toLowerCase()
+  );
 
   const section = document.createElement('div');
   section.className = 'book-reviews';
 
-  // ── Summary (average + count) ──────────────────────────────────────────────
+  // ── Summary ────────────────────────────────────────────────────────────────
   const summary = document.createElement('div');
   summary.className = 'review-summary';
   if (data.count > 0) {
@@ -107,10 +121,15 @@ function renderReviewSection(slug, entry, data) {
   textarea.value = myReview?.comment ?? '';
   form.appendChild(textarea);
 
+  const formActions = document.createElement('div');
+  formActions.className = 'review-form-actions';
+
   const submitBtn = document.createElement('button');
   submitBtn.className = 'review-submit';
   submitBtn.textContent = 'Soumettre';
-  form.appendChild(submitBtn);
+  formActions.appendChild(submitBtn);
+
+  form.appendChild(formActions);
 
   const errorMsg = document.createElement('p');
   errorMsg.className = 'review-error';
@@ -123,6 +142,7 @@ function renderReviewSection(slug, entry, data) {
     const list = document.createElement('div');
     list.className = 'review-list';
     data.reviews.forEach(r => {
+      const isOwn = r.username.toLowerCase() === (username ?? '').toLowerCase();
       const item = document.createElement('div');
       item.className = 'review-item';
       item.innerHTML = `
@@ -130,24 +150,43 @@ function renderReviewSection(slug, entry, data) {
           <span class="review-author">${esc(r.username)}</span>
           <span class="review-rating">${renderStars(r.rating)}</span>
           <span class="review-date">${formatDate(r.created_at)}</span>
+          ${isOwn ? `<button class="review-delete" data-slug="${esc(slug)}">Supprimer</button>` : ''}
         </div>
         ${r.comment ? `<p class="review-comment">${esc(r.comment)}</p>` : ''}
       `;
+      if (isOwn) {
+        item.querySelector('.review-delete').addEventListener('click', async () => {
+          try {
+            const res = await fetch(`${API}/api/reviews/${encodeURIComponent(slug)}`, {
+              method: 'DELETE',
+              headers: authHeaders(),
+            });
+            if (!res.ok) {
+              const json = await res.json();
+              console.error('[reviews:delete]', json.error);
+              return;
+            }
+            await refreshSection(slug, entry);
+          } catch (err) {
+            console.error('[reviews:delete]', { slug, error: err.message });
+          }
+        });
+      }
       list.appendChild(item);
     });
     section.appendChild(list);
   }
 
-  // ── Wire events ────────────────────────────────────────────────────────────
+  // ── Toggle form ────────────────────────────────────────────────────────────
   toggleBtn.addEventListener('click', () => {
-    form.hidden = !form.hidden;
-    if (form.hidden) {
-      toggleBtn.textContent = myReview ? 'Modifier mon avis' : 'Laisser un avis';
-    } else {
-      toggleBtn.textContent = 'Annuler';
-    }
+    const opening = form.hidden;
+    form.hidden = !opening;
+    toggleBtn.textContent = opening
+      ? 'Annuler'
+      : (myReview ? 'Modifier mon avis' : 'Laisser un avis');
   });
 
+  // ── Submit form ────────────────────────────────────────────────────────────
   submitBtn.addEventListener('click', async () => {
     errorMsg.textContent = '';
     if (!selectedRating) {
@@ -173,13 +212,7 @@ function renderReviewSection(slug, entry, data) {
         submitBtn.textContent = 'Soumettre';
         return;
       }
-      // Refresh section with fresh data
-      section.remove();
-      const fresh = await fetch(`${API}/api/reviews/${encodeURIComponent(slug)}`, {
-        headers: authHeaders(),
-      });
-      const freshData = await fresh.json();
-      renderReviewSection(slug, entry, freshData);
+      await refreshSection(slug, entry);
     } catch (err) {
       console.error('[reviews:submit]', { slug, error: err.message });
       errorMsg.textContent = 'Erreur réseau.';

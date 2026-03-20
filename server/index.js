@@ -24,7 +24,7 @@ app.use(cors({
     'http://localhost:5500',
     'http://127.0.0.1:5500',
   ],
-  methods: ['GET', 'POST'],
+  methods: ['GET', 'POST', 'DELETE'],
 }));
 app.use(express.json());
 
@@ -157,6 +157,24 @@ app.post('/api/reviews', requireAuth, async (req, res) => {
     res.status(201).json({ message: 'Avis enregistré.' });
   } catch (err) {
     console.error('[reviews:post]', { user_id: req.user.id, book_slug, error: err.message });
+    res.status(500).json({ error: 'Erreur serveur.' });
+  }
+});
+
+// ── DELETE /api/reviews/:slug  (delete own review) ───────────────────────────
+app.delete('/api/reviews/:slug', requireAuth, async (req, res) => {
+  const { slug } = req.params;
+  try {
+    const result = await pool.query(
+      'DELETE FROM reviews WHERE user_id = $1 AND book_slug = $2',
+      [req.user.id, slug]
+    );
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: 'Avis introuvable.' });
+    }
+    res.json({ message: 'Avis supprimé.' });
+  } catch (err) {
+    console.error('[reviews:delete]', { user_id: req.user.id, slug, error: err.message });
     res.status(500).json({ error: 'Erreur serveur.' });
   }
 });

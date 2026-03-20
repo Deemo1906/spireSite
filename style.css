@@ -855,3 +855,26 @@ img { max-width: 100%; display: block; }
   margin-top: 0.25rem;
   line-height: 1.5;
 }
+
+.review-form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.review-delete {
+  background: none;
+  border: none;
+  font-family: var(--font-heading);
+  font-size: 0.42rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  cursor: pointer;
+  margin-left: auto;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.review-delete:hover {
+  color: var(--red-400);
+}
