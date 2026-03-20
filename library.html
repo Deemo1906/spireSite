@@ -145,6 +145,7 @@
       </div>
     </div>
 
+    <script src="js/read-tracker.js"></script>
     <script>
       if (!localStorage.getItem('spire_token')) {
         window.location.href = 'connect.html';
@@ -159,7 +160,7 @@
         .then(data => {
           const newByAuthor = {};
           data.books.forEach(b => {
-            if (isNew(b.added)) newByAuthor[b.author] = true;
+            if (isNew(b.added) && !isRead(b.slug)) newByAuthor[b.author] = true;
           });
           document.querySelectorAll('[data-author]').forEach(card => {
             if (newByAuthor[card.dataset.author]) {

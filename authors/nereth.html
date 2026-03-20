@@ -256,10 +256,16 @@
       </div>
     </div>
 
+    <script src="../js/read-tracker.js"></script>
     <script>
       if (!localStorage.getItem('spire_token')) {
         window.location.href = '../connect.html';
       }
+
+      // Mark book as read when its cover is clicked
+      document.querySelectorAll('a[data-book]').forEach(link => {
+        link.addEventListener('click', () => markRead(link.dataset.book));
+      });
 
       function isNew(dateStr) {
         return (new Date() - new Date(dateStr)) < 7 * 24 * 60 * 60 * 1000;
@@ -268,7 +274,9 @@
       fetch('../library/index.json')
         .then(r => r.json())
         .then(data => {
-          const newSlugs = new Set(data.books.filter(b => isNew(b.added)).map(b => b.slug));
+          const newSlugs = new Set(
+            data.books.filter(b => isNew(b.added) && !isRead(b.slug)).map(b => b.slug)
+          );
           document.querySelectorAll('[data-book]').forEach(cover => {
             if (newSlugs.has(cover.dataset.book)) {
               const badge = document.createElement('span');

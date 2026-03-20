@@ -164,6 +164,7 @@
 
     </div>
 
+    <script src="js/read-tracker.js"></script>
     <script>
       const username = localStorage.getItem('spire_user');
       if (!localStorage.getItem('spire_token')) {
@@ -204,7 +205,7 @@
       fetch('library/index.json')
         .then(r => r.json())
         .then(data => {
-          if (data.books.some(b => isNew(b.added))) addBadge('libCard');
+          if (data.books.some(b => isNew(b.added) && !isRead(b.slug))) addBadge('libCard');
         })
         .catch(() => {});
     </script>
