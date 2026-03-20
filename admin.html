@@ -233,19 +233,34 @@
         document.getElementById('sessionCount').textContent = `${count} session${count !== 1 ? 's' : ''}`;
       }
 
+      function showError(msg) {
+        document.getElementById('sessionsTbody').innerHTML =
+          `<tr><td colspan="6" class="admin-empty">${msg}</td></tr>`;
+        document.getElementById('sessionCount').textContent = '';
+      }
+
       async function load() {
+        showError('Chargement…');
+        document.getElementById('refreshBtn').disabled = true;
+
         try {
           const res = await fetch(`${API}/api/admin/sessions`, {
             headers: { 'Authorization': `Bearer ${token}` },
           });
-          if (res.status === 403) {
-            window.location.href = 'dashboard.html';
-            return;
-          }
-          const data = await res.json();
+
+          if (res.status === 403) { window.location.href = 'dashboard.html'; return; }
+          if (res.status === 401) { window.location.href = 'connect.html'; return; }
+
+          // Parse carefully — a sleeping Render instance may return an HTML error page
+          const text = await res.text();
+          let data;
+          try { data = JSON.parse(text); }
+          catch { showError(`Réponse inattendue du serveur (HTTP ${res.status}). Il est peut-être en train de démarrer — réessayez dans quelques secondes.`); return; }
+
+          if (!res.ok) { showError(`Erreur serveur : ${data.error ?? res.status}`); return; }
+
           allSessions = data.sessions ?? [];
 
-          // Populate user filter
           const users = [...new Set(allSessions.map(s => s.username))].sort();
           const filter = document.getElementById('userFilter');
           filter.innerHTML = `<option value="">Tous les utilisateurs</option>` +
@@ -254,8 +269,9 @@
           applyFilter();
         } catch (err) {
           console.error('[admin:load]', err.message);
-          document.getElementById('sessionsTbody').innerHTML =
-            `<tr><td colspan="6" class="admin-empty">Erreur de chargement.</td></tr>`;
+          showError(`Impossible de joindre le serveur. Il est peut-être en train de démarrer — réessayez dans quelques secondes.`);
+        } finally {
+          document.getElementById('refreshBtn').disabled = false;
         }
       }
 
