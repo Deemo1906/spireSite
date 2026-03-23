@@ -119,12 +119,50 @@
       .spec-msg.ok    { color: #6ecf7a; }
       .spec-msg.error { color: var(--red-400); }
 
-      .spec-closed-note {
-        margin-top: 1.5rem;
-        font-family: var(--font-heading); font-size: 0.52rem;
-        letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-3);
-        text-align: center; padding: 1rem; border: 1px solid var(--bg-3);
+      /* ── Closed round summary (non-admin) ── */
+      .closed-summary {
+        margin-top: 2rem;
+        border: 1px solid var(--bg-3);
+        padding: 1.25rem 1.5rem;
+        background: var(--bg-1);
       }
+      .closed-summary-label {
+        font-family: var(--font-heading); font-size: 0.48rem;
+        letter-spacing: 0.35em; text-transform: uppercase;
+        color: var(--text-3); margin-bottom: 1rem;
+      }
+      .closed-tally {
+        display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem;
+      }
+      .tally-pill {
+        font-family: var(--font-heading); font-size: 0.5rem;
+        letter-spacing: 0.15em; text-transform: uppercase;
+        padding: 4px 12px; border: 1px solid;
+      }
+      .tally-pill.neutral { border-color: var(--bg-4); color: var(--text-2); }
+      .tally-pill.house   { border-color: var(--blue-400); color: var(--blue-300); }
+      .tally-pill.aelfir  { border-color: var(--gold-500); color: var(--gold-300); }
+      .closed-score {
+        font-family: var(--font-heading); font-size: 0.52rem;
+        letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-2);
+      }
+      .closed-score strong { color: var(--text-0); }
+      .congrats-box {
+        margin-top: 1rem;
+        padding: 0.75rem 1.25rem;
+        background: rgba(30,80,40,0.2);
+        border: 1px solid rgba(110,207,122,0.35);
+        font-family: var(--font-heading); font-size: 0.55rem;
+        letter-spacing: 0.2em; text-transform: uppercase;
+        color: #6ecf7a; text-align: center;
+      }
+      .admin-no-vote {
+        font-family: var(--font-heading); font-size: 0.52rem;
+        letter-spacing: 0.2em; text-transform: uppercase;
+        color: var(--text-3); text-align: center;
+        padding: 1.5rem; border: 1px solid var(--bg-3); margin-top: 1rem;
+      }
+
       .spec-empty {
         font-family: var(--font-heading); font-size: 0.55rem;
         letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-3);
@@ -260,10 +298,48 @@
       .archive-real.aelfir  { border-color: var(--gold-500); color: var(--gold-300); }
       .archive-counts { display: flex; gap: 0.5rem; }
 
+      /* ── Player breakdown table ── */
+      .player-section-title {
+        font-family: var(--font-heading); font-size: 0.46rem;
+        letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-3);
+        padding: 0.75rem 1rem 0.5rem;
+        border-top: 1px solid var(--bg-3);
+        margin-top: 0.5rem;
+      }
+      .player-table-wrap {
+        overflow-x: auto; padding: 0 0.5rem 0.75rem;
+      }
+      .player-table {
+        width: 100%; border-collapse: collapse;
+        font-family: var(--font-heading);
+      }
+      .player-table th {
+        font-size: 0.4rem; letter-spacing: 0.15em; text-transform: uppercase;
+        color: var(--text-3); padding: 4px 6px; text-align: center;
+        white-space: nowrap;
+      }
+      .player-table th.col-player { text-align: left; min-width: 80px; }
+      .player-table td {
+        padding: 4px 6px; text-align: center; font-size: 0.42rem;
+        letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap;
+      }
+      .player-table td.col-player {
+        text-align: left; color: var(--text-1); font-size: 0.46rem;
+      }
+      .player-table td.col-score {
+        color: var(--text-2); font-size: 0.44rem;
+      }
+      .player-table tbody tr { border-bottom: 1px solid var(--bg-2); }
+      .player-table tbody tr:last-child { border-bottom: none; }
+      .cell-correct { color: #6ecf7a; background: rgba(30,80,40,0.25); }
+      .cell-wrong   { color: var(--red-400); background: rgba(120,20,20,0.25); }
+      .cell-novote  { color: var(--text-3); }
+
       @media (max-width: 600px) {
         .spec-row { flex-direction: column; align-items: flex-start; }
         .names-grid { grid-template-columns: 1fr; }
         .results-row { flex-direction: column; align-items: flex-start; }
+        .closed-tally { flex-direction: column; }
       }
     </style>
   </head>
@@ -335,6 +411,20 @@
 
       if (!token) window.location.href = 'connect.html';
 
+      // ── Fixed Aelfir names ────────────────────────────────────────────────
+      const AELFIR_NAMES = [
+        'Echo-of-Hands-Long-Burned',
+        'Veil-Drawn-Over-a-Scream',
+        'Ash-Bloom-at-Dawn',
+        'Gold-Quiet-Behind-the-Eyes',
+        'Silk-Drawn-Through-Blood',
+        'Silver-Promise-Swallowed-Whole',
+        'Moonlight-Caught-in-a-Crack',
+        'Perfume-of-Rain-on-Iron',
+        'Promise-Spoken-to-a-Corpse',
+        'Wine-Poured-for-the-Unborn',
+      ];
+
       function esc(str) {
         return String(str ?? '')
           .replace(/&/g, '&amp;').replace(/</g, '&lt;')
@@ -359,6 +449,7 @@
 
       // ── Labels ─────────────────────────────────────────────────────────────
       const LABEL = { neutral: 'Neutre', house: 'House', aelfir: 'Aelfir' };
+      const LABEL_SHORT = { neutral: 'N', house: 'H', aelfir: 'A' };
 
       // ── Vote buttons helper ────────────────────────────────────────────────
       function makeVoteOptions(index, selected, disabled) {
@@ -371,7 +462,7 @@
         `).join('');
       }
 
-      // ── Render current round (all users) ───────────────────────────────────
+      // ── Render current round ───────────────────────────────────────────────
       let currentRound = null;
       let myVotes      = new Array(10).fill(null);
 
@@ -382,12 +473,32 @@
           return;
         }
 
-        const { names, title, is_active, created_at } = currentRound;
+        const { names, title, is_active, real_votes } = currentRound;
         const activeLabel = is_active
           ? `<span class="round-badge active">Ouvert</span>`
           : `<span class="round-badge closed">Fermé</span>`;
 
-        let rows = names.map((name, i) => `
+        // Admin sees no vote interface at all
+        if (isAdmin) {
+          section.innerHTML = `
+            <div class="round-container">
+              <div class="round-header">
+                <span class="round-label">Round</span>
+                <span class="round-title">${esc(title)}</span>
+                ${activeLabel}
+              </div>
+              <p class="admin-no-vote">
+                ${is_active
+                  ? 'Les joueurs votent actuellement — résultats en direct ci-dessous.'
+                  : 'Ce round est terminé — voir les détails dans les archives ci-dessous.'}
+              </p>
+            </div>
+          `;
+          return;
+        }
+
+        // Player: build vote rows
+        const rows = names.map((name, i) => `
           <div class="spec-row" data-index="${i}">
             <span class="spec-name">${esc(name)}</span>
             <div class="vote-options">
@@ -395,6 +506,44 @@
             </div>
           </div>
         `).join('');
+
+        // Closed round: show results summary if real_votes available
+        let closedExtra = '';
+        if (!is_active && real_votes) {
+          // Count real vote distribution
+          const tally = { neutral: 0, house: 0, aelfir: 0 };
+          real_votes.forEach(v => { if (tally[v] !== undefined) tally[v]++; });
+
+          // Count player's correct answers
+          const hasVoted = myVotes.some(v => v !== null);
+          let score = 0;
+          if (hasVoted) {
+            myVotes.forEach((v, i) => { if (v === real_votes[i]) score++; });
+          }
+
+          const congrats = hasVoted && score === 10
+            ? `<div class="congrats-box">✦ Félicitations — vous avez deviné les 10 votes ! ✦</div>`
+            : '';
+
+          const scoreHtml = hasVoted
+            ? `<p class="closed-score">Vous avez deviné <strong>${score} / 10</strong></p>`
+            : `<p class="closed-score" style="color:var(--text-3);">Vous n'avez pas participé à ce round.</p>`;
+
+          closedExtra = `
+            <div class="closed-summary">
+              <p class="closed-summary-label">Votes réels — distribution</p>
+              <div class="closed-tally">
+                <span class="tally-pill neutral">${tally.neutral} Neutre${tally.neutral !== 1 ? 's' : ''}</span>
+                <span class="tally-pill house">${tally.house} House</span>
+                <span class="tally-pill aelfir">${tally.aelfir} Aelfir</span>
+              </div>
+              ${scoreHtml}
+              ${congrats}
+            </div>
+          `;
+        } else if (!is_active) {
+          closedExtra = `<p class="admin-no-vote" style="margin-top:1.5rem;">Ce round est terminé.</p>`;
+        }
 
         section.innerHTML = `
           <div class="round-container">
@@ -409,7 +558,8 @@
                 <button class="spec-submit-btn" id="submitBtn">Soumettre mes spéculations</button>
                 <span class="spec-msg" id="specMsg"></span>
               </div>
-            ` : `<p class="spec-closed-note">Ce round est terminé — vos votes ont été enregistrés.</p>`}
+            ` : ''}
+            ${closedExtra}
           </div>
         `;
 
@@ -521,7 +671,7 @@
             body: JSON.stringify({ real_votes: closeVotes }),
           });
           if (ok) {
-            await init(); // full refresh
+            await init();
           } else {
             msg.textContent = data.error ?? 'Erreur.';
             msg.className = 'form-msg error';
@@ -542,8 +692,8 @@
       // ── Admin: new round form ──────────────────────────────────────────────
       function buildNewRoundForm() {
         const grid = document.getElementById('namesGrid');
-        grid.innerHTML = Array.from({ length: 10 }, (_, i) => `
-          <input class="form-input" type="text" id="name${i}" placeholder="Aelfir ${i + 1}" />
+        grid.innerHTML = AELFIR_NAMES.map((name, i) => `
+          <input class="form-input" type="text" id="name${i}" value="${esc(name)}" />
         `).join('');
 
         document.getElementById('createRoundBtn').addEventListener('click', async () => {
@@ -567,7 +717,6 @@
           });
           if (ok) {
             document.getElementById('roundTitle').value = '';
-            Array.from({ length: 10 }, (_, i) => { document.getElementById(`name${i}`).value = ''; });
             msg.textContent = 'Round créé.';
             msg.className = 'form-msg ok';
             await init();
@@ -581,6 +730,56 @@
       }
 
       // ── Admin: archive ─────────────────────────────────────────────────────
+      function renderPlayerBreakdown(round) {
+        if (!round.voters || round.voters.length === 0) {
+          return `<p class="player-section-title" style="padding-top:0.5rem;">Aucun joueur n'a participé.</p>`;
+        }
+
+        // Column headers: abbreviated Aelfir names (first word)
+        const headers = round.names.map((name, i) => {
+          const abbr = name.split('-')[0];
+          return `<th title="${esc(name)}">${i + 1}</th>`;
+        }).join('');
+
+        const rows = round.voters
+          .filter(v => v.username !== 'admin')
+          .sort((a, b) => {
+            const scoreA = a.votes.filter((v, i) => v === round.real_votes[i]).length;
+            const scoreB = b.votes.filter((v, i) => v === round.real_votes[i]).length;
+            return scoreB - scoreA;
+          })
+          .map(voter => {
+            const score = voter.votes.filter((v, i) => v === round.real_votes[i]).length;
+            const cells = voter.votes.map((v, i) => {
+              const correct = v === round.real_votes[i];
+              return `<td class="${correct ? 'cell-correct' : 'cell-wrong'}" title="${LABEL[v]}">${LABEL_SHORT[v]}</td>`;
+            }).join('');
+            return `
+              <tr>
+                <td class="col-player">${esc(voter.username)}</td>
+                ${cells}
+                <td class="col-score">${score}/10</td>
+              </tr>
+            `;
+          }).join('');
+
+        return `
+          <p class="player-section-title">Résultats par joueur</p>
+          <div class="player-table-wrap">
+            <table class="player-table">
+              <thead>
+                <tr>
+                  <th class="col-player">Joueur</th>
+                  ${headers}
+                  <th>Score</th>
+                </tr>
+              </thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>
+        `;
+      }
+
       function renderArchive(rounds) {
         const closed = rounds.filter(r => !r.is_active);
         const list   = document.getElementById('archiveList');
@@ -624,6 +823,7 @@
                 <div style="padding:0.4rem 1rem;font-family:var(--font-heading);font-size:0.44rem;letter-spacing:0.1em;color:var(--text-3);">
                   ${round.total_voters} joueur${round.total_voters !== 1 ? 's' : ''} ont participé
                 </div>
+                ${round.real_votes ? renderPlayerBreakdown(round) : ''}
               </div>
             </div>
           `;
@@ -632,7 +832,6 @@
 
       // ── Bootstrap ──────────────────────────────────────────────────────────
       async function init() {
-        // Load current round for all users
         const { ok, data } = await apiFetch('/api/speculation/current');
         if (ok) {
           currentRound = data.round;
@@ -647,7 +846,6 @@
 
         document.getElementById('adminPanel').style.display = '';
 
-        // Load admin data
         const adminRes = await apiFetch('/api/admin/speculation');
         if (!adminRes.ok) return;
         const rounds = adminRes.data.rounds ?? [];

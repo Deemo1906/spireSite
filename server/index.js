@@ -222,7 +222,7 @@ app.get('/api/admin/sessions', requireAuth, async (req, res) => {
 app.get('/api/speculation/current', requireAuth, async (req, res) => {
   try {
     const { rows } = await pool.query(`
-      SELECT r.id, r.title, r.names, r.is_active, r.created_at, r.closed_at,
+      SELECT r.id, r.title, r.names, r.is_active, r.real_votes, r.created_at, r.closed_at,
              s.votes AS my_votes
       FROM speculation_rounds r
       LEFT JOIN speculations s ON s.round_id = r.id AND s.user_id = $1
@@ -232,7 +232,7 @@ app.get('/api/speculation/current', requireAuth, async (req, res) => {
     if (rows.length === 0) return res.json({ round: null, my_votes: null });
     const row = rows[0];
     res.json({
-      round:    { id: row.id, title: row.title, names: row.names, is_active: row.is_active, created_at: row.created_at, closed_at: row.closed_at },
+      round:    { id: row.id, title: row.title, names: row.names, is_active: row.is_active, real_votes: row.real_votes, created_at: row.created_at, closed_at: row.closed_at },
       my_votes: row.my_votes,
     });
   } catch (err) {
@@ -279,11 +279,14 @@ app.get('/api/admin/speculation', requireAuth, async (req, res) => {
     );
     const result = await Promise.all(rounds.map(async round => {
       const { rows: specs } = await pool.query(
-        'SELECT votes FROM speculations WHERE round_id = $1', [round.id]
+        `SELECT s.votes, u.username
+         FROM speculations s JOIN users u ON u.id = s.user_id
+         WHERE s.round_id = $1`, [round.id]
       );
       const counts = round.names.map(() => ({ neutral: 0, house: 0, aelfir: 0 }));
       specs.forEach(s => s.votes.forEach((v, i) => { if (counts[i]?.[v] !== undefined) counts[i][v]++; }));
-      return { ...round, counts, total_voters: specs.length };
+      const voters = specs.map(s => ({ username: s.username, votes: s.votes }));
+      return { ...round, counts, total_voters: specs.length, voters };
     }));
     res.json({ rounds: result });
   } catch (err) {
