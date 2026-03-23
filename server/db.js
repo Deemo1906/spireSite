@@ -29,6 +29,27 @@ async function init() {
     )
   `);
   await pool.query(`
+    CREATE TABLE IF NOT EXISTS speculation_rounds (
+      id          SERIAL PRIMARY KEY,
+      title       TEXT NOT NULL,
+      names       JSONB NOT NULL,
+      is_active   BOOLEAN DEFAULT TRUE,
+      real_votes  JSONB,
+      created_at  TIMESTAMPTZ DEFAULT NOW(),
+      closed_at   TIMESTAMPTZ
+    )
+  `);
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS speculations (
+      id          SERIAL PRIMARY KEY,
+      round_id    INTEGER NOT NULL REFERENCES speculation_rounds(id),
+      user_id     INTEGER NOT NULL REFERENCES users(id),
+      votes       JSONB NOT NULL,
+      updated_at  TIMESTAMPTZ DEFAULT NOW(),
+      UNIQUE (round_id, user_id)
+    )
+  `);
+  await pool.query(`
     CREATE TABLE IF NOT EXISTS reviews (
       id         SERIAL PRIMARY KEY,
       user_id    INTEGER NOT NULL REFERENCES users(id),

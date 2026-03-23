@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spéculations — Spire</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .spec-page {
+        min-height: 100vh;
+        background: var(--bg-0);
+        padding: 5rem 2rem 6rem;
+      }
+      .back-link {
+        position: fixed; top: 1.5rem; left: 2rem;
+        font-family: var(--font-heading); font-size: 0.65rem;
+        letter-spacing: 0.35em; text-transform: uppercase;
+        color: var(--text-3); transition: color 0.2s; z-index: 10;
+        text-decoration: none;
+      }
+      .back-link:hover { color: var(--text-1); }
+
+      /* ── Page header ── */
+      .spec-header {
+        text-align: center; margin-bottom: 3.5rem;
+      }
+      .spec-eyebrow {
+        font-family: var(--font-heading); font-size: 0.62rem;
+        letter-spacing: 0.5em; text-transform: uppercase;
+        color: var(--text-3); margin-bottom: 1rem;
+      }
+      .spec-title {
+        font-family: var(--font-heading); font-size: clamp(1.2rem, 3vw, 1.8rem);
+        font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase;
+        color: var(--text-0); margin-bottom: 1rem;
+      }
+      .spec-rule {
+        width: 48px; height: 2px;
+        background: var(--red-500); margin: 0 auto;
+      }
+
+      /* ── Round header ── */
+      .round-container { max-width: 700px; margin: 0 auto; }
+      .round-header {
+        display: flex; align-items: baseline; gap: 1rem;
+        flex-wrap: wrap; margin-bottom: 2rem;
+        border-bottom: 1px solid var(--bg-3); padding-bottom: 1rem;
+      }
+      .round-label {
+        font-family: var(--font-heading); font-size: 0.5rem;
+        letter-spacing: 0.35em; text-transform: uppercase; color: var(--text-3);
+      }
+      .round-title {
+        font-family: var(--font-heading); font-size: 1rem;
+        letter-spacing: 0.15em; color: var(--text-0);
+      }
+      .round-badge {
+        font-family: var(--font-heading); font-size: 0.44rem;
+        letter-spacing: 0.25em; text-transform: uppercase;
+        padding: 2px 8px; margin-left: auto;
+      }
+      .round-badge.active  { background: rgba(30,80,40,0.5); color: #6ecf7a; }
+      .round-badge.closed  { background: var(--bg-2); color: var(--text-3); }
+
+      /* ── Speculation rows ── */
+      .spec-list { display: flex; flex-direction: column; gap: 0.75rem; }
+      .spec-row {
+        display: flex; align-items: center;
+        gap: 1.5rem; flex-wrap: wrap;
+        background: var(--bg-1); border: 1px solid var(--bg-3);
+        padding: 0.75rem 1rem;
+      }
+      .spec-name {
+        font-family: var(--font-heading); font-size: 0.6rem;
+        letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-1);
+        min-width: 180px; flex: 1;
+      }
+      .vote-options { display: flex; gap: 0.4rem; }
+
+      .vote-btn {
+        background: none;
+        border: 1px solid var(--bg-3);
+        color: var(--text-3);
+        font-family: var(--font-heading); font-size: 0.46rem;
+        letter-spacing: 0.2em; text-transform: uppercase;
+        padding: 4px 10px; cursor: pointer;
+        transition: border-color 0.15s, color 0.15s, background 0.15s;
+      }
+      .vote-btn:not(:disabled):hover { border-color: var(--text-2); color: var(--text-1); }
+      .vote-btn:disabled { cursor: default; }
+
+      .vote-btn[data-vote="neutral"].selected  {
+        border-color: var(--text-2); color: var(--text-1); background: var(--bg-3);
+      }
+      .vote-btn[data-vote="house"].selected {
+        border-color: var(--blue-400); color: var(--blue-300); background: rgba(26,48,80,0.55);
+      }
+      .vote-btn[data-vote="aelfir"].selected {
+        border-color: var(--gold-500); color: var(--gold-300); background: rgba(60,45,10,0.45);
+      }
+
+      /* ── Submit row ── */
+      .spec-actions {
+        margin-top: 1.5rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+      }
+      .spec-submit-btn {
+        background: var(--red-900); border: 1px solid var(--red-700);
+        color: var(--text-1); font-family: var(--font-heading);
+        font-size: 0.5rem; letter-spacing: 0.25em; text-transform: uppercase;
+        padding: 7px 16px; cursor: pointer;
+        transition: background 0.2s, border-color 0.2s;
+      }
+      .spec-submit-btn:hover:not(:disabled) { background: var(--red-700); border-color: var(--red-500); }
+      .spec-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+      .spec-msg { font-family: var(--font-heading); font-size: 0.5rem; letter-spacing: 0.1em; }
+      .spec-msg.ok    { color: #6ecf7a; }
+      .spec-msg.error { color: var(--red-400); }
+
+      .spec-closed-note {
+        margin-top: 1.5rem;
+        font-family: var(--font-heading); font-size: 0.52rem;
+        letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-3);
+        text-align: center; padding: 1rem; border: 1px solid var(--bg-3);
+      }
+      .spec-empty {
+        font-family: var(--font-heading); font-size: 0.55rem;
+        letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-3);
+        text-align: center; padding: 3rem 0;
+      }
+
+      /* ── Admin panel ── */
+      .admin-divider {
+        max-width: 700px; margin: 4rem auto 0;
+        border: none; border-top: 1px solid var(--red-700);
+        position: relative;
+      }
+      .admin-divider::after {
+        content: 'Administration';
+        position: absolute; top: -0.6rem; left: 50%; transform: translateX(-50%);
+        background: var(--bg-0); padding: 0 1rem;
+        font-family: var(--font-heading); font-size: 0.48rem;
+        letter-spacing: 0.4em; text-transform: uppercase; color: var(--red-700);
+      }
+
+      .admin-section {
+        max-width: 700px; margin: 2.5rem auto 0;
+      }
+      .admin-section-title {
+        font-family: var(--font-heading); font-size: 0.58rem;
+        letter-spacing: 0.35em; text-transform: uppercase; color: var(--text-2);
+        margin-bottom: 1.25rem; padding-bottom: 0.4rem;
+        border-bottom: 1px solid var(--bg-3);
+      }
+
+      /* ── Live results ── */
+      .results-row {
+        display: flex; align-items: center; gap: 1rem;
+        padding: 0.6rem 1rem; background: var(--bg-1);
+        border: 1px solid var(--bg-3); margin-bottom: 0.5rem;
+        flex-wrap: wrap;
+      }
+      .results-name {
+        font-family: var(--font-heading); font-size: 0.56rem;
+        letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-1);
+        min-width: 180px; flex: 1;
+      }
+      .results-counts { display: flex; gap: 0.75rem; }
+      .result-pill {
+        font-family: var(--font-heading); font-size: 0.44rem;
+        letter-spacing: 0.15em; text-transform: uppercase;
+        padding: 2px 8px; border: 1px solid;
+      }
+      .result-pill.neutral { border-color: var(--bg-4); color: var(--text-2); }
+      .result-pill.house   { border-color: var(--blue-400); color: var(--blue-300); }
+      .result-pill.aelfir  { border-color: var(--gold-500); color: var(--gold-300); }
+      .results-total {
+        font-family: var(--font-heading); font-size: 0.44rem;
+        color: var(--text-3); letter-spacing: 0.1em; margin-left: auto;
+      }
+
+      /* ── New round form ── */
+      .form-field { margin-bottom: 0.75rem; }
+      .form-label {
+        display: block; font-family: var(--font-heading); font-size: 0.48rem;
+        letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-3);
+        margin-bottom: 0.3rem;
+      }
+      .form-input {
+        width: 100%; box-sizing: border-box;
+        background: var(--bg-1); border: 1px solid var(--bg-3);
+        color: var(--text-1); font-family: var(--font-body); font-size: 0.9rem;
+        padding: 6px 10px;
+      }
+      .form-input:focus { outline: none; border-color: var(--red-700); }
+      .names-grid {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+      .admin-btn {
+        background: var(--red-900); border: 1px solid var(--red-700);
+        color: var(--text-1); font-family: var(--font-heading);
+        font-size: 0.5rem; letter-spacing: 0.25em; text-transform: uppercase;
+        padding: 7px 16px; cursor: pointer;
+        transition: background 0.2s, border-color 0.2s;
+      }
+      .admin-btn:hover:not(:disabled) { background: var(--red-700); border-color: var(--red-500); }
+      .admin-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+      .admin-btn.secondary {
+        background: none; border-color: var(--bg-3); color: var(--text-3);
+      }
+      .admin-btn.secondary:hover:not(:disabled) { border-color: var(--red-700); color: var(--text-1); }
+      .form-msg { font-family: var(--font-heading); font-size: 0.48rem; letter-spacing: 0.1em; margin-top: 0.5rem; }
+      .form-msg.ok    { color: #6ecf7a; }
+      .form-msg.error { color: var(--red-400); }
+
+      /* ── Close round section ── */
+      .close-form-inner { margin-top: 1rem; }
+
+      /* ── Archive ── */
+      .archive-round {
+        border: 1px solid var(--bg-3); margin-bottom: 1.5rem;
+      }
+      .archive-round-header {
+        display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+        padding: 0.75rem 1rem; background: var(--bg-1);
+        border-bottom: 1px solid var(--bg-3);
+        cursor: pointer; user-select: none;
+      }
+      .archive-round-title {
+        font-family: var(--font-heading); font-size: 0.62rem;
+        letter-spacing: 0.15em; color: var(--text-0);
+      }
+      .archive-round-date {
+        font-family: var(--font-heading); font-size: 0.44rem;
+        letter-spacing: 0.1em; color: var(--text-3); margin-left: auto;
+      }
+      .archive-round-body { padding: 0.5rem 0; display: none; }
+      .archive-round-body.open { display: block; }
+      .archive-row {
+        display: flex; align-items: center; gap: 1rem;
+        padding: 0.5rem 1rem; flex-wrap: wrap;
+        border-bottom: 1px solid var(--bg-2);
+      }
+      .archive-row:last-child { border-bottom: none; }
+      .archive-name {
+        font-family: var(--font-heading); font-size: 0.54rem;
+        letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-1);
+        min-width: 160px; flex: 1;
+      }
+      .archive-real {
+        font-family: var(--font-heading); font-size: 0.44rem;
+        letter-spacing: 0.15em; text-transform: uppercase;
+        padding: 2px 8px; border: 1px solid;
+      }
+      .archive-real.neutral { border-color: var(--bg-4); color: var(--text-2); }
+      .archive-real.house   { border-color: var(--blue-400); color: var(--blue-300); }
+      .archive-real.aelfir  { border-color: var(--gold-500); color: var(--gold-300); }
+      .archive-counts { display: flex; gap: 0.5rem; }
+
+      @media (max-width: 600px) {
+        .spec-row { flex-direction: column; align-items: flex-start; }
+        .names-grid { grid-template-columns: 1fr; }
+        .results-row { flex-direction: column; align-items: flex-start; }
+      }
+    </style>
+  </head>
+
+  <body style="overflow: auto;">
+    <a href="dashboard.html" class="back-link">← Tableau de bord</a>
+
+    <div class="spec-page">
+      <div class="spec-header">
+        <p class="spec-eyebrow">Réseau Vermissien</p>
+        <h1 class="spec-title">Spéculations</h1>
+        <div class="spec-rule"></div>
+      </div>
+
+      <!-- Current round (all users) -->
+      <div id="roundSection">
+        <p class="spec-empty">Chargement…</p>
+      </div>
+
+      <!-- Admin panel -->
+      <div id="adminPanel" style="display:none;">
+        <hr class="admin-divider" />
+
+        <!-- Live results -->
+        <div class="admin-section" id="liveResultsSection" style="display:none;">
+          <p class="admin-section-title">Résultats en direct</p>
+          <div id="liveResults"></div>
+        </div>
+
+        <!-- Close round -->
+        <div class="admin-section" id="closeRoundSection" style="display:none;">
+          <p class="admin-section-title">Fermer ce round</p>
+          <p style="font-family:var(--font-body);font-style:italic;color:var(--text-2);font-size:0.9rem;margin-bottom:1rem;">
+            Entrez les votes réels de chaque Aelfir pour archiver ce round.
+          </p>
+          <button class="admin-btn secondary" id="toggleCloseBtn">Entrer les votes réels →</button>
+          <div class="close-form-inner" id="closeFormInner" style="display:none;"></div>
+        </div>
+
+        <!-- New round -->
+        <div class="admin-section">
+          <p class="admin-section-title">Nouveau Round</p>
+          <div class="form-field">
+            <label class="form-label" for="roundTitle">Titre du round</label>
+            <input class="form-input" type="text" id="roundTitle" placeholder="ex. Vote du Grand Conclave — Mars" />
+          </div>
+          <div class="form-field">
+            <label class="form-label">Noms des 10 Aelfir</label>
+            <div class="names-grid" id="namesGrid"></div>
+          </div>
+          <button class="admin-btn" id="createRoundBtn">Créer le round</button>
+          <p class="form-msg" id="createMsg"></p>
+        </div>
+
+        <!-- Archive -->
+        <div class="admin-section">
+          <p class="admin-section-title">Archives</p>
+          <div id="archiveList"><p class="spec-empty">Aucun round archivé.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/heartbeat.js"></script>
+    <script>
+      const API      = 'https://spiresite.onrender.com';
+      const token    = localStorage.getItem('spire_token');
+      const username = localStorage.getItem('spire_user');
+      const isAdmin  = username === 'admin';
+
+      if (!token) window.location.href = 'connect.html';
+
+      function esc(str) {
+        return String(str ?? '')
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+
+      function fmtDate(iso) {
+        if (!iso) return '—';
+        return new Date(iso).toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' });
+      }
+
+      function authHeaders() {
+        return { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' };
+      }
+
+      async function apiFetch(path, opts = {}) {
+        const res  = await fetch(API + path, { headers: authHeaders(), ...opts });
+        const text = await res.text();
+        try { return { ok: res.ok, status: res.status, data: JSON.parse(text) }; }
+        catch { return { ok: false, status: res.status, data: { error: `Réponse inattendue (HTTP ${res.status})` } }; }
+      }
+
+      // ── Labels ─────────────────────────────────────────────────────────────
+      const LABEL = { neutral: 'Neutre', house: 'House', aelfir: 'Aelfir' };
+
+      // ── Vote buttons helper ────────────────────────────────────────────────
+      function makeVoteOptions(index, selected, disabled) {
+        return ['neutral', 'house', 'aelfir'].map(v => `
+          <button class="vote-btn ${selected === v ? 'selected' : ''}"
+                  data-vote="${v}" data-index="${index}"
+                  ${disabled ? 'disabled' : ''}>
+            ${LABEL[v]}
+          </button>
+        `).join('');
+      }
+
+      // ── Render current round (all users) ───────────────────────────────────
+      let currentRound = null;
+      let myVotes      = new Array(10).fill(null);
+
+      function renderRound() {
+        const section = document.getElementById('roundSection');
+        if (!currentRound) {
+          section.innerHTML = `<p class="spec-empty">Aucun round en cours.</p>`;
+          return;
+        }
+
+        const { names, title, is_active, created_at } = currentRound;
+        const activeLabel = is_active
+          ? `<span class="round-badge active">Ouvert</span>`
+          : `<span class="round-badge closed">Fermé</span>`;
+
+        let rows = names.map((name, i) => `
+          <div class="spec-row" data-index="${i}">
+            <span class="spec-name">${esc(name)}</span>
+            <div class="vote-options">
+              ${makeVoteOptions(i, myVotes[i], !is_active)}
+            </div>
+          </div>
+        `).join('');
+
+        section.innerHTML = `
+          <div class="round-container">
+            <div class="round-header">
+              <span class="round-label">Round</span>
+              <span class="round-title">${esc(title)}</span>
+              ${activeLabel}
+            </div>
+            <div class="spec-list">${rows}</div>
+            ${is_active ? `
+              <div class="spec-actions">
+                <button class="spec-submit-btn" id="submitBtn">Soumettre mes spéculations</button>
+                <span class="spec-msg" id="specMsg"></span>
+              </div>
+            ` : `<p class="spec-closed-note">Ce round est terminé — vos votes ont été enregistrés.</p>`}
+          </div>
+        `;
+
+        if (is_active) {
+          section.querySelectorAll('.vote-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+              const i = +btn.dataset.index;
+              myVotes[i] = btn.dataset.vote;
+              section.querySelectorAll(`.spec-row[data-index="${i}"] .vote-btn`).forEach(b =>
+                b.classList.toggle('selected', b.dataset.vote === btn.dataset.vote)
+              );
+            });
+          });
+          document.getElementById('submitBtn').addEventListener('click', submitVotes);
+        }
+      }
+
+      async function submitVotes() {
+        const btn = document.getElementById('submitBtn');
+        const msg = document.getElementById('specMsg');
+        if (myVotes.some(v => v === null)) {
+          msg.textContent = 'Veuillez voter pour chaque Aelfir.';
+          msg.className = 'spec-msg error';
+          return;
+        }
+        btn.disabled = true;
+        btn.textContent = 'Envoi…';
+        msg.textContent = '';
+        const { ok, data } = await apiFetch('/api/speculation/vote', {
+          method: 'POST',
+          body: JSON.stringify({ round_id: currentRound.id, votes: myVotes }),
+        });
+        msg.textContent = ok ? 'Spéculations enregistrées.' : (data.error ?? 'Erreur.');
+        msg.className   = `spec-msg ${ok ? 'ok' : 'error'}`;
+        btn.disabled    = false;
+        btn.textContent = 'Soumettre mes spéculations';
+      }
+
+      // ── Admin: live results ────────────────────────────────────────────────
+      function renderLiveResults(round) {
+        const section = document.getElementById('liveResultsSection');
+        const div     = document.getElementById('liveResults');
+        if (!round || !round.is_active) { section.style.display = 'none'; return; }
+        section.style.display = '';
+        div.innerHTML = round.names.map((name, i) => {
+          const c = round.counts[i];
+          const total = c.neutral + c.house + c.aelfir;
+          return `
+            <div class="results-row">
+              <span class="results-name">${esc(name)}</span>
+              <div class="results-counts">
+                <span class="result-pill neutral">Neutre : ${c.neutral}</span>
+                <span class="result-pill house">House : ${c.house}</span>
+                <span class="result-pill aelfir">Aelfir : ${c.aelfir}</span>
+              </div>
+              <span class="results-total">${total} vote${total !== 1 ? 's' : ''}</span>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // ── Admin: close round form ────────────────────────────────────────────
+      let closeVotes = new Array(10).fill(null);
+
+      function renderCloseSection(round) {
+        const section = document.getElementById('closeRoundSection');
+        if (!round || !round.is_active) { section.style.display = 'none'; return; }
+        section.style.display = '';
+        closeVotes = new Array(10).fill(null);
+
+        const inner = document.getElementById('closeFormInner');
+        inner.innerHTML = `
+          <div class="spec-list" style="margin-top:1rem;" id="closeList">
+            ${round.names.map((name, i) => `
+              <div class="spec-row" data-index="${i}">
+                <span class="spec-name">${esc(name)}</span>
+                <div class="vote-options">${makeVoteOptions(i, null, false)}</div>
+              </div>
+            `).join('')}
+          </div>
+          <div class="spec-actions" style="margin-top:1rem;">
+            <button class="admin-btn" id="confirmCloseBtn">Confirmer la fermeture</button>
+            <span class="form-msg" id="closeMsg"></span>
+          </div>
+        `;
+
+        inner.querySelectorAll('.vote-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const i = +btn.dataset.index;
+            closeVotes[i] = btn.dataset.vote;
+            inner.querySelectorAll(`.spec-row[data-index="${i}"] .vote-btn`).forEach(b =>
+              b.classList.toggle('selected', b.dataset.vote === btn.dataset.vote)
+            );
+          });
+        });
+
+        document.getElementById('confirmCloseBtn').addEventListener('click', async () => {
+          const msg = document.getElementById('closeMsg');
+          if (closeVotes.some(v => v === null)) {
+            msg.textContent = 'Entrez le vote réel pour chaque Aelfir.';
+            msg.className = 'form-msg error';
+            return;
+          }
+          const confirmBtn = document.getElementById('confirmCloseBtn');
+          confirmBtn.disabled = true;
+          confirmBtn.textContent = 'Fermeture…';
+          const { ok, data } = await apiFetch(`/api/admin/speculation/rounds/${round.id}/close`, {
+            method: 'POST',
+            body: JSON.stringify({ real_votes: closeVotes }),
+          });
+          if (ok) {
+            await init(); // full refresh
+          } else {
+            msg.textContent = data.error ?? 'Erreur.';
+            msg.className = 'form-msg error';
+            confirmBtn.disabled = false;
+            confirmBtn.textContent = 'Confirmer la fermeture';
+          }
+        });
+
+        document.getElementById('toggleCloseBtn').addEventListener('click', () => {
+          const isOpen = inner.style.display !== 'none';
+          inner.style.display = isOpen ? 'none' : '';
+          document.getElementById('toggleCloseBtn').textContent = isOpen
+            ? 'Entrer les votes réels →'
+            : 'Annuler ↑';
+        });
+      }
+
+      // ── Admin: new round form ──────────────────────────────────────────────
+      function buildNewRoundForm() {
+        const grid = document.getElementById('namesGrid');
+        grid.innerHTML = Array.from({ length: 10 }, (_, i) => `
+          <input class="form-input" type="text" id="name${i}" placeholder="Aelfir ${i + 1}" />
+        `).join('');
+
+        document.getElementById('createRoundBtn').addEventListener('click', async () => {
+          const title = document.getElementById('roundTitle').value.trim();
+          const names = Array.from({ length: 10 }, (_, i) =>
+            document.getElementById(`name${i}`).value.trim()
+          );
+          const msg = document.getElementById('createMsg');
+          const btn = document.getElementById('createRoundBtn');
+
+          if (!title || names.some(n => !n)) {
+            msg.textContent = 'Titre et 10 noms sont requis.';
+            msg.className = 'form-msg error';
+            return;
+          }
+          btn.disabled = true;
+          btn.textContent = 'Création…';
+          const { ok, data } = await apiFetch('/api/admin/speculation/rounds', {
+            method: 'POST',
+            body: JSON.stringify({ title, names }),
+          });
+          if (ok) {
+            document.getElementById('roundTitle').value = '';
+            Array.from({ length: 10 }, (_, i) => { document.getElementById(`name${i}`).value = ''; });
+            msg.textContent = 'Round créé.';
+            msg.className = 'form-msg ok';
+            await init();
+          } else {
+            msg.textContent = data.error ?? 'Erreur.';
+            msg.className = 'form-msg error';
+          }
+          btn.disabled = false;
+          btn.textContent = 'Créer le round';
+        });
+      }
+
+      // ── Admin: archive ─────────────────────────────────────────────────────
+      function renderArchive(rounds) {
+        const closed = rounds.filter(r => !r.is_active);
+        const list   = document.getElementById('archiveList');
+        if (closed.length === 0) {
+          list.innerHTML = `<p class="spec-empty">Aucun round archivé.</p>`;
+          return;
+        }
+        list.innerHTML = closed.map(round => {
+          const rows = round.names.map((name, i) => {
+            const c    = round.counts[i];
+            const real = round.real_votes?.[i];
+            return `
+              <div class="archive-row">
+                <span class="archive-name">${esc(name)}</span>
+                ${real
+                  ? `<span class="archive-real ${real}">${LABEL[real]}</span>`
+                  : `<span class="archive-real" style="color:var(--text-3);border-color:var(--bg-3);">—</span>`
+                }
+                <div class="archive-counts">
+                  <span class="result-pill neutral">N : ${c.neutral}</span>
+                  <span class="result-pill house">H : ${c.house}</span>
+                  <span class="result-pill aelfir">A : ${c.aelfir}</span>
+                </div>
+              </div>
+            `;
+          }).join('');
+
+          return `
+            <div class="archive-round">
+              <div class="archive-round-header" onclick="this.nextElementSibling.classList.toggle('open')">
+                <span class="archive-round-title">${esc(round.title)}</span>
+                <span class="archive-round-date">${fmtDate(round.closed_at)}</span>
+              </div>
+              <div class="archive-round-body">
+                <div class="archive-row" style="border-bottom:1px solid var(--bg-3);padding-bottom:0.4rem;margin-bottom:0.25rem;">
+                  <span class="archive-name" style="color:var(--text-3);">Aelfir</span>
+                  <span style="font-family:var(--font-heading);font-size:0.44rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-3);min-width:80px;">Vote réel</span>
+                  <span style="font-family:var(--font-heading);font-size:0.44rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-3);">Spéculations (N / H / A)</span>
+                </div>
+                ${rows}
+                <div style="padding:0.4rem 1rem;font-family:var(--font-heading);font-size:0.44rem;letter-spacing:0.1em;color:var(--text-3);">
+                  ${round.total_voters} joueur${round.total_voters !== 1 ? 's' : ''} ont participé
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // ── Bootstrap ──────────────────────────────────────────────────────────
+      async function init() {
+        // Load current round for all users
+        const { ok, data } = await apiFetch('/api/speculation/current');
+        if (ok) {
+          currentRound = data.round;
+          myVotes      = data.my_votes ?? new Array(10).fill(null);
+        } else {
+          currentRound = null;
+          myVotes      = new Array(10).fill(null);
+        }
+        renderRound();
+
+        if (!isAdmin) return;
+
+        document.getElementById('adminPanel').style.display = '';
+
+        // Load admin data
+        const adminRes = await apiFetch('/api/admin/speculation');
+        if (!adminRes.ok) return;
+        const rounds = adminRes.data.rounds ?? [];
+        const active = rounds.find(r => r.is_active) ?? null;
+
+        renderLiveResults(active);
+        renderCloseSection(active);
+        renderArchive(rounds);
+      }
+
+      buildNewRoundForm();
+      init();
+    </script>
+  </body>
+</html>

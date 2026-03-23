@@ -218,6 +218,125 @@ app.get('/api/admin/sessions', requireAuth, async (req, res) => {
   }
 });
 
+// ── GET /api/speculation/current  (current round + user's votes) ─────────────
+app.get('/api/speculation/current', requireAuth, async (req, res) => {
+  try {
+    const { rows } = await pool.query(`
+      SELECT r.id, r.title, r.names, r.is_active, r.created_at, r.closed_at,
+             s.votes AS my_votes
+      FROM speculation_rounds r
+      LEFT JOIN speculations s ON s.round_id = r.id AND s.user_id = $1
+      ORDER BY r.created_at DESC
+      LIMIT 1
+    `, [req.user.id]);
+    if (rows.length === 0) return res.json({ round: null, my_votes: null });
+    const row = rows[0];
+    res.json({
+      round:    { id: row.id, title: row.title, names: row.names, is_active: row.is_active, created_at: row.created_at, closed_at: row.closed_at },
+      my_votes: row.my_votes,
+    });
+  } catch (err) {
+    console.error('[speculation:current]', { error: err.message });
+    res.status(500).json({ error: 'Erreur serveur.' });
+  }
+});
+
+// ── POST /api/speculation/vote  (submit or update speculation) ────────────────
+app.post('/api/speculation/vote', requireAuth, async (req, res) => {
+  const { round_id, votes } = req.body ?? {};
+  if (!round_id || !Array.isArray(votes) || votes.length !== 10) {
+    return res.status(400).json({ error: 'Données invalides.' });
+  }
+  const valid = ['neutral', 'house', 'aelfir'];
+  if (!votes.every(v => valid.includes(v))) {
+    return res.status(400).json({ error: 'Vote invalide.' });
+  }
+  try {
+    const { rows } = await pool.query(
+      'SELECT is_active FROM speculation_rounds WHERE id = $1', [round_id]
+    );
+    if (rows.length === 0) return res.status(404).json({ error: 'Round introuvable.' });
+    if (!rows[0].is_active) return res.status(400).json({ error: 'Ce round est terminé.' });
+    await pool.query(`
+      INSERT INTO speculations (round_id, user_id, votes)
+      VALUES ($1, $2, $3::jsonb)
+      ON CONFLICT (round_id, user_id)
+      DO UPDATE SET votes = $3::jsonb, updated_at = NOW()
+    `, [round_id, req.user.id, JSON.stringify(votes)]);
+    res.json({ message: 'Spéculations enregistrées.' });
+  } catch (err) {
+    console.error('[speculation:vote]', { user_id: req.user.id, round_id, error: err.message });
+    res.status(500).json({ error: 'Erreur serveur.' });
+  }
+});
+
+// ── GET /api/admin/speculation  (all rounds + aggregate counts) ───────────────
+app.get('/api/admin/speculation', requireAuth, async (req, res) => {
+  if (req.user.username !== 'admin') return res.status(403).json({ error: 'Accès refusé.' });
+  try {
+    const { rows: rounds } = await pool.query(
+      'SELECT id, title, names, is_active, real_votes, created_at, closed_at FROM speculation_rounds ORDER BY created_at DESC'
+    );
+    const result = await Promise.all(rounds.map(async round => {
+      const { rows: specs } = await pool.query(
+        'SELECT votes FROM speculations WHERE round_id = $1', [round.id]
+      );
+      const counts = round.names.map(() => ({ neutral: 0, house: 0, aelfir: 0 }));
+      specs.forEach(s => s.votes.forEach((v, i) => { if (counts[i]?.[v] !== undefined) counts[i][v]++; }));
+      return { ...round, counts, total_voters: specs.length };
+    }));
+    res.json({ rounds: result });
+  } catch (err) {
+    console.error('[admin:speculation]', { error: err.message });
+    res.status(500).json({ error: 'Erreur serveur.' });
+  }
+});
+
+// ── POST /api/admin/speculation/rounds  (create new round) ───────────────────
+app.post('/api/admin/speculation/rounds', requireAuth, async (req, res) => {
+  if (req.user.username !== 'admin') return res.status(403).json({ error: 'Accès refusé.' });
+  const { title, names } = req.body ?? {};
+  if (!title?.trim() || !Array.isArray(names) || names.length !== 10 || names.some(n => !n?.trim())) {
+    return res.status(400).json({ error: 'Un titre et 10 noms sont requis.' });
+  }
+  try {
+    await pool.query('UPDATE speculation_rounds SET is_active = FALSE WHERE is_active = TRUE');
+    const { rows } = await pool.query(
+      'INSERT INTO speculation_rounds (title, names) VALUES ($1, $2::jsonb) RETURNING id',
+      [title.trim(), JSON.stringify(names.map(n => n.trim()))]
+    );
+    res.status(201).json({ message: 'Round créé.', id: rows[0].id });
+  } catch (err) {
+    console.error('[admin:speculation:create]', { error: err.message });
+    res.status(500).json({ error: 'Erreur serveur.' });
+  }
+});
+
+// ── POST /api/admin/speculation/rounds/:id/close  (close + enter real votes) ─
+app.post('/api/admin/speculation/rounds/:id/close', requireAuth, async (req, res) => {
+  if (req.user.username !== 'admin') return res.status(403).json({ error: 'Accès refusé.' });
+  const { real_votes } = req.body ?? {};
+  if (!Array.isArray(real_votes) || real_votes.length !== 10) {
+    return res.status(400).json({ error: '10 votes réels sont requis.' });
+  }
+  const valid = ['neutral', 'house', 'aelfir'];
+  if (!real_votes.every(v => valid.includes(v))) {
+    return res.status(400).json({ error: 'Vote invalide.' });
+  }
+  try {
+    const result = await pool.query(
+      `UPDATE speculation_rounds SET is_active = FALSE, real_votes = $2::jsonb, closed_at = NOW()
+       WHERE id = $1 AND is_active = TRUE`,
+      [req.params.id, JSON.stringify(real_votes)]
+    );
+    if (result.rowCount === 0) return res.status(404).json({ error: 'Round introuvable ou déjà fermé.' });
+    res.json({ message: 'Round fermé.' });
+  } catch (err) {
+    console.error('[admin:speculation:close]', { error: err.message });
+    res.status(500).json({ error: 'Erreur serveur.' });
+  }
+});
+
 // ── DELETE /api/reviews/:slug  (delete own review) ───────────────────────────
 app.delete('/api/reviews/:slug', requireAuth, async (req, res) => {
   const { slug } = req.params;
