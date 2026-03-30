@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Ambrosia — Édition 2</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap');
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#2a1f0e; font-family:'Cormorant Garamond',Georgia,serif; color:#1a0f05; }
+    .page { width:210mm; min-height:297mm; margin:20px auto; background:#f7f0e3; border:1px solid #8a6a3a; padding:14mm; box-shadow:0 4px 30px rgba(0,0,0,0.5); position:relative; }
+
+    .page::before { content:''; position:absolute; top:8mm; left:8mm; right:8mm; bottom:8mm; border:1px solid #8a6a3a; pointer-events:none; }
+    .page::after { content:'✦ ✦ ✦'; position:absolute; top:10.5mm; left:50%; transform:translateX(-50%); font-size:8pt; color:#8a6a3a; letter-spacing:8px; background:#f7f0e3; padding:0 6px; }
+
+    .masthead { text-align:center; padding:10px 0 8px; border-bottom:2px solid #8a6a3a; margin-bottom:8px; }
+    .masthead-top { display:flex; justify-content:space-between; font-size:7.5pt; font-style:italic; color:#6a4a1a; margin-bottom:8px; font-family:'Cinzel',serif; letter-spacing:1px; }
+    .paper-name { font-family:'Cinzel Decorative',serif; font-size:42pt; letter-spacing:6px; color:#3a1f00; line-height:1; }
+    .ornament { font-size:14pt; color:#8a6a3a; letter-spacing:12px; margin:4px 0; }
+    .tagline { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:10pt; color:#5a3a10; letter-spacing:2px; }
+    .edition-band { margin-top:8px; font-family:'Cinzel',serif; font-size:8pt; letter-spacing:3px; color:#6a4a1a; text-transform:uppercase; }
+
+    .headline-block { text-align:center; margin:12px 0 8px; padding-bottom:10px; border-bottom:1px solid #8a6a3a; position:relative; }
+    .rubric { font-family:'Cinzel',serif; font-size:8pt; letter-spacing:4px; text-transform:uppercase; color:#8a6a3a; margin-bottom:6px; }
+    .headline { font-family:'Cinzel',serif; font-size:22pt; font-weight:700; color:#2a1200; line-height:1.2; }
+    .subhead { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:12pt; color:#5a3a10; margin-top:6px; line-height:1.4; }
+
+    .columns { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:10px; }
+    .col { font-size:10pt; line-height:1.6; text-align:justify; hyphens:auto; color:#1a0f05; }
+    .col p { margin-bottom:9px; }
+    .col p:first-child::first-letter { font-family:'Cinzel Decorative',serif; font-size:34pt; font-weight:400; float:left; line-height:0.85; margin-right:4px; margin-top:6px; color:#6a3a00; }
+    .col2 { padding-left:16px; border-left:1px solid #c4a06a; }
+    .no-drop::first-letter { font-size:10pt !important; font-family:'Cormorant Garamond',serif !important; float:none !important; line-height:1.6 !important; margin:0 !important; }
+
+    .pullquote { border-top:1px solid #8a6a3a; border-bottom:1px solid #8a6a3a; padding:10px 8px; margin:12px 0; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:12pt; font-weight:600; text-align:center; line-height:1.5; color:#3a1f00; background:#f0e6cc; }
+
+    .section-break { text-align:center; color:#8a6a3a; font-size:12pt; letter-spacing:10px; margin:12px 0 8px; }
+
+    /* Interview block */
+    .interview { margin-top:12px; border-top:2px solid #8a6a3a; padding-top:10px; }
+    .interview-title { font-family:'Cinzel',serif; font-size:10pt; letter-spacing:3px; text-transform:uppercase; color:#6a4a1a; margin-bottom:10px; text-align:center; }
+    .qa-block { margin-bottom:12px; }
+    .q-label { font-family:'Cinzel',serif; font-size:7.5pt; letter-spacing:3px; text-transform:uppercase; color:#8a6a3a; margin-bottom:4px; }
+    .q-answer { border-top:1px solid #8a6a3a; border-bottom:1px solid #8a6a3a; padding:7px 8px; margin-bottom:6px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:10.5pt; font-weight:600; line-height:1.5; color:#3a1f00; background:#f0e6cc; }
+    .q-commentary { font-size:9.5pt; line-height:1.6; text-align:justify; hyphens:auto; color:#1a0f05; }
+
+    .briefs { margin-top:12px; border-top:2px solid #8a6a3a; padding-top:10px; }
+    .briefs-title { font-family:'Cinzel',serif; font-size:10pt; letter-spacing:3px; text-transform:uppercase; color:#6a4a1a; margin-bottom:8px; text-align:center; }
+    .brief-item { font-size:9pt; line-height:1.5; margin-bottom:8px; padding-bottom:8px; border-bottom:1px dotted #b09060; }
+    .brief-item:last-child { border-bottom:none; }
+    .brief-title { font-family:'Cinzel',serif; font-size:9pt; font-weight:700; color:#3a1f00; }
+
+    .footer { margin-top:14px; border-top:2px solid #8a6a3a; padding-top:8px; text-align:center; }
+    .footer-orn { font-size:10pt; color:#8a6a3a; letter-spacing:8px; margin-bottom:4px; }
+    .footer-text { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:8.5pt; color:#5a3a10; }
+
+    @media print { body{background:white;} .page{margin:0;border:none;box-shadow:none;width:100%;padding:10mm 12mm 14mm 12mm;} }
+  </style>
+</head>
+<body><div class="page">
+  <header class="masthead">
+    <div class="masthead-top"><span>Gazette des Âmes &amp; des Fois</span><span>Cette semaine : Grâce, Mode &amp; Présences Inattendues</span></div>
+    <div class="paper-name">Ambrosia</div>
+    <div class="ornament">✦ ✧ ✦ ✧ ✦</div>
+    <div class="tagline">Gazette des Âmes, des Fois &amp; des Rumeurs qui les Accompagnent</div>
+    <div class="edition-band">Édition hebdomadaire — Chronique Spirituelle &amp; Mondaine</div>
+  </header>
+
+  <div class="headline-block">
+    <div class="rubric">✦ La grâce est descendue ✦</div>
+    <div class="headline">Last Breath In Crystal au Silver Quarter<br>— et ce que cela signifie</div>
+    <div class="subhead"><em>Première descente depuis plusieurs années. Velours en ouverture. Entretien avec une petite artisane drow.</em></div>
+  </div>
+
+  <div class="columns">
+    <div class="col">
+      <p>Il y a des soirées que l'on n'oublie pas — non parce qu'elles étaient belles, bien que celle-ci le fût, mais parce qu'elles portaient quelque chose d'autre. Une qualité d'air. Un poids dans la lumière. <strong>Last Breath In Crystal</strong> n'avait pas descendu d'Amaranth depuis plusieurs années. Vendredi soir, il est venu. Il a regardé. Nous ne spéculons pas. Nous notons que sa présence a donné à cette soirée une dimension que le calendrier mondain habituel n'aurait pas suffi à produire.</p>
+    </div>
+    <div class="col col2">
+      <p class="no-drop">Avant d'aborder le reste, il convient de s'arrêter sur <strong>Velours</strong>. Ce que nous avons vu en ouverture n'appelait pas de commentaire — et c'est précisément là le signe d'une maîtrise absolue. Flocons tombant du plafond. Blanc, bleu, une légèreté qui n'avait rien d'accidentel. Voilà ce que l'on appelle une vision — formulée, construite, habitée. Nous ne doutons pas que ce défilé sera évoqué encore dans plusieurs saisons.</p>
+    </div>
+  </div>
+
+  <div class="section-break">✦ · · · ✦ · · · ✦</div>
+
+  <div class="interview">
+    <div class="interview-title">✦ Rencontre avec une artisane — Entretien avec Kira ✦</div>
+
+    <div class="qa-block">
+      <div class="q-label">Sur le dialogue entre créateurs</div>
+      <div class="q-answer">"La mode, pour moi, s'épanouit dans le dialogue. Présenter aux côtés d'une autre voix créative a permis un moment de contraste et de conversation — une occasion de mettre en valeur différentes perspectives dans un même espace."</div>
+      <div class="q-commentary">Ce que nous entendons là, c'est une jeune artisane qui a découvert — et c'est touchant — que la création ne se fait pas dans l'isolement. Il lui a fallu une scène aussi exceptionnelle que le bal du Silver Quarter pour formuler une vérité que les grands créateurs aelfir portent depuis des générations. On ne lui en tient pas rigueur.</div>
+    </div>
+
+    <div class="qa-block">
+      <div class="q-label">Sur la scénographie et l'expérience immersive</div>
+      <div class="q-answer">"Je voulais évoquer une tension émotionnelle — quelque chose à la fois beau et dérangeant. Des paysages sonores changeants, des murs texturés, une palette dominée par le rouge et le blanc. Cela explorait comment les environnements façonnent la perception."</div>
+      <div class="q-commentary">Une belle formulation, sincère. Cette sensibilité à l'environnement, à la texture, au contraste émotionnel — des préoccupations développées avec infiniment plus de profondeur dans les traditions aelfir depuis des siècles — prend ici une forme fraîche, brute, comme ces peintures rupestres qui dégagent une énergie indéniable sans pour autant relever de l'art au sens où nous l'entendons. Il ne s'agit pas de compétition entre les traditions drow et aelfir : elles ne jouent tout simplement pas dans le même registre.</div>
+    </div>
+
+    <div class="qa-block">
+      <div class="q-label">Sur la présence de Last Breath In Crystal</div>
+      <div class="q-answer">"Sa présence était à la fois inattendue et profondément émouvante. Je n'aurais jamais osé espérer qu'une figure aussi éminente descende pour mes seuls talents. Il nous a véritablement bénis de sa présence ce soir-là."</div>
+      <div class="q-commentary">Voilà. <em>Ambrosia</em> ne commente pas. <em>Ambrosia</em> souligne. Cette phrase, prononcée sans ironie, avec une gratitude entière, nous semble la plus juste description de ce que la soirée a été — pour elle, et peut-être pour beaucoup d'autres.</div>
+    </div>
+
+    <div class="qa-block">
+      <div class="q-label">Sur sa nouvelle boutique au Silver Quarter</div>
+      <div class="q-answer">"Je vois cela moins comme une compétition que comme une évolution — une opportunité de m'engager avec un nouveau public et de me défier créativement dans un environnement différent."</div>
+      <div class="q-commentary">La modestie est sincère, et nous l'apprécions. Disons simplement qu'ouvrir une boutique au Silver Quarter n'est pas anodin, et que la bienveillance de ceux qui lui ont ouvert ces portes mérite peut-être d'être mentionnée plus explicitement. On ne grandit pas seul — surtout pas dans ces rues-là.</div>
+    </div>
+
+    <div class="qa-block">
+      <div class="q-label">Sur ce que la mode devrait accomplir</div>
+      <div class="q-answer">"La mode, dans son essence, n'est pas seulement une question de vêtements — c'est une question de perception, d'émotion, et des différentes réalités que nous choisissons de raconter ou de dissimuler."</div>
+      <div class="q-commentary">Mignon. Et vrai, à sa façon. Nous lui souhaitons de continuer à explorer ces questions — à son rythme, dans son espace, avec son public. C'est, au fond, tout ce que l'on peut honnêtement espérer.</div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-orn">✦ ✧ ✦</div>
+    <div class="footer-text"><em>Ambrosia.</em> Parce que chaque voix mérite d'être entendue — même les plus petites.</div>
+  </footer>
+</div></body>
+</html>

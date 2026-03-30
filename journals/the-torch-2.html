@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>The Torch — Édition 2</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Roboto+Condensed:ital,wght@0,400;0,700;1,400&display=swap');
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#b0a898; font-family:'Merriweather',Georgia,serif; color:#0f0f0f; }
+    .page { width:210mm; min-height:297mm; margin:20px auto; background:#f4f1ec; padding:12mm 14mm 16mm; box-shadow:0 3px 20px rgba(0,0,0,0.3); }
+
+    .masthead { text-align:center; margin-bottom:0; }
+    .banner-top { background:#0f0f0f; color:#f4f1ec; font-family:'Oswald',sans-serif; font-size:8pt; letter-spacing:4px; text-transform:uppercase; padding:5px 0; margin-bottom:0; }
+    .name-row { display:flex; align-items:center; justify-content:center; gap:14px; padding:8px 0 6px; border-bottom:5px solid #0f0f0f; border-top:1px solid #0f0f0f; }
+    .torch-icon { font-size:28pt; line-height:1; }
+    .paper-name { font-family:'Oswald',sans-serif; font-size:44pt; font-weight:700; letter-spacing:4px; text-transform:uppercase; color:#0f0f0f; line-height:1; }
+    .tagline-row { display:flex; justify-content:space-between; align-items:center; padding:5px 0; border-bottom:3px solid #0f0f0f; margin-bottom:0; }
+    .tagline { font-family:'Roboto Condensed',sans-serif; font-size:8.5pt; font-style:italic; color:#333; letter-spacing:1px; }
+    .edition-label { font-family:'Roboto Condensed',sans-serif; font-size:8.5pt; text-transform:uppercase; letter-spacing:2px; color:#333; }
+
+    .headline-block { margin:10px 0 8px; }
+    .headline { font-family:'Oswald',sans-serif; font-size:28pt; font-weight:700; text-transform:uppercase; line-height:1.1; color:#0f0f0f; border-bottom:2px solid #0f0f0f; padding-bottom:6px; }
+    .deck { font-family:'Merriweather',serif; font-style:italic; font-weight:300; font-size:11pt; color:#333; margin-top:6px; line-height:1.5; padding-bottom:8px; border-bottom:1px solid #bbb; }
+
+    .columns { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:10px; }
+    .col { font-size:10pt; line-height:1.6; text-align:justify; hyphens:auto; }
+    .col p { margin-bottom:9px; }
+    .col p:first-child::first-letter { font-family:'Oswald',sans-serif; font-size:34pt; font-weight:700; float:left; line-height:0.85; margin-right:3px; margin-top:6px; color:#0f0f0f; }
+    .col2 { padding-left:14px; border-left:2px solid #ddd; }
+    .no-drop::first-letter { font-size:10pt !important; font-family:'Merriweather',serif !important; float:none !important; line-height:1.6 !important; margin:0 !important; font-weight:300 !important; }
+
+    .section-head { font-family:'Oswald',sans-serif; font-size:14pt; font-weight:600; text-transform:uppercase; letter-spacing:2px; border-top:3px solid #0f0f0f; border-bottom:1px solid #0f0f0f; padding:4px 0; margin:14px 0 8px; color:#0f0f0f; }
+
+    .concern-box { background:#0f0f0f; color:#f4f1ec; padding:12px; margin:12px 0 0; }
+    .concern-head { font-family:'Oswald',sans-serif; font-size:12pt; font-weight:700; text-transform:uppercase; letter-spacing:2px; margin-bottom:8px; }
+    .concern-body { font-family:'Merriweather',serif; font-size:9.5pt; line-height:1.6; font-weight:300; }
+    .concern-body strong { color:#f4f1ec; font-weight:700; }
+
+    .footer { margin-top:16px; border-top:5px solid #0f0f0f; padding-top:6px; display:flex; justify-content:space-between; align-items:center; }
+    .footer-left { font-family:'Merriweather',serif; font-size:8pt; font-style:italic; color:#444; max-width:70%; line-height:1.4; }
+    .footer-right { font-family:'Oswald',sans-serif; font-size:16pt; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:#0f0f0f; }
+
+    @media print { body{background:white;} .page{margin:0;box-shadow:none;width:100%;padding:10mm 12mm;} }
+  </style>
+</head>
+<body><div class="page">
+  <header class="masthead">
+    <div class="banner-top">Pour les travailleurs honnêtes de Spire — la vérité sans détour</div>
+    <div class="name-row">
+      <div class="torch-icon">🔥</div>
+      <div class="paper-name">The Torch</div>
+      <div class="torch-icon">🔥</div>
+    </div>
+    <div class="tagline-row">
+      <span class="tagline">Grandeur &amp; Ordre dans la cité</span>
+      <span class="edition-label">Cette semaine</span>
+    </div>
+  </header>
+
+  <div class="headline-block">
+    <div class="headline">Une nuit qui rappelle<br>ce qu'est Spire</div>
+    <div class="deck">Vendredi soir au Silver Quarter, <strong>Last Breath In Crystal</strong> a honoré la cité de sa présence pour la première fois depuis plusieurs années. Voici ce que cela signifie pour les travailleurs honnêtes de Spire.</div>
+  </div>
+
+  <div class="columns">
+    <div class="col">
+      <p>Il y a des moments où la cité rappelle pourquoi elle est grande. Vendredi soir au Silver Quarter, <strong>Last Breath In Crystal</strong> — Grand Masque d'Amaranth, figure dont la seule présence rappelle l'échelle de ce que Spire a construit — a choisi de descendre parmi les siens pour la première fois depuis plusieurs années.</p>
+      <p>Ce n'est pas anodin. Les grands ne descendent pas par habitude. Ils descendent quand quelque chose mérite leur regard. Et ce qu'il a regardé vendredi soir, c'est une ville qui fonctionne — un bal organisé, un vote conduit dans l'ordre, des présentations de mode devant un public tenu. C'est cela que sa présence valide.</p>
+    </div>
+    <div class="col col2">
+      <p class="no-drop">Nous ne prétendons pas savoir ce qui a motivé sa descente. Nous disons simplement : <strong>quand quelqu'un à ce niveau se déplace, c'est qu'il y a quelque chose à voir.</strong> Et si ce qu'il a vu lui a plu — et rien ne laisse penser le contraire — alors cette soirée est une bonne nouvelle pour tout le monde.</p>
+      <p><strong>Mesyé Só</strong> a été reconduit à la tête du Silver Quarter avec sept voix favorables. <em>The Torch</em> a toujours considéré que la stabilité institutionnelle est une condition nécessaire à la prospérité des quartiers laborieux. Un vote clair, un résultat net : c'est ce que les travailleurs ont besoin de voir fonctionner.</p>
+    </div>
+  </div>
+
+  <div class="section-head">La mode, reflet d'une cité qui produit</div>
+  <div class="columns">
+    <div class="col">
+      <p>Le bal comprenait deux présentations de mode. Nous ne sommes pas un journal de société, mais nous notons que Spire produit — de l'art, du tissu, du travail. Que ces productions trouvent grâce aux yeux d'une figure comme <strong>Last Breath In Crystal</strong>, c'est un encouragement pour tous ceux qui, chaque jour, mettent les mains à l'ouvrage.</p>
+    </div>
+    <div class="col col2">
+      <p class="no-drop">L'essentiel, pour nos lecteurs, est ceci : vendredi soir, Spire a été regardée. Et elle n'a pas déçu.</p>
+    </div>
+  </div>
+
+  <div class="concern-box">
+    <div class="concern-head">Ce qui mérite attention</div>
+    <div class="concern-body">
+      Une boutique drow vient d'ouvrir ses portes au Silver Quarter. <em>The Torch</em> ne s'oppose pas au commerce honnête, quelle qu'en soit l'origine. Mais le Silver Quarter a ses codes, ses attentes, ses équilibres. Ces équilibres ne se maintiennent pas tout seuls — ils exigent que chaque nouvel acteur comprenne l'espace dans lequel il s'installe, et le tienne. Nous resterons attentifs.
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-left">Nous restons vigilants. Nous vous demandons de l'être aussi. <em>The Torch. Parce que quelqu'un doit dire les choses clairement.</em></div>
+    <div class="footer-right">The Torch</div>
+  </footer>
+</div></body>
+</html>

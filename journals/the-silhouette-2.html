@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>The Silhouette — Édition 2</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poiret+One&family=Raleway:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap');
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#d0ccc8; font-family:'Libre Baskerville',Georgia,serif; color:#1c1c1c; }
+    .page { width:210mm; min-height:297mm; margin:20px auto; background:#fafafa; border:none; padding:16mm 18mm; box-shadow:0 2px 40px rgba(0,0,0,0.15); }
+
+    .masthead { text-align:center; padding-bottom:10px; margin-bottom:2px; }
+    .masthead-top { display:flex; justify-content:space-between; font-family:'Raleway',sans-serif; font-size:7pt; letter-spacing:3px; text-transform:uppercase; color:#888; margin-bottom:14px; }
+    .top-rule { border-top:3px solid #1c1c1c; margin-bottom:2px; }
+    .thin-rule { border-top:1px solid #1c1c1c; margin-top:2px; }
+    .paper-name { font-family:'Poiret One',sans-serif; font-size:52pt; letter-spacing:14px; color:#1c1c1c; line-height:1; text-transform:uppercase; }
+    .tagline { font-family:'Raleway',sans-serif; font-weight:300; font-style:italic; font-size:9pt; letter-spacing:4px; color:#555; margin:6px 0; text-transform:uppercase; }
+    .deco-line { display:flex; align-items:center; gap:10px; margin:8px 0; }
+    .deco-line hr { flex:1; border:none; border-top:1px solid #bbb; }
+    .deco-line span { font-family:'Raleway',sans-serif; font-size:7pt; letter-spacing:4px; text-transform:uppercase; color:#999; white-space:nowrap; }
+
+    .headline-block { margin:14px 0 10px; padding-bottom:10px; border-bottom:1px solid #ccc; }
+    .rubric { font-family:'Raleway',sans-serif; font-size:7.5pt; letter-spacing:5px; text-transform:uppercase; color:#888; margin-bottom:8px; }
+    .headline { font-family:'Poiret One',sans-serif; font-size:26pt; letter-spacing:4px; text-transform:uppercase; color:#1c1c1c; line-height:1.15; }
+    .deck { font-family:'Raleway',sans-serif; font-weight:300; font-style:italic; font-size:10.5pt; color:#555; margin-top:6px; line-height:1.5; letter-spacing:1px; }
+
+    .columns { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-top:12px; }
+    .col { font-size:9.5pt; line-height:1.65; text-align:justify; hyphens:auto; }
+    .col p { margin-bottom:9px; }
+    .col p:first-child::first-letter { font-family:'Poiret One',sans-serif; font-size:30pt; float:left; line-height:0.85; margin-right:4px; margin-top:6px; color:#1c1c1c; }
+    .col + .col { padding-left:12px; border-left:1px solid #ddd; }
+    .no-drop::first-letter { font-size:9.5pt !important; font-family:'Libre Baskerville',serif !important; float:none !important; line-height:1.65 !important; margin:0 !important; }
+
+    .incident { margin-top:14px; padding-top:12px; border-top:2px solid #1c1c1c; }
+    .incident-head { font-family:'Poiret One',sans-serif; font-size:17pt; letter-spacing:5px; text-transform:uppercase; color:#1c1c1c; margin-bottom:4px; }
+    .incident-deck { font-family:'Raleway',sans-serif; font-weight:300; font-style:italic; font-size:9.5pt; color:#666; margin-bottom:10px; letter-spacing:1px; }
+    .incident .columns { margin-top:0; }
+
+    .briefs { margin-top:14px; border-top:1px solid #ccc; padding-top:10px; }
+    .briefs-head { font-family:'Raleway',sans-serif; font-size:7.5pt; letter-spacing:5px; text-transform:uppercase; color:#888; margin-bottom:10px; text-align:center; }
+    .brief { font-size:9pt; line-height:1.55; padding:6px 0; border-bottom:1px dotted #ddd; display:flex; gap:8px; }
+    .brief:last-child { border-bottom:none; }
+    .brief-dash { color:#aaa; }
+
+    .footer { margin-top:16px; display:flex; justify-content:space-between; align-items:center; border-top:3px solid #1c1c1c; padding-top:6px; }
+    .footer-left { font-family:'Raleway',sans-serif; font-size:7.5pt; letter-spacing:2px; text-transform:uppercase; color:#888; }
+    .footer-center { font-family:'Poiret One',sans-serif; font-size:14pt; letter-spacing:6px; text-transform:uppercase; color:#1c1c1c; }
+    .footer-right { font-family:'Raleway',sans-serif; font-size:7.5pt; letter-spacing:2px; text-transform:uppercase; color:#888; }
+
+    @media print { body{background:white;} .page{margin:0;box-shadow:none;width:100%;padding:10mm 14mm;} }
+  </style>
+</head>
+<body><div class="page">
+  <header class="masthead">
+    <div class="masthead-top"><span>Chronique mondaine</span><span>Édition du vendredi</span></div>
+    <div class="top-rule"></div>
+    <div class="thin-rule"></div>
+    <div class="paper-name">The Silhouette</div>
+    <div class="thin-rule"></div>
+    <div class="top-rule"></div>
+    <div class="tagline">Ce qui se voit &nbsp;·&nbsp; Ce qui se sait &nbsp;·&nbsp; Ce qui ne se dit pas</div>
+    <div class="deco-line"><hr><span>Silver Quarter — Amaranth — Ivory Row</span><hr></div>
+  </header>
+
+  <div class="headline-block">
+    <div class="rubric">La nuit qui a tout changé</div>
+    <div class="headline">Last Breath In Crystal —<br>ou le retour de la saison vraie</div>
+    <div class="deck">Il n'avait pas descendu d'Amaranth depuis plusieurs années. Vendredi soir, il est venu. La saison a trouvé son centre.</div>
+  </div>
+
+  <div class="columns">
+    <div class="col">
+      <p><strong>Last Breath In Crystal</strong> a franchi les portes du bal du Silver Quarter vendredi soir. Masque blanc, sourire fixe, entouré de ses familiers. Il a traversé la salle avec la lenteur de quelqu'un qui sait que le reste de la pièce s'organise autour de lui.</p>
+      <p>Sa dernière apparition publique dans les cercles du Silver Quarter remonte à une période que les habitués préfèrent ne pas dater — non par oubli, mais parce que certains souvenirs méritent d'être laissés où ils sont.</p>
+    </div>
+    <div class="col">
+      <p class="no-drop">Il a assisté aux deux défilés organisés ce soir-là. <strong>Velours</strong> a ouvert — flocons tombant du plafond, blanc et bleu, l'élégance à son degré le plus épuré. La seconde présentation, conçue par une artisane drow dont le nom commence à circuler, a produit un moment que nous qualifierons d'<em>inattendu</em> : une scénographie déconstruite, une atmosphère délibérément déstabilisante.</p>
+      <p><strong>Last Breath In Crystal</strong> a assisté aux deux défilés. Il n'a pas quitté son siège.</p>
+    </div>
+    <div class="col">
+      <p class="no-drop">Sur le plan institutionnel, le vote de la Maison a enregistré un des scores les plus favorables depuis l'instauration du système. <strong>Mesyé Só</strong> continuera dans ses fonctions, avec une marge nettement plus confortable que les semaines précédentes.</p>
+      <p><em>The Silhouette</em> n'émet pas d'hypothèse sur le rapport entre ces deux faits. <em>The Silhouette</em> observe.</p>
+    </div>
+  </div>
+
+  <div class="incident">
+    <div class="incident-head">La question</div>
+    <div class="incident-deck">Pourquoi maintenant ?</div>
+    <div class="columns">
+      <div class="col">
+        <p>Nous n'avons pas de réponse. Nous avons des observations. Sa présence a capté — et conservé — toute l'attention d'une salle habituellement difficile à impressionner. Les conversations ont changé de nature à son entrée. Certains ont parlé d'un privilège. D'autres, plus honnêtes, ont reconnu quelque chose de plus difficile à nommer.</p>
+      </div>
+      <div class="col">
+        <p class="no-drop"><strong>Last Breath In Crystal</strong> est reparti sans déclaration. Sans annonce. Il est arrivé, il a regardé, il est parti. Ce que cela signifie pour la saison à venir — pour les cercles du Silver Quarter, pour ceux qui espèrent son attention, pour ceux qui la redoutent — nous le saurons en temps voulu.</p>
+      </div>
+      <div class="col">
+        <p class="no-drop"><strong>Sun-on-Stone</strong>, collaboratrice de <strong>Mesyé Só</strong>, a circulé avec la fluidité habituelle d'une personne qui n'est jamais surprise par rien. <em>The Silhouette</em> note que cette qualité, ce soir-là, était particulièrement précieuse.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="briefs">
+    <div class="briefs-head">En bref</div>
+    <div class="brief"><span class="brief-dash">—</span><span><strong>Gold-Quiet-Behind-the-Eyes</strong> était présent, verre en main pendant toute la soirée, discret à l'excès. Il a reçu un document en cours de soirée et l'a lu immédiatement. <em>The Silhouette</em> ne sait pas ce qu'il contenait.</span></div>
+    <div class="brief"><span class="brief-dash">—</span><span><strong>Silver-Promise-Swallowed-Whole</strong> a passé une partie de la soirée en réunion privée. Les participants : connus. Le sujet : non confirmé.</span></div>
+    <div class="brief"><span class="brief-dash">—</span><span>Une nouvelle boutique vient d'ouvrir au Silver Quarter. Son propriétaire est l'artisane drow qui a présenté vendredi soir. <em>The Silhouette</em> note l'emplacement et réserve son jugement.</span></div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-left">Spire — Silver Quarter</div>
+    <div class="footer-center">The Silhouette</div>
+    <div class="footer-right">Édition du vendredi</div>
+  </footer>
+</div></body>
+</html>

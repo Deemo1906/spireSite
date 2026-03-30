@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>The Furnace — Édition 2</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IM+Fell+English:ital@0;1&display=swap');
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#e8e0d0; font-family:'IM Fell English',Georgia,serif; color:#1a1a1a; }
+    .page { width:210mm; min-height:297mm; margin:20px auto; background:#faf6ee; border:1px solid #bbb; padding:14mm 14mm 18mm 14mm; box-shadow:0 4px 20px rgba(0,0,0,0.25); }
+
+    .masthead { text-align:center; border-bottom:4px double #1a1a1a; padding-bottom:6px; margin-bottom:4px; }
+    .masthead-top { display:flex; justify-content:space-between; font-size:8pt; font-style:italic; color:#444; margin-bottom:4px; }
+    .paper-name { font-family:'UnifrakturMaguntia',serif; font-size:64pt; line-height:1; color:#0d0d0d; }
+    .tagline { font-style:italic; font-size:10pt; letter-spacing:1px; color:#333; margin:3px 0 6px; }
+    .edition-banner { background:#1a1a1a; color:#faf6ee; font-family:'Playfair Display',serif; font-size:9pt; letter-spacing:3px; text-transform:uppercase; padding:4px 0; }
+
+    .main-headline { text-align:center; margin:10px 0 4px; border-bottom:2px solid #1a1a1a; padding-bottom:8px; }
+    .kicker { font-family:'Playfair Display',serif; font-size:9pt; letter-spacing:4px; text-transform:uppercase; color:#555; margin-bottom:4px; }
+    .headline { font-family:'Playfair Display',serif; font-size:32pt; font-weight:900; line-height:1.05; text-transform:uppercase; }
+    .deck { font-family:'Playfair Display',serif; font-size:13pt; font-weight:700; font-style:italic; color:#333; margin-top:5px; }
+
+    .columns { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:10px; border-bottom:1px solid #888; padding-bottom:12px; }
+    .col { font-size:10pt; line-height:1.55; text-align:justify; hyphens:auto; }
+    .col p { margin-bottom:8px; }
+    .col p:first-child::first-letter { font-family:'Playfair Display',serif; font-size:38pt; font-weight:900; float:left; line-height:0.8; margin-right:3px; margin-top:5px; }
+    .col2 { padding-left:14px; border-left:1px solid #aaa; }
+    .no-drop::first-letter { font-size:10pt !important; font-weight:normal !important; float:none !important; line-height:1.55 !important; margin:0 !important; }
+    .pullquote { border-top:2px solid #1a1a1a; border-bottom:2px solid #1a1a1a; padding:8px 4px; margin:10px 0; font-family:'Playfair Display',serif; font-style:italic; font-size:11.5pt; font-weight:700; text-align:center; line-height:1.4; }
+    .shout { font-family:'Playfair Display',serif; font-weight:900; font-style:italic; }
+    .sc { font-variant:small-caps; font-weight:bold; letter-spacing:1px; }
+
+    .second { margin-top:12px; }
+    .second-head { font-family:'Playfair Display',serif; font-size:16pt; font-weight:700; font-style:italic; border-top:3px solid #1a1a1a; border-bottom:1px solid #888; padding:5px 0; margin-bottom:8px; }
+    .second .col p:first-child::first-letter { font-size:28pt; }
+    .second .columns { border-bottom:none; }
+
+    .footer { margin-top:14px; border-top:3px double #1a1a1a; padding-top:6px; display:flex; justify-content:space-between; align-items:flex-end; }
+    .footer-left { font-size:8pt; font-style:italic; color:#555; max-width:65%; line-height:1.4; }
+    .footer-right { font-family:'UnifrakturMaguntia',serif; font-size:18pt; }
+
+    @media print { body{background:white;} .page{margin:0;border:none;box-shadow:none;width:100%;padding:10mm 12mm 14mm 12mm;} }
+  </style>
+</head>
+<body><div class="page">
+  <header class="masthead">
+    <div class="masthead-top"><span>Imprimé dans le Works — Spire</span><span>Édition hebdomadaire</span></div>
+    <div class="paper-name">The Furnace</div>
+    <div class="tagline">"Nous imprimons ce que les autres n'osent pas."</div>
+    <div class="edition-banner">Édition de cette semaine — Le Retour du Masque</div>
+  </header>
+
+  <div class="main-headline">
+    <div class="kicker">Silver Quarter — Témoignage exclusif</div>
+    <div class="headline">Last Breath In Crystal est parmi nous !!</div>
+    <div class="deck">Le Grand Masque descend d'Amaranth pour la première fois en années — et personne ne sait pourquoi</div>
+  </div>
+
+  <div class="columns">
+    <div class="col">
+      <p>Il n'était pas prévu. Il n'était pas annoncé. Il est <span class="shout">apparu</span>. Vendredi soir, au bal du Silver Quarter, <strong>Last Breath In Crystal</strong> — Grand Masque d'Amaranth, figure dont le seul nom fait baisser les voix — a franchi les portes pour la première fois depuis des <span class="sc">années</span>.</p>
+      <p>La salle s'est figée. Les conversations se sont tues. Selon une source <span class="sc">directement présente sur les lieux</span> — qui a exigé l'anonymat le plus complet, et nous la comprenons — <em>"personne ne respirait plus. Même les gardes du corps ont arrêté de bouger."</em></p>
+      <div class="pullquote">"Même les gardes du corps<br>ont arrêté de bouger."</div>
+      <p>Masque blanc, sourire fixe. Il a traversé la salle <em>lentement</em>. Comme quelqu'un qui sait que le reste de la pièce s'organise autour de lui.</p>
+    </div>
+    <div class="col col2">
+      <p class="no-drop">C'est <span class="sc">la question</span> que tout Spire se pose ce matin : qu'est-ce qu'il faisait là ?</p>
+      <p><strong>Last Breath In Crystal</strong> ne descend pas. C'est un fait connu de tous. Ses affaires sont à Amaranth, ses cercles sont à Amaranth, <em>sa vie</em> est à Amaranth. Et pourtant, vendredi soir, le voilà — au milieu d'un bal de mode, en plein Silver Quarter, entouré de ses <em>familiers</em>.</p>
+      <p>L'explication officielle ? Il serait venu assister aux défilés. Une couturière drow, une certaine <strong>Kira</strong>, présentait une collection. Mais nos sources ne croient pas une seconde à cette version. <em>"Quand quelqu'un comme lui bouge,"</em> nous dit l'une d'elles, <em>"c'est jamais pour les raisons qu'il dit. Et il n'a rien dit du tout."</em></p>
+      <p>Ce que nous savons : ce n'était pas que de l'admiration dans les yeux des invités. C'était de la <span class="shout">peur</span>. Une peur propre, bien habillée — mais de la peur quand même.</p>
+    </div>
+  </div>
+
+  <div class="second">
+    <div class="second-head">Le vote à 7 : le Masque a-t-il pesé la balance ?</div>
+    <div class="columns">
+      <div class="col"><p><strong>Mesyé Só</strong> a remporté le vote de la Maison vendredi soir avec <span class="sc">sept voix favorables</span> — un record depuis l'instauration du système. Coïncidence ? La présence de <strong>Last Breath In Crystal</strong> dans la salle aurait-elle <em>encouragé</em> certains indécis à voter du bon côté ?</p></div>
+      <div class="col col2"><p class="no-drop">Nos sources au Silver Quarter suggèrent que la soirée a comporté plusieurs conversations <em>très privées</em> entre des personnes qui, d'ordinaire, ne se parlent pas. <span class="sc">The Furnace</span> continue d'enquêter. Comme toujours.</p></div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-left"><em>The Furnace.</em> On dit ce qu'on pense. Même quand on ne sait pas vraiment. — Toute ressemblance avec des personnages réels est entièrement intentionnelle.</div>
+    <div class="footer-right">The Furnace</div>
+  </footer>
+</div></body>
+</html>

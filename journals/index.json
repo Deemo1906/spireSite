@@ -6,7 +6,8 @@
       "tagline": "Gazette de la Haute Société de la Flèche",
       "style": "ambrosia",
       "editions": [
-        { "number": 1, "file": "ambrosia-1.html", "date": "2026-03-19" }
+        { "number": 1, "file": "ambrosia-1.html", "date": "2026-03-19" },
+        { "number": 2, "file": "ambrosia-2.html", "date": "2026-03-30" }
       ]
     },
     {
@@ -15,7 +16,8 @@
       "tagline": "Journal clandestin de résistance",
       "style": "liberate",
       "editions": [
-        { "number": 1, "file": "liberate-1.html", "date": "2026-03-19" }
+        { "number": 1, "file": "liberate-1.html", "date": "2026-03-19" },
+        { "number": 2, "file": "liberate-2.html", "date": "2026-03-30" }
       ]
     },
     {
@@ -24,7 +26,8 @@
       "tagline": "Journal d'Information et d'Analyse",
       "style": "chronicle",
       "editions": [
-        { "number": 1, "file": "the-chronicle-1.html", "date": "2026-03-19" }
+        { "number": 1, "file": "the-chronicle-1.html", "date": "2026-03-19" },
+        { "number": 2, "file": "the-chronicle-2.html", "date": "2026-03-30" }
       ]
     },
     {
@@ -33,7 +36,8 @@
       "tagline": "Voix des Profondeurs",
       "style": "furnace",
       "editions": [
-        { "number": 1, "file": "the-furnace-1.html", "date": "2026-03-19" }
+        { "number": 1, "file": "the-furnace-1.html", "date": "2026-03-19" },
+        { "number": 2, "file": "the-furnace-2.html", "date": "2026-03-30" }
       ]
     },
     {
@@ -42,7 +46,8 @@
       "tagline": "L'élégance dans l'ombre",
       "style": "silhouette",
       "editions": [
-        { "number": 1, "file": "the-silhouette-1.html", "date": "2026-03-19" }
+        { "number": 1, "file": "the-silhouette-1.html", "date": "2026-03-19" },
+        { "number": 2, "file": "the-silhouette-2.html", "date": "2026-03-30" }
       ]
     },
     {
@@ -51,7 +56,8 @@
       "tagline": "La lumière que l'on ne peut pas éteindre.",
       "style": "torch",
       "editions": [
-        { "number": 1, "file": "the-torch-1.html", "date": "2026-03-19" }
+        { "number": 1, "file": "the-torch-1.html", "date": "2026-03-19" },
+        { "number": 2, "file": "the-torch-2.html", "date": "2026-03-30" }
       ]
     }
   ]

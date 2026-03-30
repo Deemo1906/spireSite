@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>The Chronicle — Édition 2</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#c8c8c8; font-family:'Crimson Pro',Georgia,serif; color:#0d0d0d; }
+    .page { width:210mm; min-height:297mm; margin:20px auto; background:#f9f8f5; padding:12mm 14mm 16mm; box-shadow:0 2px 20px rgba(0,0,0,0.2); }
+
+    .masthead { border-bottom:3px solid #0d0d0d; padding-bottom:5px; margin-bottom:5px; }
+    .masthead-row1 { display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; }
+    .paper-name { font-family:'Source Serif 4',serif; font-size:34pt; font-weight:700; letter-spacing:2px; color:#0d0d0d; line-height:1; }
+    .meta-block { text-align:right; font-family:'Space Mono',monospace; font-size:7pt; color:#444; line-height:1.6; }
+    .subtitle { font-family:'Source Serif 4',serif; font-size:9pt; font-style:italic; color:#333; letter-spacing:1px; }
+    .rule-thin { border-top:1px solid #0d0d0d; margin:4px 0; }
+    .edition-row { display:flex; justify-content:space-between; font-family:'Space Mono',monospace; font-size:7.5pt; color:#333; padding-top:4px; }
+
+    .headline-block { margin:10px 0 8px; padding-bottom:8px; border-bottom:2px solid #0d0d0d; }
+    .rubric { font-family:'Space Mono',monospace; font-size:7.5pt; letter-spacing:2px; text-transform:uppercase; color:#555; margin-bottom:5px; }
+    .headline { font-family:'Source Serif 4',serif; font-size:19pt; font-weight:700; line-height:1.2; color:#0d0d0d; }
+    .deck { font-family:'Crimson Pro',serif; font-style:italic; font-size:11pt; color:#333; margin-top:5px; line-height:1.45; }
+
+    .data-table { width:100%; border-collapse:collapse; margin:10px 0; font-family:'Space Mono',monospace; font-size:8pt; }
+    .data-table th { background:#0d0d0d; color:#f9f8f5; padding:4px 6px; text-align:left; font-weight:normal; letter-spacing:1px; }
+    .data-table td { padding:3px 6px; border-bottom:1px solid #ddd; }
+    .data-table tr:nth-child(even) td { background:#f0ede6; }
+    .vote-yes { color:#1a6a1a; font-weight:bold; }
+    .vote-abs { color:#666; }
+    .vote-no { color:#8a1a1a; font-weight:bold; }
+
+    .columns { display:grid; grid-template-columns:2fr 1fr; gap:14px; margin-top:10px; }
+    .columns-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-top:10px; }
+    .col { font-size:9.5pt; line-height:1.6; text-align:justify; hyphens:auto; }
+    .col p { margin-bottom:8px; }
+    .col p:first-child::first-letter { font-family:'Source Serif 4',serif; font-size:30pt; font-weight:700; float:left; line-height:0.85; margin-right:3px; margin-top:5px; color:#0d0d0d; }
+    .col2 { padding-left:12px; border-left:1px solid #ccc; }
+    .no-drop::first-letter { font-size:9.5pt !important; font-weight:normal !important; float:none !important; line-height:1.6 !important; margin:0 !important; }
+
+    .section-head { font-family:'Source Serif 4',serif; font-size:11pt; font-weight:700; text-transform:uppercase; letter-spacing:1px; border-top:2px solid #0d0d0d; border-bottom:1px solid #0d0d0d; padding:3px 0; margin:12px 0 8px; }
+    .sub-section-head { font-family:'Crimson Pro',serif; font-size:11pt; font-weight:700; font-style:italic; color:#222; margin:8px 0 4px; }
+
+    .sidebar { background:#f0ede6; border:1px solid #bbb; padding:8px; font-size:8.5pt; line-height:1.5; }
+    .sidebar-head { font-family:'Space Mono',monospace; font-size:7.5pt; font-weight:bold; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; border-bottom:1px solid #bbb; padding-bottom:4px; }
+    .sidebar p { margin-bottom:5px; }
+
+    .footer { margin-top:14px; border-top:2px solid #0d0d0d; padding-top:5px; display:flex; justify-content:space-between; align-items:center; }
+    .footer-left { font-family:'Space Mono',monospace; font-size:7pt; color:#555; }
+    .footer-right { font-family:'Space Mono',monospace; font-size:7pt; color:#555; font-style:italic; }
+
+    @media print { body{background:white;} .page{margin:0;box-shadow:none;width:100%;padding:10mm 12mm;} }
+  </style>
+</head>
+<body><div class="page">
+  <header class="masthead">
+    <div class="masthead-row1">
+      <div>
+        <div class="paper-name">The Chronicle</div>
+        <div class="subtitle">Finances, Commerce &amp; Gouvernance de Spire</div>
+      </div>
+      <div class="meta-block">
+        ÉDITION HEBDOMADAIRE<br>
+        MARCHÉS &amp; INSTITUTIONS<br>
+        Rubrique : Signaux &amp; Positions
+      </div>
+    </div>
+    <div class="rule-thin"></div>
+    <div class="edition-row">
+      <span>Flux de cargaison Sky Docks — p.3</span>
+      <span>La décadence à North Docks — que faire ? — p.5</span>
+      <span>Nécrologie des comptes — p.7</span>
+    </div>
+  </header>
+
+  <div class="headline-block">
+    <div class="rubric">Last Breath In Crystal // Présence &amp; Implications</div>
+    <div class="headline">La descente de Last Breath In Crystal : lecture d'un signal</div>
+    <div class="deck">Pour la première fois depuis plusieurs années, le Grand Masque d'Amaranth s'est présenté au bal du Silver Quarter. Le vote de la Maison enregistre simultanément son score record. <em>The Chronicle</em> établit le calendrier.</div>
+  </div>
+
+  <table class="data-table">
+    <tr><th>Catégorie de vote</th><th>Décompte</th><th>Statut</th><th>Analyse</th></tr>
+    <tr><td>Voix favorables</td><td class="vote-yes">7</td><td class="vote-yes">✓ Score record</td><td>Seuil de confort analytique atteint et dépassé</td></tr>
+    <tr><td>Abstentions</td><td class="vote-abs">2</td><td class="vote-abs">— En retrait</td><td>Réduction significative vs scrutin précédent</td></tr>
+    <tr><td>Voix d'opposition</td><td class="vote-no">1</td><td class="vote-no">✗ Dissidence isolée</td><td>Minorité réduite à sa plus simple expression</td></tr>
+    <tr><td><strong>Seuil de confort</strong></td><td>7</td><td class="vote-yes">Atteint</td><td>Autorité pleinement consolidée pour la période</td></tr>
+  </table>
+
+  <div class="columns">
+    <div class="col">
+      <div class="section-head">Lecture du signal</div>
+      <p><strong>Last Breath In Crystal</strong> contrôle un patrimoine foncier et artistique significatif à Amaranth. Ses absences prolongées ont historiquement correspondu à des périodes de consolidation interne — et ses réapparitions, à des phases d'intérêt actif pour des actifs extérieurs à sa sphère habituelle.</p>
+      <p>Sa présence au bal du Silver Quarter — un espace dont les dynamiques commerciales et politiques sont en mutation rapide depuis plusieurs mois — mérite attention. Nous n'établissons pas de causalité. Nous établissons un calendrier : sa venue coïncide avec le vote record de la Maison. Ce fait est documenté.</p>
+      <div class="section-head">Implications pour le commerce</div>
+      <p>Une attention active d'un acteur d'Amaranth sur le Silver Quarter constitue un signal de pression potentielle sur les prix fonciers du district. Plusieurs opérateurs commerciaux ont, en marge de la soirée, exprimé une attention accrue à leurs propres présentations. Le marché réagit avant même que la position soit confirmée.</p>
+    </div>
+    <div class="col col2">
+      <div class="sidebar">
+        <div class="sidebar-head">Notes de marché</div>
+        <p>La présence de <strong>Last Breath In Crystal</strong> a coïncidé avec l'ouverture d'une nouvelle boutique au Silver Quarter par une artisane drow, <strong>Kira</strong>, dont les défilés ont précédé et suivi sa venue. <em>The Chronicle</em> note la proximité temporelle sans en tirer de conclusion définitive.</p>
+        <p>Le score de 7 voix favorables représente une hausse de 3 points par rapport au scrutin précédent. L'analyse des mouvements individuels de vote n'a pas pu être confirmée au moment de mettre sous presse.</p>
+      </div>
+      <div class="sub-section-head">Perspectives</div>
+      <p class="no-drop" style="font-size:9pt;line-height:1.55;">La question que posent les observateurs n'est pas <em>pourquoi</em> <strong>Last Breath In Crystal</strong> est descendu. La question est : <em>qu'est-ce qu'il a regardé, et est-ce qu'il va revenir ?</em></p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-left">The Chronicle ne prend pas de position politique. The Chronicle comptabilise.</div>
+    <div class="footer-right">Édition hebdomadaire — Marchés &amp; Institutions</div>
+  </footer>
+</div></body>
+</html>

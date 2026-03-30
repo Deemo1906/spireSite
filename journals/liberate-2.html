@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Liberate! — Édition 2</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=VT323&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#888; font-family:'Courier Prime',monospace; color:#111; }
+    .page {
+      width:210mm; min-height:297mm; margin:20px auto;
+      background:#f0ebe0;
+      padding:14mm 16mm;
+      box-shadow:0 0 0 2px #555, 0 4px 20px rgba(0,0,0,0.4);
+      transform:rotate(-0.3deg);
+      position:relative;
+    }
+
+    .page::before {
+      content:'';
+      position:absolute; inset:0;
+      background:repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(0,0,0,0.015) 28px, rgba(0,0,0,0.015) 29px);
+      pointer-events:none;
+    }
+
+    .masthead { text-align:center; border:3px solid #111; padding:8px 6px 6px; margin-bottom:10px; position:relative; }
+    .masthead::before { content:''; position:absolute; top:3px; left:3px; right:3px; bottom:3px; border:1px solid #111; pointer-events:none; }
+    .top-line { font-family:'Special Elite',cursive; font-size:8pt; letter-spacing:2px; color:#333; margin-bottom:6px; }
+    .paper-name { font-family:'VT323',monospace; font-size:72pt; line-height:0.9; color:#111; letter-spacing:-2px; }
+    .excl { color:#8a0000; }
+    .tagline { font-family:'Courier Prime',monospace; font-size:8.5pt; font-style:italic; color:#333; margin-top:4px; letter-spacing:1px; }
+    .warning-band { background:#111; color:#f0ebe0; font-family:'Special Elite',cursive; font-size:8pt; letter-spacing:3px; padding:3px 0; margin-top:6px; }
+
+    .headline-block { margin:10px 0 8px; padding:8px 0; border-top:3px solid #111; border-bottom:3px solid #111; }
+    .headline { font-family:'Special Elite',cursive; font-size:20pt; line-height:1.2; color:#111; text-transform:uppercase; }
+    .deck { font-family:'Courier Prime',monospace; font-size:9.5pt; font-style:italic; color:#333; margin-top:6px; line-height:1.5; }
+
+    .body-text { font-size:9.5pt; line-height:1.65; text-align:left; }
+    .body-text p { margin-bottom:10px; }
+
+    .section-head { font-family:'Special Elite',cursive; font-size:12pt; text-transform:uppercase; margin:14px 0 6px; padding-bottom:3px; border-bottom:2px solid #111; letter-spacing:2px; }
+
+    .red { color:#8a0000; font-weight:bold; }
+    .underline { text-decoration:underline; text-decoration-thickness:2px; }
+    .typed-bold { font-family:'Special Elite',cursive; font-size:10pt; }
+
+    .accusation { border:2px solid #111; padding:10px 12px; margin:12px 0; background:#e8e0cc; position:relative; }
+    .accusation::before { content:'!!!'; position:absolute; top:-10px; left:10px; background:#e8e0cc; padding:0 4px; font-family:'Special Elite',cursive; font-size:12pt; color:#8a0000; }
+    .accusation p { font-family:'Special Elite',cursive; font-size:10.5pt; line-height:1.5; color:#111; }
+
+    .margin-note { font-family:'Special Elite',cursive; font-size:8pt; color:#555; font-style:italic; float:right; max-width:80px; margin-left:8px; line-height:1.4; transform:rotate(1.5deg); }
+
+    .footer { margin-top:16px; border-top:3px double #111; padding-top:8px; }
+    .footer-main { font-family:'Special Elite',cursive; font-size:10pt; color:#111; margin-bottom:4px; }
+    .footer-small { font-family:'Courier Prime',monospace; font-size:7.5pt; font-style:italic; color:#555; line-height:1.5; }
+
+    @page { size: A4; margin: 10mm 12mm; }
+    @media print {
+      html, body { background: white; width: 100%; height: auto; overflow: visible; }
+      .page { margin:0; padding:0; box-shadow:none; border:none; width:100%; min-height:unset; height:auto; transform:none; overflow:visible; }
+      .page::before { display:none; }
+    }
+  </style>
+</head>
+<body><div class="page">
+  <header class="masthead">
+    <div class="top-line">La seule presse qui ne leur appartient pas — Faites circuler, brûlez après lecture</div>
+    <div class="paper-name">LIBERATE<span class="excl">!</span></div>
+    <div class="tagline">Pamphlet — Numéro non daté</div>
+    <div class="warning-band">POSSESSION DANGEREUSE — DIFFUSION IMMÉDIATE RECOMMANDÉE</div>
+  </header>
+
+  <div class="headline-block">
+    <div class="headline">Pendant qu'ils s'émerveillaient</div>
+    <div class="deck">Last Breath In Crystal est descendu d'Amaranth. Toute la presse en parle. Nous, on regarde ce qu'il avait à côté de lui.</div>
+  </div>
+
+  <div class="body-text">
+    <p><span class="typed-bold">Last Breath In Crystal</span> est descendu d'Amaranth vendredi soir. <em>The Furnace</em> l'a célébré. <em>The Silhouette</em> a retenu son souffle. <em>The Torch</em> a dit que c'était une bonne nouvelle pour les travailleurs. <em>Ambrosia</em> a trouvé ça divin.</p>
+
+    <p>Pendant ce temps-là, nous avons remarqué quelque chose que personne d'autre ne juge utile de mentionner : <span class="underline">il n'était pas seul.</span></p>
+
+    <p>À ses côtés — tremblante, silencieuse, portant sur elle une marque que nous ne décrirons pas pour ne pas mettre en danger ceux qui l'ont reconnu — se trouvait <span class="red">une drow</span>. Jeune. Présentée comme sa nouvelle <em>assistante</em>.</p>
+
+    <p>Ce mot. <span class="typed-bold">Assistante.</span> Comme si ça changeait quoi que ce soit.</p>
+
+    <div class="accusation">
+      <p>Il y a des mots que la presse aisée utilise pour ne pas en prononcer d'autres. <span class="red">Assistante. Domestique. Membre du foyer. Servante de confiance.</span> Ils désignent tous la même chose quand celui qui les emploie descend d'Amaranth et que celle qu'il désigne n'est pas libre de partir.</p>
+      <p>Il a choisi de se montrer avec elle. Publiquement. Dans une salle pleine. Comme une déclaration. Comme quelqu'un qui n'a pas peur d'être vu.</p>
+      <p>Il a raison de ne pas avoir peur. <span class="red">Personne n'a dit un mot.</span></p>
+    </div>
+
+    <div class="section-head">Ce que vous avez lu dans Ambrosia</div>
+    <span class="margin-note">relisez<br>entre les<br>lignes</span>
+    <p><em>Ambrosia</em> a publié cette semaine une interview d'une couturière drow dont le défilé a, semble-t-il, impressionné la salle. Nous avons lu cet entretien. Nous vous encourageons à le relire — attentivement, lentement — en notant ce qui est dit <em>autour</em> de ses réponses.</p>
+
+    <p><em>"Touchante ambition."</em> <em>"Créativité native."</em> <em>"Il ne s'agit pas vraiment de compétition."</em> <em>"Dans l'espace qui est le sien, auprès du public qui est le sien."</em></p>
+
+    <p>C'est de la compétition. C'est exactement de la compétition. Et le fait qu'ils aient besoin de le nier aussi vite, aussi longuement, avec autant de <em>bienveillance</em> — devrait vous dire quelque chose sur ce qu'ils ont vu vendredi soir et ce qu'ils refusent de nommer.</p>
+
+    <div class="section-head">Ce que nous demandons</div>
+    <p>Nous ne vous demandons pas de haïr la soirée. Nous ne vous demandons pas de haïr les gens qui étaient là.</p>
+    <p>Nous vous demandons de ne pas oublier <span class="underline">la drow tremblante.</span> De ne pas vous laisser absorber par l'émerveillement. De vous souvenir que chaque fois qu'un Grand Masque descend "gracieusement parmi nous", il repart avec quelque chose.</p>
+    <p>Cette fois, il est arrivé avec quelqu'un.</p>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-main">Distribuez. Notez les noms. Ne laissez pas le spectacle remplacer la mémoire.</div>
+    <div class="footer-small">
+      Liberate! n'est pas imprimé dans le Works. N'est pas financé par le Silver Quarter.<br>
+      N'est pas protégé par qui que ce soit d'assez puissant pour que nous mentionnions son nom ici.<br>
+      <em>Ils appellent ça de la présence. Nous, on appelle ça une démonstration.</em>
+    </div>
+  </footer>
+</div></body>
+</html>
