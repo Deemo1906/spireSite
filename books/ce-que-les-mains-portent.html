@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ce Que les Mains Portent — Yssel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+
+      /* ── NAV ── */
+      .book-nav {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+        background: rgba(14,6,8,0.97); backdrop-filter: blur(8px);
+        border-bottom: 1px solid #4a2030;
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 0 2rem; height: 52px;
+      }
+      .nav-back { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: #6a4050; text-decoration: none; transition: color 0.2s; }
+      .nav-back:hover { color: #c4b0b0; }
+      .nav-chapters { display: flex; gap: 1.5rem; list-style: none; }
+      .nav-chapters a { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.3em; text-transform: uppercase; color: #4a2030; text-decoration: none; transition: color 0.2s; }
+      .nav-chapters a:hover { color: #c4b0b0; }
+
+      /* ── COVER ── */
+      .book-cover {
+        min-height: 100vh; background: #0e0608;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        text-align: center; padding: 4rem 2rem;
+        position: relative; overflow: hidden;
+      }
+      .cover-bg-pattern {
+        position: absolute; inset: 0;
+        background: repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(80,30,40,0.04) 40px, rgba(80,30,40,0.04) 41px),
+                    repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(80,30,40,0.04) 40px, rgba(80,30,40,0.04) 41px);
+        pointer-events: none;
+      }
+      .cover-glow {
+        position: absolute; inset: 0;
+        background: radial-gradient(ellipse 60% 50% at 50% 45%, rgba(140,60,80,0.1) 0%, transparent 70%);
+        pointer-events: none;
+      }
+      .cover-frame {
+        position: relative; max-width: 500px; width: 100%;
+        padding: 4.5rem 3.5rem;
+        border: 1px solid #6a2840;
+      }
+      .cover-frame::before { content: ''; position: absolute; inset: 8px; border: 1px solid #4a1828; pointer-events: none; }
+      .cover-frame::after  { content: ''; position: absolute; inset: 16px; border: 1px solid #3a1020; pointer-events: none; }
+
+      .cover-seal { font-size: 0.6rem; letter-spacing: 10px; color: #6a2840; margin-bottom: 1.5rem; position: relative; z-index: 1; }
+      .cover-ornament { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 6px; text-transform: uppercase; color: #7a4050; margin-bottom: 2.5rem; position: relative; z-index: 1; }
+      .cover-title-main { font-family: 'Cinzel Decorative', serif; font-size: clamp(1.2rem, 4vw, 2rem); font-weight: 400; color: #e4ccc4; line-height: 1.25; letter-spacing: 2px; margin-bottom: 0.75rem; position: relative; z-index: 1; }
+      .cover-subtitle { font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 3px; text-transform: uppercase; color: #7a5060; margin-top: 0.75rem; line-height: 1.8; position: relative; z-index: 1; }
+      .cover-rule { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, #6a2840, transparent); margin: 2rem auto; position: relative; z-index: 1; }
+      .cover-author { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1rem; color: #b08888; position: relative; z-index: 1; }
+      .cover-edition { font-family: 'Cinzel', serif; font-size: 0.44rem; letter-spacing: 3px; text-transform: uppercase; color: #5a3040; margin-top: 2rem; line-height: 2; position: relative; z-index: 1; }
+
+      .cover-open {
+        margin-top: 3rem; position: relative; z-index: 1;
+        display: inline-block;
+        font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase;
+        color: #7a5060; border: 1px solid #4a2030; padding: 0.8em 2.5em;
+        cursor: pointer; background: transparent; text-decoration: none;
+        transition: background 0.2s, color 0.2s, border-color 0.2s;
+      }
+      .cover-open:hover { background: #1a0a10; color: #e4ccc4; border-color: #6a2840; }
+
+      /* ── CARD PAGE ── */
+      .book-card-page {
+        min-height: 100vh; background: #f8f4f2;
+        display: flex; align-items: center; justify-content: center;
+        padding: 5rem 2rem; padding-top: 7rem;
+      }
+      .card-inner {
+        max-width: 520px; width: 100%; text-align: center;
+        border: 1px solid #c09090; padding: 4rem 3rem;
+        position: relative; background: #f8f4f2;
+      }
+      .card-inner::before { content: ''; position: absolute; inset: 8px; border: 1px solid #d4b0b0; pointer-events: none; }
+      .card-inner::after { content: '✦'; position: absolute; top: 12px; left: 50%; transform: translateX(-50%); font-size: 9pt; color: #906070; background: #f8f4f2; padding: 0 8px; }
+
+      .card-rubric { font-family: 'Cinzel', serif; font-size: 0.52rem; letter-spacing: 5px; text-transform: uppercase; color: #906070; margin-bottom: 1.5rem; }
+      .card-title { font-family: 'Cinzel Decorative', serif; font-size: 1.5rem; color: #1e1410; line-height: 1.2; margin-bottom: 0.25rem; }
+      .card-subtitle { font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 2px; text-transform: uppercase; color: #706050; line-height: 1.8; margin-top: 0.5rem; }
+      .card-divider { width: 50px; height: 1px; background: #c09090; margin: 1.5rem auto; }
+      .card-author { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1rem; color: #2e1818; }
+      .card-meta { font-family: 'Cinzel', serif; font-size: 0.46rem; letter-spacing: 2px; text-transform: uppercase; color: #806060; margin-top: 2rem; line-height: 2.2; }
+      .card-read { display: inline-block; margin-top: 2.5rem; font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase; color: #706050; border: 1px solid #c09090; padding: 0.8em 2.5em; text-decoration: none; transition: background 0.2s, color 0.2s; }
+      .card-read:hover { background: #1e1410; color: #e4ccc4; }
+
+      /* ── CONTENT ── */
+      .book-content { background: #f8f4f2; padding: 5rem 2rem 8rem; padding-top: 7rem; }
+      .content-inner { max-width: 660px; margin: 0 auto; }
+
+      .content-inner p { font-family: 'EB Garamond', serif; font-size: 1.05rem; line-height: 1.9; color: #1a1210; margin-bottom: 1.25em; text-align: justify; hyphens: auto; }
+      .content-inner em { font-style: italic; }
+      .content-inner hr { border: none; border-top: 1px solid #d4b0b0; margin: 2.5rem auto; width: 60%; }
+
+      .content-inner h1 { font-family: 'Cinzel Decorative', serif; font-size: 1.6rem; color: #1e1410; text-align: center; margin: 3rem 0 0.5rem; }
+      .content-inner h2 { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 4px; text-transform: uppercase; color: #7a5060; text-align: center; margin: 3.5rem 0 1.5rem; }
+
+      .drop-cap::first-letter { font-family: 'Cinzel Decorative', serif; font-size: 3.5rem; float: left; line-height: 0.8; margin-right: 6px; margin-top: 8px; color: #7a3040; }
+
+      .fin { text-align: center; font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 5px; text-transform: uppercase; color: #906070; margin: 3rem 0; }
+    </style>
+  </head>
+  <body>
+
+    <nav class="book-nav">
+      <a class="nav-back" href="../authors/yssel.html">← Yssel</a>
+      <ul class="nav-chapters">
+        <li><a href="#cover">Couverture</a></li>
+        <li><a href="#card">Page de garde</a></li>
+        <li><a href="#content">Texte</a></li>
+      </ul>
+    </nav>
+
+    <!-- COVER -->
+    <section id="cover" class="book-cover">
+      <div class="cover-bg-pattern"></div>
+      <div class="cover-glow"></div>
+      <div class="cover-frame">
+        <p class="cover-seal">✦  ✦  ✦  ✦  ✦</p>
+        <p class="cover-ornament">Une histoire</p>
+        <h1 class="cover-title-main">Ce Que les<br/>Mains Portent</h1>
+        <p class="cover-subtitle">Tome I</p>
+        <div class="cover-rule"></div>
+        <p class="cover-author">Yssel</p>
+        <p class="cover-edition">Première édition</p>
+      </div>
+      <a href="#card" class="cover-open">Ouvrir</a>
+    </section>
+
+    <!-- CARD / TITLE PAGE -->
+    <section id="card" class="book-card-page">
+      <div class="card-inner">
+        <p class="card-rubric">Nouvelle sentimentale</p>
+        <h2 class="card-title">Ce Que les<br/>Mains Portent</h2>
+        <p class="card-subtitle">Tome I — Une histoire</p>
+        <div class="card-divider"></div>
+        <p class="card-author">Yssel</p>
+        <p class="card-meta">
+          Première édition<br/>
+          Spire
+        </p>
+        <a href="#content" class="card-read">Lire</a>
+      </div>
+    </section>
+
+    <!-- CONTENT -->
+    <section id="content" class="book-content">
+      <div class="content-inner">
+
+        <h1>Ce Que les Mains Portent</h1>
+
+        <h2>I</h2>
+
+        <p class="drop-cap">On m'avait dit qu'une garde du corps devait être discrète.</p>
+
+        <p>Pas petite, pas silencieuse — discrète. Ma mère avait fait la distinction, une fois, à table, avec cette façon qu'elle avait de formuler les évidences comme si elle les décidait à l'instant. Son propre garde avait servi la maison Vel-Aure pendant dix-neuf ans. Elle était incapable de dire sa couleur d'yeux. C'était, selon elle, le signe d'un arrangement réussi.</p>
+
+        <p>Tessra n'était pas discrète.</p>
+
+        <p>Ce n'était pas une question de volume. Elle ne faisait aucun bruit. Elle se déplaçait dans les pièces comme quelqu'un qui connaît chaque latte du parquet par cœur, avec une précision qui aurait pu passer pour de l'élégance si elle n'avait pas été aussi clairement fonctionnelle. Ce n'était pas non plus une question de présence au sens habituel du terme. Elle se tenait dans les coins, dos aux murs, et pourtant les pièces s'organisaient autour d'elle sans qu'elle y fût pour rien — les invités se retournaient vers elle sans raison, les conversations se décalaient, les serveurs choisissaient instinctivement de passer de l'autre côté.</p>
+
+        <p>Ce qui rendait Tessra impossible à oublier était plus simple.</p>
+
+        <p>Elle était construite d'une façon que les femmes de ma connaissance n'étaient pas construites. Pas plus grande — un centimètre ou deux au-dessus de moi, rien qui justifiât ce que j'éprouvais. Mais dense. Le mot m'était venu lors d'un dîner chez la Duchesse Vael, au deuxième mois, pendant que je faisais semblant de suivre une conversation sur les réformes fiscales du Silver Quarter. Tessra se tenait à ma gauche. J'avais regardé ses épaules pendant deux heures. Sous la veste sombre de service, le muscle se devinait à chaque geste — non pas de façon ostentatoire, mais de façon structurelle. Comme si quelqu'un avait conçu ce corps pour une fonction précise et que la veste était l'habillage d'une architecture.</p>
+
+        <p>J'avais vingt-deux ans. Je n'avais jamais regardé quelqu'un de cette façon.</p>
+
+        <p>Je n'avais pas encore compris que c'est comme ça que les choses commencent — pas avec une décision, pas avec un aveu, mais avec un mot trouvé seul dans sa tête pendant une conversation sur les taxes. Dense. Un mot banal pour quelque chose qui ne l'était pas du tout.</p>
+
+        <hr/>
+
+        <h2>II</h2>
+
+        <p class="drop-cap">Les trois premiers mois furent une négociation silencieuse dont je ne connaissais pas les termes.</p>
+
+        <p>Tessra répondait par des phrases courtes et précises. Oui, mademoiselle. Non, mademoiselle. La voiture est prête. Ce couloir donne sur une impasse, il vaut mieux prendre le suivant. Elle faisait son travail avec une économie de mouvement qui aurait dû me permettre de l'oublier — c'était exactement ce que ma mère avait prédit, cette invisibilité obtenue non par absence mais par efficacité totale.</p>
+
+        <p>Ce qui se passait à la place me donnait du mal à dormir.</p>
+
+        <p>Je lui trouvais des prétextes. Pas des mensonges construits — juste des questions sans utilité que je posais parce que la réponse m'importait moins que le fait de l'entendre parler. Est-ce que tu penses qu'il va pleuvoir ? Est-ce que tu as mangé ? Est-ce que l'itinéraire par les Jardins te convient ou tu préfères la rue directe ? Quand elle parlait, elle regardait droit devant elle ou vers les sorties, ses mains le long du corps ou croisées dans le dos, et il n'y avait rien dans sa posture qui ressemblât à de la froideur — seulement à de la précision. Elle avait décidé que son travail consistait à occuper l'espace juste comme il le fallait, ni plus ni moins, et elle exécutait cette décision avec une constance que je n'aurais pas su nommer.</p>
+
+        <p>Sa voix était grave pour une femme, plus grave que la mienne, avec un accent drow que les personnes bien élevées de mon milieu entendaient et ne commentaient pas à voix haute.</p>
+
+        <p>Je trouvais sa voix très belle. Je me disais que c'était parce qu'elle portait mieux dans les grandes pièces. Je me disais beaucoup de choses.</p>
+
+        <hr/>
+
+        <h2>III</h2>
+
+        <p class="drop-cap">Le soir qui changea quelque chose fut un soir de Grisaille.</p>
+
+        <p>La pluie tombait sur le Silver Quarter avec cette régularité têtue que j'avais toujours trouvée déprimante, et j'avais décidé de ne pas aller au bal de la Comtesse Ashvael parce que les bals de la Comtesse Ashvael me donnaient l'impression d'être une pièce sur un plateau de jeu que je ne comprenais pas. J'avais pris un recueil de poésie dans la bibliothèque du premier et je m'étais installée dans le grand fauteuil face à la fenêtre. Tessra avait pris sa position habituelle près de la porte, le dos au mur, les yeux ouverts sur la pièce vide.</p>
+
+        <p>J'avais lu pendant une heure sans lire.</p>
+
+        <p><em>Tessra.</em></p>
+
+        <p><em>Mademoiselle.</em></p>
+
+        <p><em>Tu n'es pas obligée d'être aussi formelle quand nous sommes seules.</em></p>
+
+        <p>Un silence. Puis : <em>Je suis en service, mademoiselle.</em></p>
+
+        <p><em>Il pleut. Il n'y a personne. Mon père est à Amaranth jusqu'à jeudi.</em> J'entendais moi-même la chose dans ma voix, quelque chose d'un peu trop insistant, d'un peu trop vouloir quelque chose, et je ne savais pas comment la recouvrir. <em>Je voulais dire que tu pouvais t'asseoir autrement. Ou te lever. Ou faire ce que tu veux.</em></p>
+
+        <p>Elle avait regardé dans ma direction. Ses yeux étaient rouges, d'un rouge foncé qui dans la lumière des lampes à huile tirait vers le brun, presque chauds, et j'avais appris depuis des semaines que je ne devais pas m'y arrêter parce que quelque chose se comprimait dans ma poitrine quand je le faisais.</p>
+
+        <p><em>Qu'est-ce que vous lisez ?</em></p>
+
+        <p>Ce n'était pas une réponse à ce que j'avais dit. C'était une redirection choisie — une façon d'accepter le changement de registre sans en nommer les termes. Je lui avais montré la couverture. Elle s'était levée. Ce mouvement, fluide et sans friction, comme si se lever ne lui coûtait rien — non pas de l'indifférence, mais une maîtrise du corps tellement complète que la résistance avait disparu du geste. Elle était venue voir. S'était penchée pour lire le titre. Assez proche pour que je sente sa chaleur, quelque chose de plus chaud que ce que j'aurais attendu, et l'odeur légère de cuir de sa veste et en dessous quelque chose de propre et de vivant.</p>
+
+        <p>Mes mains avaient serré le livre.</p>
+
+        <p><em>De la poésie,</em> dit-elle. Neutre. Presque curieuse.</p>
+
+        <p><em>Tu aimes la poésie ?</em></p>
+
+        <p><em>Je ne sais pas. Je n'en ai pas lu beaucoup.</em></p>
+
+        <p>Il y avait eu un silence qui n'était pas le même silence qu'avant. Moins de distance dedans.</p>
+
+        <p><em>Je pourrais t'en lire,</em> avais-je dit, et ma voix m'avait semblé appartenir à quelqu'un de légèrement plus courageux que moi.</p>
+
+        <p>Elle s'était redressée. Avait regardé la pluie contre la fenêtre. Puis était retournée à son fauteuil — mais elle s'y était assise différemment, le corps tourné vers moi plutôt que vers la porte, les coudes sur les genoux, quelque chose d'ouvert dans sa posture que je n'avais pas encore vu.</p>
+
+        <p><em>Si vous voulez, mademoiselle.</em></p>
+
+        <p>J'avais lu pendant deux heures. À un moment, je levai les yeux et elle me regardait. Elle ne les détourna pas.</p>
+
+        <p>Ce soir-là, dans ma chambre, je mis très longtemps à trouver le sommeil. J'aurais pu en nommer la raison depuis des semaines. Je choisissais encore de ne pas le faire.</p>
+
+        <hr/>
+
+        <h2>IV</h2>
+
+        <p class="drop-cap">Une semaine après le soir de pluie, je vis Tessra s'entraîner.</p>
+
+        <p>Elle le faisait tôt, avant que la maison ne s'éveille, dans la cour intérieure fermée sur trois côtés. Je n'en avais jamais rien su. Ce matin-là, l'insomnie m'avait portée à la fenêtre de ma chambre à une heure où la lumière était grise et sans direction, et elle était là en dessous, dans la cour, seule.</p>
+
+        <p>Elle portait une chemise sans manches et un pantalon étroit. Elle s'entraînait sans partenaire, dans une série de mouvements dont je comprenais instinctivement la logique sans pouvoir la nommer — une grammaire du corps, une langue que je ne parlais pas mais que mes yeux lisaient sans difficulté.</p>
+
+        <p>Ses bras.</p>
+
+        <p>Je m'étais dit, pendant des semaines, que je les regardais parce qu'ils étaient visibles. Qu'il n'y avait là que la curiosité ordinaire qu'on porte à quelque chose qu'on n'a pas encore vu clairement. Ce matin, sans la veste, dans la lumière froide, cette explication ne tenait plus.</p>
+
+        <p>Le biceps, quand elle frappait, se contractait avec une précision que seules les années d'entraînement donnent — une forme dense et ronde au sommet, nette à la base, avec sur le dessus de l'avant-bras une veine qui descendait depuis le pli du coude jusqu'au poignet, suivant le muscle fléchisseur avec cette régularité anatomique qu'on dessine dans les manuels et qu'on ne comprend pas vraiment avant de la voir sur une peau. La peau de Tessra était sombre, plus sombre que la mienne, et cette peau rendait les reliefs plus lisibles, plus présents, comme si le corps ne cherchait pas à cacher ce qu'il était.</p>
+
+        <p>Elle s'arrêta. Se pencha en avant, mains sur les genoux, pour souffler.</p>
+
+        <p>Son dos.</p>
+
+        <p>Je n'avais pas prévu son dos.</p>
+
+        <p>La chemise fine, tendue sur les muscles qui travaillaient, révélait tout. Les longs muscles paravertébraux remontaient de chaque côté de la colonne comme deux colonnes serrées, droites et solides, vibrant à chaque respiration. Et de part et d'autre, évasé depuis les épaules jusqu'à la taille, le grand dorsal formait ce triangle inversé que j'avais vu dessiné dans les planches anatomiques de la bibliothèque de mon père et que je n'avais jamais compris avant ce matin, parce que les planches ne respiraient pas, ne suaient pas, n'avaient pas cette qualité de chose vivante et présente et chaude qui m'empêchait de m'éloigner de la fenêtre.</p>
+
+        <p>Elle se redressa. Reprit les mouvements. Ses cuisses sous le pantalon se chargeaient à chaque déplacement du poids, le quadriceps visible même à travers le tissu, le muscle interne de la cuisse se contractant à chaque changement d'appui avec une précision que je n'aurais pas su nommer une heure plus tôt.</p>
+
+        <p>Je restai à la fenêtre jusqu'à ce qu'elle rentre.</p>
+
+        <p>Cette fois je ne prétendis pas. Je savais ce qui se passait. Je me couchai et je fixai le plafond et je ne construisis aucune explication supplémentaire, et d'une certaine façon c'était pire, parce que nommer une chose c'est commencer à devoir faire quelque chose avec elle.</p>
+
+        <hr/>
+
+        <h2>V</h2>
+
+        <p class="drop-cap">Elle sut avant que je le dise.</p>
+
+        <p>Ou plutôt — et j'ai mis du temps à comprendre la nuance — elle le sut au même moment que moi et choisit d'attendre. Tessra ne devançait pas. Elle répondait aux décisions, elle ne les forçait pas.</p>
+
+        <p>Ce fut dans la voiture, au retour d'une réception au Garden District, trois semaines après l'entraînement. Les vitres noires, la ville dehors dans son bruit habituel, Tessra assise en face de moi dans l'obscurité de l'habitacle. Ses mains reposaient à plat sur ses genoux. Les mains de Tessra étaient grandes, les articulations nettes, les paumes épaisses des gens qui travaillent avec leur corps depuis longtemps. Je les regardais depuis dix minutes.</p>
+
+        <p><em>Tessra.</em></p>
+
+        <p><em>Mademoiselle.</em></p>
+
+        <p><em>Est-ce que tu sais ce que je ressens pour toi ?</em></p>
+
+        <p>La pluie revenue, fine. La ville dehors.</p>
+
+        <p><em>Oui,</em> dit-elle.</p>
+
+        <p><em>Depuis combien de temps ?</em></p>
+
+        <p><em>Depuis le dîner chez la Duchesse Vael.</em></p>
+
+        <p>Le dîner chez la Duchesse Vael. Le deuxième mois. J'avais regardé ses épaules pendant deux heures et cru être invisible.</p>
+
+        <p><em>Et toi ?</em> demandai-je, parce que j'étais naïve et que les gens naïfs posent les questions directes.</p>
+
+        <p>Un silence plus long. Pas un silence de réflexion — j'avais appris à distinguer les deux — mais un silence de choix.</p>
+
+        <p><em>Ce n'est pas une position simple,</em> dit-elle.</p>
+
+        <p><em>Je sais. Je ne te demande pas ce qui est simple.</em></p>
+
+        <p>Elle regarda par la fenêtre. Une longue seconde. Ses mains se fermèrent sur ses genoux.</p>
+
+        <p><em>Oui,</em> dit-elle. Et puis, après un temps qui avait du poids : <em>Séraphine.</em></p>
+
+        <p>C'était la première fois. Mon prénom dans sa bouche avait une qualité différente, quelque chose de pesé, de considéré, comme si elle avait évalué le mot et décidé de lui faire confiance.</p>
+
+        <p>Je m'étais penchée en avant. J'avais posé ma main sur les siennes. Elle les avait ouvertes et avait tenu la mienne, ses doigts autour des miens avec une pression ferme et constante, rien d'hésitant. Nous étions restées comme ça jusqu'à l'arrivée.</p>
+
+        <hr/>
+
+        <h2>VI</h2>
+
+        <p class="drop-cap">Ce fut dans ma chambre, tard, après que la maison s'était tue.</p>
+
+        <p>Elle frappa deux fois. J'ouvris. Elle portait encore sa veste de service et quelque chose dans ça m'importait — qu'elle soit venue comme elle était, sans avoir cherché à être autre chose.</p>
+
+        <p>Je m'écartai. Elle entra, regarda la pièce avec ce mouvement rapide des yeux qu'elle posait sur tous les espaces, et se retourna vers moi. Ce regard n'était plus professionnel.</p>
+
+        <p><em>Tu peux encore dire non,</em> dit-elle.</p>
+
+        <p><em>Je sais.</em></p>
+
+        <p>Elle s'approcha comme elle faisait tout, sans gaspillage, sans ornement, en allant au point. Ses mains se posèrent d'abord sur mes bras, légères, et je sus que c'était une question, et je répondis en me rapprochant, et elle m'embrassa.</p>
+
+        <p>Sa bouche était chaude. Plus douce que je n'avais imaginé — et j'avais imaginé, à plusieurs reprises, à des moments où je n'aurais pas dû. Sa main droite remonta le long de mon bras jusqu'à mon épaule, sa main gauche se posa contre ma joue, et dans cette prise il y avait la même précision que dans tout ce qu'elle faisait, mais c'était une précision orientée vers moi, et la différence était absolue.</p>
+
+        <p>Je posai les paumes contre sa poitrine.</p>
+
+        <p>Sous la veste, sous la chemise, je sentis ce que j'avais regardé depuis des semaines depuis des distances raisonnables. Le muscle pectoral, ferme sous les deux épaisseurs de tissu, se contracta quand ses bras se refermèrent. Je poussai contre lui — non pas pour l'écarter, mais pour vérifier qu'il était réel, qu'il ne disparaîtrait pas si j'appuyais.</p>
+
+        <p>Il ne disparut pas.</p>
+
+        <p><em>Tessra,</em> dis-je dans sa bouche.</p>
+
+        <p><em>Je suis là.</em></p>
+
+        <hr/>
+
+        <p>Elle ôta sa veste. Sa chemise. Je ne sus pas à quel moment mes mains s'étaient posées dans son dos, mais elles y étaient, à plat sur les grands muscles dorsaux, et c'était entièrement différent de les avoir regardés depuis une fenêtre. Les regarder c'était les voir du dehors. Les sentir sous les paumes c'était comprendre leur poids, leur chaleur, la façon dont ils bougeaient quand elle respirait.</p>
+
+        <p>Le grand dorsal se tendait et se relâchait à chaque mouvement de son torse. Je fis remonter mes mains lentement de sa taille vers ses épaules, le long des muscles paravertébraux, et je sentis sous les doigts ce que les planches anatomiques de mon père n'avaient jamais rendu — la texture du muscle sous la peau, la chaleur inégale, les micro-tensions qui précédaient chaque mouvement. Je m'arrêtai aux épaules. Les trapèzes y formaient un relief dense, dur à la pression, et Tessra exhala contre mon cou quand je les serrai.</p>
+
+        <p>Elle me porta. Simplement, sans préavis, ses bras sous moi, et le mouvement était aussi facile pour elle que se lever d'une chaise, et ça me fit rire d'une façon que je ne contrôlai pas — un rire qui était de la surprise et du désir mêlés. Elle me posa sur le lit et se tint au-dessus de moi, le poids reposant sur les bras tendus.</p>
+
+        <p>Dans cette position, le triceps travaillait. Je le voyais — cette forme en fer à cheval à l'arrière du bras, tendu dans l'extension, saillant sous la peau sombre — et le biceps en regard restait défini même sans charge, le muscle long visible depuis le coude jusqu'à l'insertion à l'épaule. Je tendis les mains et fis le trajet. Poignet. Avant-bras, où les muscles fléchisseurs couraient depuis le coude vers les doigts, denses et clairs. Le pli du coude. Le biceps, que je laissai ma paume envelopper entièrement : je sentis sa densité, sa fermeté, et quand elle abaissa les hanches vers moi il se contracta sous ma main et je poussai un son que je ne reconnus pas comme le mien.</p>
+
+        <p>Elle s'arrêta. <em>Tu veux que je m'arrête ?</em></p>
+
+        <p><em>Non.</em> Très vite. <em>Non, continue.</em></p>
+
+        <p>Elle sourit. Ce sourire complet et sans retenue que je n'avais vu qu'une fois, dans la voiture. Il changeait tout son visage. Puis elle se penchait et sa bouche était dans mon cou et je fermai les yeux.</p>
+
+        <p>Ce qui suivit fut lent. Tessra ne faisait pas les choses vite — elle avait la patience de quelqu'un qui sait où il va et refuse de sacrifier le chemin à la destination. Ses mains étaient partout avec une précision qui n'avait rien de mécanique, qui cherchait et trouvait et notait, et j'appris pendant cette heure-là ce que signifie être regardée par quelqu'un qui regarde vraiment.</p>
+
+        <p>Je posai les miennes dans son dos pendant qu'elle descendait. Les paravertébraux se tendaient et se relâchaient à chaque mouvement, ce double ruban de muscle de chaque côté de la colonne, et je les suivis depuis les omoplates jusqu'aux lombaires. Là les muscles changeaient de nature : plus courts, plus petits, servant une fonction différente, gouvernant les rotations et les inclinaisons du bassin. Je les pressai et Tessra s'arqua contre ma main, une réponse involontaire et nette, et je compris que cette information m'appartenait maintenant.</p>
+
+        <p>Ses cuisses de chaque côté des miennes étaient ce que j'avais entrevu dans la cour, révélé entièrement. Le quadriceps portait la charge de son poids dans la position et je sentis ce muscle-là aussi — dur, dense, chaud, d'une chaleur différente de tout ce que j'avais touché avant. Le muscle interne de la cuisse contre le mien. Elle dit mon prénom de cette voix basse que je ne lui connaissais pas encore, et je sus que je n'étais pas seule dans ce que j'éprouvais.</p>
+
+        <p>La lune de Spire entrait par les rideaux mal fermés, rouge ce soir-là, et sa lumière posait sur le dos de Tessra quelque chose qui ressemblait à de la cendre et qui était de la beauté — qui traçait le relief de chaque muscle avec une précision que les lampes à huile n'avaient pas, qui faisait de ce corps au-dessus du mien quelque chose que je n'aurais pas su peindre parce que je n'avais pas appris les bons pigments.</p>
+
+        <p>Je n'avais pas besoin de la peindre.</p>
+
+        <p>Elle était là.</p>
+
+        <hr/>
+
+        <h2>VII</h2>
+
+        <p class="drop-cap">Après, elle resta allongée sur le dos et je restai contre elle, ma tête sur sa poitrine.</p>
+
+        <p>Sa main était dans mes cheveux, juste assez de poids pour être réelle. Son cœur battait sous mon oreille à un rythme qui ralentissait. La pièce était silencieuse. La pluie aussi avait ralenti.</p>
+
+        <p><em>Est-ce que tu faisais ça souvent ?</em> demandai-je, parce que j'étais naïve et que les gens naïfs posent les questions directes.</p>
+
+        <p><em>Non.</em> Et puis : <em>Pas comme ça.</em></p>
+
+        <p>Je ne sus pas exactement ce que <em>comme ça</em> couvrait. Je crus comprendre.</p>
+
+        <p><em>Moi non plus,</em> dis-je. <em>Jamais.</em></p>
+
+        <p>Sa main s'arrêta dans mes cheveux. Reprit. <em>Je sais,</em> dit-elle, sans jugement, sans tendresse excessive — juste : je sais.</p>
+
+        <p>Je pensai à ma mère. À son conseil sur les gardes du corps discrets. À la couleur d'yeux que son propre garde avait portée pendant dix-neuf ans sans qu'elle la voie. Je pensai à la position de Tessra dans tout ça, et à ce que ma position dans tout ça représentait pour elle, et à toutes les choses qui ne se résoudraient pas ce soir et que je n'avais pas le droit d'ignorer entièrement.</p>
+
+        <p>Ces pensées étaient vraies. Je ne les chassai pas.</p>
+
+        <p>Mais Tessra était là, chaude et présente, et sa main avait repris son rythme dans mes cheveux, et la pluie tombait sur le Silver Quarter avec une régularité que je ne trouvais plus déprimante du tout.</p>
+
+        <p><em>Tessra.</em></p>
+
+        <p><em>Séraphine.</em></p>
+
+        <p><em>Demain matin tu reprendras ta veste.</em></p>
+
+        <p><em>Oui.</em></p>
+
+        <p><em>Et tu seras de nouveau formelle en public.</em></p>
+
+        <p><em>Oui.</em></p>
+
+        <p>Je relevai la tête pour la regarder. Dans l'obscurité, ses yeux rouges avaient cette qualité chaude que j'avais appris à reconnaître depuis des mois sans jamais m'autoriser à la nommer.</p>
+
+        <p><em>Mais ce soir tu es encore là ?</em></p>
+
+        <p>Elle posa la main sur mon visage avec ce soin particulier qu'elle réservait aux choses importantes.</p>
+
+        <p><em>Ce soir je suis encore là.</em></p>
+
+        <p>Je reposai ma tête sur sa poitrine. Le muscle pectoral s'était relâché maintenant, plus souple sous ma joue, et j'écoutai son cœur battre à un rythme lent et régulier, et dehors la pluie ne s'arrêta pas, et je ne voulus pas qu'elle s'arrête.</p>
+
+        <p class="fin">— Fin —</p>
+
+      </div>
+    </section>
+
+    <script>
+      if (!localStorage.getItem('spire_token')) {
+        window.location.href = '../connect.html';
+      }
+    </script>
+    <script src="../js/read-tracker.js"></script>
+    <script src="../js/heartbeat.js"></script>
+  </body>
+</html>
