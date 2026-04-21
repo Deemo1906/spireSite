@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Red Row — Ce que j'avais manqué — Spire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg-0); overflow-x: hidden; }
+
+    .back-link {
+      position: fixed; top: 1.5rem; left: 2rem;
+      font-family: var(--font-heading); font-size: 0.65rem;
+      letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--text-3); transition: color 0.2s; z-index: 10;
+      text-decoration: none;
+    }
+    .back-link:hover { color: var(--text-1); }
+
+    .book-page { min-height: 100vh; background: var(--bg-0); }
+
+    .cover-carnets-11 {
+      background: #0c0608;
+      background-image:
+        repeating-linear-gradient(160deg, transparent, transparent 22px, rgba(120,20,50,0.04) 22px, rgba(120,20,50,0.04) 23px),
+        repeating-linear-gradient(20deg, transparent, transparent 22px, rgba(120,20,50,0.02) 22px, rgba(120,20,50,0.02) 23px);
+      width: 100%; min-height: 420px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 4rem 2rem 3rem; position: relative; overflow: hidden;
+    }
+    .cover-carnets-11::before {
+      content: ''; position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px;
+      border: 1px solid rgba(120,20,50,0.2); pointer-events: none;
+    }
+    .cv11-series { font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 4px; text-transform: uppercase; color: #2a1020; margin-bottom: 1rem; }
+    .cv11-num { font-family: 'Cinzel Decorative', serif; font-size: clamp(4rem, 12vw, 7rem); color: #9a1848; text-shadow: 0 0 60px rgba(150,20,60,0.4); line-height: 1; }
+    .cv11-rule { width: 50px; height: 1px; background: #2a1020; margin: 0.75rem auto; }
+    .cv11-title { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 4px; text-transform: uppercase; color: #7a1538; text-align: center; }
+    .cv11-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.75rem; color: #1a0810; margin-top: 0.5rem; text-align: center; }
+    .cv11-author { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 4px; text-transform: uppercase; color: #150810; margin-top: 1.5rem; }
+
+    .book-content {
+      max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem;
+      color: var(--text-1); font-family: var(--font-body); font-size: 1.05rem; line-height: 1.85;
+    }
+    .book-content h2 {
+      font-family: var(--font-heading); font-size: 0.75rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--text-2); margin: 3rem 0 1.25rem; padding-top: 2rem; border-top: 1px solid var(--border);
+    }
+    .book-content h2:first-of-type { border-top: none; padding-top: 0; }
+    .book-content p { margin-bottom: 1.25rem; }
+    .book-content em { color: var(--text-1); font-style: italic; }
+    .book-content strong { color: var(--text-0); font-weight: 600; }
+
+    .reco-box { border-left: 2px solid var(--red-700); padding: 0.75rem 1.25rem; margin: 1.5rem 0; background: rgba(30,20,30,0.6); }
+    .reco-box .reco-label { font-family: var(--font-heading); font-size: 0.55rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--red-500); margin-bottom: 0.5rem; display: block; }
+    .reco-box p { font-style: italic; color: var(--text-2); font-size: 0.95rem; margin-bottom: 0; }
+
+    .author-note { border: 1px solid var(--border); padding: 0.75rem 1.25rem; margin: 1.5rem 0; background: rgba(20,15,25,0.8); font-style: italic; color: var(--text-3); font-size: 0.9rem; }
+    .author-note .note-label { font-family: var(--font-heading); font-size: 0.5rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-3); margin-bottom: 0.4rem; display: block; font-style: normal; }
+
+    .tasting-note { font-style: italic; color: var(--text-2); font-size: 0.95rem; border-left: 1px solid var(--border); padding-left: 1rem; margin: 1rem 0; }
+
+    .book-signature { font-style: italic; color: var(--text-3); font-size: 0.9rem; text-align: right; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .book-signature p { margin-bottom: 0.4rem; }
+  </style>
+</head>
+<body style="overflow:auto;">
+
+  <a href="../library.html" class="back-link">← Bibliothèque</a>
+
+  <div class="book-page">
+
+    <div class="cover-carnets-11">
+      <div class="cv11-series">Les Carnets de Simon</div>
+      <div class="cv11-num">XI</div>
+      <div class="cv11-rule"></div>
+      <div class="cv11-title">Red Row — Ce que j'avais manqué</div>
+      <div class="cv11-sub">Guide Gastronomique, Hédoniste et Culturel</div>
+      <div class="cv11-author">Simon Verlat</div>
+    </div>
+
+    <div class="book-content">
+
+      <p style="text-align:center; font-family:var(--font-heading); font-size:0.55rem; letter-spacing:0.45em; text-transform:uppercase; color:var(--text-3); margin-bottom:0.5rem;">Les Carnets de Simon — Numéro XI</p>
+      <h1 style="font-family:'Cinzel Decorative',serif; font-size:clamp(1.1rem,3vw,1.6rem); color:var(--text-0); text-align:center; margin-bottom:0.5rem; line-height:1.3;">Red Row de Spire — Ce que j'avais manqué</h1>
+      <p style="text-align:center; font-style:italic; color:var(--text-3); font-size:0.85rem; margin-bottom:0.25rem;">Guide Gastronomique, Hédoniste et Culturel à l'Usage du Voyageur Éclairé</p>
+      <p style="text-align:center; font-style:italic; color:var(--text-3); font-size:0.8rem; margin-bottom:3rem;"><em>Simon Verlat, journaliste indépendant, explorateur culinaire, auteur de "La Table du Monde"</em></p>
+      <div style="width:40px;height:1px;background:var(--red-700);margin:0 auto 3rem;"></div>
+
+      <h2>Avant-Propos</h2>
+
+      <p>Il y a des carnets qu'on écrit parce qu'on a décidé de les écrire. Celui-ci n'en fait pas partie.</p>
+      <p>Après le Silver Quarter — dont le numéro précédent rend compte avec l'honnêteté qui est ma marque de fabrique —, Saël est restée. Non pas dans le sens où elle habitait déjà dans la même chambre que moi depuis huit mois, mais dans un sens différent et légèrement plus surveillant. Elle s'asseyait dans le fauteuil cassé du salon avec un livre ou une chaussure à ressemeler et disait qu'elle s'ennuyait et n'avait rien de mieux à faire. Elle disait ça avec l'expression de quelqu'un qui a quelque chose de mieux à faire et qui a décidé de ne pas le faire. Je n'ai pas commenté. C'est le genre de décision qu'on commente après coup, depuis une position de sécurité.</p>
+      <p>Elle a fini par lire les Carnets.</p>
+      <p>Je veux dire : les carnets publiés. Le numéro III, le IV, le VII, le VIII. Elle les a lus dans l'ordre, assise dans le fauteuil cassé, avec l'expression de quelqu'un qui prend des notes mentales à des fins non spécifiées. Je l'ai regardée lire le numéro VIII depuis le coin de l'œil, ce qui est ma technique pour observer les réactions des lecteurs sans avoir l'air d'observer les réactions des lecteurs.</p>
+      <p>Elle s'est arrêtée à la section III. L'Enfer Noir. Les filles-crapauds.</p>
+      <p>Elle a relu ce paragraphe deux fois. Je sais qu'elle l'a relu deux fois parce que je comptais, depuis le coin de l'œil.</p>
+      <p>Puis elle a posé le carnet, s'est levée, et a dit : "On retourne à Red Row."</p>
+      <p>Ce n'était pas une proposition. Ce n'était pas une question. C'était une déclaration administrative, dans la catégorie "informations transmises à titre de courtoisie parce que la personne concernée sera de toute façon impliquée."</p>
+      <p>J'ai dit que j'avais déjà un numéro sur Red Row. Elle a dit qu'il manquait des choses. Elle n'avait pas tort — j'avais terminé le numéro VIII avec une note rappelant que j'y retournerais. Je considérais simplement avoir dit ça dans un sens métaphorique, comme on dit qu'on "reviendra" dans un restaurant qu'on a aimé sans nécessairement réserver une table.</p>
+      <p>Saël ne fonctionne pas sur le mode métaphorique.</p>
+      <p>Nous sommes partis le lendemain.</p>
+
+      <h2>I. La Chapelle de Cendre, ou : Ce que les hommes ne savent pas faire</h2>
+
+      <p>Je connaissais l'existence des Vigilites. Je ne connaissais pas leur chapelle.</p>
+      <p>La Chapelle de Cendre est un bâtiment de pierre sombre dans une rue latérale de Red Row qui ne figure sur aucun plan que j'aie pu trouver, ce que je note comme soit une lacune de la cartographie locale, soit une décision délibérée de la part de ses occupantes. L'entrée est gardée par deux femmes en tenue grise dont le regard m'a évalué, catalogué et classifié dans une catégorie défavorable en environ quatre secondes. Je prenais des notes. J'avais l'air innocent. Ces deux faits n'ont apparemment pas modifié leur évaluation.</p>
+      <p>Saël, à côté de moi, a dit quelque chose en drow que je n'ai pas compris. Les gardiennes l'ont laissée entrer. Elle s'est retournée et m'a regardé avec une expression que je traduirais comme "reste là et ne touche à rien."</p>
+      <p>J'ai attendu dans l'antichambre.</p>
+      <p>L'antichambre est une pièce sobre : bancs de pierre, une fresque représentant des femmes en guerre contre quelque chose que les fumées d'encens rendaient difficile à identifier, et une qualité du silence qui suggérait que les murs faisaient attention à ce qu'on disait. J'ai dit "bonjour" à voix basse en direction de la fresque. Personne n'a répondu. Je l'ai noté comme un signe d'ambiance cohérente.</p>
+      <p>Quand Saël est ressortie avec Mère Sœur Karath, j'ai compris trois choses simultanément : premièrement, que Mère Sœur Karath était une femme d'une stature tranquille et d'une présence que les livres appellent "magnétique" et que je préfère appeler "légèrement terrifiante depuis un banc de pierre" ; deuxièmement, qu'elle m'avait évalué, catalogué et classifié avant même d'avoir fini d'entrer dans la pièce ; troisièmement, que ma catégorie n'était pas meilleure ici que dans les autres endroits où j'ai été évalué, catalogué et classifié.</p>
+      <p>Je me suis levé et j'ai dit que j'espérais ne pas déranger.</p>
+      <p>Elle a dit que non.</p>
+      <p>J'ai demandé — dans un esprit de documentation professionnelle — si beaucoup d'hommes venaient à la Chapelle.</p>
+      <p>Mère Sœur Karath m'a regardé avec l'expression de quelqu'un qui répond à cette question parce que la réponse est intéressante, non parce que la question méritait d'être posée.</p>
+      <p>"Parfois," a-t-elle dit. "Ils viennent par curiosité, par dévotion de seconde main, ou parce qu'ils accompagnent quelqu'un." Un silence. "Un seul a vraiment retenu mon attention."</p>
+      <p>J'ai dit que j'espérais qu'il s'était bien comporté.</p>
+      <p>"Il s'est téléporté dans mon bureau privé," a-t-elle dit, sans aucune inflexion particulière. "Au milieu d'une cérémonie. Il était devant ma fresque quand je suis apparue derrière lui."</p>
+      <p>J'ai demandé ce qu'il s'était passé.</p>
+      <p>"Il a parlé de lunes et d'artefacts. Des choses qui n'avaient aucun sens dans l'ordre où il les disait. Puis il en a dit une qui en avait. Je lui ai répondu." Une pause. "Je n'avais pas prévu de lui répondre."</p>
+      <p>J'ai demandé si elle avait su, à l'époque, s'il était très intelligent ou très stupide.</p>
+      <p>Mère Sœur Karath a réfléchi. Pas longtemps, mais avec la qualité d'une réflexion qu'on ne fait qu'une seule fois sur un sujet, parce qu'on a déjà fait le travail au moment des faits.</p>
+      <p>"Peut-être les deux," a-t-elle dit. "La frontière est souvent plus mince qu'on ne le croit."</p>
+      <p>Elle a regardé Saël, a dit quelque chose en drow, et s'en est allée.</p>
+      <p>Saël a ramassé son manteau. J'ai demandé ce que Karath lui avait dit.</p>
+      <p>"Des choses de filles," a dit Saël.</p>
+      <p>J'ai noté cela comme une réponse complète.</p>
+
+      <div class="reco-box">
+        <span class="reco-label">Recommandation</span>
+        <p>La Chapelle de Cendre est un lieu de dévotion d'une cohérence admirable et d'une accessibilité sélective. Pour les voyageurs qui s'y rendent sans recommandation préalable : l'antichambre dispose de bancs de pierre corrects et de fresques intéressantes. Contentez-vous de ça.</p>
+      </div>
+
+      <h2>II. Le Restaurant sans Nom, ou : Une introduction courtoise à la mort</h2>
+
+      <p>Il n'y a pas d'enseigne.</p>
+      <p>Il y a une porte, une fenêtre à carreaux dont la moitié sont opaques de condensation, et une odeur qui sort par la fente sous la porte et qui est soit prometteuse soit menaçante, selon votre philosophie personnelle vis-à-vis des odeurs non identifiées. Saël s'est arrêtée devant. J'ai dit que je ne savais pas si c'était un restaurant. Elle a dit qu'elle avait faim. Ce critère a tranché.</p>
+      <p>À l'intérieur : six tables, dont deux occupées par des clients qui nous ont regardés avec l'expression de gens qui savent quelque chose que vous ne savez pas encore. Derrière le comptoir : Rod, un homme court aux épaules larges et au sourire d'une sincérité désarmante, et Sodri, un homme d'une taille considérable qui se déplaçait entre les fourneaux avec une lenteur qui n'était pas de la lenteur mais de la précision. Ils fonctionnaient ensemble avec la coordination de deux personnes qui ont eu le temps d'apprendre les angles de l'autre, ce qui, à observer, avait quelque chose de légèrement émouvant.</p>
+      <p>Rod nous a présenté le menu à voix haute. Il a décrit chaque plat avec la fierté d'un père présentant ses enfants, en commençant par les plus ordinaires — enfin, "ordinaires" dans le sens où j'ai pu identifier la moitié des ingrédients à l'oreille — et en progressant vers des propositions que j'aurais qualifiées d'expérimentales si le terme n'avait pas semblé insuffisant. Saël a commandé deux choses sans hésiter. J'en ai commandé une, prudemment.</p>
+      <p>Les plats étaient remarquables. Je n'inclurai pas ici les notes de dégustation complètes par manque de vocabulaire adéquat pour deux d'entre eux, et par précaution rédactionnelle pour le troisième.</p>
+      <p>À la fin du repas, Sodri est sorti des fourneaux et Rod a posé sur la table, sans commentaire préalable, deux petits verres d'un liquide d'un jaune translucide, épais, légèrement lumineux, qui bougeait dans le verre avec une lenteur qui n'était pas celle d'un liquide ordinaire.</p>
+      <p>"Acide stomacal de baleine volante," a dit Rod. "La maison offre."</p>
+      <p>J'ai demandé des précisions sur la substance.</p>
+      <p>Rod a expliqué qu'une baleine volante digérait sur plusieurs décennies, que son système gastrique développait en conséquence un acide d'une concentration que les alchimistes locaux mesuraient non pas en pourcentage mais en "incidents documentés", et que la distillation réduisait les effets à quelque chose de raisonnablement supportable pour des constitutions adaptées.</p>
+      <p>J'ai demandé ce que signifiait "raisonnablement supportable."</p>
+      <p>Sodri a dit, depuis le fond de la salle : "Ça passe à travers vous comme une balle."</p>
+      <p>J'ai regardé le verre.</p>
+      <p>Saël a pris le sien et l'a bu d'un trait.</p>
+
+      <div class="author-note">
+        <span class="note-label">Note de l'auteur</span>
+        Les deux lignes suivantes ont été reconstituées depuis des fragments de notes rédigés dans les minutes qui ont suivi.
+      </div>
+
+      <div class="tasting-note">"Oh."<br/><br/>"Oh non."</div>
+
+      <p>L'acide stomacal de baleine volante produit les effets suivants, dans cet ordre, sur une durée totale d'environ six minutes : chaleur immédiate depuis la gorge jusqu'aux genoux ; conscience soudaine de chaque muscle du tronc, nommément et simultanément ; brève conviction que le sol est intéressant de très près ; retour à la normale complet et sans transition, comme si rien ne s'était passé, ce qui est peut-être la partie la plus déconcertante.</p>
+      <p>Sodri m'a ramassé de façon compétente. Rod a proposé un verre d'eau que j'ai bu avec la gratitude d'un homme qui vient de renégocier son rapport au liquide. Saël était assise droite, légèrement rose, avec l'expression de quelqu'un qui vient de prendre une opinion définitive sur quelque chose.</p>
+      <p>Elle a dit : "C'était bien."</p>
+      <p>Rod et Sodri ont semblé sincèrement satisfaits.</p>
+
+      <div class="tasting-note">Note officielle de dégustation : "Efficace. Court. Franc. Je ne peux pas recommander ce verre en termes journalistiques conventionnels, mais je note que Sodri avait raison sur la balle, et que l'image est à la fois précise et, rétrospectivement, drôle."</div>
+
+      <div class="reco-box">
+        <span class="reco-label">Recommandation</span>
+        <p>Le restaurant sans nom existe et mérite d'être trouvé. Commandez ce que Rod propose. Faites confiance à Sodri sur les portions. Si on vous offre le verre jaune : asseyez-vous d'abord contre le mur.</p>
+      </div>
+
+      <h2>III. L'Enfer Noir, Acte II, ou : Ce que Saël n'a pas dit</h2>
+
+      <p>La raison pour laquelle nous étions revenus à Red Row.</p>
+      <p>Je n'avais pas mentionné cela explicitement dans l'avant-propos, mais Saël avait relu la section sur Vess deux fois, et quand Saël relit quelque chose deux fois, c'est parce qu'elle a pris une décision et qu'elle cherche à confirmer qu'elle est correctement informée avant de l'exécuter. C'est une méthode que j'admire, même quand ses applications me concernent directement.</p>
+      <p>Les Gentlemen de l'Enfer Noir m'ont accueilli avec la même courtoisie cliquetante que lors de ma première visite. L'un d'eux m'a regardé et a dit : "Le journaliste. Troisième niveau, section des filles-crapauds. Votre note était favorable." Je n'avais pas su que les établissements de ce type lisaient les carnets de voyage. Je l'ai noté comme une information encourageante pour le tirage.</p>
+      <p>Saël s'est arrêtée à l'accueil et a eu une conversation brève avec le Gentlemen de service — brève au sens où elle a posé une question, il a répondu avec deux phrases et un cliquetis, et elle a dit "d'accord" et a suivi la personne qui l'emmenait vers le troisième niveau.</p>
+      <p>Elle ne m'a pas regardé en partant.</p>
+      <p>Je me suis assis au bar. J'ai commandé quelque chose. Le bar de l'Enfer Noir fait des boissons d'une qualité technique sérieuse, ce que j'avais sous-estimé lors de ma première visite en raison de circonstances distractives. J'ai bu lentement. J'ai pris des notes sur l'ambiance. J'ai observé la piste de danse. J'ai demandé au barman d'où venaient les musiciens et il m'a donné une réponse qui prenait environ huit minutes et qui couvrait trois districts et une controverse instrumentale que je n'avais pas anticipée. J'ai pris des notes là-dessus aussi.</p>
+      <p>Saël est réapparue trente-sept minutes plus tard.</p>
+      <p>Elle s'est assise sur le tabouret à côté de moi. Elle a regardé droit devant elle. Elle a pris le verre que j'avais commandé pour elle — j'en avais commandé un dans un esprit de prévoyance — et elle a bu une longue gorgée.</p>
+      <p>Je n'ai rien dit. C'est ma technique pour les situations où Saël a quelque chose à dire et a besoin d'un moment.</p>
+      <p>Trente secondes.</p>
+      <p>"C'était bien," a-t-elle dit.</p>
+      <p>J'ai attendu.</p>
+      <p>"La langue." Un silence. "C'est vraiment très long."</p>
+      <p>J'ai dit que j'avais noté la même chose lors de ma visite précédente.</p>
+      <p>"Et très précis." Elle a regardé son verre. "Je ne m'attendais pas au… au degré de précision."</p>
+      <p>J'ai dit que ça surprenait.</p>
+      <p>"Oui." Elle a bu une autre gorgée. "Vess dit bonjour, au fait."</p>
+      <p>J'ai noté cela comme une information inattendue sur la continuité professionnelle dans ce secteur.</p>
+      <p>Saël a regardé ses mains. Ses oreilles, que je connais bien parce qu'elles dépassent légèrement de sa coupe en brosse, étaient légèrement plus foncées que d'habitude. Je n'ai pas fait de commentaire. Je suis un journaliste professionnel et je sais quand ne pas commenter.</p>
+      <p>Elle a dit, après un moment : "C'est noté. Pour le degré de précision."</p>
+      <p>J'ai dit "bien."</p>
+      <p>Elle a dit "oui."</p>
+      <p>Nous avons fini nos verres.</p>
+
+      <div class="reco-box">
+        <span class="reco-label">Recommandation</span>
+        <p>L'Enfer Noir continue d'être un établissement de divertissement d'un professionnalisme remarquable. Vess est au troisième niveau. Elle dit bonjour.</p>
+      </div>
+
+      <h2>IV. Le Kowz-Udder, ou : Ce que Lizbeth sait déjà</h2>
+
+      <p>Saël a dit qu'elle voulait voir le Kowz-Udder "juste pour voir." J'ai noté que c'était la même formule qu'elle avait utilisée pour deux des établissements précédents, et qu'à chaque fois "juste pour voir" avait signifié autre chose.</p>
+      <p>Lizbeth nous a accueillis avec une mémoire que je n'avais pas anticipée. "Le journaliste," a-t-elle dit, en me regardant avec ses perles violettes qui se balançaient légèrement. Puis, en regardant Saël : "Et une amie."</p>
+      <p>Saël a dit qu'elle s'appelait Saël.</p>
+      <p>Lizbeth a dit que c'était un bon prénom pour quelqu'un qui sait ce qu'elle veut. Je n'ai pas compris comment Lizbeth avait déterminé cela en huit secondes, mais j'ai noté que ce type d'évaluation rapide semblait être une compétence standard dans les établissements de Red Row, et que Lizbeth en possédait peut-être la version la plus efficace.</p>
+      <p>Ce soir-là l'établissement comptait plusieurs pensionnaires. Lizbeth nous en a présenté quelques-uns — brève, professionnelle, sans pression. À un moment elle a dit : "Il y a quelqu'un que certains demandent spécialement." Elle a ouvert une porte qui donnait sur un couloir et a dit un prénom.</p>
+      <p><strong>Profondeur-Insondée</strong> était une aelfir masquée — masque de laque noire couvrant le haut du visage — avec des yeux d'un vert qui n'était pas une couleur mais une matière : des gemmes, littéralement, enchâssées dans des orbites dont j'ai préféré ne pas poser de questions sur la nature exacte. Elle était assise dans un fauteuil de velours bordeaux avec la posture de quelqu'un qui occupe les espaces à sa façon et pas à la vôtre.</p>
+      <p>Saël l'a regardée.</p>
+      <p>Profondeur-Insondée l'a regardée.</p>
+      <p>Il y a eu un silence de deux secondes environ que j'ai classifié, dans ma nomenclature personnelle, sous "entente immédiate entre personnes qui savent immédiatement."</p>
+      <p>Saël a dit quelque chose en drow.</p>
+      <p>Profondeur-Insondée a répondu en drow, avec un sourire partiel visible sous le masque.</p>
+      <p>Elles sont parties dans le couloir ensemble sans qu'on me consulte.</p>
+      <p>Lizbeth s'est retournée vers moi avec l'expression de quelqu'un qui a une question à poser et qui a déjà une idée de la réponse mais qui la pose quand même par professionnalisme.</p>
+      <p>"Et toi ?" a-t-elle dit.</p>
+      <p>J'ai dit ce que j'avais dit lors de ma première visite : que j'étais là dans un esprit de documentation professionnelle et que j'étais disponible pour une expérience culturelle complète.</p>
+      <p>Elle m'a regardé avec la patience d'une personne qui sait faire la différence entre une réponse et une réponse complète.</p>
+      <p>"Ce que tu aimes," a-t-elle dit. "Pas ce que tu documentes."</p>
+      <p>J'ai réfléchi.</p>
+      <p>J'ai répondu honnêtement, dans le détail, ce qui a pris un moment parce que la réponse honnête couvre plusieurs catégories, plusieurs genres, plusieurs anatomies et plusieurs configurations que je n'avais pas prévu de cataloguer à voix haute dans cet établissement ce soir-là.</p>
+      <p>Lizbeth a écouté sans m'interrompre.</p>
+      <p>Quand j'ai eu fini, elle a dit : "D'accord." Elle a réfléchi. Elle a ri doucement — pas de façon moquante, de façon satisfaite, comme quelqu'un qui vient de résoudre un problème intéressant. "Je me doutais que tu étais du genre à ne fermer aucune porte."</p>
+      <p>Elle m'a présenté quelqu'un. Je n'inclurai pas les détails dans ce guide par retenue rédactionnelle délibérée et par respect pour les archives personnelles dans lesquelles ils seront consignés avec la précision qui leur est due.</p>
+      <p>Ce que je peux dire : les murs du Kowz-Udder vibrent toujours. La faille Vermissian émet toujours ses sons graves à des moments particuliers. Et Lizbeth, quand elle m'a raccompagné, m'a dit : "Ton amie est dans la bonne catégorie."</p>
+      <p>J'ai demandé ce qu'elle voulait dire.</p>
+      <p>"Les filles," a-t-elle dit simplement. "C'est clairement ce qu'elle préfère. Certains ne savent pas encore. Elle, elle sait."</p>
+      <p>J'ai dit que oui, elle savait depuis un moment.</p>
+      <p>Lizbeth a hoché la tête comme si cette information confirmait quelque chose qu'elle avait déjà intégré dans son estimation générale de la situation.</p>
+
+      <div class="reco-box">
+        <span class="reco-label">Recommandation</span>
+        <p>Le Kowz-Udder est un établissement de qualité constante, géré par une professionnelle d'une compétence remarquable. Répondez honnêtement aux questions de Lizbeth. Elle ne vous juge pas — elle travaille.</p>
+      </div>
+
+      <h2>Conclusions et Recommandations Générales</h2>
+
+      <p>Il y a une chose que j'avais manquée lors de mon premier séjour à Red Row, que ce retour m'a permis de formuler : ce quartier traite les gens comme des gens.</p>
+      <p>C'est une formule simple. Elle mérite d'être expliquée.</p>
+      <p>Dans d'autres districts de Spire, on vous traite comme ce que vous représentez — une fonction, un statut, un danger potentiel, une source de revenus à optimiser. À Red Row il y a évidemment aussi des calculs, des hiérarchies, des risques. Mais les gens qui m'ont parlé — Karath, Rod, Sodri, les Gentlemen, Lizbeth — m'ont regardé avec une attention qui n'était pas en train de me réduire à une catégorie utile. Ils évaluaient, oui. Mais ils évaluaient <em>moi</em>, pas ma valeur marchande.</p>
+      <p>C'est une différence que j'avais notée à la fin du numéro VIII sans la formuler clairement. Red Row est honnête. C'est son plus grand défaut commercial et sa principale vertu.</p>
+      <p><strong>Ce que j'ai aimé :</strong> La brièveté austère de Mère Sœur Karath, qui dit beaucoup avec peu et ne dit que ce qu'elle choisit de dire. Rod et Sodri et leur fierté tranquille pour des plats impossibles. L'acide stomacal de baleine volante, rétrospectivement. Vess, à qui j'avais promis de revenir et qui a semblé sincèrement amusée que ce soit mon amie qui soit revenue à ma place. Le regard de Profondeur-Insondée sur Saël — deux secondes exactement, comme si la décision avait été prise avant que les mots existaient. La franchise de Lizbeth sur qui je suis, formulée sans jugement et avec la précision de quelqu'un dont le travail est de comprendre les gens.</p>
+      <p><strong>Ce que Saël a aimé :</strong> Elle ne l'a pas dit en ces termes. Elle est rentrée dans le métro du Vermissian avec les mains dans les poches, les oreilles encore légèrement plus foncées que d'habitude, et elle a regardé par la vitre pendant un long moment. Puis elle a dit : "Bonne excursion."</p>
+      <p>Dans le vocabulaire de Saël, c'est équivalent à une critique dithyrambique.</p>
+      <p><strong>Ce que j'ai décidé :</strong> Que les carnets valent d'être écrits même pour onze lecteurs. Que Spire récompense ceux qui reviennent dans les endroits qu'ils ont aimés et qui regardent mieux. Que je ne ferme aucune porte — ce qui n'était pas une révélation pour moi, mais qui méritait d'être dit à voix haute au moins une fois, dans un établissement de Red Row, à une femme qui avait la patience de poser la vraie question.</p>
+      <p>J'y retournerai encore.</p>
+      <p>Saël aussi, je pense. Elle ne le dira pas de cette façon.</p>
+
+      <div class="book-signature">
+        <p><em>Simon Verlat, depuis le métro Vermissian entre Red Row et le Works, à 2h14 du matin, avec des notes complètes et une légère crampe résiduelle de la section II.</em></p>
+        <p><em>Numéro XII sera consacré à Amaranth. Si Saël n'a pas d'autres pages à relire d'ici là.</em></p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    if (!localStorage.getItem('spire_token')) {
+      window.location.href = '../connect.html';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ce Que les Mains Portent — Tome III</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+
+      /* ── NAV ── */
+      .book-nav {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+        background: rgba(14,6,8,0.97); backdrop-filter: blur(8px);
+        border-bottom: 1px solid #4a2030;
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 0 2rem; height: 52px;
+      }
+      .nav-back { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: #6a4050; text-decoration: none; transition: color 0.2s; }
+      .nav-back:hover { color: #c4b0b0; }
+      .nav-chapters { display: flex; gap: 1.5rem; list-style: none; }
+      .nav-chapters a { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.3em; text-transform: uppercase; color: #4a2030; text-decoration: none; transition: color 0.2s; }
+      .nav-chapters a:hover { color: #c4b0b0; }
+
+      /* ── COVER ── */
+      .book-cover {
+        min-height: 100vh; background: #0e0608;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        text-align: center; padding: 4rem 2rem;
+        position: relative; overflow: hidden;
+      }
+      .cover-bg-pattern {
+        position: absolute; inset: 0;
+        background: repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(80,30,40,0.04) 40px, rgba(80,30,40,0.04) 41px),
+                    repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(80,30,40,0.04) 40px, rgba(80,30,40,0.04) 41px);
+        pointer-events: none;
+      }
+      .cover-glow {
+        position: absolute; inset: 0;
+        background: radial-gradient(ellipse 60% 50% at 50% 45%, rgba(140,60,80,0.1) 0%, transparent 70%);
+        pointer-events: none;
+      }
+      .cover-frame {
+        position: relative; max-width: 500px; width: 100%;
+        padding: 4.5rem 3.5rem;
+        border: 1px solid #6a2840;
+      }
+      .cover-frame::before { content: ''; position: absolute; inset: 8px; border: 1px solid #4a1828; pointer-events: none; }
+      .cover-frame::after  { content: ''; position: absolute; inset: 16px; border: 1px solid #3a1020; pointer-events: none; }
+
+      .cover-seal { font-size: 0.6rem; letter-spacing: 10px; color: #6a2840; margin-bottom: 1.5rem; position: relative; z-index: 1; }
+      .cover-ornament { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 6px; text-transform: uppercase; color: #7a4050; margin-bottom: 2.5rem; position: relative; z-index: 1; }
+      .cover-title-main { font-family: 'Cinzel Decorative', serif; font-size: clamp(1.2rem, 4vw, 2rem); font-weight: 400; color: #e4ccc4; line-height: 1.25; letter-spacing: 2px; margin-bottom: 0.75rem; position: relative; z-index: 1; }
+      .cover-subtitle { font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 3px; text-transform: uppercase; color: #7a5060; margin-top: 0.75rem; line-height: 1.8; position: relative; z-index: 1; }
+      .cover-rule { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, #6a2840, transparent); margin: 2rem auto; position: relative; z-index: 1; }
+      .cover-author { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1rem; color: #b08888; position: relative; z-index: 1; }
+      .cover-edition { font-family: 'Cinzel', serif; font-size: 0.44rem; letter-spacing: 3px; text-transform: uppercase; color: #5a3040; margin-top: 2rem; line-height: 2; position: relative; z-index: 1; }
+
+      .cover-open {
+        margin-top: 3rem; position: relative; z-index: 1;
+        display: inline-block;
+        font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase;
+        color: #7a5060; border: 1px solid #4a2030; padding: 0.8em 2.5em;
+        cursor: pointer; background: transparent; text-decoration: none;
+        transition: background 0.2s, color 0.2s, border-color 0.2s;
+      }
+      .cover-open:hover { background: #1a0a10; color: #e4ccc4; border-color: #6a2840; }
+
+      /* ── CARD PAGE ── */
+      .book-card-page {
+        min-height: 100vh; background: #f8f4f2;
+        display: flex; align-items: center; justify-content: center;
+        padding: 5rem 2rem; padding-top: 7rem;
+      }
+      .card-inner {
+        max-width: 520px; width: 100%; text-align: center;
+        border: 1px solid #c09090; padding: 4rem 3rem;
+        position: relative; background: #f8f4f2;
+      }
+      .card-inner::before { content: ''; position: absolute; inset: 8px; border: 1px solid #d4b0b0; pointer-events: none; }
+      .card-inner::after { content: '✦'; position: absolute; top: 12px; left: 50%; transform: translateX(-50%); font-size: 9pt; color: #906070; background: #f8f4f2; padding: 0 8px; }
+
+      .card-rubric { font-family: 'Cinzel', serif; font-size: 0.52rem; letter-spacing: 5px; text-transform: uppercase; color: #906070; margin-bottom: 1.5rem; }
+      .card-title { font-family: 'Cinzel Decorative', serif; font-size: 1.5rem; color: #1e1410; line-height: 1.2; margin-bottom: 0.25rem; }
+      .card-subtitle { font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 2px; text-transform: uppercase; color: #706050; line-height: 1.8; margin-top: 0.5rem; }
+      .card-divider { width: 50px; height: 1px; background: #c09090; margin: 1.5rem auto; }
+      .card-author { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1rem; color: #2e1818; }
+      .card-meta { font-family: 'Cinzel', serif; font-size: 0.46rem; letter-spacing: 2px; text-transform: uppercase; color: #806060; margin-top: 2rem; line-height: 2.2; }
+      .card-read { display: inline-block; margin-top: 2.5rem; font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase; color: #706050; border: 1px solid #c09090; padding: 0.8em 2.5em; text-decoration: none; transition: background 0.2s, color 0.2s; }
+      .card-read:hover { background: #1e1410; color: #e4ccc4; }
+
+      /* ── CONTENT ── */
+      .book-content { background: #f8f4f2; padding: 5rem 2rem 8rem; padding-top: 7rem; }
+      .content-inner { max-width: 660px; margin: 0 auto; }
+
+      .content-inner p { font-family: 'EB Garamond', serif; font-size: 1.05rem; line-height: 1.9; color: #1a1210; margin-bottom: 1.25em; text-align: justify; hyphens: auto; }
+      .content-inner em { font-style: italic; }
+      .content-inner hr { border: none; border-top: 1px solid #d4b0b0; margin: 2.5rem auto; width: 60%; }
+
+      .content-inner h1 { font-family: 'Cinzel Decorative', serif; font-size: 1.6rem; color: #1e1410; text-align: center; margin: 3rem 0 0.5rem; }
+      .content-inner h2 { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 4px; text-transform: uppercase; color: #7a5060; text-align: center; margin: 3.5rem 0 1.5rem; }
+
+      .drop-cap::first-letter { font-family: 'Cinzel Decorative', serif; font-size: 3.5rem; float: left; line-height: 0.8; margin-right: 6px; margin-top: 8px; color: #7a3040; }
+
+      .fin { text-align: center; font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 5px; text-transform: uppercase; color: #906070; margin: 3rem 0; }
+    </style>
+  </head>
+  <body>
+
+    <nav class="book-nav">
+      <a class="nav-back" href="../authors/yssel.html">← Yssel</a>
+      <ul class="nav-chapters">
+        <li><a href="#cover">Couverture</a></li>
+        <li><a href="#card">Page de garde</a></li>
+        <li><a href="#content">Texte</a></li>
+      </ul>
+    </nav>
+
+    <!-- COVER -->
+    <section id="cover" class="book-cover">
+      <div class="cover-bg-pattern"></div>
+      <div class="cover-glow"></div>
+      <div class="cover-frame">
+        <p class="cover-seal">✦  ✦  ✦  ✦  ✦</p>
+        <p class="cover-ornament">Une histoire</p>
+        <h1 class="cover-title-main">Ce Que les<br/>Mains Portent</h1>
+        <p class="cover-subtitle">Tome III</p>
+        <div class="cover-rule"></div>
+        <p class="cover-author">Séraphine Alvarei-Nocturne</p>
+        <p class="cover-edition">Première édition</p>
+      </div>
+      <a href="#card" class="cover-open">Ouvrir</a>
+    </section>
+
+    <!-- CARD / TITLE PAGE -->
+    <section id="card" class="book-card-page">
+      <div class="card-inner">
+        <p class="card-rubric">Nouvelle sentimentale</p>
+        <h2 class="card-title">Ce Que les<br/>Mains Portent</h2>
+        <p class="card-subtitle">Tome III — Une histoire</p>
+        <div class="card-divider"></div>
+        <p class="card-author">Séraphine Alvarei-Nocturne</p>
+        <p class="card-meta">
+          Première édition<br/>
+          Spire
+        </p>
+        <a href="#content" class="card-read">Lire</a>
+      </div>
+    </section>
+
+    <!-- CONTENT -->
+    <section id="content" class="book-content">
+      <div class="content-inner">
+
+        <h1>Ce Que les Mains Portent</h1>
+        <h2>Tome III</h2>
+
+        <h2>Chapitre I — La corde raide</h2>
+
+        <p class="drop-cap">Il y a un moment précis où l'on cesse de se méfier.</p>
+
+        <p>Je ne saurais le situer dans le calendrier. Ce n'est pas une décision. C'est une érosion : comme ces falaises de craie dont parle mon professeur de géographie dans ses conférences du jeudi, mangées par la mer non pas en une tempête mais en dix mille marées identiques. Un jour, la falaise est là. Le lendemain, elle a reculé d'un mètre. Personne n'a entendu le bruit.</p>
+
+        <p>Tessra était debout près de la fenêtre, dans la lumière du soir, et je la regardais.</p>
+
+        <p>Pas de façon oblique, pas du coin de l'œil, pas avec ce regard glissé que j'avais appris à déployer comme une arme de précision. Je la regardais franchement, directement, pendant peut-être vingt secondes, ce qui en société représente une éternité et demie.</p>
+
+        <p>Elle le savait. Je savais qu'elle le savait. Aucune de nous deux ne bougea.</p>
+
+        <p>C'est cela, l'érosion. Que nous ayons toutes les deux cessé de bouger.</p>
+
+        <p>Tessra, en lumière de fenêtre, est une chose difficile à cesser de regarder. Je l'ai observée dans presque toutes les configurations que la lumière peut offrir : la lumière froide du matin quand elle vérifie les serrures, la lumière mouvante des bougies, la lumière absente de l'avant-aube quand elle monte la garde dans mon antichambre et que seul le reflet de ses yeux trahit sa présence. La lumière du soir lui fait quelque chose de particulier aux épaules. Elle en révèle le volume. Le trapèze gauche, légèrement plus développé que le droit depuis que je l'ai remarqué pour la première fois voilà des mois, portait cette lumière comme un relief de carte topographique.</p>
+
+        <p>Vingt secondes. Puis elle a détourné les yeux vers la rue, et j'ai repris ma lecture.</p>
+
+        <p>Mais nous avions toutes les deux entendu la mer.</p>
+
+        <hr/>
+
+        <p>Depuis Tome II, il s'est passé des choses que je n'ai pas écrites. Pas parce qu'elles méritaient moins d'être couchées sur le papier, mais parce que certains moments ne supportent pas l'examen. Ils se défont quand on les nomme, comme certains rêves qui s'évaporent à la lumière.</p>
+
+        <p>Ce que je peux dire, c'est que nous avons été moins prudentes.</p>
+
+        <p>Pas imprudentes. La distinction est importante. Tessra est constitutivement incapable d'imprudence : c'est inscrit dans ses tendons, dans la façon dont ses yeux parcourent une pièce avant que son corps s'y engage. Mais la prudence a des degrés. Et nous avons glissé vers un degré moindre, si progressivement que je n'ai su le nommer qu'en regardant en arrière.</p>
+
+        <p>Elle restait plus longtemps. Après que ma femme de chambre avait éteint les lampes et qu'il n'y avait plus aucune raison professionnelle à sa présence dans ma chambre, elle restait encore quelques minutes, debout près du montant de la porte, et nous parlions à voix basse de rien du tout. Du temps. D'une façade qu'elle avait remarquée dans le Silver Quarter. D'un oiseau qu'elle avait entendu chanter avant l'aube, une espèce qu'elle ne connaissait pas.</p>
+
+        <p>Ces conversations n'existaient pas, officiellement. Elles n'auraient pas dû exister.</p>
+
+        <p>Je les attendais plus que n'importe quoi d'autre dans ma journée.</p>
+
+        <hr/>
+
+        <h2>Chapitre II — Ce qu'on ne dit pas</h2>
+
+        <p class="drop-cap">C'est Lady Orvenne qui a remarqué.</p>
+
+        <p>Lady Orvenne Caulthis-Argent, troisième fille du Duc Caulthis, vingt-deux ans, souriante comme une lame de couteau. Nous nous connaissons depuis l'enfance. Elle a cette capacité propre aux aelfir élevés dans les cours de Silver Quarter : elle enregistre tout sans jamais avoir l'air de regarder. Je l'ai vue cataloguer une salle entière en entrant par la porte principale, les yeux apparemment fixés sur son hôtesse.</p>
+
+        <p>C'était lors de la réception des Fils-d'Automne, chez les Vorvaine. Mi-saison, salon doré, quatuor à cordes dans l'alcôve de gauche. Tessra se tenait trois pas derrière moi à ma droite, comme il est correct pour une escorte personnelle.</p>
+
+        <p>Orvenne s'est approchée et m'a embrassé la joue.</p>
+
+        <p><em>Ta garde du corps,</em> a-t-elle dit, à voix basse, en tenant mes deux mains dans les siennes comme pour une confidence affectueuse. <em>Elle te regarde comme si quelqu'un avait mis le feu à la pièce.</em></p>
+
+        <p>Je n'ai rien dit.</p>
+
+        <p><em>Ce n'est pas une critique,</em> a ajouté Orvenne. Toujours ce sourire. <em>C'est une observation. Tu voudras peut-être y réfléchir.</em></p>
+
+        <p>Elle m'a lâché les mains et s'est tournée vers son prochain interlocuteur, fluide, ininterrompue.</p>
+
+        <p>J'ai tenu le reste de la réception en regardant le quatuor à cordes. Je n'ai pas retourné la tête une seule fois vers Tessra. Ce n'était pas de la discrétion. C'était de la terreur.</p>
+
+        <hr/>
+
+        <p>Dans le carrosse du retour, nous étions silencieuses.</p>
+
+        <p>Ce n'est pas inhabituel. Tessra parle peu en service, et le retour des réceptions sociales n'appelle généralement aucun commentaire de sa part. Mais ce soir-là, le silence avait une texture différente. Il pesait.</p>
+
+        <p>J'ai regardé par la vitre les rues de Silver Quarter défiler dans le soir, leurs façades blanchies aux reflets de lune. J'entendais sa respiration. Ce n'est pas quelque chose que j'aurais remarqué voilà un an.</p>
+
+        <p><em>Tessra,</em> ai-je commencé.</p>
+
+        <p><em>Non,</em> a-t-elle dit.</p>
+
+        <p>Pas brusquement. Doucement, presque. La façon dont elle dit non quand elle refuse de me laisser faire quelque chose de risqué : ferme, sans appel, mais sans violence.</p>
+
+        <p>J'ai regardé par la vitre jusqu'à la maison.</p>
+
+        <hr/>
+
+        <p>Les jours qui ont suivi, nous avons été correctes. Professionnelles. Trois pas à ma droite, voix neutres, horaires respectés. C'était la bonne chose à faire. J'avais vingt-deux ans et assez de cervelle pour comprendre pourquoi.</p>
+
+        <p>Je dormais mal.</p>
+
+        <p>Je dormais quatre à six heures par nuit pendant deux semaines, réveillée chaque matin avant l'aube par une vigilance que je ne parvenais pas à nommer. Mon corps avait décidé quelque chose que ma tête n'avait pas encore admis.</p>
+
+        <hr/>
+
+        <h2>Chapitre III — La fièvre</h2>
+
+        <p class="drop-cap">La fièvre s'est installée un mardi.</p>
+
+        <p>Littérale, cette fois. Ma température est montée à trente-neuf degrés et demi, accompagnée d'une fatigue qui rendait le poids de mes propres paupières difficile à gérer. Mon médecin habituel est absent de la ville jusqu'à la fin du mois, ce que j'ai appris trop tard.</p>
+
+        <p>Ma mère, à qui j'ai fait annoncer la chose, a envoyé un mot à l'Hôpital des Mille Fils.</p>
+
+        <p><em>Les Tisseuses d'Ivoire font des visites à domicile,</em> m'a dit ma femme de chambre Ilse en arrangeant le plateau de tisanes. <em>Pour les maisons connues. Ta mère a une relation de longue date avec l'établissement.</em></p>
+
+        <p>Je n'avais jamais eu affaire aux Midwives. On en entend parler, bien sûr : on sait qu'elles existent, qu'elles soignent, que leurs méthodes sont particulières. Mais dans Silver Quarter, on les appelle pour les grandes affaires : reconstructions, chirurgies de précision, traumatismes que les médecins ordinaires ne savent pas réparer. Une fièvre de mi-saison ne semblait pas à la hauteur.</p>
+
+        <p><em>C'est excessif,</em> ai-je dit.</p>
+
+        <p><em>C'est ce que ta mère a décidé,</em> a répondu Ilse, ce qui close le débat.</p>
+
+        <hr/>
+
+        <p>Tessra était dans l'antichambre quand la nouvelle lui est parvenue. Je l'ai su à la façon dont elle est entrée dans ma chambre sans frapper, ce qu'elle ne fait jamais, et s'est arrêtée au pied du lit avec cet air de quelqu'un qui vérifie l'intégrité d'une structure après un séisme.</p>
+
+        <p><em>Une fièvre,</em> ai-je dit, pour l'information.</p>
+
+        <p>Elle a hoché la tête, une fois, sec.</p>
+
+        <p><em>Ta mère a envoyé chercher une Tisseuse d'Ivoire.</em></p>
+
+        <p><em>Je sais.</em></p>
+
+        <p>Elle s'est assise dans le fauteuil à côté de la fenêtre, ce fauteuil qu'elle n'utilise jamais autrement que debout appuyée contre son dossier. Elle s'y est vraiment assise. Les coudes sur les genoux, les mains jointes, la tête légèrement inclinée dans ma direction.</p>
+
+        <p>J'ai regardé le plafond pendant un long moment.</p>
+
+        <p><em>Tessra. Je ne suis pas en train de mourir.</em></p>
+
+        <p><em>Je sais,</em> a-t-elle dit encore.</p>
+
+        <p>Mais elle n'est pas partie.</p>
+
+        <hr/>
+
+        <h2>Chapitre IV — La Tisseuse d'Ivoire</h2>
+
+        <p class="drop-cap">La Midwife est arrivée le lendemain en fin d'après-midi.</p>
+
+        <p>Elle s'appelait Yssel. C'est le premier mot qu'elle a prononcé en entrant dans ma chambre, après la révérence brève et impeccable que les Midwives adressent aux maisons nobles : un seul mot, son nom, livré avec l'économie de quelqu'un pour qui toute présentation excédant le strict nécessaire serait un gaspillage de temps médical.</p>
+
+        <p>Je l'ai regardée traverser la chambre et j'ai oublié, pendant quelques secondes, que j'avais de la fièvre.</p>
+
+        <p>Elle était drow. Ce n'est pas une surprise : les Tisseuses d'Ivoire sont les chirurgiennes de l'Hôpital des Mille Fils, et l'Hôpital des Mille Fils est une institution des Midwives, et les Midwives sont drow dans leur quasi-totalité. Mais savoir une chose et la voir sont deux opérations différentes.</p>
+
+        <p>Ce qui avait modifié son anatomie dépassait ce que j'anticipais.</p>
+
+        <p>Elle avait les mains d'une soignante : fines, sûres, les ongles courts taillés net, les articulations légèrement hyperextensibles à la façon dont je les avais vues sur les chirurgiens de précision. Ses robes étaient de soie blanche cassée, à la fois sévères et liquides selon le mouvement, et un voile translucide descendait de sa tête jusqu'à ses épaules, laissant visible son visage et rien d'autre.</p>
+
+        <p>Mais du haut de ses omoplates s'élevaient quatre autres membres.</p>
+
+        <p>Quatre appendices arachnéens, plus fins que tout ce qu'on imagine d'une Matrone, encore jeunes dans leur développement : articulés en trois segments, de la largeur d'un poignet humain à leur base et se terminant en pointes effilées que je reconnus, après un instant, comme des instruments chirurgicaux. Deux étaient repliés haut contre son dos dans une position de repos. Deux s'étiraient légèrement vers l'avant, à hauteur de ses épaules, comme des antennes qu'elle ne contrôlait pas tout à fait consciemment.</p>
+
+        <p>La lumière de ma chambre les prenait d'une façon que je n'attendais pas. Ils n'étaient pas noirs. Ils étaient d'un gris translucide tirant sur l'ambre, comme de la nacre sombre, et quand elle bougea pour poser son sac médical sur la table de chevet, je vis les articulations internes se déplacer sous la surface, lentes et précises.</p>
+
+        <p><em>Vous avez de la fièvre depuis hier matin,</em> dit-elle.</p>
+
+        <p>Ce n'était pas une question.</p>
+
+        <p><em>Oui.</em></p>
+
+        <p><em>Douleurs lombaires.</em></p>
+
+        <p><em>Légères.</em></p>
+
+        <p><em>Fatigue depuis plus longtemps que la fièvre.</em> Elle posa deux doigts sur mon poignet, les yeux fermés, et quelque chose dans sa posture changea légèrement, comme si elle écoutait. <em>Depuis deux semaines au moins.</em></p>
+
+        <p>Je ne répondis pas.</p>
+
+        <p><em>Ce n'est pas un reproche,</em> dit-elle. Elle ouvrit les yeux. <em>C'est un diagnostic.</em></p>
+
+        <hr/>
+
+        <p>L'examen dura trente-cinq minutes.</p>
+
+        <p>Je les comptai, pas parce que j'avais envie qu'ils se terminent, mais parce que mes mains cherchaient quelque chose à faire et que compter les secondes fut la seule option disponible.</p>
+
+        <p>Elle examinait avec les deux paires de mains simultanément. Ses deux mains palpaient et percutaient, soulevaient, évaluaient la résistance des tissus avec la pression calibrée de quelqu'un qui a appris à distinguer l'inflammation de la tension musculaire de la douleur projetée. Les membres arachnéens, pendant ce temps, se déployaient et se repliaient avec une indépendance qui me fascinait : parfois ils tenaient un instrument pendant qu'elle utilisait ses deux mains, parfois ils parcouraient quelque chose que je ne percevais pas, comme s'ils lisaient une information distincte de celle que ses mains recueillaient.</p>
+
+        <p>Il y avait une économie dans tout cela. Aucun mouvement superflu. La soie de ses robes ne faisait pas plus de bruit que nécessaire. Sa respiration était régulière et inaudible. Quand elle parlait, c'était pour nommer ce qu'elle faisait, pas pour me rassurer.</p>
+
+        <p><em>Tournez la tête à droite.</em></p>
+
+        <p><em>Inspirez.</em></p>
+
+        <p><em>Tenez.</em></p>
+
+        <p>Son attention était entière et, pour cette raison, extrêmement étrange. Dans ma vie sociale, l'attention des autres est une monnaie que l'on distribue, que l'on reçoit, que l'on emploie stratégiquement. Ici, son attention était purement fonctionnelle. Elle me regardait comme on regarde un mécanisme dont on cherche le point de friction. J'avais rarement été regardée ainsi.</p>
+
+        <p>Je me surpris à vouloir que ce regard dure.</p>
+
+        <hr/>
+
+        <p>Vers la fin de l'examen, l'un des membres arachnéens s'immobilisa à environ cinq centimètres de ma tempe gauche et vibra, imperceptiblement, comme un diapason. Elle inclina la tête.</p>
+
+        <p><em>Il y a quelque chose ici qui résiste,</em> dit-elle. <em>Une tension dans les tissus autour de votre troisième cervicale. Elle date d'avant la fièvre.</em></p>
+
+        <p><em>Je ne savais pas.</em></p>
+
+        <p><em>C'est normal. Ce type de tension ne fait pas mal tant qu'elle n'est pas libérée.</em> Elle plaça deux doigts à l'endroit qu'elle avait désigné et appliqua une pression progressive, précise, que je ne savais pas nommer autrement que comme la sensation d'un fil tendu qui cède dans quelque chose d'inattendu.</p>
+
+        <p>Je laissai échapper un souffle que j'avais retenu, apparemment, depuis longtemps.</p>
+
+        <p><em>Voilà,</em> dit-elle. Pas de satisfaction dans la voix. Un constat.</p>
+
+        <p>L'un des membres arachnéens s'était replié contre son dos. L'autre s'étira légèrement vers la fenêtre, capturant la lumière de l'après-midi qui filtrait par les rideaux. Dans cette lumière, les articulations internes semblaient phosphorescentes.</p>
+
+        <p>Je regardai trop longtemps. Je le sus au moment précis où ma peau se réchauffa d'une façon qui n'avait rien à voir avec la fièvre.</p>
+
+        <hr/>
+
+        <p>Je n'étais pas en train de faire quelque chose de sensé.</p>
+
+        <p>Je veux dire : j'en étais consciente. Vingt-deux ans et dix-huit mois de fréquentation de Tessra m'ont au moins appris à reconnaître ce réchauffement. Je l'avais étudié à l'intérieur de moi comme un phénomène naturel, patiemment, jusqu'à en connaître les premières manifestations et les conditions de déclenchement.</p>
+
+        <p>C'était la même chose. Dans un contexte radicalement différent et à l'endroit le plus improbable.</p>
+
+        <p>Yssel ne regardait pas ma peau. Elle notait quelque chose dans le carnet étroit qu'elle avait sorti de l'une de ses poches, et l'un de ses membres arachnéens tenait le carnet pendant qu'elle écrivait des deux mains, et elle ne me prêtait plus la moindre attention.</p>
+
+        <p>Je regardai le plafond.</p>
+
+        <hr/>
+
+        <h2>Chapitre V — Ce que les fils portent</h2>
+
+        <p class="drop-cap">Tessra se tenait dans l'encadrement de la porte depuis la deuxième minute de l'examen.</p>
+
+        <p>Je l'avais su. Je n'avais pas regardé dans sa direction, mais sa présence dans le couloir est quelque chose que je reconnais sans effort depuis assez longtemps pour que la chose soit réflexe. Elle n'était pas entrée. Elle n'avait pas demandé à entrer. Elle se tenait là, et j'avais perçu le changement de sa respiration au moment où les membres arachnéens de Yssel s'étaient déployés.</p>
+
+        <p>Quand Yssel sortit de ma chambre, Tessra s'écarta pour lui laisser le passage. Elles échangèrent quelques mots dans le couloir, trop bas pour que je comprenne. Puis j'entendis les pas de Yssel descendre l'escalier, et Tessra entra.</p>
+
+        <p>Elle apportait un verre d'eau. Ce geste, de sa part, était habituel. Elle m'apportait souvent de l'eau pendant mes périodes de mauvais sommeil, silencieusement, en le posant sur ma table de nuit et en repartant. C'était une façon de faire quelque chose sans avoir à nommer le fait qu'elle faisait quelque chose.</p>
+
+        <p>Ce soir-là, elle posa le verre sur la table de nuit et ne repartit pas.</p>
+
+        <p>Elle resta debout, le dos à la fenêtre, les bras croisés.</p>
+
+        <p>Ses avant-bras, croisés de cette façon, formaient une ligne que je connaissais maintenant dans ses moindres détails. Les extenseurs des doigts, les fléchisseurs du carpe, la longue bande du brachioradial courant de son coude à son poignet. Je les avais regardés assez souvent, dans assez de lumières différentes, pour les reconstituer dans l'obscurité.</p>
+
+        <p><em>Elle revient dans quatre jours,</em> dit Tessra.</p>
+
+        <p><em>Je sais. Elle me l'a dit.</em></p>
+
+        <p><em>Pour un suivi.</em></p>
+
+        <p><em>Oui.</em></p>
+
+        <p>Silence.</p>
+
+        <p><em>C'est normal,</em> dit-elle. <em>Pour ce type d'affection. Un suivi après la purge de tension.</em></p>
+
+        <p><em>Je sais.</em></p>
+
+        <hr/>
+
+        <p>Il y avait quelque chose dans sa voix que je n'avais entendu qu'une fois auparavant : lors de la réception des Fils-d'Automne, dans le carrosse du retour, quand elle avait dit non. Cette qualité d'une chose contenue avec effort.</p>
+
+        <p>Je ne dis pas ce que je pensais.</p>
+
+        <p>Ce que je pensais était compliqué et pas entièrement honnête et, de toute façon, inadmissible dans cet état de fièvre dans ma propre chambre. Je pensais aux membres arachnéens de Yssel dans la lumière de l'après-midi, à leur phosphorescence, à la façon dont la tension dans ma troisième cervicale avait cédé sous ses doigts avec une précision que je n'avais jamais rencontrée nulle part. Je pensais que c'était raisonnable d'être fascinée par quelque chose d'aussi étrange et d'aussi compétent. Je pensais que la fascination et le reste n'étaient pas nécessairement la même chose.</p>
+
+        <p>Je pensais aussi à Tessra, qui se tenait avec les bras croisés devant ma fenêtre et dont la respiration n'était pas tout à fait régulière.</p>
+
+        <p>Chez les aelfir, on ne fait pas de la monogamie un principe structurant. Ce n'est pas une règle sociale, pas même réellement une norme : c'est simplement une configuration parmi d'autres, choisie ou non selon les individus et les arrangements. Ma mère a eu deux amants simultanément pendant une décennie entière avec le consentement de mon père et l'indifférence de leurs cercles sociaux respectifs. Les drows n'en font pas davantage une règle.</p>
+
+        <p>Tessra, elle, en faisait une. Pas comme principe culturel — comme fait personnel, individuel, inscrit dans la façon dont elle occupait l'espace autour de moi depuis dix-huit mois. Je le savais depuis assez longtemps.</p>
+
+        <p>Ce que j'avais vu dans le cadre de la porte pendant l'examen de Yssel, c'était quelque chose qui ressemblait à de la surveillance. Pas à de la curiosité professionnelle. À de la surveillance.</p>
+
+        <hr/>
+
+        <p><em>Tessra,</em> dis-je.</p>
+
+        <p>Elle leva les yeux.</p>
+
+        <p><em>Merci pour l'eau.</em></p>
+
+        <p>Un muscle bougea dans sa mâchoire. Elle hocha la tête une fois, ramassa son verre vide du soir précédent qui était resté sur la table de chevet, et sortit.</p>
+
+        <p>La porte se referma avec le silence précis de quelqu'un qui a décidé de ne pas la claquer.</p>
+
+        <hr/>
+
+        <p>Je m'allongeai sur le dos et regardai le plafond de ma chambre, ce plafond que je connaissais dans ses moindres détails, ses moulures et ses imperfections peintes depuis un siècle.</p>
+
+        <p>Ce que je portais dans les mains, à cet instant, était quelque chose que je ne savais pas encore nommer.</p>
+
+        <p>Il y avait Tessra : trois ans de connaissance précise, de confiance construite muscle par muscle, d'une intimité dont je comprenais maintenant qu'elle avait une limite et que cette limite était réelle et importante et que je me cognais dessus depuis deux semaines avec la régularité de la marée.</p>
+
+        <p>Et il y avait Yssel, qui reviendrait dans quatre jours, et dont les membres arachnéens dans la lumière de l'après-midi avaient fait quelque chose d'irréversible à une partie de mon cerveau encore trop fébrile pour identifier laquelle.</p>
+
+        <p>Ces deux choses coexistaient. Elles ne se résolvaient pas.</p>
+
+        <p>Ce n'est pas ce que mes livres m'avaient préparé à ressentir.</p>
+
+        <hr/>
+
+        <p>Dans l'antichambre, de l'autre côté de la porte, j'entendis la chaise de Tessra racler légèrement le sol. C'est le son qu'elle fait quand elle s'assied pour une longue veille : un seul déplacement, puis le silence.</p>
+
+        <p>Elle était encore là.</p>
+
+        <p>Je mis une main à plat sur ma poitrine et sentis mon cœur sous la paume, régulier, inexorable, ne demandant aucune autorisation.</p>
+
+        <p>Dehors, Silver Quarter bruissait dans la nuit. Les carrosses dans la rue. Une voix au loin. La pluie fine qui commençait sur les toits.</p>
+
+        <p>Et Tessra, dans son fauteuil, dont les mains avaient oublié de m'apporter l'eau du soir.</p>
+
+        <p class="fin">— Fin du tome III —</p>
+
+      </div>
+    </section>
+
+    <script>
+      if (!localStorage.getItem('spire_token')) {
+        window.location.href = '../connect.html';
+      }
+    </script>
+    <script src="../js/read-tracker.js"></script>
+    <script src="../js/heartbeat.js"></script>
+  </body>
+</html>

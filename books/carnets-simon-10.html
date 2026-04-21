@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Le Silver Quarter de Spire — Spire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg-0); overflow-x: hidden; }
+
+    .back-link {
+      position: fixed; top: 1.5rem; left: 2rem;
+      font-family: var(--font-heading); font-size: 0.65rem;
+      letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--text-3); transition: color 0.2s; z-index: 10;
+      text-decoration: none;
+    }
+    .back-link:hover { color: var(--text-1); }
+
+    .book-page { min-height: 100vh; background: var(--bg-0); }
+
+    .cover-carnets-10 {
+      background: #08090e;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 35px, rgba(90,105,140,0.04) 35px, rgba(90,105,140,0.04) 36px),
+        repeating-linear-gradient(90deg, transparent, transparent 35px, rgba(90,105,140,0.03) 35px, rgba(90,105,140,0.03) 36px);
+      width: 100%; min-height: 420px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 4rem 2rem 3rem; position: relative; overflow: hidden;
+    }
+    .cover-carnets-10::before {
+      content: ''; position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px;
+      border: 1px solid rgba(90,110,150,0.2); pointer-events: none;
+    }
+    .cv10-series { font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 4px; text-transform: uppercase; color: #252840; margin-bottom: 1rem; }
+    .cv10-num { font-family: 'Cinzel Decorative', serif; font-size: clamp(4rem, 12vw, 7rem); color: #8095b8; text-shadow: 0 0 60px rgba(100,120,170,0.4); line-height: 1; }
+    .cv10-rule { width: 50px; height: 1px; background: #252840; margin: 0.75rem auto; }
+    .cv10-title { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 4px; text-transform: uppercase; color: #6a80a5; text-align: center; }
+    .cv10-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.75rem; color: #181a28; margin-top: 0.5rem; text-align: center; }
+    .cv10-author { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 4px; text-transform: uppercase; color: #151825; margin-top: 1.5rem; }
+
+    .book-content {
+      max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem;
+      color: var(--text-1); font-family: var(--font-body); font-size: 1.05rem; line-height: 1.85;
+    }
+    .book-content h2 {
+      font-family: var(--font-heading); font-size: 0.75rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--text-2); margin: 3rem 0 1.25rem; padding-top: 2rem; border-top: 1px solid var(--border);
+    }
+    .book-content h2:first-of-type { border-top: none; padding-top: 0; }
+    .book-content p { margin-bottom: 1.25rem; }
+    .book-content em { color: var(--text-1); font-style: italic; }
+    .book-content strong { color: var(--text-0); font-weight: 600; }
+
+    .reco-box { border-left: 2px solid var(--red-700); padding: 0.75rem 1.25rem; margin: 1.5rem 0; background: rgba(30,20,30,0.6); }
+    .reco-box .reco-label { font-family: var(--font-heading); font-size: 0.55rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--red-500); margin-bottom: 0.5rem; display: block; }
+    .reco-box p { font-style: italic; color: var(--text-2); font-size: 0.95rem; margin-bottom: 0; }
+
+    .author-note { border: 1px solid var(--border); padding: 0.75rem 1.25rem; margin: 1.5rem 0; background: rgba(20,15,25,0.8); font-style: italic; color: var(--text-3); font-size: 0.9rem; }
+    .author-note .note-label { font-family: var(--font-heading); font-size: 0.5rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-3); margin-bottom: 0.4rem; display: block; font-style: normal; }
+
+    .tasting-note { font-style: italic; color: var(--text-2); font-size: 0.95rem; border-left: 1px solid var(--border); padding-left: 1rem; margin: 1rem 0; }
+
+    .book-signature { font-style: italic; color: var(--text-3); font-size: 0.9rem; text-align: right; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .book-signature p { margin-bottom: 0.4rem; }
+  </style>
+</head>
+<body style="overflow:auto;">
+
+  <a href="../library.html" class="back-link">← Bibliothèque</a>
+
+  <div class="book-page">
+
+    <div class="cover-carnets-10">
+      <div class="cv10-series">Les Carnets de Simon</div>
+      <div class="cv10-num">X</div>
+      <div class="cv10-rule"></div>
+      <div class="cv10-title">Le Silver Quarter de Spire</div>
+      <div class="cv10-sub">Guide Gastronomique, Hédoniste et Culturel</div>
+      <div class="cv10-author">Simon Verlat</div>
+    </div>
+
+    <div class="book-content">
+
+      <p style="text-align:center; font-family:var(--font-heading); font-size:0.55rem; letter-spacing:0.45em; text-transform:uppercase; color:var(--text-3); margin-bottom:0.5rem;">Les Carnets de Simon — Numéro X</p>
+      <h1 style="font-family:'Cinzel Decorative',serif; font-size:clamp(1.1rem,3vw,1.6rem); color:var(--text-0); text-align:center; margin-bottom:0.5rem; line-height:1.3;">Le Silver Quarter de Spire</h1>
+      <p style="text-align:center; font-style:italic; color:var(--text-3); font-size:0.85rem; margin-bottom:0.25rem;">Guide Gastronomique, Hédoniste et Culturel à l'Usage du Voyageur Éclairé</p>
+      <p style="text-align:center; font-style:italic; color:var(--text-3); font-size:0.8rem; margin-bottom:3rem;"><em>Simon Verlat, journaliste indépendant, explorateur culinaire, auteur de "La Table du Monde"</em></p>
+      <div style="width:40px;height:1px;background:var(--red-700);margin:0 auto 3rem;"></div>
+
+      <h2>Avant-Propos</h2>
+
+      <p>Il faut parler du silence entre les numéros IX et X.</p>
+      <p>Ce n'est pas un retard éditorial. Ce n'est pas une question de logistique ou de documentation préparatoire insuffisante. C'est autre chose que j'ai mis du temps à nommer et que je nomme ici parce que mon engagement envers la rigueur documentaire finit toujours, dans l'histoire de cette série, par dépasser mon engagement envers le confort personnel.</p>
+      <p>J'étais assis dans ma chambre — la chambre que je partage, depuis quelque temps maintenant, avec Saël, dans le sens où nos affaires respectives occupent les mêmes mètres carrés sans que ni l'une ni l'autre n'ait jamais formulé ça comme une décision. Mon carnet était ouvert sur la même page depuis un temps que je préfère ne pas quantifier. Il n'y avait rien d'écrit sur cette page sauf la liste des districts qui restaient, et une phrase au milieu que j'avais commencée sans la finir et dont je n'arrivais plus à retrouver ce que j'avais voulu dire.</p>
+      <p>La question qui s'était installée pendant ce silence était celle-ci : <em>pourquoi j'étais venu à Spire.</em></p>
+      <p>Pas "qu'est-ce que j'y avais trouvé" — ça, je le savais, ou je croyais le savoir : neuf districts, neuf carnets, les corvides géants, le Café des Derniers Jours, des substances que j'aurais dû examiner avant de les ingérer. La question c'était l'avant. La raison d'origine. La raison d'origine était quelque chose comme "fuir le monde normal" — c'est la formule qui revenait quand j'essayais de la trouver. Mais "fuir le monde normal" n'est pas vraiment une réponse. C'est une description du départ, pas de l'arrivée. Et si j'avais fui le monde normal, à quoi est-ce que j'étais arrivé ? Est-ce que Spire était moins normal ? Est-ce que moi, j'étais normal ? Est-ce que "normal" était la bonne catégorie ? Depuis quand est-ce que je voulais l'être ?</p>
+      <p>La question qui venait juste après était plus difficile.</p>
+      <p><em>Est-ce que j'avais été en train de m'amuser ?</em></p>
+      <p>Je l'avais cru. Je croyais avoir passé dix numéros à documenter des choses avec une joie professionnelle sincère. Mais assis dans cette chambre avec le carnet vide, je n'arrivais plus à savoir si la joie était réelle ou si elle était aussi une forme de fuite — quelque chose que je fabriquais autour de moi pour ne pas m'arrêter, pour ne pas regarder la page. Si j'avais vraiment aimé documenter l'Enfer Noir et les Fenêtres Mouvantes et Mister Alas, ou si j'avais aimé <em>être quelqu'un qui documente ces choses</em>, ce qui est différent.</p>
+      <p>Et derrière ça, plus silencieuse, la question qui ne demande jamais à être posée parce qu'elle s'installe toute seule et qu'elle attend : <em>est-ce que quelqu'un lira ça un jour ? Et si non — est-ce que ça change quelque chose à ce que ça vaut ? Et si ça ne change rien, pourquoi est-ce que ça me dérange quand même ?</em></p>
+      <p><em>La Table du Monde</em> a vendu onze exemplaires. Mes accréditations sont un parchemin que j'ai rédigé moi-même un soir de septembre. Je ne suis peut-être pas journaliste. Je ne suis peut-être pas explorateur. Je ne suis peut-être rien de précis dans la liste des choses qu'on peut être.</p>
+      <p>C'est à ce moment que Saël est rentrée.</p>
+      <p>Je dois la décrire, parce qu'elle est dans ce numéro d'une façon qu'elle n'était pas dans les précédents et que les lecteurs méritent de savoir à qui ils ont affaire. Saël est drow, Vigilite, crâne rasé de frais avec la régularité d'une personne qui s'est décidée une fois et n'y repense pas, les marques de cendre sur ses avant-bras que les gens autour d'elle ont cessé depuis longtemps de savoir regarder. Elle a une façon de tenir dans l'espace qui est celle d'une personne habituée à ne pas en demander plus que nécessaire — compacte, directe, efficace dans ses déplacements comme dans ses conversations. Elle sent quelque chose de doux qu'on ne s'attendrait pas à associer aux marques de cendre et aux pieds nus, quelque chose entre la cire et le miel frais, qu'on ne remarque que quand on est assez près pour le remarquer. Elle a, avec moi, la qualité d'un frère de bonne distance — pas assez proche pour que certaines conversations deviennent gênantes, pas assez loin pour qu'elles soient impossibles.</p>
+      <p>Elle est entrée, m'a vu assis avec le carnet vide, et a dit : "Qu'est-ce qui se passe ?"</p>
+      <p>J'ai dit que je n'étais pas certain de le savoir complètement mais que je pouvais essayer d'expliquer. Puis j'ai expliqué. J'ai expliqué pendant un moment. J'ai expliqué la question du monde normal et la question de ce que je fuyais et la question de ce qu'est un journaliste sans accréditations réelles et la question de si <em>La Table du Monde</em> existait vraiment ou si c'était un projet que je menais dans un vide documentaire et la question de si j'avais été heureux ou si le bonheur que je croyais avoir éprouvé était lui-même une façon de ne pas regarder quelque chose, et la question de ce que je serais si je n'étais pas quelqu'un qui prend des notes dans des endroits difficiles d'accès, et quelques autres questions connexes.</p>
+      <p>Saël m'a écouté pendant un moment.</p>
+      <p>Puis elle a dit : "Ok. On va se saouler."</p>
+      <p>Elle avait sorti une robe de son sac avant même que j'aie fini de formuler une objection.</p>
+      <p>Je n'ai pas formulé d'objection. C'était la bonne décision.</p>
+      <p>J'ai passé quatre nuits dans le Silver Quarter. Je suis reparti avec un carnet complet, une philosophie nouvelle sur ce que signifie perdre gracieusement, et quelque chose qui ressemble à une réponse aux questions du silence — pas propre, pas définitive, mais réelle.</p>
+
+      <div class="author-note">
+        <span class="note-label">Note éditoriale</span>
+        La section II de ce numéro contient un passage rédigé sous influence d'un cocktail et d'une ambiance de course hippique d'une nature particulière. La Deuxième Partie est plus explicite que mon registre habituel — ce qui, pour les lecteurs de cette série, mérite une réelle mise en perspective.
+      </div>
+
+      <h2>— Première Partie : Le Silver Quarter avec Saël —</h2>
+
+      <h2>I. Les Avenues, ou : Ce que l'argent fait aux murs quand on lui en donne assez</h2>
+
+      <p>Le Silver Quarter m'a d'abord semblé irréel.</p>
+      <p>Ce n'est pas un jugement qualitatif. C'est une observation sensorielle : après neuf numéros consacrés à des districts où l'espace est négocié centimètre par centimètre, où les murs absorbent la suie et les décisions économiques difficiles, le Silver Quarter produit un effet de contraste cognitif qui prend quelques minutes à traiter. Les avenues sont larges. Les façades sont en marbre blanc et en argent poli. Des sortilèges de lumière font briller les surfaces d'une façon que la lumière naturelle n'atteint pas à cette profondeur de Spire. Les statues sont en argent massif et de dimensions considérables, et personne ne les vole, ce qui dans n'importe quel autre district de cette série aurait constitué une anomalie inexplicable.</p>
+      <p>J'ai noté dans mon carnet : <em>"Premier district de la série où la principale menace pour le visiteur est l'éblouissement visuel non métaphorique."</em></p>
+      <p>Saël, à ma droite, regardait les avenues avec l'expression d'une personne qui a une opinion précise sur ce qu'elle voit et qui a décidé, ce soir, de la garder pour elle. Elle portait une robe noire, simple, taillée avec une économie de tissu qui constituait dans ce contexte une subversion délibérée, et ses pieds étaient nus sur les pavés brillants. Les aelfir qui nous croisaient la regardaient. Elle ne les regardait pas. L'odeur de cire et de miel frais qu'elle a dans les espaces normaux était ici légèrement différente — quelque chose dans l'air du Silver Quarter l'accentuait, ou je l'avais davantage remarquée ce soir, je ne sais pas lequel des deux.</p>
+      <p>Saël a mis sa main sur mon épaule une fois, brièvement, en entrant dans la première avenue. Elle n'a rien dit. J'ai compris que c'était sa façon de dire <em>je suis là</em> dans les endroits qui demandent à être traversés sans s'arrêter trop longtemps sur ce qu'ils coûtent.</p>
+      <p>Ce que je comprends du Silver Quarter après quatre nuits : c'est de la liberté transformée en décoration. Je ne dis pas ça pour m'en moquer. Je dis ça parce que ça dit quelque chose sur ce qu'on fait avec les choses précieuses quand on en a suffisamment pour ne plus avoir besoin de les cacher.</p>
+
+      <div class="reco-box">
+        <span class="reco-label">Recommandation</span>
+        <p>Le Silver Quarter s'appréhende mieux la nuit, quand la lumière artificielle fait son travail. Je recommande d'arriver avec quelqu'un qui sait où il va, ce qui était mon cas ce soir et qui représente une exception notable dans l'historique de cette série.</p>
+      </div>
+
+      <h2>II. Le Mermaid Casino, ou : Ce que Stolz pense de ma stratégie</h2>
+
+      <p>Le <strong>Mermaid Casino</strong> est placé sous la protection directe de Stolz, déesse de la chance. Aucun vol n'y reste impuni. Ma documentation préparatoire le mentionnait. Je l'avais noté sans implication personnelle directe. La question n'était pas là.</p>
+      <p>La question était, d'abord, dans la piste.</p>
+      <p>Le Mermaid Casino dispose, au fond de son rez-de-chaussée, d'une piste de course ovale de dimensions considérables autour de laquelle des femmes — humaines, pour la plupart, avec quelques exceptions d'espèces que je ne nommerai pas pour des raisons de compacité éditoriale — courent en compétition pendant que la salle parie sur leurs performances. Elles portent des harnais ornementaux d'une sophistication remarquable, avec des numéros gravés sur des plaques d'argent dans le dos. L'organisation est rigoureuse : des croupiers gèrent les mises, les courses durent environ trois minutes, les résultats sont annoncés par un maître de cérémonie dont la voix porte sur l'ensemble de la salle. J'ai regardé ça pendant un moment dans un esprit d'évaluation documentaire.</p>
+      <p>Saël regardait aussi.</p>
+      <p>J'ai demandé si on pouvait parier.</p>
+      <p>Elle a dit que c'était l'idée.</p>
+      <p>J'ai misé un dixième de silver sur la numéro trois, pour des raisons qui me semblaient solides à l'époque et que je suis incapable de reconstituer. La numéro trois est arrivée dernière. J'ai noté cela comme un point de départ raisonnable pour la soirée.</p>
+      <p>La question était ensuite, comme annoncé, dans un cocktail servi dans un verre en forme de fleur que Saël avait commandé sans me demander mon avis, en disant que c'était "la chose à boire ici en premier."</p>
+      <p>J'ai demandé ce que c'était.</p>
+      <p>Elle a dit que ça aidait à commencer la soirée.</p>
+      <p>C'est ma quatorzième erreur documentée de ce type dans cette série et je la répertorie sans surprise.</p>
+      <p>Ma note de dégustation officielle, rédigée avant que les effets commencent :</p>
+      <div class="tasting-note">"Liquide ambré d'une densité supérieure à ce à quoi on s'attend. Nez de miel brûlé et de quelque chose d'électrique que je classerais sous 'intention.' Bouche ronde, chaude, sans âpreté. Finale qui ne finit pas vraiment mais s'étend vers un sentiment généralisé que les choses vont bien se passer."</div>
+
+      <div class="author-note">
+        <span class="note-label">Note de l'auteur</span>
+        Ce qui suit a été rédigé pendant les effets du cocktail de l'optimisme. Je le reproduis conformément à ma politique éditoriale.
+      </div>
+
+      <div class="tasting-note">"Je SUIS dans le meilleur casino de Spire. Il est possible que je sois moi-même le meilleur casino de Spire. La numéro sept va gagner la prochaine course. Je l'ai décidé. J'ai décidé la course avec mon esprit. C'est quelque chose que je peux faire maintenant. Stolz ME VOIT. Stolz me respecte. Stolz et moi on a une relation depuis ce soir et c'est une relation de respect mutuel entre égaux. La sirène de cuivre au centre a bougé. Je suis la seule personne dans cette salle qui a vu la sirène bouger. C'est parce que je mérite de la voir bouger. Je suis un journaliste d'exception. Non — je suis LE journaliste. Le journaliste de référence. Dans tous les districts. Depuis le numéro trois probablement. Peut-être depuis avant le numéro trois. Peut-être depuis toujours. Je vais parier sur le sept. J'ai décidé le sept. Je vais écrire deux cents numéros. J'en voulais dix, j'en voulais cent, maintenant j'en veux deux cents et je vais les écrire et Spire va se documenter elle-même à cause de moi parce que je suis ce niveau de journaliste. Saël sourit à quelque chose. Ce quelque chose c'est objectivement moi. Je vais miser sur la numéro sept à la course ET sur le sept aux dés parce que sept c'est mon chiffre depuis ce soir. Je suis peut-être un dieu. Cette formulation est peut-être excessive. Elle est peut-être exacte."</div>
+
+      <p>La numéro sept a gagné la course. J'ai gagné un dixième de silver, récupérant ma mise initiale et rentrant dans mes frais.</p>
+      <p>J'ai perdu un huitième de silver sur le sept aux dés.</p>
+      <p>Saël, qui avait gagné deux lancers consécutifs par une méthode qu'elle décrit comme "ne pas réfléchir" — philosophie que j'ai de la difficulté à reproduire —, a dit que Stolz aimait les gens honnêtes sur leurs limites. J'ai répondu que j'étais très honnête sur mes limites. Elle a dit que le cocktail semblait en désaccord.</p>
+
+      <div class="reco-box">
+        <span class="reco-label">Recommandation</span>
+        <p>Le Mermaid Casino est une expérience gastronomique de l'argent au sens le plus littéral. La piste de course vaut le déplacement à elle seule — les courses durent trois minutes, les mises sont accessibles, et le spectacle est d'une précision organisationnelle remarquable. Le cocktail ambré dans le verre en fleur est excellent si on en boit un. Ne buvez pas deux cocktails dans le verre en fleur avant d'avoir une stratégie. Sur la numéro sept : je valide.</p>
+      </div>
+
+      <h2>III. Le Zebra Club, ou : Ce qui se passe quand deux personnes remarquent la même chose en même temps</h2>
+
+      <p>Le <strong>Zebra Club</strong> est l'établissement dont l'esthétique consiste à pousser le dandysme aelfir jusqu'au point où il devient une déclaration sur lui-même. La clientèle est impeccablement habillée d'une façon qui suggère que l'impeccabilité leur a pris du temps et qu'ils ont décidé que ce temps était bien investi. La musique est discrète. Les boissons arrivent dans des verres dont la forme a été décidée par quelqu'un. Saël a regardé tout ça avec l'expression d'une personne qui calcule depuis combien de temps il lui faudrait pour trouver quelqu'un d'intéressant.</p>
+      <p>Il lui a fallu vingt minutes.</p>
+      <p>Il y avait, de l'autre côté de la salle, une aelfir.</p>
+      <p>Je l'ai remarquée au moment précis où Saël a dit, sans préambule et sans cesser de regarder dans cette direction : <em>"La femme au fond, la dorée."</em></p>
+      <p>J'ai levé les yeux de mes notes.</p>
+      <p>L'aelfir en question — que j'appellerai ici <strong>Orchid</strong>, à défaut d'un nom confirmé, parce que c'est la première chose que j'aie notée sur elle et que la notation semblait juste — était grande, d'une beauté de l'ordre de celles que le Silver Quarter produit délibérément mais qui, dans son cas, s'accompagnait d'une conscience ironique de sa propre existence. Elle tenait son verre sans y boire. Elle regardait la salle avec la légère attention d'une personne qui attend quelque chose de plus intéressant que ce qui se présente jusqu'ici.</p>
+      <p>Saël et moi nous sommes regardés.</p>
+      <p>Saël a dit : <em>"Tu veux ?"</em></p>
+      <p>J'ai dit : <em>"Tu veux ?"</em></p>
+      <p>Il y a eu un silence de la qualité particulière des silences entre deux personnes qui se connaissent suffisamment pour que le silence soit une réponse complète.</p>
+      <p>Saël a souri. Son sourire dans ces moments a quelque chose d'une annonce météo.</p>
+      <p>Elle a dit : <em>"On peut pas tous les deux."</em></p>
+      <p>J'ai dit : <em>"Compétition."</em></p>
+      <p>Elle a dit : <em>"Règles."</em></p>
+      <p>J'ai sorti mon carnet. J'ai rédigé les règles sur place, devant elle, avec le stylet que j'utilise depuis le numéro IV et qui commence à manquer d'encre aux moments les plus inconvenants.</p>
+      <p>Les règles :</p>
+      <p>1. Pas d'obstacles actifs entre nous — nos efforts s'additionnent, ils ne se neutralisent pas.<br/>
+      2. Pas de mensonges sur soi-même ni sur l'autre.<br/>
+      3. Critère de victoire : laquelle de nos deux approches était la plus mémorable à la fin de la soirée, selon Orchid elle-même si l'occasion se présentait.<br/>
+      4. Le perdant rédige la recommandation officielle du lieu où la défaite est constatée.</p>
+      <p>Saël a dit : <em>"D'accord."</em> Sans lire les règles.</p>
+      <p>Ce n'était pas de la légèreté. C'était de la confiance dans sa propre capacité à gagner quelle que soient les règles, ce qui est différent et plus difficile à contrer.</p>
+      <p>J'ai approché Orchid en premier. Cela s'est bien passé, dans le sens où la conversation a duré plus de cinq minutes et qu'à un moment, quand j'ai dit quelque chose qu'elle a trouvé suffisamment juste pour mériter une réaction physique, elle a posé deux doigts sur mon avant-bras pendant environ trois secondes. J'ai noté cela dans mon carnet sous "premier contact, conditions favorables" et ai demandé à me souvenir de l'expression exacte de son visage dans ce moment, ce que j'ai réussi.</p>
+      <p>Elle a ensuite regardé par-dessus mon épaule dans la direction de Saël.</p>
+      <p>Orchid, informée de la compétition à mi-soirée par Saël elle-même — ce que je n'avais pas anticipé dans les règles mais qui, rétrospectivement, lui donnait sur nous une information asymétrique décisive —, a semblé trouver ça amusant. Elle a regardé mes notes de séduction officielles pendant quelques secondes. Elle a dit : <em>"Cinq sur dix au premier contact, c'est une évaluation sévère pour toi-même."</em></p>
+      <p>J'ai dit que la rigueur était une valeur professionnelle.</p>
+      <p>Elle a dit que oui, visiblement, et a regardé à nouveau en direction de Saël.</p>
+
+      <div class="tasting-note">Note officielle de séduction — soirée 1, Zebra Club : 5/10. Contact établi. Premier contact physique documenté. Légère asymétrie conversationnelle dans le sens où j'ai parlé davantage qu'elle. À corriger.</div>
+
+      <div class="author-note">
+        <span class="note-label">Note</span>
+        La Première Partie de ce numéro se conclut ici. Ce qui précède documente le Silver Quarter. Ce qui suit documente autre chose — dans le même district, dans le même carnet, pour les mêmes raisons professionnelles.
+      </div>
+
+      <h2>— Deuxième Partie : La Compétition —</h2>
+
+      <h2>IV. L'Order of St Perdita, ou : Ce que la danse fait aux asymétries d'information</h2>
+
+      <p>L'<strong>Order of St Perdita</strong> organise des bals caritatifs dans des salles dont la décoration coûte plus que ce que les recettes charitables produisent, ce qui est une équation que j'ai notée sans commentaire parce que l'architecture était sincèrement belle et la musique jouée par quatre personnes dont les instruments avaient des noms propres. Les membres portent des insignes d'argent et parlent des bénéficiaires de leurs œuvres avec une compassion dont la sincérité est proportionnelle au nombre de coupes de vin consommées.</p>
+      <p>Orchid était présente. Saël portait la même robe que la veille, les pieds nus sur le parquet ciré, et les aelfirs autour d'elle ne savaient pas comment la regarder, ce qui lui conférait une présence que les robes des deux cents silvers produisaient différemment.</p>
+      <p>J'ai dansé avec Orchid pendant un morceau.</p>
+      <p>La conversation s'est bien passée. Elle m'a demandé si j'avais peur de documenter le Silver Quarter après les autres districts. J'ai dit que le Silver Quarter était le premier endroit où ce qui m'inquiétait était l'éblouissement et non la chute, ce qui n'était pas une phrase préparée mais qui était vraie. Elle a dit que l'éblouissement et la chute, dans ce district, étaient souvent la même chose. Il y avait dans la façon dont elle regardait légèrement de côté pendant que nous parlions le signe de quelqu'un qui écoute plus qu'il ne regarde. C'est une qualité rare dans une salle comme celle-ci.</p>
+
+      <div class="tasting-note">Note officielle de séduction — soirée 2, Order of St Perdita : 6,5/10. Progrès mesurable. Conversation de qualité supérieure à la moyenne du genre. Connexion authentique sur le sujet de l'éblouissement. La danse était correcte, ce qui dans ce contexte est un adjectif ambitieux pour mes capacités techniques. Point faible : à la fin du morceau, elle cherchait Saël des yeux avant de me regarder, ce qui est une information que j'ai notée avec la précision d'un journaliste et l'enthousiasme d'une personne qui commence à voir comment ça va finir.</div>
+
+      <p>Saël, pendant ce temps, avait trouvé un coin avec un drow du personnel et discutait à voix basse depuis vingt minutes. Quand elle m'a rejoint, elle avait l'air d'avoir obtenu quelque chose.</p>
+      <p>Je lui ai demandé si elle avait parlé à Orchid.</p>
+      <p>Elle a dit : <em>"Pas encore. Je rassemblais des informations."</em></p>
+      <p>J'aurais dû trouver cela plus inquiétant que je ne l'ai trouvé.</p>
+
+      <h2>V. Le Boating Club et ce que Saël n'a pas dit</h2>
+
+      <p>Le <strong>Boating Club</strong> est installé sur un pont de verre surplombant l'Eternal Canal, un plan d'eau souterrain dont la surface miroite sous les éclairages de l'établissement. On joue à Orbit, un jeu d'engrenages dont les règles m'ont été expliquées par un étudiant aelfir d'une patience admirable pendant vingt minutes, après quoi je n'avais pas assimilé les règles de base et perdu trois parties consécutives.</p>
+      <p>Orchid joue à Orbit. Elle y joue bien. Elle a proposé de me montrer un mouvement de base, ce qui impliquait de guider ma main sur les engrenages depuis derrière mon épaule. Nos coudes ont touché le bord du plateau en même temps deux fois. La deuxième fois, elle n'a pas bougé le sien.</p>
+
+      <div class="tasting-note">Note officielle de séduction — soirée 3, Boating Club : 7,5/10. Contact physique soutenu dans un contexte collaboratif. Le jeu d'Orbit est incompréhensible mais constitue un excellent prétexte. Progression mesurable. Impression générale : la compétition est ouverte.</div>
+
+      <p>Saël, à ma droite, a dit quelque chose à Orchid en drow. Quelques mots, dans un registre grave que je n'ai pas, avec la simplicité de quelqu'un qui dit une chose directement parce que la formuler autrement ne lui vient pas à l'esprit. Orchid s'est arrêtée de regarder les engrenages pour regarder Saël. Elle a répondu en drow. Saël a répondu. Orchid a ri d'une façon différente de toutes celles que j'avais entendues jusqu'ici — pas le rire du bal, pas le rire du Zebra Club. Quelque chose de plus court et de plus privé, de la qualité d'un rire qu'on reconnaît parce qu'on sait qu'on ne pourra pas le reproduire.</p>
+      <p>J'ai demandé ce qu'elles s'étaient dit.</p>
+      <p>Saël a dit : <em>"Rien d'important."</em></p>
+
+      <div class="tasting-note">Note officielle de séduction révisée à la baisse : 6/10.</div>
+
+      <p>Je n'ai pas demandé une deuxième fois. J'avais vu l'expression d'Orchid après la conversation, et noter ce que j'avais vu m'aurait demandé de noter aussi ce que ça signifiait pour la compétition, et à ce stade je n'étais plus certain de vouloir le noter.</p>
+
+      <h2>VI. Le Pavillon des Mille Désirs, ou : Ce que j'ai décidé de documenter quand même</h2>
+
+      <p>Après le Boating Club, Orchid a dit : <em>"Il y a un endroit."</em> Elle a dit ça en regardant les deux à la fois, avec l'expression d'une personne qui sait exactement ce qu'elle propose et qui attend qu'on soit prêts à le savoir aussi.</p>
+      <p>Elle nous a conduits au <strong>Pavillon des Mille Désirs</strong>.</p>
+      <p>Le Pavillon est dirigé par <strong>Maera Flintrow</strong>, une naine d'une élégance froide dont la façon de gérer un établissement ressemble à de la direction d'orchestre. La façade est en marbre rose pâle incrusté de miroirs. Les lanternes sont dorées. L'air sent le safran. La musique est jouée en direct par quelqu'un qu'on n'entend jamais d'assez près pour voir.</p>
+      <p>Le Pavillon ne vend pas des corps. Il vend des scénarios. Chaque client reçoit à l'entrée un pseudonyme, une couleur, une carte gravée d'une phrase qui décrit ce qu'il est ce soir — non pas ce qu'il demande, ce qu'il est. Maera Flintrow détermine la phrase après un regard de trois secondes. Ma carte disait : <em>l'homme qui prend des notes.</em> La carte de Saël disait quelque chose en drow que je n'ai pas pu lire. La carte d'Orchid disait : <em>la femme qui attend.</em> Orchid a regardé sa carte, puis Saël, avec l'expression de quelqu'un qui vient de recevoir une information qu'il attendait depuis un moment. La discrétion est scellée rituellement — je confirme cela tout en ayant décidé, pour ce numéro, de documenter ce qui peut être documenté.</p>
+      <p>Avant d'entrer dans les espaces intérieurs du Pavillon, Saël m'a pris à part. Elle a dit, à voix basse et avec la même économie de mots qu'elle applique aux règles importantes : <em>"Pour être clair entre nous : toi tu me touches pas, moi je te touche pas. On est bien ?"</em></p>
+      <p>J'ai dit qu'on était bien.</p>
+      <p>Elle a dit : <em>"Bien."</em> Et elle est repartie vers Orchid.</p>
+      <p>J'ai noté cette règle dans mon carnet. Elle a été établie, respectée, et fonctionnelle dans le contexte.</p>
+      <p>Ce qui s'est passé dans les premières heures : j'ai passé du temps avec Orchid. Elle est précise, attentive, sait ce qu'elle fait et le fait clairement. Le moment où elle a décidé de regarder directement quelque chose plutôt que légèrement de côté était un moment d'une qualité comparable à Vess à l'Enfer Noir mais dans un registre entièrement différent — moins cartographique, plus conversationnel, plus attentif aux réactions. J'aurais coté ça 8,5/10 dans les nomenclatures habituelles de ce guide si les nomenclatures habituelles de ce guide s'étendaient dans cette direction, ce qui elles font, techniquement, depuis le numéro III.</p>
+      <p>Puis Saël a dit quelque chose à voix basse.</p>
+      <p>Orchid a tourné la tête.</p>
+      <p>Ce qui s'est passé dans les trente secondes suivantes : Saël a dit quelque chose. Orchid l'a regardée. Orchid a souri d'une façon que je n'avais pas encore vue de toute la soirée — pas le sourire qu'elle avait eu avec moi, quelque chose d'autre, d'un registre différent. Elle a dit : <em>"Excuse-moi un instant."</em> Elle a dit ça à moi, poliment, avec la délicatesse d'une personne qui sait exactement ce qu'elle est en train de faire. Puis elle s'est levée et elle est allée vers Saël.</p>
+      <p>Défaite enregistrée. 01h37. Critère : Orchid, de son propre chef, avec clarté et sans ambiguïté, a fait un choix. Le choix n'était pas moi. Le choix était Saël, ce qui avec le recul constituait un résultat prévisible depuis la conversation en drow au Boating Club pour quiconque avait les yeux ouverts, ce que je ne nie pas avoir eu.</p>
+      <p>Maera Flintrow, qui m'avait observé depuis la déroute avec l'expression d'une directrice de théâtre dont un acteur vient de manquer sa réplique, s'est approchée. Elle a dit : <em>"Quelqu'un vous attend au salon de l'est."</em> Elle a dit ça avec le ton de quelqu'un qui a anticipé plusieurs possibilités de soirée et avait préparé des réponses appropriées pour chacune.</p>
+      <p>Le salon de l'est abritait un aelfir.</p>
+      <p>Il s'appelait <strong>Sevan</strong>. Grand, cheveux clairs, le genre d'aelfir du Silver Quarter qui porte ses vêtements avec l'aisance d'une personne qui a été habillée par d'autres depuis suffisamment longtemps pour avoir oublié que ça pourrait être différent — sauf que quand il a parlé, c'était avec quelqu'un qui avait gardé une opinion sur les choses, ce qui dans ce district est une qualité documentée comme rare. Il a regardé mon carnet avec une curiosité sincère. Il a demandé ce que c'était. J'ai dit que c'était mon outil de travail. Il a dit qu'il avait toujours voulu rencontrer quelqu'un qui documentait les choses.</p>
+      <p>Ce qui s'est passé ensuite appartient à la catégorie des expériences de cette série dont le compte-rendu détaillé existe dans mes archives personnelles et dont je présente ici le résumé : très bon. Sevan est attentif, inventif, et possède un sens de l'humour pour les situations légèrement absurdes qui, dans le contexte du Pavillon des Mille Désirs avec ses cartes gravées et sa musique invisible et son air de safran, s'est avéré particulièrement utile. À un moment, il a demandé si je prenais des notes mentalement. J'ai dit oui. Il a dit qu'il trouvait ça <em>particulièrement</em> attrayant, avec l'accent sur le particulièrement, et a ri. J'ai ri aussi.</p>
+      <p>Après, nous avons parlé. Il m'a demandé des numéros précédents. Je lui ai décrit le Sixième Amarrage, les filets des Sky Docks, la baleine. Il a écouté avec l'attention de quelqu'un qui n'entend pas souvent des histoires qui ne sont pas sur le Silver Quarter ou Amaranth. Il a dit que ça avait l'air d'une vie intéressante. J'ai dit que je n'avais pas encore décidé si c'était une vie ou un projet. Il a dit que peut-être c'était les deux. J'ai noté ça avec un astérisque.</p>
+      <p>Il est parti avant l'aube. Il a dit : <em>"Si tu écris sur ce soir, essaie de me faire bien paraître."</em> J'ai dit que je pouvais documenter, pas embellir. Il a dit que c'était la même chose quand on écrivait bien. Je lui ai donné raison.</p>
+
+      <div class="tasting-note">Note de dégustation officielle sur le Pavillon des Mille Désirs, rédigée par le perdant de la compétition conformément aux règles établies : Le Pavillon des Mille Désirs est un lieu de confiance absolue et de scénarios construits avec soin. Adressez-vous à Maera Flintrow directement. Elle sait ce que vous êtes avant que vous le sachiez. La personne qu'elle m'a envoyée était remarquable, dans un sens que je recommande au lecteur de découvrir par ses propres moyens. Écoutez la musique du musicien invisible à votre entrée : elle change selon les clients, et ce n'est pas une métaphore.</div>
+
+      <p>À quatre heures du matin, Orchid et Saël sont parties dans la même direction depuis l'entrée du Pavillon. Saël s'est retournée au coin de la rue. Elle a levé la main — pas un geste de victoire. Un geste de présence. Je lui ai rendu.</p>
+      <p>J'ai ouvert mon carnet. J'ai noté : <em>"Défaite officielle. 4h14. Saël 1 — Simon 0. Conditions : lumière artificielle, pavés propres, bonne soirée."</em></p>
+
+      <h2>VII. Le lendemain, ou : Ce que Saël a demandé après qu'on ait ri</h2>
+
+      <p>Le lendemain matin, à une heure que je qualifierai d'"ambitieuse compte tenu de la nuit," nous étions assis à une table d'un café du Silver Quarter dont les banquettes sont en velours bordeaux et dont le café est servi dans des tasses suffisamment petites pour indiquer que l'établissement valorise la concentration plutôt que le volume. Saël avait les yeux encore légèrement fermés. Je n'avais pas encore entièrement reconstitué ma chronologie de la nuit depuis mes notes.</p>
+      <p>Elle a décrit ce que lui avait dit Orchid en drow au Boating Club. C'était, traduit avec ses propres mots et son propre résumé, quelque chose comme une observation directe sur la façon dont Saël occupait l'espace dans une pièce, formulée avec une économie de mots qu'Orchid avait apparemment en commun avec Saël. J'ai dit que ça expliquait le rire différent. Saël a dit : <em>"Le rire différent."</em> Elle a répété ça avec l'expression de quelqu'un qui apprécie qu'on ait noté une chose précise. J'ai dit que c'était mon travail. Elle a dit que oui, visiblement.</p>
+      <p>Je lui ai décrit Sevan. Je lui ai décrit la conversation sur les Sky Docks et la baleine. Je lui ai répété la formule sur "une vie ou un projet." Elle a écouté en tenant sa tasse à deux mains, les coudes sur la table — posture qu'elle n'a que dans les matins qui ont suivi quelque chose de bon.</p>
+      <p>Elle a dit : <em>"Il avait raison."</em></p>
+      <p>J'ai dit : <em>"Sur quoi ?"</em></p>
+      <p>Elle a dit : <em>"Les deux en même temps."</em></p>
+      <p>Nous avons ri de plusieurs choses pendant un moment, dans l'ordre : la règle du "tu me touches pas je te touche pas" et ma façon de la noter immédiatement dans mon carnet, le fait que j'avais parié sur la numéro sept "avec mon esprit" et qu'elle avait effectivement gagné, la statue de sirène que j'avais saluée mentalement, et mes notes de séduction avec leur système décimal dont Orchid avait dit que l'autodépréciation était soit un charme soit un défaut de conception et qu'elle n'avait pas encore décidé.</p>
+      <p>Puis Saël a posé sa tasse.</p>
+      <p>Elle a dit, dans un registre différent des trente minutes précédentes : <em>"Ça va, toi ? Pour de vrai."</em></p>
+      <p>J'ai failli répondre oui par réflexe. C'est la réponse ordinaire à cette question dans les cafés du matin. Mais Saël posait la question d'une façon particulière — sans urgence, sans pression, juste en attendant la vraie réponse avec la patience d'une personne qui peut attendre aussi longtemps qu'il faut.</p>
+      <p>J'ai réfléchi.</p>
+      <p>J'ai dit que je ne savais pas si ce que je faisais était utile. Que j'avais du mal à distinguer si j'explorais Spire parce que ça m'intéressait vraiment ou parce que ça me permettait de ne pas regarder quelque chose d'autre. Que <em>La Table du Monde</em> avait vendu onze exemplaires et que je continuais à écrire et que je ne savais plus si c'était du courage ou de l'entêtement ou un troisième truc qui n'avait pas de nom dans les guides gastronomiques.</p>
+      <p>Saël a écouté ça entier, cette fois, sans couper.</p>
+      <p>Puis elle a dit : <em>"Tu sais quelle est la différence entre toi et les gens qui vont bien ?"</em></p>
+      <p>J'ai dit non.</p>
+      <p>Elle a dit : <em>"Toi tu te poses ces questions. Eux ils les ont enterrées."</em></p>
+      <p>Elle a repris sa tasse. Elle a dit : <em>"Onze exemplaires c'est onze personnes qui ont lu quelque chose que t'as écrit. C'est onze personnes de plus que zéro."</em></p>
+      <p>J'ai dit que c'était peut-être neuf fois la même personne.</p>
+      <p>Elle a dit : <em>"Alors cette personne-là, elle aime vraiment ce que tu fais."</em></p>
+      <p>Elle a bu son café. L'échange était clos de son côté, dans la façon dont Saël clôt les échanges — pas par indifférence, mais parce qu'elle avait dit ce qu'il y avait à dire et que continuer aurait été du remplissage.</p>
+      <p>J'ai noté ça dans mon carnet.</p>
+
+      <h2>Conclusions et Recommandations Générales</h2>
+
+      <p>Le Silver Quarter est la cité de Spire telle qu'elle se raconte à elle-même.</p>
+      <p>Les autres districts que j'ai documentés sont ce que Spire est réellement — le bruit, la suie, les câbles qui tiennent les choses, les gens dans des espaces qui ne leur appartiennent pas. Le Silver Quarter est la vitrine. Ce qu'on expose dans une vitrine dit quelque chose sur ce qu'on veut paraître, et ce que le Silver Quarter veut paraître — marbre, argent, lumière permanente, des statues que personne ne vole — dit quelque chose sur les angoisses auxquelles il répond. On n'achète pas ce qu'on possède déjà. On expose ce dont on a peur de manquer.</p>
+      <p>J'ai noté ça à cinq heures du matin sur un banc de marbre et je ne sais pas si c'est une observation juste ou l'observation de quelqu'un qui vient de passer une bonne soirée et qui se croit plus profond qu'il n'est. Les deux peuvent être vrais.</p>
+      <p>Sur les questions du silence : Saël y a répondu en deux phrases dans un café aux banquettes bordeaux. Je n'aurais pas su les formuler moi-même, mais j'ai reconnu qu'elles étaient exactes en les entendant, ce qui est peut-être la seule façon dont certaines réponses arrivent. Onze exemplaires c'est onze personnes de plus que zéro. Trois bols de Chum pour documentation, c'est du Chum réel dans des bols réels et une décision réelle de les boire. Les questions ne sont pas résolues. Elles sont juste moins lourdes à porter depuis ce café.</p>
+      <p><strong>Ce que j'ai aimé :</strong> Le Mermaid Casino depuis la galerie supérieure, quand les tables forment un motif qu'on ne voit pas du rez-de-chaussée. La piste de course et la numéro sept, qui m'a rendu mon argent comme si elle avait décidé de le faire. Le bal de l'Order of St Perdita à son deuxième tiers. Orchid, qui a joué une compétition qu'elle n'avait pas demandée avec une grâce remarquable. Sevan et sa formule sur "une vie ou un projet." Saël dans tout ça, qui traversait chaque établissement comme si elle l'avait décidé d'avance et qui a eu la décence, le lendemain matin, de poser la vraie question.</p>
+      <p><strong>Ce que je recommande d'éviter :</strong> Deux cocktails dans le verre en fleur avant une stratégie de jeu. Proposer un système de compétition formel à une personne qui n'en a pas besoin. S'asseoir à des tables de jeu sous influence de sa propre grandiosité auto-proclamée — Stolz respecte les confiants, pas les délirants.</p>
+      <p><strong>Ce que je recommande absolument :</strong> Trouver quelqu'un comme Saël pour traverser le Silver Quarter. Quelqu'un qui n'a pas besoin de l'endroit pour être lui-même, qui peut donc vous montrer ce qu'il y a d'intéressant dedans sans se perdre dedans. Le Silver Quarter est beau. Il est plus beau quand on n'en a pas besoin.</p>
+      <p>Le carnet était ouvert sur la même page depuis trop longtemps. Il est plein maintenant.</p>
+
+      <div class="book-signature">
+        <p><em>Simon Verlat, depuis un café aux banquettes bordeaux du Silver Quarter, le lendemain matin.</em></p>
+        <p><em>Numéro XI sera consacré à Amaranth, si Saël accepte de venir — elle sera plus utile que mes accréditations.</em></p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    if (!localStorage.getItem('spire_token')) {
+      window.location.href = '../connect.html';
+    }
+  </script>
+</body>
+</html>

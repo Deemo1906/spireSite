@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ce Que les Mains Portent — Tome II</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+
+      /* ── NAV ── */
+      .book-nav {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+        background: rgba(14,6,8,0.97); backdrop-filter: blur(8px);
+        border-bottom: 1px solid #4a2030;
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 0 2rem; height: 52px;
+      }
+      .nav-back { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: #6a4050; text-decoration: none; transition: color 0.2s; }
+      .nav-back:hover { color: #c4b0b0; }
+      .nav-chapters { display: flex; gap: 1.5rem; list-style: none; }
+      .nav-chapters a { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.3em; text-transform: uppercase; color: #4a2030; text-decoration: none; transition: color 0.2s; }
+      .nav-chapters a:hover { color: #c4b0b0; }
+
+      /* ── COVER ── */
+      .book-cover {
+        min-height: 100vh; background: #0e0608;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        text-align: center; padding: 4rem 2rem;
+        position: relative; overflow: hidden;
+      }
+      .cover-bg-pattern {
+        position: absolute; inset: 0;
+        background: repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(80,30,40,0.04) 40px, rgba(80,30,40,0.04) 41px),
+                    repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(80,30,40,0.04) 40px, rgba(80,30,40,0.04) 41px);
+        pointer-events: none;
+      }
+      .cover-glow {
+        position: absolute; inset: 0;
+        background: radial-gradient(ellipse 60% 50% at 50% 45%, rgba(140,60,80,0.1) 0%, transparent 70%);
+        pointer-events: none;
+      }
+      .cover-frame {
+        position: relative; max-width: 500px; width: 100%;
+        padding: 4.5rem 3.5rem;
+        border: 1px solid #6a2840;
+      }
+      .cover-frame::before { content: ''; position: absolute; inset: 8px; border: 1px solid #4a1828; pointer-events: none; }
+      .cover-frame::after  { content: ''; position: absolute; inset: 16px; border: 1px solid #3a1020; pointer-events: none; }
+
+      .cover-seal { font-size: 0.6rem; letter-spacing: 10px; color: #6a2840; margin-bottom: 1.5rem; position: relative; z-index: 1; }
+      .cover-ornament { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 6px; text-transform: uppercase; color: #7a4050; margin-bottom: 2.5rem; position: relative; z-index: 1; }
+      .cover-title-main { font-family: 'Cinzel Decorative', serif; font-size: clamp(1.2rem, 4vw, 2rem); font-weight: 400; color: #e4ccc4; line-height: 1.25; letter-spacing: 2px; margin-bottom: 0.75rem; position: relative; z-index: 1; }
+      .cover-subtitle { font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 3px; text-transform: uppercase; color: #7a5060; margin-top: 0.75rem; line-height: 1.8; position: relative; z-index: 1; }
+      .cover-rule { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, #6a2840, transparent); margin: 2rem auto; position: relative; z-index: 1; }
+      .cover-author { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1rem; color: #b08888; position: relative; z-index: 1; }
+      .cover-edition { font-family: 'Cinzel', serif; font-size: 0.44rem; letter-spacing: 3px; text-transform: uppercase; color: #5a3040; margin-top: 2rem; line-height: 2; position: relative; z-index: 1; }
+
+      .cover-open {
+        margin-top: 3rem; position: relative; z-index: 1;
+        display: inline-block;
+        font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase;
+        color: #7a5060; border: 1px solid #4a2030; padding: 0.8em 2.5em;
+        cursor: pointer; background: transparent; text-decoration: none;
+        transition: background 0.2s, color 0.2s, border-color 0.2s;
+      }
+      .cover-open:hover { background: #1a0a10; color: #e4ccc4; border-color: #6a2840; }
+
+      /* ── CARD PAGE ── */
+      .book-card-page {
+        min-height: 100vh; background: #f8f4f2;
+        display: flex; align-items: center; justify-content: center;
+        padding: 5rem 2rem; padding-top: 7rem;
+      }
+      .card-inner {
+        max-width: 520px; width: 100%; text-align: center;
+        border: 1px solid #c09090; padding: 4rem 3rem;
+        position: relative; background: #f8f4f2;
+      }
+      .card-inner::before { content: ''; position: absolute; inset: 8px; border: 1px solid #d4b0b0; pointer-events: none; }
+      .card-inner::after { content: '✦'; position: absolute; top: 12px; left: 50%; transform: translateX(-50%); font-size: 9pt; color: #906070; background: #f8f4f2; padding: 0 8px; }
+
+      .card-rubric { font-family: 'Cinzel', serif; font-size: 0.52rem; letter-spacing: 5px; text-transform: uppercase; color: #906070; margin-bottom: 1.5rem; }
+      .card-title { font-family: 'Cinzel Decorative', serif; font-size: 1.5rem; color: #1e1410; line-height: 1.2; margin-bottom: 0.25rem; }
+      .card-subtitle { font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 2px; text-transform: uppercase; color: #706050; line-height: 1.8; margin-top: 0.5rem; }
+      .card-divider { width: 50px; height: 1px; background: #c09090; margin: 1.5rem auto; }
+      .card-author { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1rem; color: #2e1818; }
+      .card-meta { font-family: 'Cinzel', serif; font-size: 0.46rem; letter-spacing: 2px; text-transform: uppercase; color: #806060; margin-top: 2rem; line-height: 2.2; }
+      .card-read { display: inline-block; margin-top: 2.5rem; font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase; color: #706050; border: 1px solid #c09090; padding: 0.8em 2.5em; text-decoration: none; transition: background 0.2s, color 0.2s; }
+      .card-read:hover { background: #1e1410; color: #e4ccc4; }
+
+      /* ── CONTENT ── */
+      .book-content { background: #f8f4f2; padding: 5rem 2rem 8rem; padding-top: 7rem; }
+      .content-inner { max-width: 660px; margin: 0 auto; }
+
+      .content-inner p { font-family: 'EB Garamond', serif; font-size: 1.05rem; line-height: 1.9; color: #1a1210; margin-bottom: 1.25em; text-align: justify; hyphens: auto; }
+      .content-inner em { font-style: italic; }
+      .content-inner hr { border: none; border-top: 1px solid #d4b0b0; margin: 2.5rem auto; width: 60%; }
+
+      .content-inner h1 { font-family: 'Cinzel Decorative', serif; font-size: 1.6rem; color: #1e1410; text-align: center; margin: 3rem 0 0.5rem; }
+      .content-inner h2 { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 4px; text-transform: uppercase; color: #7a5060; text-align: center; margin: 3.5rem 0 1.5rem; }
+
+      .drop-cap::first-letter { font-family: 'Cinzel Decorative', serif; font-size: 3.5rem; float: left; line-height: 0.8; margin-right: 6px; margin-top: 8px; color: #7a3040; }
+
+      .fin { text-align: center; font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 5px; text-transform: uppercase; color: #906070; margin: 3rem 0; }
+    </style>
+  </head>
+  <body>
+
+    <nav class="book-nav">
+      <a class="nav-back" href="../authors/yssel.html">← Yssel</a>
+      <ul class="nav-chapters">
+        <li><a href="#cover">Couverture</a></li>
+        <li><a href="#card">Page de garde</a></li>
+        <li><a href="#content">Texte</a></li>
+      </ul>
+    </nav>
+
+    <!-- COVER -->
+    <section id="cover" class="book-cover">
+      <div class="cover-bg-pattern"></div>
+      <div class="cover-glow"></div>
+      <div class="cover-frame">
+        <p class="cover-seal">✦  ✦  ✦  ✦  ✦</p>
+        <p class="cover-ornament">Suite directe</p>
+        <h1 class="cover-title-main">Ce Que les<br/>Mains Portent</h1>
+        <p class="cover-subtitle">Tome II</p>
+        <div class="cover-rule"></div>
+        <p class="cover-author">Yssel</p>
+        <p class="cover-edition">Première édition</p>
+      </div>
+      <a href="#card" class="cover-open">Ouvrir</a>
+    </section>
+
+    <!-- CARD / TITLE PAGE -->
+    <section id="card" class="book-card-page">
+      <div class="card-inner">
+        <p class="card-rubric">Nouvelle sentimentale</p>
+        <h2 class="card-title">Ce Que les<br/>Mains Portent</h2>
+        <p class="card-subtitle">Tome II — Suite directe</p>
+        <div class="card-divider"></div>
+        <p class="card-author">Yssel</p>
+        <p class="card-meta">
+          Première édition<br/>
+          Spire
+        </p>
+        <a href="#content" class="card-read">Lire</a>
+      </div>
+    </section>
+
+    <!-- CONTENT -->
+    <section id="content" class="book-content">
+      <div class="content-inner">
+
+        <h1>Ce Que les Mains Portent</h1>
+        <h2>Tome II</h2>
+
+        <h2>I</h2>
+
+        <p class="drop-cap">Elle avait remis sa veste.</p>
+
+        <p>Je l'avais regardée faire, depuis mon lit, dans la lumière de première heure qui entrait par les rideaux toujours mal fermés. Elle s'était levée sans bruit — Tessra ne faisait jamais de bruit, même dans les moments où le bruit aurait été naturel et acceptable — et elle avait ramassé sa veste de service sur le fauteuil où je l'avais posée la nuit précédente, et elle l'avait enfilée avec ce mouvement précis et économique qui était le sien pour tous les gestes fonctionnels.</p>
+
+        <p>Veste boutonnée. Cheveux rajustés. Mains vérifiées.</p>
+
+        <p>Elle s'était retournée. M'avait regardée. Son visage, que j'avais appris à lire dans ses versions les plus contrôlées, portait quelque chose que je n'arrivais pas encore à nommer avec certitude mais qui ressemblait à une question et à une réponse en même temps.</p>
+
+        <p><em>Je dois y aller,</em> avait-elle dit.</p>
+
+        <p><em>Je sais.</em></p>
+
+        <p>Elle était restée une seconde de plus que nécessaire. Puis elle était sortie, et j'avais entendu la porte du couloir se refermer avec son claquement habituel, ce son que j'avais entendu des centaines de fois depuis que Tessra travaillait ici et qui ce matin sonnait complètement différemment.</p>
+
+        <p>Voilà comment les choses avaient commencé, vraiment commencé — pas la nuit, pas le désir, pas même l'aveu dans la voiture. Mais ce matin-là, ce son de porte, cette veste reboutonnée dans l'aube froide du Silver Quarter.</p>
+
+        <p>Les règles n'avaient jamais été formulées. Elles n'avaient pas besoin de l'être. Tessra était ma garde du corps. J'étais Séraphine Vel-Aure, vingt-deux ans, fille d'une maison qui ne comprendrait pas et d'un quartier qui pardonnerait encore moins. En public, Tessra était ce qu'elle avait toujours été : deux mètres derrière moi, les mains dans le dos, les yeux sur les sorties.</p>
+
+        <p>Ce que nous étions ailleurs, nous le savions toutes les deux. Nous n'avions pas de mot pour ça. Nous n'en cherchions pas.</p>
+
+        <hr/>
+
+        <h2>II</h2>
+
+        <p class="drop-cap">Le danger, j'ai mis du temps à comprendre, n'était pas dans les moments évidents.</p>
+
+        <p>Ce n'était pas dans les nuits, qui existaient par intervalles, chaque fois que le père était à Amaranth ou que la maison se vidait assez longtemps. Ces moments-là avaient leurs propres règles, leur propre géographie, et dans ces géographies-là le danger était une chose que nous gérions ensemble et qui faisait partie du territoire.</p>
+
+        <p>Le danger était dans les couloirs.</p>
+
+        <p>Dans la façon dont Tessra posait la main sur le bas de mon dos pour m'orienter dans une foule, geste professionnel, geste de garde du corps, geste que les gens autour de nous ne voyaient pas parce qu'ils n'avaient aucune raison de le regarder — et dans la façon dont cette main restait là une demi-seconde de plus que nécessaire, et dans ce que cette demi-seconde faisait à ma respiration.</p>
+
+        <p>Dans les escaliers. Elle passait toujours devant pour vérifier, par automatisme ou protocole, et il y avait un escalier dans la maison de la Comtesse Ashvael qui tournait en colimaçon dans une spirale assez étroite pour que, quand elle se retournait pour me regarder par-dessus l'épaule, nos visages soient trop proches, et que la lumière qui filtrait par la fenêtre du palier fasse exactement ce qu'elle ne devait pas faire.</p>
+
+        <p>Dans les voitures. Assises en face l'une de l'autre dans l'obscurité relative d'un trajet de soirée, le bruit des pavés dehors, ses mains posées sur ses genoux, et moi qui avais appris depuis des mois à regarder ces mains sans en avoir l'air. Il y avait un soir où elle m'avait regardée regarder ses mains. Elle n'avait rien dit. Moi non plus. La voiture avait continué de rouler.</p>
+
+        <p>Deux secondes. C'était toujours deux secondes de trop.</p>
+
+        <p><em>Est-ce que ça te dérange ?</em> lui avais-je demandé, une nuit, plus tard, dans le seul endroit où on pouvait parler de ces choses directement. <em>De vivre comme ça. En deux registres.</em></p>
+
+        <p>Elle avait réfléchi. Tessra prenait toujours le temps de réfléchir aux questions qui méritaient d'être réfléchies.</p>
+
+        <p><em>Non,</em> avait-elle dit. Et puis, après : <em>Le deuxième registre est le vrai. L'autre est le travail.</em></p>
+
+        <p>Je n'avais pas su quoi répondre à ça. J'avais posé ma tête sur son épaule à la place, et elle avait mis sa main dans mes cheveux, et j'avais décidé que cette réponse était meilleure que tout ce que j'aurais pu dire.</p>
+
+        <p>Quelques semaines plus tard, dans un couloir après une réception, elle m'avait arrêtée d'une main sur le bras et m'avait indiqué du regard quelque chose à éviter sur la droite, et sa main était restée sur mon bras quatre secondes, et les quatre secondes étaient passées dans ma poitrine comme une allumette.</p>
+
+        <p>Nous ne faisions rien de cela intentionnellement.</p>
+
+        <p>C'était peut-être le plus dangereux.</p>
+
+        <hr/>
+
+        <h2>III</h2>
+
+        <p class="drop-cap">La soirée Vael-Ashvael était l'événement de la saison. Deux maisons, un salon qui donnait sur les canaux du Silver Quarter, cent vingt invités habillés comme si leurs vêtements coûtaient plus que le revenu annuel de trois familles du Works, ce qui était probablement vrai.</p>
+
+        <p>La tenue était déjà posée sur le mannequin de couturière quand je m'étais réveillée ce matin-là. La robe de ma mère l'avait portée, sa mère avant elle, et quelqu'un avait décidé que c'était l'occasion. Soie blanche à l'intérieur, satin ivoire en surface, un corset à lacets dans le dos, et la jupe qui s'évasait depuis les hanches en quatre couches superposées d'un tissu que les couturières aelfir appelaient <em>brume de soie</em> et qui se comportait moins comme un tissu que comme un volume d'air solide. Portée, la robe occupait l'espace de trois personnes. Elle pesait autant que mon chat.</p>
+
+        <p>Tessra m'avait aidée à l'enfiler. C'était dans le protocole, pour les robes qui nécessitaient quelqu'un derrière pour les lacets — ma femme de chambre était malade et Tessra était là, et il n'y avait là-dedans aucune raison particulière de penser à quoi que ce soit d'autre que la logistique.</p>
+
+        <p>J'avais pensé à autre chose.</p>
+
+        <p>Ses mains dans le dos, travaillant les lacets du corset avec la même précision qu'elle appliquait à tout le reste. Ses doigts qui tiraient le tissu en place, ajustaient, vérifiaient la tension. Elle ne parlait pas en travaillant, ce qui était habituel, et moi je regardais le mur devant moi et je respirais de façon contrôlée.</p>
+
+        <p><em>Bien,</em> avait-elle dit quand c'était terminé.</p>
+
+        <p>Je m'étais retournée. Elle m'avait regardée de la façon dont elle regardait une pièce qu'elle évaluait — rapide, fonctionnelle, complet. Puis une seconde de quelque chose d'autre, si brève que quelqu'un qui ne la connaissait pas n'aurait pas vu.</p>
+
+        <p><em>Tu es prête ?</em></p>
+
+        <p><em>Non,</em> avais-je dit.</p>
+
+        <p>Elle avait attendu.</p>
+
+        <p><em>Mais allons-y quand même.</em></p>
+
+        <hr/>
+
+        <h2>IV</h2>
+
+        <p class="drop-cap">Cent vingt personnes dans un salon font un bruit particulier. Un mélange de tissus et de voix et de verres qui se heurtent, des rires qui sonnent exactement comme le statut de leur auteur, des silences calculés qui en disent plus que les phrases. J'avais grandi dans ces sons. Je savais les lire comme une langue.</p>
+
+        <p>Ce soir-là je ne lisais plus que Tessra.</p>
+
+        <p>Elle s'était placée à la position habituelle : deux mètres à ma droite, légèrement en retrait, dos au mur. Dans les soirées de ce type elle portait une tenue de service formelle, veste noire boutonnée haute, et elle se tenait avec la même économie de mouvement que toujours, présente sans être visible pour les gens qui ne savaient pas regarder.</p>
+
+        <p>Je savais regarder.</p>
+
+        <p>J'avais circulé dans la salle pendant une heure. J'avais parlé à la Comtesse Ashvael, à son fils qui était trop grand et trop content de lui-même, à trois représentantes de la maison Vel-Savre qui m'avaient posé des questions sur mon père, à une philosophe aelfir qui m'avait expliqué sa théorie du temps en dix-sept minutes sans respirer. Et pendant toute cette heure j'avais su exactement où Tessra se trouvait sans jamais tourner la tête vers elle, ce qui était un talent que j'avais développé lentement et que je ne savais pas encore tout à fait nommer.</p>
+
+        <p>Un homme de la maison Cressian s'était approché de moi vers la deuxième heure. Lord quelque chose, un titre à trois syllabes, les mains expressives. Il m'avait parlé de ses domaines, de ses chevaux, de sa collection de cartes marines. Il avait une façon de se rapprocher en parlant qui n'était pas une façon que j'appréciais.</p>
+
+        <p>Tessra n'avait pas bougé. Elle n'avait aucune raison de bouger — Lord Quelque chose n'était pas un danger au sens où Tessra gérait les dangers. Mais j'avais levé les yeux par-dessus son épaule et croisé son regard depuis l'autre côté de la salle, et j'avais lu dans ce regard quelque chose qui n'était pas tout à fait professionnel.</p>
+
+        <p>Je m'étais excusée auprès de Lord Quelque chose, évoquant une question de robe, ce qui dans les soirées de ce type était toujours accepté sans discussion, et j'étais sortie par la porte latérale qui donnait sur le couloir des services.</p>
+
+        <p>Tessra m'avait rejointe trente secondes plus tard.</p>
+
+        <p><em>Il ne te plaisait pas,</em> avait-elle dit. Pas une question.</p>
+
+        <p><em>Non.</em></p>
+
+        <p>Elle avait regardé le couloir dans les deux sens. Vide.</p>
+
+        <p>Et alors elle m'avait regardée d'une façon qui n'était pas du tout professionnelle, et j'avais su.</p>
+
+        <hr/>
+
+        <h2>V</h2>
+
+        <p class="drop-cap">Le placard était derrière nous — une porte que j'aurais remarquée dans une autre vie, un rangement de service plein de manteaux de saison et d'odeur de cèdre et de naphtaline. Tessra avait ouvert la porte, vérifié l'intérieur, et s'était effacée pour me laisser entrer, ce qui était exactement ce qu'elle aurait fait si elle avait vérifié un espace pour des raisons de sécurité et qui ne ressemblait à rien d'autre qu'à ça si quelqu'un avait regardé.</p>
+
+        <p>Personne ne regardait.</p>
+
+        <p>À l'intérieur, les manteaux pendus formaient des murs de tissu sombre. Sous la porte, une ligne de lumière dorée venue du couloir. Derrière la porte, au fond du couloir, les cent vingt invités qui continuaient leur bruit de soie et de verre et de statut.</p>
+
+        <p>Tessra avait refermé la porte derrière nous.</p>
+
+        <p>L'obscurité n'était pas totale — quelques fils de lumière filtraient, assez pour voir les contours, pas assez pour lire. Tessra était devant moi, si proche que je sentais la chaleur de sa peau avant même de la toucher. Sa main s'était posée contre ma joue avec ce soin qu'elle avait pour les choses importantes.</p>
+
+        <p><em>On peut sortir,</em> avait-elle dit, à voix très basse.</p>
+
+        <p><em>Ne sors pas,</em> avais-je dit.</p>
+
+        <p>Elle avait incliné la tête. Un sourire que je ne voyais pas vraiment dans l'obscurité mais que je connaissais. Puis ses mains avaient trouvé mes hanches, au-dessus de toutes les couches de satin et de brume de soie, et elle m'avait embrassée avec une lenteur qui était une forme de question et une forme de réponse en même temps.</p>
+
+        <p>Derrière la porte, quelqu'un riait fort. Le son d'un verre. Des pas dans le couloir, trop proches, qui continuaient sans s'arrêter.</p>
+
+        <p>Elle m'avait embrassée pendant que les pas passaient.</p>
+
+        <p>Puis elle s'était écartée. Ses mains avaient quitté mes hanches pour trouver le bas de ma robe, les couches de tissu, et elle avait demandé sans mots — un regard dans l'obscurité, une pression légère — et j'avais répondu en m'appuyant plus fermement contre le mur derrière moi et en ne disant pas non.</p>
+
+        <p>Elle s'était agenouillée.</p>
+
+        <p>La jupe était large, les couches nombreuses, et Tessra connaissait les espaces. Elle avait soulevé le tissu avec soin, comme si elle avait fait ça toute sa vie, et dans l'obscurité chaude et parfumée de cèdre sous les couches de satin elle avait trouvé mes genoux, puis mes cuisses, puis elle s'était installée là avec cette patience particulière qui était la sienne dans tous les domaines où elle choisissait d'être patiente.</p>
+
+        <p>Je gardai les yeux ouverts sur l'obscurité au-dessus de moi.</p>
+
+        <p>De l'autre côté du couloir, de l'autre côté de la salle, cent vingt invités parlaient de politique et d'héritage et de la réforme des canaux et des chevaux de Lord Cressian.</p>
+
+        <p>Les mains de Tessra remontèrent le long de mes jambes depuis le genou, lentes, apprenant le terrain comme elle apprenait tous les terrains, et quand elles atteignirent le haut des cuisses je mis ma propre main sur ma bouche par réflexe, un geste anticipatoire, parce que j'avais appris depuis quelques semaines que mon corps avait des opinions indépendantes des miennes sur ce qui était silencieux.</p>
+
+        <p>Sa bouche.</p>
+
+        <p>La précision de Tessra dans les espaces confinés et dans l'obscurité était la même que dans tous les autres espaces. Elle ne se dépêchait pas. Elle ne faisait rien à mi-chemin. Je sentis le premier contact et fermai les yeux, ce qui était absurde puisqu'il faisait déjà noir, et ma main libre trouva les manteaux pendus derrière moi et s'y agrippa comme à quelque chose de stable.</p>
+
+        <p>Dehors, une musique commençait. Des instruments à cordes, le genre de musique de fond qui sert d'habillage sonore aux fêtes de ce type et que personne n'écoute vraiment — sauf moi, ce soir, parce qu'elle couvrait des sons que je produisais malgré moi et que j'aurais eu du mal à justifier si quelqu'un avait ouvert cette porte.</p>
+
+        <p>Tessra prenait son temps.</p>
+
+        <p>C'était, j'avais appris, une politique.</p>
+
+        <p>Sa langue connaissait maintenant ce qu'elle cherchait et elle le cherchait avec une méthode qui n'avait rien de mécanique, qui ajustait et revenait et recommençait différemment, et ma main dans les manteaux s'était serrée sur un tissu épais et mes genoux avaient commencé à avoir des convictions différentes des miennes sur leur rôle de soutien.</p>
+
+        <p>Je mis les deux mains sur ma bouche.</p>
+
+        <p>La musique changeait de mouvement. Les voix dans le couloir passèrent encore une fois, deux personnes qui parlaient de quelqu'un que je connaissais probablement, et leurs voix glissèrent le long de la porte et s'éloignèrent et je n'entendais plus rien que la musique et ma propre respiration que j'essayais de contrôler et le bruit infime et concentré de Tessra sous mes jupes qui refusait de se laisser presser.</p>
+
+        <p>Une de ses mains remonta et se posa à plat sur mon ventre, par-dessus le corset, un geste d'ancrage. L'autre resta où elle était. Et dans cet équilibre entre la pression sur mon ventre et ce qu'elle faisait, je trouvai une cohérence brève et très précise qui dura le temps qu'elle dura et me laissa avec les deux mains sur ma bouche et les genoux qui tenaient encore mais de justesse et un son dans ma gorge que la musique avait couvert, à peine, de façon peut-être convaincante.</p>
+
+        <p>Le silence qui suivit était chaud et compact et sentait le cèdre et la soie chauffée.</p>
+
+        <p>Tessra se leva. Avec ce même mouvement fluide et sans effort qui m'avait perturbée depuis le premier mois. Elle arrangea les couches de ma jupe dans l'obscurité, par gestes rapides et précis, avec la même attention qu'elle avait eue pour les lacets du matin, et quand la robe était revenue à quelque chose de présentable elle posa les deux mains sur mes joues et prit mon visage et me regarda dans l'obscurité.</p>
+
+        <p>Je ne savais pas ce qu'elle voyait.</p>
+
+        <p>Elle posa son front contre le mien. Resta là une seconde. Puis une autre.</p>
+
+        <p><em>Tu vas bien ?</em></p>
+
+        <p><em>Non,</em> dis-je. Ma voix était un peu moins stable que je ne l'aurais voulu. <em>Mais dans le bon sens.</em></p>
+
+        <p>Elle sourit. Je le sentis contre mon front plutôt que je ne le vis.</p>
+
+        <p><em>Deux minutes,</em> dit-elle. <em>Avant de sortir.</em></p>
+
+        <p><em>Oui.</em></p>
+
+        <p>Je restai appuyée au mur pendant deux minutes pendant que Tessra vérifiait ses vêtements, ses cheveux, sa tenue, avec le même soin méthodique qu'elle appliquait à tout, et pendant ces deux minutes j'appris à respirer normalement et à avoir un visage présentable et à décider que la réforme des canaux était un sujet sur lequel j'avais des opinions, au cas où Lord Quelque chose me retrouverait dans la salle.</p>
+
+        <hr/>
+
+        <h2>VI</h2>
+
+        <p class="drop-cap">Je ressortis la première.</p>
+
+        <p>Le couloir était vide. La lumière dorée du salon au fond. J'avais la robe, j'avais le visage, j'avais mes deux mains qui ne tremblaient presque plus. Je pris le temps de remettre en place le seul cheveu qui s'était déplacé, vérifiai mes gants, et retournai dans la salle.</p>
+
+        <p>Tessra sortit trente secondes plus tard par la même porte, reprit sa position à deux mètres à ma droite, dos au mur, les yeux sur les sorties.</p>
+
+        <p>Personne ne fit rien qui suggérât avoir vu.</p>
+
+        <p>La philosophe aelfir me retrouva presque immédiatement et reprit sa théorie du temps à la seizième minute. Je l'écoutai avec l'attention soutenue que les personnes bien élevées accordent aux gens qui parlent longtemps. Derrière elle, dans mon champ de vision périphérique, Tessra s'était immobilisée dans sa posture habituelle et ne regardait pas dans ma direction.</p>
+
+        <p>Lord Quelque chose réapparut vers la troisième heure. Il me parla de ses vignes cette fois. J'écoutai avec un intérêt que je ne ressentais pas, souris aux moments appropriés, bus une coupe de Fil d'Argent à petites gorgées comme on m'avait appris, et au milieu d'une phrase sur les vendanges tardives j'entendis Tessra s'approcher à ma gauche.</p>
+
+        <p>Elle arriva jusqu'à moi, tendit la main, et prit le verre vide que je tenais pour le remplacer par un plein. Geste de service. Geste de garde. Ses doigts frôlèrent les miens dans le passage, une pression d'une demi-seconde, rien que quelqu'un d'attentif aurait pu voir comme intentionnel.</p>
+
+        <p>Elle repartit à sa position sans un regard.</p>
+
+        <p>Je souris à Lord Quelque chose. Il prit ça pour lui.</p>
+
+        <hr/>
+
+        <p>Plus tard, dans la voiture du retour, la pluie sur les vitres et le Silver Quarter qui glissait derrière le verre noir, Tessra était assise en face de moi comme toujours. Ses mains sur ses genoux. Son visage neutre et attentif.</p>
+
+        <p><em>Tu aurais pu dire non,</em> lui dis-je, parce que j'avais besoin de le lui dire, parce que ça m'importait qu'elle l'entende.</p>
+
+        <p>Elle me regarda. <em>Je sais.</em></p>
+
+        <p><em>Et tu ne l'as pas dit.</em></p>
+
+        <p><em>Non.</em></p>
+
+        <p>Le regard qu'elle avait dans la lumière de rue qui pulsait par les vitres, cette qualité rouge foncée et chaude dans ses yeux que j'avais appris à connaître, me donna l'impression que nous avions toutes les deux la même pensée et que cette pensée était dangereuse et exacte et que ni l'une ni l'autre n'avait la moindre intention d'y faire quoi que ce soit d'autre que de la garder.</p>
+
+        <p><em>Le numéro de la chambre voisine est libre,</em> dis-je. <em>Mon père rentre vendredi.</em></p>
+
+        <p><em>C'est dans quatre jours.</em></p>
+
+        <p><em>Je sais.</em></p>
+
+        <p>Elle posa la main sur la mienne dans l'obscurité de la voiture. La même pression ferme et constante qu'elle avait toujours eue — rien d'hésitant, rien de posé comme une question.</p>
+
+        <p>Dehors, la pluie continuait sur le Silver Quarter. Les lanternes de la rue faisaient des traînes dorées sur le pavé mouillé. Quelque part, dans la ville qui dormait à demi, la fête de la Comtesse Ashvael durait encore.</p>
+
+        <p>Nous, nous étions déjà ailleurs.</p>
+
+        <p class="fin">— Fin du tome II —</p>
+
+      </div>
+    </section>
+
+    <script>
+      if (!localStorage.getItem('spire_token')) {
+        window.location.href = '../connect.html';
+      }
+    </script>
+    <script src="../js/read-tracker.js"></script>
+    <script src="../js/heartbeat.js"></script>
+  </body>
+</html>

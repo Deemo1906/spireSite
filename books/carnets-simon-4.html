@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Le Works de Spire — Spire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg-0); overflow-x: hidden; }
+
+    .back-link {
+      position: fixed; top: 1.5rem; left: 2rem;
+      font-family: var(--font-heading); font-size: 0.65rem;
+      letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--text-3); transition: color 0.2s; z-index: 10;
+      text-decoration: none;
+    }
+    .back-link:hover { color: var(--text-1); }
+
+    .book-page { min-height: 100vh; background: var(--bg-0); }
+
+    .cover-carnets-4 {
+      background: #0a0800;
+      background-image:
+        repeating-linear-gradient(135deg, transparent, transparent 20px, rgba(120,80,10,0.04) 20px, rgba(120,80,10,0.04) 21px),
+        repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(120,80,10,0.02) 20px, rgba(120,80,10,0.02) 21px);
+      width: 100%; min-height: 420px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 4rem 2rem 3rem; position: relative; overflow: hidden;
+    }
+    .cover-carnets-4::before {
+      content: ''; position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px;
+      border: 1px solid rgba(120,80,10,0.2); pointer-events: none;
+    }
+    .cv4-series { font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 4px; text-transform: uppercase; color: #3a2808; margin-bottom: 1rem; }
+    .cv4-num { font-family: 'Cinzel Decorative', serif; font-size: clamp(4rem, 12vw, 7rem); color: #8a5a10; text-shadow: 0 0 60px rgba(140,90,10,0.4); line-height: 1; }
+    .cv4-rule { width: 50px; height: 1px; background: #3a2808; margin: 0.75rem auto; }
+    .cv4-title { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 4px; text-transform: uppercase; color: #7a5010; text-align: center; }
+    .cv4-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.75rem; color: #2a1a05; margin-top: 0.5rem; text-align: center; }
+    .cv4-author { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 4px; text-transform: uppercase; color: #1e1205; margin-top: 1.5rem; }
+
+    .book-content {
+      max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem;
+      color: var(--text-1); font-family: var(--font-body); font-size: 1.05rem; line-height: 1.85;
+    }
+    .book-content h2 {
+      font-family: var(--font-heading); font-size: 0.75rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--text-2); margin: 3rem 0 1.25rem; padding-top: 2rem; border-top: 1px solid var(--border);
+    }
+    .book-content h2:first-of-type { border-top: none; padding-top: 0; }
+    .book-content p { margin-bottom: 1.25rem; }
+    .book-content em { color: var(--text-1); font-style: italic; }
+    .book-content strong { color: var(--text-0); font-weight: 600; }
+
+    .reco-box { border-left: 2px solid var(--red-700); padding: 0.75rem 1.25rem; margin: 1.5rem 0; background: rgba(30,20,30,0.6); }
+    .reco-box .reco-label { font-family: var(--font-heading); font-size: 0.55rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--red-500); margin-bottom: 0.5rem; display: block; }
+    .reco-box p { font-style: italic; color: var(--text-2); font-size: 0.95rem; margin-bottom: 0; }
+
+    .author-note { border: 1px solid var(--border); padding: 0.75rem 1.25rem; margin: 1.5rem 0; background: rgba(20,15,25,0.8); font-style: italic; color: var(--text-3); font-size: 0.9rem; }
+    .author-note .note-label { font-family: var(--font-heading); font-size: 0.5rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-3); margin-bottom: 0.4rem; display: block; font-style: normal; }
+
+    .tasting-note { font-style: italic; color: var(--text-2); font-size: 0.95rem; border-left: 1px solid var(--border); padding-left: 1rem; margin: 1rem 0; }
+
+    .book-signature { font-style: italic; color: var(--text-3); font-size: 0.9rem; text-align: right; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .book-signature p { margin-bottom: 0.4rem; }
+  </style>
+</head>
+<body style="overflow:auto;">
+
+  <a href="../library.html" class="back-link">← Bibliothèque</a>
+
+  <div class="book-page">
+
+    <div class="cover-carnets-4">
+      <div class="cv4-series">Les Carnets de Simon</div>
+      <div class="cv4-num">IV</div>
+      <div class="cv4-rule"></div>
+      <div class="cv4-title">Le Works de Spire</div>
+      <div class="cv4-sub">Guide Gastronomique, Hédoniste et Culturel</div>
+      <div class="cv4-author">Simon Verlat</div>
+    </div>
+
+    <div class="book-content">
+
+      <p style="text-align:center; font-family:var(--font-heading); font-size:0.55rem; letter-spacing:0.45em; text-transform:uppercase; color:var(--text-3); margin-bottom:0.5rem;">Les Carnets de Simon — Numéro IV</p>
+      <h1 style="font-family:'Cinzel Decorative',serif; font-size:clamp(1.1rem,3vw,1.6rem); color:var(--text-0); text-align:center; margin-bottom:0.5rem; line-height:1.3;">Le Works de Spire</h1>
+      <p style="text-align:center; font-style:italic; color:var(--text-3); font-size:0.85rem; margin-bottom:0.25rem;">Guide Gastronomique, Hédoniste et Culturel à l'Usage du Voyageur Éclairé</p>
+      <p style="text-align:center; font-style:italic; color:var(--text-3); font-size:0.8rem; margin-bottom:3rem;"><em>Simon Verlat, journaliste indépendant, explorateur culinaire, auteur de "La Table du Monde"</em></p>
+      <div style="width:40px;height:1px;background:var(--red-700);margin:0 auto 3rem;"></div>
+
+      <h2>Avant-Propos</h2>
+
+      <p>Ce numéro est le quatrième de la série. Je l'avais annoncé à la fin du numéro III, depuis les Filets du Jugement des Sky Docks, avec une légèreté que je reconnais, à présent, comme étant légèrement imprudente.</p>
+      <p>J'avais dit : <em>si mes poumons résistent aux fumées.</em></p>
+      <p>Mes poumons ont résisté. Je note cela comme une victoire partielle et provisoire, parce que le mot "fumées" dans le contexte du Works de Spire est un terme générique qui recouvre un spectre d'expériences respiratoires beaucoup plus vaste que ce que ma documentation préparatoire m'avait laissé entendre. Ma documentation mentionnait "une atmosphère industrielle caractéristique." Elle aurait pu préciser que "atmosphère industrielle" signifie, en pratique, que l'air visible a une couleur et que cette couleur n'est pas transparente.</p>
+      <p>Tout le monde à Spire — chaque tavernier, chaque docker, chaque guide de voyage spontané croisé dans une ruelle — m'a décrit le Works comme "le vrai cœur de la cité." Ce sont exactement les termes qu'ils ont employés. Le vrai cœur. Avec une emphase qui suggérait soit une fierté authentique soit un avertissement déguisé, et que j'avais interprétée, la première fois, comme de la première catégorie. Je reconnais désormais cette formule pour ce qu'elle est : les deux, simultanément, dites par des personnes qui aiment leur quartier et savent très bien ce qu'il vous fera.</p>
+      <p>Le Works est en effet le cœur de la cité. Il en a aussi le bruit, la chaleur, et les caractéristiques olfactives.</p>
+      <p>J'ai passé cinq jours dans le Works. Je suis reparti avec un carnet complet, des vêtements que je n'ai pas gardés, des connaissances nouvelles sur trois substances, une philosophie inattendue sur la couture, et une question sur les imprimeries qui reste, à ce jour, sans réponse satisfaisante.</p>
+      <p>Je considère cela comme un succès rédactionnel.</p>
+
+      <div class="author-note">
+        <span class="note-label">Note éditoriale</span>
+        La section V de ce numéro a été rédigée partiellement en cours d'effet. La qualité des notes s'en ressent. Je les reproduis néanmoins pour leur valeur documentaire, conformément à ma politique éditoriale habituelle.
+      </div>
+
+      <h2>I. Le Tripot, ou : Ce que l'Amer du Fumoir fait à l'idée qu'on se fait d'une boisson</h2>
+
+      <p>La première chose que le voyageur sérieux devrait savoir sur le Tripot est qu'il n'existe pas de signe indiquant son emplacement.</p>
+      <p>J'ai trouvé le Tripot en suivant le bruit, qui est une méthode d'investigation gastronomique que j'ai développée dans les numéros précédents et qui donne des résultats cohérents, dans le sens où elle mène systématiquement vers des endroits qui ne cherchent pas à être trouvés. Le Tripot se situe au cœur du Works, derrière une porte qui est en bois et en décisions collectives, dans une salle basse de plafond où la lumière est rougeâtre parce qu'elle vient d'huile mal brûlée et où les tables sont bancales parce qu'elles ont vécu. Le plafond est bas de la façon dont les plafonds sont bas dans les endroits où personne n'a jamais pensé que la hauteur était une valeur ajoutée.</p>
+      <p>Le patron est un ancien docker borgne d'une stature qui dit clairement qu'il a résolu les disputes physiquement avant de décider de les résoudre commercialement. Il ne m'a pas demandé mon nom. Il m'a regardé, a regardé mon carnet, et a posé un bol devant moi avec la précision d'un homme qui ne pose pas les mains deux fois sur la même chose.</p>
+      <p>Le bol contenait ce que la carte — une ardoise murale rédigée à la craie dans une écriture qui semblait avoir été produite par quelqu'un qui avait une autre chose à faire en même temps — désignait comme <strong>L'Amer du Fumoir</strong>.</p>
+      <p>Je cite ma note de dégustation officielle, rédigée immédiatement et sous l'effet de l'honnêteté professionnelle :</p>
+      <div class="tasting-note">"Robe d'alcool de grains brûlés jusqu'à un stade qui remet en question la définition du grain. Nez de métal chaud et de résolution personnelle. Bouche d'une franchise absolue, dans le sens où elle annonce ses intentions en entrant et tient sa promesse jusqu'au bout. Finale indéfinie : pas courte, pas longue, simplement présente, comme une décision qu'on a prise et qu'on ne peut plus défaire. Accord mets-boisson impossible à envisager sauf avec du pain noirci, qui est précisément ce qu'on sert ici, gratuitement, pour que les clients boivent davantage. La logique circulative est admirable."</div>
+      <p>J'ai commandé un deuxième bol dans un esprit de confirmation. Le deuxième bol confirme le premier.</p>
+      <p>À ma gauche, deux ouvriers jouaient aux dés en silence. Les dés étaient sculptés dans des os d'origine non précisée, et leur façon de les poser sur la table contenait quelque chose qui ressemblait moins à un jeu qu'à une négociation. Le perdant a payé sa mise sans rien dire. Le gagnant n'a pas souri. Ils ont recommencé. Cette séquence s'est répétée quatre fois pendant que je finissais mon deuxième bol, avec une régularité qui indiquait soit que les dés étaient équitables et que le même joueur perdait systématiquement, soit que les dés n'étaient pas équitables et que le même joueur gagnait systématiquement, et que les deux parties le savaient très bien.</p>
+      <p>J'ai interrogé le patron dans un esprit de rigueur documentaire. Il m'a dit deux choses. La première : qu'il se souciait peu de l'origine de l'argent tant qu'il en arrivait. La seconde : que les murs étaient couverts de graffitis parce que les gens avaient des choses à dire et aucun autre endroit pour les dire. J'ai regardé les murs. Les graffitis incluaient des prières à des petits dieux dont je n'avais pas lu les noms dans ma documentation préparatoire, et des insultes à l'adresse d'aelfirs spécifiques ou généraux, avec une précision de langue et d'intention que j'aurais voulu retrouver dans certains guides de voyage professionnels.</p>
+      <p>Des gardes du Syndicat occupaient une table au fond. Ils n'avaient pas commandé grand-chose. Ils écoutaient. J'ai noté cela dans mon carnet, puis j'ai regardé si quelqu'un m'observait noter que j'avais noté cela. Personne ne regardait. C'est peut-être rassurant. Ce n'est peut-être pas rassurant du tout.</p>
+
+      <div class="reco-box">
+        <span class="reco-label">Recommandation</span>
+        <p>Le Tripot est un établissement d'une honnêteté absolue sur ce qu'il est et sur ce qu'il ne prétend pas être. L'Amer du Fumoir, en dose mesurée. Le Sang de Silo si vous voulez quelque chose qui ressemble à du vin mais qui a pris des décisions différentes en chemin. La Soupe de Levure, qui est chaude et épaisse et nourrissante et qu'on sert dans des bols ébréchés, est la seule chose que j'aie mangée dans le Works qui ne cherchait pas à me prouver quelque chose. Je la recommande sans réserve.</p>
+      </div>
+
+      <h2>II. Les Hautes Cheminées, ou : Ce que le ciel du Works n'est pas</h2>
+
+      <p>Il existe, dans le Works, une attraction touristique que ma documentation préparatoire décrivait comme "impressionnante" et que je qualifie à ma sortie de la même façon, mais dans un registre différent.</p>
+      <p>Les Hautes Cheminées du Works sont les structures les plus visibles du district, et probablement de Spire entière pour quiconque regarde vers le bas depuis les quartiers supérieurs. Elles crachent en permanence une fumée d'une couleur qui varie selon l'heure et selon ce qu'on brûle en dessous. À midi, elle est grise. Après la sixième heure, elle devient d'un jaune ambré que j'aurais trouvé beau depuis une distance de sécurité.</p>
+      <p>J'avais décidé de les observer depuis la base.</p>
+      <p>Ce que je n'avais pas anticipé : la chaleur qui rayonne depuis la brique à quelques mètres, les vibrations dans le sol qui viennent des machines en dessous et qu'on sent dans les mollets avant de les entendre, et le fait que "la base d'une cheminée" dans le Works est un endroit fonctionnel où des ouvriers travaillent et qui n'est pas aménagé pour accueillir des visiteurs avec des carnets.</p>
+      <p>Un contremaître m'a regardé pendant assez longtemps pour que je comprenne que ma présence constituait une anomalie administrative. Il ne m'a pas demandé de partir. Il a simplement continué à me regarder jusqu'à ce que la situation soit suffisamment inconfortable pour que je parte de moi-même. C'est une technique de gestion des espaces que j'ai notée comme "efficace et économe en confrontation."</p>
+      <p>Ce que les Hautes Cheminées font au ciel du Works est simple : elles le remplacent. De loin, c'est une métaphore sur le travail et l'horizon. De près, c'est de la suie dans les yeux.</p>
+
+      <div class="reco-box">
+        <span class="reco-label">Recommandation</span>
+        <p>Les Hautes Cheminées sont impressionnantes depuis le niveau de High Works ou depuis tout endroit situé à distance raisonnable. Je ne recommande pas la base. Je l'aurais indiqué plus clairement dans ma documentation préparatoire si j'avais eu la prévision adéquate, ce qui est précisément la raison pour laquelle j'écris ce guide.</p>
+      </div>
+
+      <h2>III. Le High Works et Kira's Shop, ou : Ce qu'une petite drow fait à votre conception du commerce</h2>
+
+      <p>Le High Works n'est pas un district séparé. C'est une idée que le Works a de lui-même dans ses meilleurs moments.</p>
+      <p>J'y suis arrivé depuis les ruelles inférieures, en remontant une rue dont le pavage est apparu progressivement sous mes pieds comme une promesse tenue : d'abord un carreau, puis deux, puis la rue entière, encadrée de bâtiments de brique rouge dont les fenêtres à croisillons laissaient filtrer une lumière qui ressemblait à quelque chose. Des lampadaires au gaz éclairaient les intersections. La fumée est toujours présente — on ne quitte pas les cheminées simplement en montant d'un étage — mais elle est différente ici : moins urgente, comme si elle avait accepté de rester en arrière-plan plutôt que de constituer le sujet principal.</p>
+      <p>Les habitants du High Works portent leurs vêtements différemment. Ce n'est pas une question de richesse — il n'y a pas ici de tissu de soie ni d'aelfir à l'horizon — c'est une question de posture. Les gens s'y tiennent comme des personnes qui ont décidé d'occuper l'espace auquel ils ont droit, ce qui dans le contexte de Spire est une déclaration politique que personne ne prononce à voix haute mais que tout le monde comprend.</p>
+      <p>C'est dans cet état d'esprit que j'ai trouvé <strong>Kira's Shop</strong>.</p>
+      <p>J'aurais pu passer devant sans m'arrêter. Ce serait une erreur que je déconseille au lecteur.</p>
+      <p>La devanture est propre. C'est la première chose qu'on remarque dans ce quartier : elle est propre d'une façon active, pas seulement d'une façon négative — c'est-à-dire non pas parce que rien ne s'y est déposé, mais parce que quelque chose a été fait pour qu'il n'y reste rien. La vitrine présente quelques pièces et un ou deux vêtements finis, avec une économie de présentation qui évoque davantage une galerie qu'une boutique. J'ai noté dans mon carnet : <em>"première véritable vitrine propre du Works. Fait l'effet d'une fenêtre ouverte dans un mur aveugle."</em></p>
+      <p>La directrice s'appelle Senne.</p>
+      <p>Senne est une drow petite, dans le sens où toutes ses dimensions sont légèrement inférieures à ce à quoi on s'attendrait et où cela n'a aucune importance pour les raisons qu'on aurait. Elle était en train de plier quelque chose quand je suis entré, avec la méthode d'une personne qui plie des vêtements depuis assez longtemps pour que la méthode soit devenue une philosophie. Elle m'a regardé entrer. Elle a regardé mon carnet. Elle a regardé mes vêtements.</p>
+      <p>J'avais encore sur moi les traces de ma matinée aux Hautes Cheminées.</p>
+      <p>Elle n'a rien dit sur mes vêtements. C'est, rétrospectivement, ce qui m'a le plus impressionné.</p>
+      <p>Elle m'a demandé ce que je cherchais avec le ton d'une personne qui a posé cette question suffisamment souvent pour qu'elle soit devenue une formalité productive plutôt qu'une curiosité. J'ai dit que j'étais journaliste et que j'explorais le district dans un but documentaire. Elle a dit que c'était bien. Elle m'a proposé de regarder, ce qui n'était pas une invitation mais une permission, et la distinction entre les deux est importante.</p>
+      <p>J'ai regardé.</p>
+      <p>Les vêtements de Kira's Shop n'appartiennent pas au registre ordinaire du Works. Ils n'appartiennent pas non plus au registre des boutiques aelfir des quartiers supérieurs, auxquelles on les comparerait par erreur. Ils sont quelque chose d'autre : des vêtements qui semblent avoir été conçus par quelqu'un qui a réfléchi à leur destination finale d'une façon que les vêtements ordinaires ne reflètent pas. Une veste que j'ai tenue entre les mains — dans un mouvement que Senne a observé sans commentaire, ce qui représente un niveau de confiance professionnelle notable — avait un tombé qui contredisait la simplicité de sa coupe, comme si le tissu avait reçu une instruction discrète sur la façon de se comporter.</p>
+      <p>J'ai demandé qui cousait.</p>
+      <p>Senne m'a dit que la patronne cousait. Que la patronne était souvent ailleurs, mais que ses créations, elles, étaient ici.</p>
+      <p>J'ai demandé si on pouvait commander quelque chose.</p>
+      <p>Senne a sorti un carnet. Le sien était plus épais que le mien et mieux organisé. Elle a posé plusieurs questions dans un ordre qui suggérait que l'ordre avait été établi par expérience et non par convention : occasion, usage prévu, contraintes de budget. À la fin de cet interrogatoire, elle a noté quelque chose, a fermé le carnet, et m'a indiqué un délai avec la précision d'un horloger. Pas une estimation. Une date.</p>
+      <p>Je suis reparti avec une commande placée pour une veste dont je ne suis pas certain d'avoir besoin mais que je veux, ce qui est peut-être la description la plus précise d'un achat réussi.</p>
+      <p>La boutique, je l'ai appris plus tard par un habitant du quartier avec l'air de quelqu'un qui dit une chose sans en dire une autre, "sert à plusieurs choses." J'ai noté cette formule dans mon carnet et lui ai attribué un astérisque. J'ai quelques hypothèses sur ce qu'elle signifie. Je ne les inclus pas dans ce guide, pour des raisons à la fois professionnelles et liées au fait que Senne m'avait regardé d'une certaine façon quand je posais des questions sur la clientèle. Certains regards constituent, dans ma nomenclature personnelle, une recommandation éditoriale. Je la respecte.</p>
+
+      <div class="reco-box">
+        <span class="reco-label">Recommandation</span>
+        <p>Kira's Shop est l'établissement le plus imprévu du Works et l'un des plus remarquables de cette série. Adressez-vous à Senne directement. Elle n'a pas besoin qu'on lui explique ce qu'elle sait déjà, et elle sait déjà beaucoup. Si la patronne est présente lors de votre passage, présentez-vous : ses créations indiquent une perspective sur la cité que j'aurais voulu pouvoir documenter plus complètement.</p>
+      </div>
+
+      <h2>IV. Les Imprimeries, ou : Ce que je n'ai pas eu le droit de voir</h2>
+
+      <p>Dans un esprit de cohérence professionnelle, j'avais inscrit les <strong>Printing Presses du Works</strong> en tête de ma liste documentaire avant d'arriver dans le district.</p>
+      <p>Je suis journaliste. Les imprimeries sont, par définition, un sujet d'intérêt professionnel. J'avais préparé des arguments. J'avais rédigé une lettre de présentation. J'avais même, dans un élan d'optimisme que je reconnais à présent comme caractéristique, ajouté à mes accréditations une ligne mentionnant une "expérience approfondie dans le domaine de l'imprimerie" que j'ai dû admettre, lors d'une relecture préalable, ne pas tout à fait posséder.</p>
+      <p>Les Printing Presses sont le centre névralgique de la presse à Spire. On y imprime les journaux qui circulent dans la cité. Dans un endroit où tenir un pamphlet peut coûter cher, où les presses sont un terrain de lutte entre ce qu'on est autorisé à dire et ce qu'on dit quand même, les imprimeries ont une valeur politique que ma lettre de présentation essayait d'aborder avec tact.</p>
+      <p>La porte est gardée par quelqu'un. Je n'ai pas demandé son nom. L'absence de nom de ma part est proportionnelle à la durée pendant laquelle j'ai regardé ses bras avant de prendre une décision concernant ma lettre de présentation.</p>
+      <p>J'ai conservé ma lettre.</p>
+      <p>Je me suis arrêté devant les vitres depuis l'extérieur pendant un moment raisonnable et j'ai regardé les machines, dont les vibrations traversaient les murs et le sol d'une façon qui suggérait une puissance industrielle considérable. Les machines imprimaient quelque chose. Je n'ai pas pu lire ce que c'était depuis ma position, ce qui est soit intentionnel soit le résultat de vitres moins entretenues que celles de Kira's Shop, et les deux hypothèses sont, dans ce quartier, également plausibles.</p>
+
+      <div class="reco-box">
+        <span class="reco-label">Note officielle</span>
+        <p>Les Printing Presses du Works : un centre d'activité journalistique que je recommande au lecteur de visiter depuis l'extérieur, à moins d'avoir une recommandation préalable et une raison légitime. Je travaille sur les deux critères.</p>
+      </div>
+
+      <h2>V. Le Malak et le Masterless Mask, ou : Ce que j'ai cru être une tisane</h2>
+
+      <p>Il existe, dans le Works, une coutume ouvrière qui consiste à consommer, après le travail, une substance appelée <strong>Malak</strong>.</p>
+      <p>Ma documentation préparatoire mentionnait le Malak comme "une pratique locale de détente, interdite mais tolérée, commune parmi les ouvriers drow." J'avais surligné "pratique locale de détente" et inscrit en marge "à documenter dans un esprit ethnographique."</p>
+      <p>L'occasion s'est présentée au troisième soir, quand un groupe d'ouvriers sortant d'une forge m'a vu assis sur un muret en train de prendre des notes sur le coucher du feu dans les cheminées, qui est un phénomène visuellement spectaculaire que j'avais passé vingt minutes à décrire avec une précision croissante. Ils m'ont proposé de partager leur "tisane du soir" avec la générosité directe des gens qui n'ont pas grand-chose et le partagent quand même. J'ai accepté dans un esprit de réciprocité ethnographique.</p>
+      <p>Ce n'était pas une tisane.</p>
+
+      <div class="author-note">
+        <span class="note-label">Note de l'auteur</span>
+        Les quatre paragraphes suivants ont été rédigés pendant les effets du Malak. Je les reproduis pour leur valeur documentaire.
+      </div>
+
+      <div class="tasting-note">"Le Works est vraiment très grand et très bruyant mais le bruit est régulier il a un rythme je peux le compter je l'ai compté il fait quarante-sept battements par minute ou peut-être cent-sept je ne suis plus certain d'avoir compté correctement. Les murs sont en brique et la brique est chaude sous la main à cause des forges en dessous ou peut-être à cause d'autre chose. Il y a un petit autel dans la ruelle à gauche avec une bouteille d'alcool fort renversée devant et j'ai demandé à l'ouvrier à côté de moi de qui c'était et il a dit le Masterless Mask. J'ai dit qui est-ce et il a ri pendant un moment assez long et a dit quelque chose en drow que je n'ai pas compris mais qui avait l'air d'être une réponse complète et pas du tout impolie. La bouteille est vide mais il y a des traces fraîches sur la brique donc quelqu'un est passé ce soir pour prier. Je pense que les dieux du Works sont très différents des dieux des quartiers supérieurs. L'un des ouvriers s'appelle Torr et il m'a expliqué qu'il travaille depuis l'âge de douze ans et que son père travaillait depuis l'âge de neuf ans et que son fils commence dans deux ans à l'âge de onze ans et que c'est mieux que son père et que les choses s'améliorent. Il avait l'air sincèrement convaincu de ça. Je ne sais pas si c'est vrai mais il avait l'air de quelqu'un qui sait des choses que je ne sais pas et qui a décidé d'en être satisfait et je pense que c'est une décision et pas une résignation mais je n'arrive pas encore à noter la différence correctement. Les cheminées respirent. Je vais écrire un article là-dessus."</div>
+
+      <p>Le lendemain matin, j'avais dans mon carnet : un dessin de cheminée, la phrase "rythme 47 ou 107, à vérifier," le nom "Torr" entouré d'un cercle avec la mention "revoir pour article", et quatre pages d'une écriture progressivement décroissante sur les bouteilles d'alcool comme forme d'offrande religieuse dans les cultes des opprimés. Cette dernière section est, à la relecture, la plus cohérente de la nuit.</p>
+      <p>Je suis allé voir l'autel le lendemain matin. Il y avait une nouvelle bouteille, pleine celle-là. Le Masterless Mask, d'après mes recherches ultérieures, est une héroïne drow qui protège les opprimés contre leurs oppresseurs. Des petits autels lui sont disséminés dans tout le Works et NorthDocks. On verse de l'alcool fort sur des machines chaudes dont les vapeurs sont respirées en offrande. Il ne possède pas de temple. Il n'en a visiblement pas besoin.</p>
+      <p>J'ai noté :</p>
+      <div class="tasting-note">"Divinité du Works, peu documentée dans les guides traditionnels, vénérée de façon active et privée. Pratique accessible. Ne requiert pas d'institution."</div>
+
+      <div class="reco-box">
+        <span class="reco-label">Recommandation</span>
+        <p>Le Malak est une substance de détente ouvrière aux effets significatifs que je recommande de ne consommer qu'en connaissance de cause et en dose modérée, ce que personne ne m'avait précisé à temps. L'hospitalité des ouvriers du Works est réelle et touche quelque chose dans le registre humain que les guides gastronomiques n'abordent pas souvent. Accepter, c'est être reçu. Je recommande d'accepter en sachant ce qu'on accepte.</p>
+      </div>
+
+      <h2>Conclusions et Recommandations Générales</h2>
+
+      <p>Le Works est, à ma connaissance, le seul quartier de Spire où le sol vibre.</p>
+      <p>Ce n'est pas une métaphore architecturale. C'est un fait physique : les machines travaillent en continu sous les rues, et leur mouvement remonte à travers les fondations d'une façon qui rappelle, en permanence, que le sol qu'on foule repose sur quelque chose qui ne s'arrête pas. Dans les quartiers aelfir, cette information est invisible. Dans le Works, elle est dans les mollets.</p>
+      <p><strong>Ce que j'ai aimé :</strong> La générosité directe des ouvriers, qui partagent ce qu'ils ont avec une absence de calcul que j'aurais voulu retrouver dans des établissements qui se donnent plus de mal pour paraître accueillants. Le High Works, qui prouve qu'une ruelle pavée et un lampadaire au gaz suffisent à changer le registre d'une vie sans en changer la substance. Kira's Shop, et Senne en particulier, qui tient un commerce d'une improbable élégance dans le district le plus pratique de Spire avec l'efficacité tranquille de quelqu'un qui sait exactement ce qu'elle fait et n'a pas besoin qu'on le lui confirme. L'autel du Masterless Mask dans la ruelle, et la bouteille pleine au matin, qui est un fait que j'aurais trouvé difficile à expliquer avant de le voir.</p>
+      <p><strong>Ce que je recommande d'éviter :</strong> La base des Hautes Cheminées sans raison professionnelle. Les Printing Presses sans recommandation préalable. Accepter ce qu'on vous présente comme une tisane sans avoir demandé d'abord de quoi il s'agit, règle que j'applique depuis mes numéros précédents avec un succès documenté de zéro pour cent.</p>
+      <p><strong>Ce que je recommande absolument :</strong> Passer une soirée au Tripot, pas nécessairement pour y boire, mais pour regarder les murs. Les graffitis du Tripot contiennent une cartographie émotionnelle du Works que personne n'a publiée et que je considère, après réflexion, comme une œuvre collective d'une valeur documentaire supérieure à plusieurs guides que j'ai lus. Aller chez Kira's Shop. Commander quelque chose. Adressez-vous à Senne avec la politesse qu'on doit à quelqu'un qui sait des choses que vous ne savez pas, et qui a décidé, pour des raisons qui lui appartiennent, de vous en laisser quelques-unes.</p>
+      <p>Le Works est l'endroit où Spire fait le travail qu'elle ne veut pas être vue faire. Tout ce qui brille dans les quartiers supérieurs — les robes, les armures, les lanternes, les rails du Vermissian — a commencé ici, dans la chaleur et le bruit, par les mains de personnes qui ne verront jamais ce que leurs mains ont produit une fois que cela aura quitté le district. Il y a quelque chose dans cette équation que j'aurais pu noter comme une observation politique si j'avais été dans un état d'esprit plus analytique la nuit du Malak. J'y ai noté à la place "rythme 47 ou 107." Je pense que les deux observations sont vraies de façon différente.</p>
+      <p>J'ai vu Torr rentrer chez lui, au troisième soir, dans une ruelle où un enfant l'attendait devant la porte. Il lui a donné quelque chose de sa poche. L'enfant a couru. Torr a regardé en direction des cheminées pendant un moment, avec la patience d'un homme qui regarde des choses qu'il ne changera pas ce soir, puis il a rentré la tête à l'intérieur et fermé la porte.</p>
+      <p>J'ai noté ça. Je n'arrive pas encore à en faire quelque chose de précis. C'est peut-être suffisant comme ça.</p>
+
+      <div class="book-signature">
+        <p><em>Simon Verlat, depuis une chambre correcte au High Works, Works de Spire.</em></p>
+        <p><em>Numéro V sera consacré au Vermissian, si j'arrive à déterminer où il commence et où moi j'arrête.</em></p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    if (!localStorage.getItem('spire_token')) {
+      window.location.href = '../connect.html';
+    }
+  </script>
+</body>
+</html>

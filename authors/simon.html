@@ -147,6 +147,59 @@
       .s8-title { font-family: 'Cinzel', serif; font-size: 0.52rem; letter-spacing: 2px; text-transform: uppercase; color: #5a1a10; line-height: 1.4; position: relative; z-index: 1; }
       .s8-author { font-family: 'Cinzel', serif; font-size: 0.38rem; letter-spacing: 2px; text-transform: uppercase; color: #1a0808; margin-top: 0.75rem; position: relative; z-index: 1; }
 
+      /* ── Carnet IV — Le Works (amber/industrial) ── */
+      .cover-simon-4 {
+        background: #0a0800;
+        border: 1px solid #2a1a00;
+        padding: 1.5rem;
+        background-image:
+          repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(120,80,10,0.04) 20px, rgba(120,80,10,0.04) 21px),
+          repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(120,80,10,0.02) 20px, rgba(120,80,10,0.02) 21px);
+      }
+      .cover-simon-4::before {
+        content: ''; position: absolute; inset: 8px;
+        border: 1px solid rgba(100,65,8,0.2); pointer-events: none;
+      }
+      .s4-series { font-family: 'Cinzel', serif; font-size: 0.42rem; letter-spacing: 3px; text-transform: uppercase; color: #2a1a00; margin-bottom: 0.5rem; position: relative; z-index: 1; }
+      .s4-num { font-family: 'Cinzel Decorative', serif; font-size: 2.2rem; color: #8a5a10; text-shadow: 0 0 30px rgba(120,80,10,0.5); line-height: 1; position: relative; z-index: 1; }
+      .s4-rule { width: 30px; height: 1px; background: #3a2808; margin: 0.5rem auto; position: relative; z-index: 1; }
+      .s4-title { font-family: 'Cinzel', serif; font-size: 0.52rem; letter-spacing: 2px; text-transform: uppercase; color: #6a4008; line-height: 1.4; position: relative; z-index: 1; }
+      .s4-author { font-family: 'Cinzel', serif; font-size: 0.38rem; letter-spacing: 2px; text-transform: uppercase; color: #1a1000; margin-top: 0.75rem; position: relative; z-index: 1; }
+
+      /* ── Carnet X — Silver Quarter (steel blue/silver) ── */
+      .cover-simon-10 {
+        background: #08090e;
+        border: 1px solid #1a1f2e;
+        padding: 1.5rem;
+        background-image: repeating-linear-gradient(135deg, transparent, transparent 20px, rgba(80,100,150,0.04) 20px, rgba(80,100,150,0.04) 21px);
+      }
+      .cover-simon-10::before {
+        content: ''; position: absolute; inset: 8px;
+        border: 1px solid rgba(80,100,160,0.15); pointer-events: none;
+      }
+      .s10-series { font-family: 'Cinzel', serif; font-size: 0.42rem; letter-spacing: 3px; text-transform: uppercase; color: #1a1f30; margin-bottom: 0.5rem; position: relative; z-index: 1; }
+      .s10-num { font-family: 'Cinzel Decorative', serif; font-size: 2.2rem; color: #8095b8; text-shadow: 0 0 30px rgba(80,120,180,0.4); line-height: 1; position: relative; z-index: 1; }
+      .s10-rule { width: 30px; height: 1px; background: #253050; margin: 0.5rem auto; position: relative; z-index: 1; }
+      .s10-title { font-family: 'Cinzel', serif; font-size: 0.52rem; letter-spacing: 2px; text-transform: uppercase; color: #607090; line-height: 1.4; position: relative; z-index: 1; }
+      .s10-author { font-family: 'Cinzel', serif; font-size: 0.38rem; letter-spacing: 2px; text-transform: uppercase; color: #101520; margin-top: 0.75rem; position: relative; z-index: 1; }
+
+      /* ── Carnet XI — Red Row reprise (deep rose/crimson) ── */
+      .cover-simon-11 {
+        background: #0c0608;
+        border: 1px solid #280818;
+        padding: 1.5rem;
+        background-image: repeating-linear-gradient(45deg, transparent, transparent 18px, rgba(130,20,60,0.04) 18px, rgba(130,20,60,0.04) 19px);
+      }
+      .cover-simon-11::before {
+        content: ''; position: absolute; inset: 8px;
+        border: 1px solid rgba(100,15,45,0.2); pointer-events: none;
+      }
+      .s11-series { font-family: 'Cinzel', serif; font-size: 0.42rem; letter-spacing: 3px; text-transform: uppercase; color: #280818; margin-bottom: 0.5rem; position: relative; z-index: 1; }
+      .s11-num { font-family: 'Cinzel Decorative', serif; font-size: 2.2rem; color: #9a1848; text-shadow: 0 0 30px rgba(130,20,60,0.5); line-height: 1; position: relative; z-index: 1; }
+      .s11-rule { width: 30px; height: 1px; background: #3a1020; margin: 0.5rem auto; position: relative; z-index: 1; }
+      .s11-title { font-family: 'Cinzel', serif; font-size: 0.52rem; letter-spacing: 2px; text-transform: uppercase; color: #6a1030; line-height: 1.4; position: relative; z-index: 1; }
+      .s11-author { font-family: 'Cinzel', serif; font-size: 0.38rem; letter-spacing: 2px; text-transform: uppercase; color: #180810; margin-top: 0.75rem; position: relative; z-index: 1; }
+
       .book-title-label {
         font-family: var(--font-heading); font-size: 0.65rem;
         letter-spacing: 0.12em; color: var(--text-2);
@@ -187,7 +240,7 @@
           <h1 class="author-name">Simon Verlat</h1>
           <p class="author-bio">Journaliste indépendant, explorateur culinaire, auteur autoproclamé de <em>La Table du Monde</em>. Ses accréditations sont un parchemin qu'il a rédigé lui-même. Personne ne l'a jamais lu assez attentivement pour le contester. Spécialiste des districts bas de Spire — survit à chaque visite, parfois de justesse. Prend des notes dans toutes les circonstances, y compris allongé dans un filet de sécurité.</p>
           <div class="author-divider"></div>
-          <p class="author-works">3 carnets disponibles</p>
+          <p class="author-works">6 carnets disponibles</p>
         </div>
       </div>
 
@@ -227,6 +280,42 @@
           </a>
           <p class="book-title-label">Red Row de Spire</p>
           <p class="book-type-label">Carnet N° VIII</p>
+        </div>
+
+        <div class="book-entry">
+          <a class="book-cover cover-simon-4" href="../books/carnets-simon-4.html" data-book="carnets-simon-4">
+            <p class="s4-series">Les Carnets de Simon</p>
+            <p class="s4-num">IV</p>
+            <div class="s4-rule"></div>
+            <p class="s4-title">Le Works de Spire</p>
+            <p class="s4-author">Simon Verlat</p>
+          </a>
+          <p class="book-title-label">Le Works de Spire</p>
+          <p class="book-type-label">Carnet N° IV</p>
+        </div>
+
+        <div class="book-entry">
+          <a class="book-cover cover-simon-10" href="../books/carnets-simon-10.html" data-book="carnets-simon-10">
+            <p class="s10-series">Les Carnets de Simon</p>
+            <p class="s10-num">X</p>
+            <div class="s10-rule"></div>
+            <p class="s10-title">Le Silver Quarter de Spire</p>
+            <p class="s10-author">Simon Verlat</p>
+          </a>
+          <p class="book-title-label">Le Silver Quarter de Spire</p>
+          <p class="book-type-label">Carnet N° X</p>
+        </div>
+
+        <div class="book-entry">
+          <a class="book-cover cover-simon-11" href="../books/carnets-simon-11.html" data-book="carnets-simon-11">
+            <p class="s11-series">Les Carnets de Simon</p>
+            <p class="s11-num">XI</p>
+            <div class="s11-rule"></div>
+            <p class="s11-title">Red Row — Ce que j'avais manqué</p>
+            <p class="s11-author">Simon Verlat</p>
+          </a>
+          <p class="book-title-label">Red Row — Ce que j'avais manqué</p>
+          <p class="book-type-label">Carnet N° XI</p>
         </div>
 
       </div>
